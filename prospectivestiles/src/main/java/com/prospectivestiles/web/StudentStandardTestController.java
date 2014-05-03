@@ -1,0 +1,161 @@
+package com.prospectivestiles.web;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.prospectivestiles.domain.StandardTest;
+import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.service.StandardTestService;
+import com.prospectivestiles.service.UserEntityService;
+
+@Controller
+public class StudentStandardTestController {
+
+	@Inject
+	private StandardTestService standardTestService;
+
+	@Autowired
+	private UserEntityService userEntityService;
+
+	// ======================================
+	// =  =
+	// ======================================
+
+	@RequestMapping(value = "/myAccount/standardTests", method = RequestMethod.GET)
+	public String getStandardTests(Model model) {
+
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+
+		model.addAttribute("standardTests", standardTestService
+				.getStandardTestsByUserEntityId(userEntity.getId()));
+
+		StandardTest standardTest = new StandardTest();
+		standardTest.setUserEntity(userEntity);
+
+		model.addAttribute("standardTest", standardTest);
+		model.addAttribute("userEntity", userEntity);
+
+		return "standardTests";
+	}
+
+	@RequestMapping(value = "/myAccount/standardTests", method = RequestMethod.POST)
+	public String postNewStandardTestForm(
+			@ModelAttribute @Valid StandardTest standardTest,
+			BindingResult result) {
+
+		if (result.hasErrors()) {
+			// System.out.println("######## result.hasErrors(): true" );
+			return "standardTests";
+		} else {
+			// System.out.println("######## result.hasErrors(): false" );
+		}
+		//
+
+		/*
+		 * get userEntity from URL >>>>> if logged in as admin get userEntity
+		 * from Session >>>>>>> if logged in as student
+		 */
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		System.out
+				.println("######## userEntity.getId(): " + userEntity.getId());
+		standardTest.setUserEntity(userEntity);
+		System.out.println("######## address.getUserEntity(): "
+				+ standardTest.getUserEntity());
+		standardTestService.createStandardTest(standardTest);
+
+		return "redirect:/myAccount/standardTests";
+	}
+
+	// ======================================
+	// = =
+	// ======================================
+
+	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}", method = RequestMethod.GET)
+	public String editStandardTest(
+			@PathVariable("standardTestId") Long standardTestId, Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		StandardTest standardTest = getStandardTestsValidateUserEntityId(
+				userEntity.getId(), standardTestId);
+
+		model.addAttribute("originalStandardTest", standardTest);
+		model.addAttribute(standardTest);
+
+		return "editStandardTest";
+	}
+
+	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}", method = RequestMethod.POST)
+	public String editInstitute(
+			@PathVariable("standardTestId") Long standardTestId,
+			@ModelAttribute @Valid StandardTest origStandardTest,
+			BindingResult result, Model model) {
+
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		StandardTest standardTest = getStandardTestsValidateUserEntityId(
+				userEntity.getId(), standardTestId);
+
+		if (result.hasErrors()) {
+			// log.debug("Validation Error in Institute form");
+			model.addAttribute("originalStandardTest", origStandardTest);
+			return "editStandardTest";
+		}
+
+		// log.debug("Message validated; updating message subject and text");
+		standardTest.setName(origStandardTest.getName());
+		standardTest.setScore(origStandardTest.getScore());
+		standardTest.setValidTill(origStandardTest.getValidTill());
+
+		standardTestService.updateStandardTest(standardTest);
+
+		return "redirect:/myAccount/standardTests";
+	}
+
+	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}/delete", method = RequestMethod.POST)
+	public String deleteMessage(
+			@PathVariable("standardTestId") Long standardTestId)
+			throws IOException {
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		StandardTest standardTest = getStandardTestsValidateUserEntityId(
+				userEntity.getId(), standardTestId);
+		standardTestService.delete(standardTest);
+
+		return "redirect:/myAccount/standardTests";
+	}
+
+	// ======================================
+	// = =
+	// ======================================
+
+	private UserEntity getUserEntityFromSecurityContext() {
+		SecurityContext securityCtx = SecurityContextHolder.getContext();
+		Authentication auth = securityCtx.getAuthentication();
+		UserEntity userEntity = (UserEntity) auth.getPrincipal();
+		return userEntity;
+	}
+
+	private StandardTest getStandardTestsValidateUserEntityId(
+			Long userEntityId, Long standardTestId) {
+
+		StandardTest standardTest = standardTestService
+				.getStandardTest(standardTestId);
+
+		Assert.isTrue(
+				userEntityId.equals(standardTest.getUserEntity().getId()),
+				"StandardTest Id mismatch");
+		return standardTest;
+	}
+}

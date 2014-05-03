@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/prosptiles"
+		resource-ref="true" />
+	
+	<!-- for using jdbc to query data -->
+	<bean class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource" />
+
+	<util:properties id="hibernateProperties">
+		<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+		<prop key="hibernate.show_sql">false</prop>
+		<prop key="hibernate.hbm2ddl.auto">update</prop>
+	</util:properties>
+	
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		p:dataSource-ref="dataSource" p:packagesToScan="com.prospectivestiles.domain"
+		p:hibernateProperties-ref="hibernateProperties" />
+	
+	<!-- Configure the mailSender bean and specify the email details for the Gmail SMTP server. -->	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="daniel2advance@gmail.com" />
+		<property name="password" value="userEntity" />
+	 
+		<property name="javaMailProperties">
+		   <props>
+	       	      <prop key="mail.smtp.auth">true</prop>
+	       	      <prop key="mail.smtp.starttls.enable">true</prop>
+	       	      <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+	       	   </props>
+		</property>
+	</bean>
+	 
+
+	<context:component-scan base-package="com.prospectivestiles.dao.hbn" />
+	<context:component-scan base-package="com.prospectivestiles.dao" />
+	
+	<!-- <property name="hibernateProperties">
+         <props>
+             <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+             <prop key="hibernate.show_sql">true</prop>
+             <prop key="hibernate.hbm2ddl.auto">create</prop>
+         </props>
+     </property> -->
+
+	<!-- <bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="true" />
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+			</bean>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+	</bean> -->
+</beans>

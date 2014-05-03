@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<!-- ====================== Base definition ====================================== -->
+
+	<definition name="prospectivestiles.base" template="/WEB-INF/templates/mainTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value="prospectivestiles"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/tiles/include/header.jsp"></put-attribute>
+		<put-attribute name="sidebar" value="/WEB-INF/tiles/include/sidebar.jsp"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/include/content.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/include/footer.jsp"></put-attribute>
+	</definition>
+	
+	<!-- ====================== Public pages ====================================== -->
+
+	<definition name="welcome" extends="prospectivestiles.base">
+		<put-attribute name="title" value="Homepage"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/welcome.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="login" extends="prospectivestiles.base">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/login.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="denied" extends="prospectivestiles.base">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/denied.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="registrationform" extends="prospectivestiles.base">
+		<put-attribute name="title" value="registrationForm page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/registrationform.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="registrationok" extends="prospectivestiles.base">
+		<put-attribute name="title" value="registrationok page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/registrationok.jsp"></put-attribute>
+	</definition>
+	
+	
+	<!-- ====================== Admin ====================================== -->
+	
+	<definition name="adminpage" extends="prospectivestiles.base">
+		<put-attribute name="title" value="admin page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/admin.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="accounts/account" extends="prospectivestiles.base">
+		<put-attribute name="title" value="account page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/account.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="accounts/accounts" extends="prospectivestiles.base">
+		<put-attribute name="title" value="accounts page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/accounts.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editAccount" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/editAccount.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<!-- ====================== ^^^ Student ^^^ ====================================== -->
+	
+	<definition name="myAccount" extends="prospectivestiles.base">
+		<put-attribute name="title" value="myAccount page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/myAccount.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editMyAccount" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/editMyAccount.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<!-- ====================== Admin && Student ====================================== -->
+	
+	<!-- ====================== Education ====================================== -->
+	
+	<definition name="educations" extends="prospectivestiles.base">
+		<put-attribute name="title" value="educations page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/education/educations.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="newHighSchoolForm" extends="prospectivestiles.base">
+		<put-attribute name="title" value="highschoolform page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/education/highschoolform.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="highSchools" extends="prospectivestiles.base">
+		<put-attribute name="title" value="highschools page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/education/highschools.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="highSchool" extends="prospectivestiles.base">
+		<put-attribute name="title" value="highschool page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/education/highschool.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editHighSchool" extends="prospectivestiles.base">
+		<put-attribute name="title" value="editHighSchool page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/education/editHighSchool.jsp"></put-attribute>
+	</definition>
+	
+<!-- 	<definition name="accounts/editHighSchoolSaved" extends="prospectivestiles.base">
+		<put-attribute name="title" value="editHighSchool page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/editHighSchool.jsp?saved=true"></put-attribute>
+	</definition> -->
+	
+	<definition name="deleteHighSchool" extends="prospectivestiles.base">
+		<put-attribute name="title" value="deleteHighSchool page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/education/educations.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="accounts/deleteHighSchool" extends="prospectivestiles.base">
+		<put-attribute name="title" value="editHighSchool page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/highschools.jsp?deleted=true"></put-attribute>
+	</definition> -->
+	
+	<!--  -->
+	
+	<definition name="newInstituteForm" extends="prospectivestiles.base">
+		<put-attribute name="title" value="highschoolform page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/education/instituteForm.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="institutes" extends="prospectivestiles.base">
+		<put-attribute name="title" value="highschools page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/institutes.jsp"></put-attribute>
+	</definition> -->
+	
+	<definition name="institute" extends="prospectivestiles.base">
+		<put-attribute name="title" value="highschool page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/education/institute.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editInstitute" extends="prospectivestiles.base">
+		<put-attribute name="title" value="editHighSchool page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/education/editInstitute.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="deleteInstitute" extends="prospectivestiles.base">
+		<put-attribute name="title" value="deleteInstitute page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/education/educations.jsp"></put-attribute>
+	</definition>
+	
+	<!-- ====================== Address ====================================== -->
+	
+	<definition name="addresses" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/address/addresses.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="editAddress" extends="prospectivestiles.base">
+		<put-attribute name="title" value="educations page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/editAddress.jsp"></put-attribute>
+	</definition> -->
+	
+	<definition name="editAddress" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/address/editAddress.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<!-- ====================== emergencyContacts ====================================== -->
+	
+	<definition name="emergencyContacts" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/emergencyContacts/emergencyContacts.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editEmergencyContact" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/emergencyContacts/editEmergencyContact.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<!-- ====================== File Upload ====================================== -->
+	
+	<definition name="file_upload_form" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/file_upload_form.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="file_upload_success" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/file_upload_success.jsp"></put-attribute>
+	</definition>
+	
+	<!-- ====================== Applying For ====================================== -->
+	
+	<definition name="applyingFor" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/applyingFor.jsp"></put-attribute>
+	</definition>
+	
+	<!-- not using edit page -->
+	
+	<!-- ====================== testAs ====================================== -->
+	
+	<definition name="testAs" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/testAs.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editTestA" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/editTestA.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<!-- ====================== Employers ====================================== -->
+	
+	<definition name="employers" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/employment/employers.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editEmployer" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/employment/editEmployer.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<!-- ====================== standardTests ====================================== -->
+	
+	<definition name="standardTests" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/standardTests/standardTests.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editStandardTest" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/standardTests/editStandardTest.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<!-- ====================== Checklist ====================================== -->
+	
+	<definition name="checklists" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/checklist/checklist.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editChecklist" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/checklist/editChecklist.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<!-- ====================== Evaluation ====================================== -->
+	
+	<definition name="evaluations" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/evaluation.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editEvaluation" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/editEvaluation.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<!-- ====================== missingDocuments ====================================== -->
+	
+	<definition name="missingDocuments" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/reports/missingDocuments.jsp"></put-attribute>
+	</definition>
+	
+	<!-- ====================== messages ====================================== -->
+	
+	<definition name="messages" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/messages/messages.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="editMessage" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/editMessage.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition> -->
+	
+	<!-- ====================== jsonMessages Test ====================================== -->
+	
+	<definition name="jsonMessages" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/jsonMessages.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="jsonAddresses" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/jsonAddresses.jsp"></put-attribute>
+	</definition>
+	
+	
+</tiles-definitions>

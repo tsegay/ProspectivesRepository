@@ -1,0 +1,73 @@
+package com.prospectivestiles.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.prospectivestiles.dao.AddressDao;
+import com.prospectivestiles.dao.ProgramOfStudyDao;
+import com.prospectivestiles.domain.Address;
+import com.prospectivestiles.domain.ProgramOfStudy;
+import com.prospectivestiles.service.AddressService;
+import com.prospectivestiles.service.ProgramOfStudyService;
+
+@Service
+@Transactional
+public class ProgramOfStudyServiceImpl implements ProgramOfStudyService {
+	
+	@Inject
+	ProgramOfStudyDao programOfStudyDao;
+
+	@Override
+	public ProgramOfStudy getProgramOfStudy(long id) {
+		return programOfStudyDao.find(id);
+	}
+
+	@Override
+	public List<ProgramOfStudy> getAllProgramOfStudies() {
+		return programOfStudyDao.findAll();
+	}
+
+//	@Override
+//	public List<ProgramOfStudy> getProgramOfStudiesByUserEntityId(
+//			long userEntityId) {
+//		return programOfStudyDao.getProgramOfStudiesByUserEntityId(userEntityId);
+//	}
+
+	@Override
+	public void createProgramOfStudy(ProgramOfStudy programOfStudy) {
+		programOfStudyDao.create(programOfStudy);
+	}
+
+	@Override
+	public void updateProgramOfStudy(ProgramOfStudy programOfStudy) {
+		
+		ProgramOfStudy programOfStudyToUpdate = programOfStudyDao.find(programOfStudy.getId());
+		programOfStudyToUpdate.setName(programOfStudy.getName());
+		programOfStudyToUpdate.setShortName(programOfStudy.getShortName());
+		programOfStudyToUpdate.setDescription(programOfStudy.getDescription());
+//		programOfStudyToUpdate.setListOfUserEntity(programOfStudy.getListOfUserEntity());
+		
+		programOfStudyDao.update(programOfStudyToUpdate);
+	}
+
+	@Override
+	public void delete(ProgramOfStudy programOfStudy) {
+		programOfStudyDao.delete(programOfStudy);
+	}
+
+	/**
+	 * FOR TESTING PURPOSE
+	 */
+	/*@Override
+	public void updateProgramOfStudyZipCode(long programOfStudyId,
+			String zipcode) {
+		
+	}*/
+	
+	
+
+}

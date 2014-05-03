@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+========================================================================================================================
+
+========================================================================================================================
+-->
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+		
+	<http auto-config="true" use-expressions="true"
+		access-denied-page="/denied">
+		<form-login login-page="/login"
+			authentication-failure-url="/login?failed=true"
+			default-target-url="/welcome" />
+		<remember-me />
+		<logout logout-success-url="/welcome" />
+		
+		<!-- =========================================================================== -->
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/welcome" access="permitAll" />
+		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/logout" access="permitAll" />
+		<intercept-url pattern="/denied" access="permitAll" />
+		
+		<intercept-url pattern="/styles/**" access="permitAll" />
+		<intercept-url pattern="/scripts/**" access="permitAll" />
+		<intercept-url pattern="/images/**" access="permitAll" />
+		<intercept-url pattern="/resources/**" access="permitAll" />
+		
+		<!-- =========================================================================== -->
+		
+		<!-- Get home page -->
+		<intercept-url pattern="/welcome.jsp" method="GET" access="permitAll" />
+		
+		<intercept-url pattern="/registrationform" access="permitAll" />
+		
+		<!-- =========================================================================== -->
+		<!-- For testing file upload show and save -->
+		<intercept-url pattern="/show" access="permitAll" />
+		<intercept-url pattern="/save" access="permitAll" />
+		
+		<!-- =========================================================================== -->
+		<!-- For testing JSON -->
+		<intercept-url pattern="/json/accounts/messages" access="permitAll" />
+		<intercept-url pattern="/json/accounts/*/sendmessage" access="permitAll" />
+		<intercept-url pattern="/json/accounts/sendmessage" access="permitAll" />
+		<intercept-url pattern="/json/accounts/*/messages" access="permitAll" />
+		<intercept-url pattern="/json/jsonMessages" access="permitAll" />
+		
+		
+		<intercept-url pattern="/json/accounts/*/addresses" access="permitAll" />
+		<intercept-url pattern="/json/**" access="permitAll" />
+		
+		<!-- =========================================================================== -->
+		<!-- Admin console -->
+		<intercept-url pattern="/adminpage" method="GET" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Admin institute -->
+		<intercept-url pattern="/accounts/*/institute/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/institute/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/institute/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/institute/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/institute" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/institutes" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/accounts" access="hasRole('ROLE_ADMIN')" />
+
+		<!-- Student institute -->
+		<intercept-url pattern="/myAccount/institute/*/delete" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/institute/*/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/institute/new" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/institute/*" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/institute" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/institutes" access="isAuthenticated()" />
+		
+		<!-- Admin highSchool -->
+		<intercept-url pattern="/accounts/*/highSchool/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/highSchool/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/highSchool/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/highSchool/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/highSchool" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/highSchools" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/accounts" access="hasRole('ROLE_ADMIN')" />
+
+		<!-- Student highSchool -->
+		<intercept-url pattern="/myAccount/highSchool/*/delete" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/highSchool/*/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/highSchool/new" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/highSchool/*" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/highSchool" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/highSchools" access="isAuthenticated()" />
+		
+		<!-- Admin addresses -->
+		<intercept-url pattern="/accounts/*/address/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/address/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/address/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/address/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/address" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/addresses" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student addresses -->
+		<intercept-url pattern="/myAccount/address/*/delete" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/address/*/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/address/new" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/address/*" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/address" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/addresses" access="isAuthenticated()" />
+		
+		<!-- Admin educations -->
+		<intercept-url pattern="/accounts/*/educations" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student educations -->
+		<intercept-url pattern="/myAccount/educationsHighSchoolFormUrl" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/educations/highSchools" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/educations" access="isAuthenticated()" />
+		
+		<!-- Admin employers -->
+		<intercept-url pattern="/accounts/*/employer/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/employer/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/employer/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/employer/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/employer" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/employers" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student employers -->
+		<intercept-url pattern="/myAccount/employer/*/delete" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/employer/*/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/employer/new" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/employer/*" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/employer" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/employers" access="isAuthenticated()" />
+		
+		<!-- Admin emergencyContacts -->
+		<intercept-url pattern="/accounts/*/emergencyContact/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/emergencyContact/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/emergencyContact/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/emergencyContact/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/emergencyContact" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/emergencyContacts" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student emergencyContacts -->
+		<intercept-url pattern="/myAccount/emergencyContact/*/delete" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/emergencyContact/*/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/emergencyContact/new" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/emergencyContact/*" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/emergencyContact" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/emergencyContacts" access="isAuthenticated()" />
+		
+		<!-- Admin StandardTest -->
+		<intercept-url pattern="/accounts/*/standardTest/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/standardTest/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/standardTest/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/standardTest/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/standardTest" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/standardTests" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student StandardTest -->
+		<intercept-url pattern="/myAccount/standardTest/*/delete" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/standardTest/*/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/standardTest/new" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/standardTest/*" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/standardTest" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/standardTests" access="isAuthenticated()" />
+		
+		<!-- Admin testAs -->
+		
+		<!-- Student testAs -->
+		<intercept-url pattern="/myAccount/testA/*/delete" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/testA/*/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/testA/new" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/testA/*" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/testA" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/testAs" access="isAuthenticated()" />
+		
+		
+		
+		<!-- Admin applyingFor -->
+		<!-- If I didn't use the delete or edit option remove the filters -->
+		<intercept-url pattern="/accounts/*/applyingFor/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/applyingFor/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/applyingFor/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/applyingFor/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/applyingFor" access="hasRole('ROLE_ADMIN')" />
+		<!-- <intercept-url pattern="/accounts/*/applyingFors" access="hasRole('ROLE_ADMIN')" /> -->
+		
+		<!-- Student applyingFor -->
+		<intercept-url pattern="/myAccount/applyingFor/*/delete" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/applyingFor/*/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/applyingFor/new" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/applyingFor/*" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/applyingFor" access="isAuthenticated()" />
+		<!-- <intercept-url pattern="/myAccount/applyingFors" access="isAuthenticated()" /> -->
+		
+		<!-- Admin checklists -->
+		<intercept-url pattern="/accounts/*/checklist/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/checklist/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/checklist/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/checklist/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/checklist" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/checklists" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student checklists -->
+		
+		<!-- Admin evaluations -->
+		<intercept-url pattern="/accounts/*/evaluation/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/evaluation/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/evaluation/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/evaluation/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/evaluation" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/evaluations" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student evaluations -->
+		
+		<!-- Admin missingDocuments -->
+		<!-- <intercept-url pattern="/accounts/*/evaluation/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/evaluation/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/evaluation/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/evaluation/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/evaluation" access="hasRole('ROLE_ADMIN')" /> -->
+		<intercept-url pattern="/accounts/*/missingDocuments" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student missingDocuments -->
+		
+		<!-- Admin messages -->
+		<intercept-url pattern="/accounts/*/message/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/message/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/message/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/message/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/message" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/messages" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student messages -->
+		<intercept-url pattern="/myAccount/message/*/delete" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/message/*/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/message/new" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/message/*" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/message" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/messages" access="isAuthenticated()" />
+		
+		<!-- =========================================================================== -->
+		
+		<!-- myAccount -->
+		<intercept-url pattern="/myAccount/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount" access="isAuthenticated()" />
+		
+		<!-- account -->
+		<!-- JUST FOR TESTING PURPOSE; REMOVE  /accounts/** -->
+		<!-- <intercept-url pattern="/accounts/**" method="GET" access="isAuthenticated()" /> -->
+		<intercept-url pattern="/accounts/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*" method="GET" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- =========================================================================== -->
+		<intercept-url pattern="/**" access="denyAll" />
+		
+		
+	</http>
+
+	<!-- <security:access-denied-handler error-page="/denied" /> -->
+			
+	<beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<beans:constructor-arg value="256" />
+	</beans:bean>
+
+	<!-- Better to generate a large, random salt (stored as plaintext with the user account) to make dictionary attacks
+	     harder, but this works for modest security needs. At least we are using a variable salt, which still prevents
+	     attackers from using a single rainbow table to attack the passwords. -->
+	<!-- <beans:bean id="saltSource"
+		class="org.springframework.security.authentication.dao.ReflectionSaltSource"
+		p:userPropertyToUse="id" /> -->
+		
+	<authentication-manager alias="authenticationManager">
+		<!-- <authentication-provider user-service-ref="userDetailsService"> -->
+		<authentication-provider user-service-ref="userEntityDao">
+			<password-encoder ref="passwordEncoder">
+				<!-- <salt-source ref="saltSource" /> -->
+			</password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>
