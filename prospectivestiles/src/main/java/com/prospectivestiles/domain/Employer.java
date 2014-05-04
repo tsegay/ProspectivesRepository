@@ -1,5 +1,6 @@
 package com.prospectivestiles.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -19,8 +20,12 @@ import javax.validation.constraints.NotNull;
 		@NamedQuery(name = "findEmployersByUserEntityId", 
 		query = "FROM Employer WHERE userEntity.id = :id")
 		)
-public class Employer {
+public class Employer implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// ======================================
     // =             Attributes             =
     // ======================================

@@ -1,5 +1,7 @@
 package com.prospectivestiles.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,7 +16,7 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "findAddressesByUserEntityId", 
 		query = "FROM Address WHERE userEntity.id = :id")
 		)
-public class Address {
+public class Address implements Serializable  {
 	
     // ======================================
     // =             Attributes             =

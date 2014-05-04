@@ -44,7 +44,7 @@ public class EmergencyContactServiceImpl implements EmergencyContactService {
 		
 		EmergencyContact  emergencyContactToUpdate = emergencyContactDao.find(emergencyContact.getId());
 		emergencyContactToUpdate.setEmail(emergencyContact.getEmail());
-		emergencyContactToUpdate.setFirstName(emergencyContact.getEmail());
+		emergencyContactToUpdate.setFirstName(emergencyContact.getFirstName());
 		emergencyContactToUpdate.setLastName(emergencyContact.getLastName());
 		emergencyContactToUpdate.setPhone(emergencyContact.getPhone());
 		emergencyContactToUpdate.setRelationship(emergencyContact.getRelationship());

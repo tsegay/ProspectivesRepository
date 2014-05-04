@@ -1,5 +1,7 @@
 package com.prospectivestiles.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,8 +14,12 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = "findEmergencyContactsByUserEntityId", 
 		query = "FROM EmergencyContact WHERE userEntity.id = :id")
 		)
-public class EmergencyContact {
+public class EmergencyContact implements Serializable  {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// ======================================
     // =             Attributes             =
     // ======================================

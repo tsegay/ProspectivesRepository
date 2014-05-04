@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.EmergencyContactService;
@@ -56,31 +57,31 @@ public class StudentEmergencyContactController {
 		return "emergencyContacts";
 	}
 
+	@RequestMapping(value = "/myAccount/emergencyContact/new", method = RequestMethod.GET)
+	public String getNewEmergencyContactForm(Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		
+		EmergencyContact emergencyContact = new EmergencyContact();
+		emergencyContact.setUserEntity(userEntity);
+		model.addAttribute(emergencyContact);
+		model.addAttribute(userEntity);
+		
+		return "newEmergencyContactForm";
+	}
+	
 	@RequestMapping(value = "/myAccount/emergencyContacts", method = RequestMethod.POST)
 	public String postNewEmergencyContactForm(@ModelAttribute @Valid EmergencyContact emergencyContact,
-			BindingResult result) {
-
-		/**
-		 * There is no newAddressForm page -- check this out
-		 */
+			BindingResult result, Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();
 		if (result.hasErrors()) {
+			model.addAttribute(userEntity);
 			// System.out.println("######## result.hasErrors(): true" );
-			return "newAddressForm";
+			return "newEmergencyContactForm";
 		} else {
 			// System.out.println("######## result.hasErrors(): false" );
 		}
-		//
-
-		/*
-		 * get userEntity from URL >>>>> if logged in as admin get userEntity
-		 * from Session >>>>>>> if logged in as student
-		 */
-		UserEntity userEntity = getUserEntityFromSecurityContext();
-		System.out
-				.println("######## userEntity.getId(): " + userEntity.getId());
+		
 		emergencyContact.setUserEntity(userEntity);
-		System.out.println("######## address.getUserEntity(): "
-				+ emergencyContact.getUserEntity());
 		emergencyContactService.createEmergencyContact(emergencyContact);
 
 		return "redirect:/myAccount/emergencyContacts";
@@ -93,7 +94,7 @@ public class StudentEmergencyContactController {
 
 	// @RequestMapping(value = "/myAccount/address/{addressId}/edit", method =
 	// RequestMethod.GET)
-	@RequestMapping(value = "/myAccount/emergencyContact/{emergencyContactId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/myAccount/emergencyContact/{emergencyContactId}/edit", method = RequestMethod.GET)
 	public String editEmergencyContact(@PathVariable("emergencyContactId") Long emergencyContactId,
 			Model model) {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
@@ -105,7 +106,7 @@ public class StudentEmergencyContactController {
 
 		return "editEmergencyContact";
 	}
-
+	
 	@RequestMapping(value = "/myAccount/emergencyContact/{emergencyContactId}", method = RequestMethod.POST)
 	public String editEmergencyContact(@PathVariable("emergencyContactId") Long emergencyContactId,
 			@ModelAttribute @Valid EmergencyContact origEmergencyContact, BindingResult result,
@@ -118,6 +119,7 @@ public class StudentEmergencyContactController {
 		if (result.hasErrors()) {
 			// log.debug("Validation Error in Institute form");
 			model.addAttribute("originalEmergencyContact", origEmergencyContact);
+			model.addAttribute(userEntity);
 			return "editEmergencyContact";
 		}
 
@@ -133,7 +135,7 @@ public class StudentEmergencyContactController {
 		
 		return "redirect:/myAccount/emergencyContacts";
 	}
-
+	
 	@RequestMapping(value = "/myAccount/emergencyContact/{emergencyContactId}/delete", method = RequestMethod.POST)
 	public String deleteEmergencyContact(@PathVariable("emergencyContactId") Long emergencyContactId)
 			throws IOException {
@@ -160,13 +162,7 @@ public class StudentEmergencyContactController {
 			Long emergencyContactId) {
 
 		EmergencyContact emergencyContact = emergencyContactService.getEmergencyContact(emergencyContactId);
-		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
-
-		// Use userEntityId instead of userEntity.getId(), no need to generate
-		// it when it is already passed!!
-		// Assert.isTrue(userEntity.getId().equals(address.getUserEntity().getId()),
-		// "Address Id mismatch");
-		Assert.isTrue(userEntity.getId().equals(emergencyContact.getUserEntity().getId()),
+		Assert.isTrue(userEntityId.equals(emergencyContact.getUserEntity().getId()),
 				"EmergencyContact Id mismatch");
 		return emergencyContact;
 	}

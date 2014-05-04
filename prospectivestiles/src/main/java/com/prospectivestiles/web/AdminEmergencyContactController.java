@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.EmergencyContact;
+import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.EmergencyContactService;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -53,11 +55,41 @@ public class AdminEmergencyContactController {
 		return "emergencyContacts";
 	}
 	
+	/**
+	 * New EmergencyContact Form
+	 * @param userEntityId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/accounts/{userEntityId}/emergencyContact/new", method = RequestMethod.GET)
+	public String getNewAddressForm(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		
+		EmergencyContact emergencyContact = new EmergencyContact();
+		emergencyContact.setUserEntity(userEntity);
+		
+		model.addAttribute(emergencyContact);
+		model.addAttribute(userEntity);
+		
+		return "newEmergencyContactForm";
+	}
+	
+	/**
+	 * Post New EmergencyContact Form
+	 * @param userEntityId
+	 * @param emergencyContact
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/emergencyContacts", method = RequestMethod.POST)
 	public String postNewEmergencyContactForm(@PathVariable("userEntityId") Long userEntityId,
-			@ModelAttribute @Valid EmergencyContact emergencyContact, BindingResult result) {
+			@ModelAttribute @Valid EmergencyContact emergencyContact, BindingResult result, Model model) {
+		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		if (result.hasErrors()) {
+			model.addAttribute(userEntity);
 			return "newEmergencyContactForm";
 		}
 
@@ -67,7 +99,7 @@ public class AdminEmergencyContactController {
 		return "redirect:/accounts/{userEntityId}/emergencyContacts";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/emergencyContact/{emergencyContactId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/accounts/{userEntityId}/emergencyContact/{emergencyContactId}/edit", method = RequestMethod.GET)
 	public String editEmergencyContact(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("emergencyContactId") Long emergencyContactId, Model model) {
 		
@@ -78,7 +110,7 @@ public class AdminEmergencyContactController {
 		
 		return "editEmergencyContact";
 	}
-	
+
 	@RequestMapping(value = "/accounts/{userEntityId}/emergencyContact/{emergencyContactId}", method = RequestMethod.POST)
 	public String editEmergencyContact(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("emergencyContactId") Long emergencyContactId,

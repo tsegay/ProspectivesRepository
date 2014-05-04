@@ -1,5 +1,6 @@
 package com.prospectivestiles.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -16,9 +17,13 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "findEvaluationByUserEntityId", 
 		query = "FROM Evaluation WHERE userEntity.id = :id")
 		)
-public class Evaluation {
+public class Evaluation implements Serializable {
 
-    // ======================================
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// ======================================
     // =             Attributes             =
     // ======================================
 

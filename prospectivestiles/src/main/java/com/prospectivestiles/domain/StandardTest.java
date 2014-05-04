@@ -1,5 +1,6 @@
 package com.prospectivestiles.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -14,13 +15,17 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = "findStandardTestsByUserEntityId", 
 		query = "FROM StandardTest WHERE userEntity.id = :id")
 		)
-public class StandardTest {
+public class StandardTest implements Serializable {
 	
     // ======================================
     // =             Attributes             =
     // ======================================	
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private String name;
 	private double score;

@@ -1,5 +1,6 @@
 package com.prospectivestiles.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -18,9 +19,13 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "findMessagesByUserEntityId", 
 		query = "FROM Message WHERE student.id = :id")
 		)
-public class Message {
+public class Message implements Serializable {
 	
-    // ======================================
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// ======================================
     // =             Attributes             =
     // ======================================
 	

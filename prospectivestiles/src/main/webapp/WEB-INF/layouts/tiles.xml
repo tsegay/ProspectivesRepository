@@ -190,14 +190,24 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/emergencyContacts/emergencyContacts.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="editEmergencyContact" template="/WEB-INF/templates/modalTemplate.jsp">
+	<definition name="newEmergencyContactForm" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/emergencyContacts/emergencyContactForm.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editEmergencyContact" extends="prospectivestiles.base">
+		<put-attribute name="title" value="eidtAddress page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/emergencyContacts/editEmergencyContact.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="editEmergencyContact" template="/WEB-INF/templates/modalTemplate.jsp">
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value=""></put-attribute>
 		<put-attribute name="header" value=""></put-attribute>
 		<put-attribute name="sidebar" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/emergencyContacts/editEmergencyContact.jsp"></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
-	</definition>
+	</definition> -->
 	
 	<!-- ====================== File Upload ====================================== -->
 	

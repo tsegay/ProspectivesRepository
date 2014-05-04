@@ -18,6 +18,7 @@
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
+	<c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" />
 	<%-- <c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
@@ -140,12 +141,12 @@
 				
 				 <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<%-- <c:url var="emergencyContactUrl"	value="/accounts/${emergencyContact.userEntity.id}/emergencyContact/${emergencyContact.id}" /> --%>
-					<c:url var="editEmergencyContactUrl" value="/accounts/${emergencyContact.userEntity.id}/emergencyContact/${emergencyContact.id}" />
+					<c:url var="editEmergencyContactUrl" value="/accounts/${emergencyContact.userEntity.id}/emergencyContact/${emergencyContact.id}/edit" />
 					<c:url var="deleteEmergencyContactUrl" value="/accounts/${emergencyContact.userEntity.id}/emergencyContact/${emergencyContact.id}/delete" />
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_USER')">
 					<%-- <c:url var="emergencyContactUrl"	value="/myAccount/emergencyContact/${emergencyContact.id}" /> --%>
-					<c:url var="editEmergencyContactUrl" value="/myAccount/emergencyContact/${emergencyContact.id}" />
+					<c:url var="editEmergencyContactUrl" value="/myAccount/emergencyContact/${emergencyContact.id}/edit" />
 					<c:url var="deleteEmergencyContactUrl" value="/myAccount/emergencyContact/${emergencyContact.id}/delete" />
 				</sec:authorize>
 				
@@ -159,10 +160,7 @@
 					<td><c:out value="${emergencyContact.email}"></c:out></td>
 					<td><c:out value="${emergencyContact.relationship}"></c:out></td>
 					<td>
-						<%-- <a data-toggle="modal" href="${editEmergencyContactUrl}" data-target="#editEmergencyContactModal" 
-							class="btn btn-primary btn-lg">modal: Edit</a> --%>
-						<a data-toggle="modal" href="${editEmergencyContactUrl}" data-target="#editEmergencyContactModal" 
-							class="btn btn-primary btn-lg">Edit</a>
+						<a href="${editEmergencyContactUrl}" class="btn btn-primary btn-lg">Edit</a>
 					</td>
 					<td>
 						<form id="deleteForm" action="${deleteEmergencyContactUrl}" method="post">
@@ -178,13 +176,24 @@
 	</c:otherwise>
 </c:choose>
 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<c:url var="newEmergencyContactUrl" value="/accounts/${userEntity.id}/emergencyContact/new" />
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_USER')">
+	<c:url var="newEmergencyContactUrl" value="/myAccount/emergencyContact/new" />
+</sec:authorize>
+			
+<h3>
+	<a href="${newEmergencyContactUrl}">Add New EmergencyContact</a>
+</h3>
+	
 <!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEmergencyContactModal">
+<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEmergencyContactModal">
   Add EmergencyContact
-</button>
+</button> -->
 
 <!-- emergencyContact Modal -->
-<div class="modal fade" id="addEmergencyContactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<%-- <div class="modal fade" id="addEmergencyContactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	        <form:form action="${emergencyContactsUrl}" modelAttribute="emergencyContact" role="form" class = "form-horizontal">
@@ -246,16 +255,16 @@
 	        </form:form>
 	  </div>
   </div>
-</div>
+</div> --%>
 
 
 <!-- edit emergencyContact Modal -->
-<div class="modal fade" id="editEmergencyContactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editEmergencyContactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	  </div>
   </div>
-</div>
+</div> -->
 
 
 
