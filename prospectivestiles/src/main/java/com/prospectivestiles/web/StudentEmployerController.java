@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.Employer;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.EmployerService;
@@ -55,13 +56,28 @@ public class StudentEmployerController {
 
 		return "employers";
 	}
+	
+	@RequestMapping(value = "/myAccount/employer/new", method = RequestMethod.GET)
+	public String getNewEmployerForm(Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		
+		Employer employer = new Employer();
+		employer.setUserEntity(userEntity);
+		model.addAttribute(employer);
+		model.addAttribute(userEntity);
+		
+		return "newEmployerForm";
+	}
 
 	@RequestMapping(value = "/myAccount/employers", method = RequestMethod.POST)
 	public String postNewEmployerForm(@ModelAttribute @Valid Employer employer,
-			BindingResult result) {
+			BindingResult result, Model model) {
+		
+		UserEntity userEntity = getUserEntityFromSecurityContext();
 
 		if (result.hasErrors()) {
 			// System.out.println("######## result.hasErrors(): true" );
+			model.addAttribute(userEntity);
 			return "employers";
 		} else {
 			// System.out.println("######## result.hasErrors(): false" );
@@ -72,12 +88,7 @@ public class StudentEmployerController {
 		 * get userEntity from URL >>>>> if logged in as admin get userEntity
 		 * from Session >>>>>>> if logged in as student
 		 */
-		UserEntity userEntity = getUserEntityFromSecurityContext();
-		System.out
-				.println("######## userEntity.getId(): " + userEntity.getId());
 		employer.setUserEntity(userEntity);
-		System.out.println("######## address.getUserEntity(): "
-				+ employer.getUserEntity());
 		employerService.createEmployer(employer);
 
 		return "redirect:/myAccount/employers";
@@ -90,7 +101,7 @@ public class StudentEmployerController {
 
 	// @RequestMapping(value = "/myAccount/address/{addressId}/edit", method =
 	// RequestMethod.GET)
-	@RequestMapping(value = "/myAccount/employer/{employerId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/myAccount/employer/{employerId}/edit", method = RequestMethod.GET)
 	public String editEmployer(@PathVariable("employerId") Long employerId,
 			Model model) {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
@@ -115,6 +126,7 @@ public class StudentEmployerController {
 		if (result.hasErrors()) {
 			// log.debug("Validation Error in Institute form");
 			model.addAttribute("originalEmployer", origEmployer);
+			model.addAttribute(userEntity);
 			return "editEmployer";
 		}
 

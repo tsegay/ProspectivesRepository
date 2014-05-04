@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.Employer;
+import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.EmployerService;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -53,6 +55,20 @@ public class AdminEmployerController {
 		return "employers";
 	}
 	
+	@RequestMapping(value = "/accounts/{userEntityId}/employer/new", method = RequestMethod.GET)
+	public String getNewAddressForm(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		
+		Employer employer = new Employer();
+		employer.setUserEntity(userEntity);
+		
+		model.addAttribute(employer);
+		model.addAttribute(userEntity);
+		
+		return "newEmployerForm";
+	}
+	
 	@RequestMapping(value = "/accounts/{userEntityId}/employers", method = RequestMethod.POST)
 	public String postNewEmployerForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Employer employer, BindingResult result) {
@@ -67,7 +83,7 @@ public class AdminEmployerController {
 		return "redirect:/accounts/{userEntityId}/employers";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/employer/{employerId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/accounts/{userEntityId}/employer/{employerId}/edit", method = RequestMethod.GET)
 	public String editEmployer(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("employerId") Long employerId, Model model) {
 		

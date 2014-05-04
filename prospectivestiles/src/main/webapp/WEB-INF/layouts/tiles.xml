@@ -253,14 +253,24 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/employment/employers.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="editEmployer" template="/WEB-INF/templates/modalTemplate.jsp">
+	<definition name="newEmployerForm" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/employment/employmentForm.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editEmployer" extends="prospectivestiles.base">
+		<put-attribute name="title" value="eidtAddress page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/employment/editEmployer.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="editEmployer" template="/WEB-INF/templates/modalTemplate.jsp">
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value=""></put-attribute>
 		<put-attribute name="header" value=""></put-attribute>
 		<put-attribute name="sidebar" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/employment/editEmployer.jsp"></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
-	</definition>
+	</definition> -->
 	
 	<!-- ====================== standardTests ====================================== -->
 	

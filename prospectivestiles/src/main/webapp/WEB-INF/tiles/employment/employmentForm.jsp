@@ -6,31 +6,39 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<c:set var="user" value="${employer.userEntity}" />
-
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="employersUrl" value="/accounts/${user.id}/employers" />
-	<c:url var="editEmployerUrl"
-		value="/accounts/${user.id}/employer/${employer.id}" />
-	<c:url var="deleteEmployerUrl"
-		value="/accounts/${user.id}/employer/${employer.id}/delete" />
+	<c:url var="employersUrl" value="/accounts/${userEntity.id}/employers" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<c:url var="employersUrl" value="/myAccount/employers" />
-	<c:url var="editEmployerUrl"
-		value="/myAccount/employer/${employer.id}" />
-	<c:url var="deleteEmployerUrl"
-		value="/myAccount/employer/${employer.id}/delete" />
 </sec:authorize>
 
-<h1>editEmployer.jsp</h1>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<div class="well well-sm row">
+		<div class="col-sm-3">
+			<img
+				src="${pageContext.request.contextPath}/resources/images/placeholderImage_140x140.jpg"
+				alt="Your Pic" class="img-rounded profileImg">
+		</div>
+		<dl class="dl-horizontal col-sm-9">
+			<dt>Full name:</dt>
+			<dd>
+				<c:out value="${userEntity.firstName}"></c:out>
+				<c:out value="${userEntity.lastName}"></c:out>
+			</dd>
+			<dt>Username</dt>
+			<dd>
+				<c:out value="${userEntity.username}" />
+			</dd>
+		</dl>
+	</div>
+</sec:authorize>
 
+<h1>Address Form page</h1>
 
-<form:form action="${editEmployerUrl}" modelAttribute="employer"
+<form:form action="${employersUrl}" modelAttribute="employer"
 	role="form" class="form-horizontal">
-
-
 
 	<div class="form-group checkbox row">
 		<div class="col-sm-2">
@@ -52,7 +60,6 @@
 			<form:errors path="employerName" htmlEscape="false" />
 		</div>
 	</div>
-
 	<div class="form-group row">
 		<label for="companyName" class="col-sm-2 control-label">companyName</label>
 		<div class="col-sm-5">
@@ -89,6 +96,7 @@
 		</div>
 	</div>
 
+
 	<div class="form-group">
 		<label for="" class="col-sm-2 control-label">&nbsp;</label>
 		<div class="col-sm-10">
@@ -100,5 +108,7 @@
 			
 		</div>
 	</div>
-
 </form:form>
+
+
+

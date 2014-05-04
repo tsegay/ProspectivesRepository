@@ -17,7 +17,6 @@
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
@@ -35,7 +34,6 @@
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
 	<!-- change address to addresses -->
 	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/myAccount/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
@@ -139,12 +137,12 @@
 				
 				 <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<c:url var="employerUrl"	value="/accounts/${employer.userEntity.id}/employer/${employer.id}" />
-					<c:url var="editEmployerUrl" value="/accounts/${employer.userEntity.id}/employer/${employer.id}" />
+					<c:url var="editEmployerUrl" value="/accounts/${employer.userEntity.id}/employer/${employer.id}/edit" />
 					<c:url var="deleteEmployerUrl" value="/accounts/${employer.userEntity.id}/employer/${employer.id}/delete" />
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_USER')">
 					<c:url var="employerUrl"	value="/myAccount/employer/${employer.id}" />
-					<c:url var="editEmployerUrl" value="/myAccount/employer/${employer.id}" />
+					<c:url var="editEmployerUrl" value="/myAccount/employer/${employer.id}/edit" />
 					<c:url var="deleteEmployerUrl" value="/myAccount/employer/${employer.id}/delete" />
 				</sec:authorize>
 				
@@ -158,10 +156,7 @@
 					<td><c:out value="${employer.employedSince}"></c:out></td>
 					<td><c:out value="${employer.position}"></c:out></td>
 					<td>
-						<%-- <a data-toggle="modal" href="${editEmployerUrl}" data-target="#editEmployerModal" 
-							class="btn btn-primary btn-lg">modal: Edit</a> --%>
-						<a data-toggle="modal" href="${editEmployerUrl}" data-target="#editEmployerModal" 
-							class="btn btn-primary btn-lg">Edit</a>
+						<a href="${editEmployerUrl}" class="btn btn-primary btn-lg">Edit</a>
 					</td>
 					<td>
 						<form id="deleteForm" action="${deleteEmployerUrl}" method="post">
@@ -177,13 +172,24 @@
 	</c:otherwise>
 </c:choose>
 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<c:url var="newEmployerUrl" value="/accounts/${userEntity.id}/employer/new" />
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_USER')">
+	<c:url var="newEmployerUrl" value="/myAccount/employer/new" />
+</sec:authorize>
+			
+<h3>
+	<a href="${newEmployerUrl}">Add New Employment</a>
+</h3>
+
 <!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEmployerModal">
+<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEmployerModal">
   Add Employer
-</button>
+</button> -->
 
 <!-- employer Modal -->
-<div class="modal fade" id="addEmployerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<%-- <div class="modal fade" id="addEmployerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	        <form:form action="${employersUrl}" modelAttribute="employer" role="form" class = "form-horizontal">
@@ -207,7 +213,7 @@
 					    </div>
 						<label for="employed" class="col-sm-5 control-label">employed</label>
 					    <div class="col-sm-5">
-					      	<%-- <form:errors path="employed" htmlEscape="false" /> --%>
+					      	<form:errors path="employed" htmlEscape="false" />
 					    </div>
 					</div>
 	                <div class="form-group row">
@@ -259,16 +265,16 @@
 	        </form:form>
 	  </div>
   </div>
-</div>
+</div> --%>
 
 
 <!-- edit employer Modal -->
-<div class="modal fade" id="editEmployerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editEmployerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	  </div>
   </div>
-</div>
+</div> -->
 
 
 
@@ -315,111 +321,6 @@
 	
 	
 	
-	
-<!-- jQuery Modal -->
-<%-- <div id="dialog-form" title="Create new user">
-  <p class="validateTips">All form fields are required.</p>
- 
-  <form>
-  <fieldset>
-    <label for="employerName">employerName</label>
-    <input type="text" name="employerName" id="employerName" class="text ui-widget-content ui-corner-all">
-    <label for="companyName">companyName</label>
-    <input type="text" name="companyName" id="companyName" value="" class="text ui-widget-content ui-corner-all">
-  </fieldset>
-  </form>
-</div> --%>
-	
-  <!-- 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  
-  <style>
-    .ui-dialog .ui-state-error { padding: .3em; }
-    .validateTips { border: 1px solid transparent; padding: 0.3em; }
-  </style>
-  
-<script>
-  $(function() {
-    var employerName = $( "#employerName" ),
-    companyName = $( "#companyName" ),
-      allFields = $( [] ).add( employerName ).add( companyName ),
-      tips = $( ".validateTips" );
- 
-    function updateTips( t ) {
-      tips
-        .text( t )
-        .addClass( "ui-state-highlight" );
-      setTimeout(function() {
-        tips.removeClass( "ui-state-highlight", 1500 );
-      }, 500 );
-    }
- 
-    function checkLength( o, n, min, max ) {
-      if ( o.val().length > max || o.val().length < min ) {
-        o.addClass( "ui-state-error" );
-        updateTips( "Length of " + n + " must be between " +
-          min + " and " + max + "." );
-        return false;
-      } else {
-        return true;
-      }
-    }
- 
-    function checkRegexp( o, regexp, n ) {
-      if ( !( regexp.test( o.val() ) ) ) {
-        o.addClass( "ui-state-error" );
-        updateTips( n );
-        return false;
-      } else {
-        return true;
-      }
-    }
- 
-    $( "#dialog-form" ).dialog({
-      autoOpen: false,
-      height: 300,
-      width: 350,
-      modal: true,
-      buttons: {
-        "Create an account": function() {
-          var bValid = true;
-          allFields.removeClass( "ui-state-error" );
- 
-          bValid = bValid && checkLength( employerName, "employerName", 3, 16 );
-          bValid = bValid && checkLength( companyName, "companyName", 6, 80 );
- 
-          bValid = bValid && checkRegexp( employerName, /^[a-z]([0-9a-z_])+$/i, "employerName may consist of a-z, 0-9, underscores, begin with a letter." );
-          bValid = bValid && checkRegexp( companyName, /^[a-z]([0-9a-z_])+$/i, "companyName may consist of a-z, 0-9, underscores, begin with a letter." );
- 
-          if ( bValid ) {
-        	  // Call the Controller method to save
-        	  
-        	  
-            /* $( "#users tbody" ).append( "<tr>" +
-              "<td>" + name.val() + "</td>" +
-              "<td>" + email.val() + "</td>" +
-              "<td>" + password.val() + "</td>" +
-            "</tr>" );
-            $( this ).dialog( "close" ); */
-          }
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-      },
-      close: function() {
-        allFields.val( "" ).removeClass( "ui-state-error" );
-      }
-    });
- 
-    $( "#create-user" )
-      .button()
-      .click(function() {
-        $( "#dialog-form" ).dialog( "open" );
-      });
-  });
-  </script> -->
-	
+
 	
 	
