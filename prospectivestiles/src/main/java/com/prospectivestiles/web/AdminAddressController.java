@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.AddressType;
+import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.Message;
+import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -65,26 +67,50 @@ public class AdminAddressController {
 		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
 		
 		return "addresses";
-//		return "redirect:/accounts/{userEntityId}/educations";
 	}
 	
+	@RequestMapping(value = "/accounts/{userEntityId}/address/new", method = RequestMethod.GET)
+	public String getNewAddressForm(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		Address address = new Address();
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		
+		address.setUserEntity(userEntity);
+		
+		model.addAttribute(address);
+		model.addAttribute(userEntity);
+		
+		return "newAddressForm";
+	}
+	
+	/**
+	 * @param userEntityId
+	 * @param address
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/addresses", method = RequestMethod.POST)
 	public String postNewAddressForm(@PathVariable("userEntityId") Long userEntityId,
-			@ModelAttribute @Valid Address address, BindingResult result) {
+			@ModelAttribute @Valid Address address, BindingResult result, Model model) {
+		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		if (result.hasErrors()) {
-//			return "newAddressForm";
-			return "addresses";
+			model.addAttribute(userEntity);
+			return "newAddressForm";
+//			return "addresses";
 		}
 
-		address.setUserEntity(userEntityService.getUserEntity(userEntityId));
+		address.setUserEntity(userEntity);
 		addressService.createAddress(address);
 		
 		return "redirect:/accounts/{userEntityId}/addresses";
 	}
+
+
 	
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}/edit", method = RequestMethod.GET)
 	public String editAddress(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("addressId") Long addressId, Model model) {
 		

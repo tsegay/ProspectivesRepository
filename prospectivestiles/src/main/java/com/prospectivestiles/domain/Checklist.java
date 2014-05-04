@@ -1,5 +1,7 @@
 package com.prospectivestiles.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,9 +16,13 @@ import javax.persistence.Table;
 		@NamedQuery(name = "findChecklistByUserEntityId", 
 		query = "FROM Checklist WHERE userEntity.id = :id")
 		)
-public class Checklist {
+public class Checklist implements Serializable {
 
-    // ======================================
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// ======================================
     // =             Attributes             =
     // ======================================
 

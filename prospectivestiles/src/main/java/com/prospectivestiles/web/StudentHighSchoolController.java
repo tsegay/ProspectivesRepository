@@ -38,15 +38,6 @@ public class StudentHighSchoolController {
 	@Autowired
 	private UserEntityService userEntityService;
 	
-	/*// ======================================
-	// =             myAccount             =
-	// ======================================
-	
-	@RequestMapping(value="/myAccount", method = RequestMethod.GET)
-	public String getMyAccount() {
-		
-		return "myAccount";
-	}*/
 	
 	// ======================================
 	// =             myAccount hghSchools            =
@@ -63,6 +54,19 @@ public class StudentHighSchoolController {
 		return "highSchools";
 	}
 	*/
+	
+	@RequestMapping(value = "/myAccount/highSchool/new", method = RequestMethod.GET)
+	public String getNewHighSchoolForm(Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		
+		HighSchool highSchool = new HighSchool();
+		highSchool.setUserEntity(userEntity);
+		model.addAttribute(highSchool);
+		model.addAttribute(userEntity);
+		
+		return "newHighSchoolForm";
+	}
+	
 	@RequestMapping(value = "/myAccount/highSchools", method = RequestMethod.POST)
 	public String postNewHighSchoolForm(@ModelAttribute @Valid HighSchool highSchool, BindingResult result, Model model) {
 
@@ -76,18 +80,6 @@ public class StudentHighSchoolController {
 		highSchool.setUserEntity(userEntity);
 		highSchoolService.createHighSchool(highSchool);
 		return "redirect:/myAccount/educations";
-	}
-	
-	@RequestMapping(value = "/myAccount/highSchool/new", method = RequestMethod.GET)
-	public String getNewHighSchoolForm(Model model) {
-		UserEntity userEntity = getUserEntityFromSecurityContext();
-		
-		HighSchool highSchool = new HighSchool();
-		highSchool.setUserEntity(userEntity);
-		model.addAttribute(highSchool);
-		model.addAttribute(userEntity);
-		
-		return "newHighSchoolForm";
 	}
 	
 	@RequestMapping(value = "/myAccount/highSchool/{highSchoolId}", method = RequestMethod.GET)
@@ -159,7 +151,9 @@ public class StudentHighSchoolController {
 		return "redirect:/myAccount/educations";
 	}
 	
-	
+	// ======================================
+	// =                         =
+	// ======================================
 	
 	
 	private UserEntity getUserEntityFromSecurityContext() {

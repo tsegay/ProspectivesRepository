@@ -17,7 +17,7 @@
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" />
+	<%-- <c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
@@ -35,7 +35,7 @@
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
 	<!-- change address to addresses -->
 	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<c:url var="newAddressUrl" value="/myAccount/address/new" />
+	<%-- <c:url var="newAddressUrl" value="/myAccount/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
@@ -125,12 +125,12 @@
 		<c:forEach var="address" items="${addresses}">
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<%-- <c:url var="addressUrl"	value="/accounts/${address.userEntity.id}/address/${address.id}" /> --%>
-				<c:url var="editAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}/edit" />
+				<c:url var="editAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}" />
 				<c:url var="deleteAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}/delete" />
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<%-- <c:url var="addressUrl"	value="/myAccount/address/${address.id}" /> --%>
-				<c:url var="editAddressUrl" value="/myAccount/address/${address.id}/edit" />
+				<c:url var="editAddressUrl" value="/myAccount/address/${address.id}" />
 				<c:url var="deleteAddressUrl" value="/myAccount/address/${address.id}/delete" />
 			</sec:authorize>
 		
@@ -146,8 +146,8 @@
 			  <c:out value="${address.country}" /><br>
 			  <abbr title="Phone">P:</abbr> (123) 456-7890<br>
 			  <a href="mailto:#">first.last@example.com</a><br><br>
-			  	<a href="${editAddressUrl}" class="btn btn-primary btn-lg">Edit</a>
-				<br><br>
+				<a data-toggle="modal" data-remote="${editAddressUrl}" data-target="#editAddressModal" 
+					class="btn btn-primary btn-lg">Edit</a><br><br>
 				<form id="deleteForm" action="${deleteAddressUrl}" method="post">
 					<div><input type="submit" value="DELETE" /></div>
 				</form>
@@ -157,19 +157,146 @@
 	</c:otherwise>
 </c:choose>
 
-<h3>
-	<a href="${newAddressUrl}">Add New Address</a>
-</h3>
-
-
+<!-- Button trigger modal -->
+<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Add Address
+</button>
+ -->
+<button id="newAddressBtn" class="btn btn-primary btn-lg">
+  Add Address
+</button>
 
 <!-- address Modal -->
-
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class = "modal-content">
+	        <form:form action="${addressUrl}" id="addressForm" modelAttribute="address" role="form" class = "form-horizontal">
+	            <div class = "modal-header">
+	                <h4>Add Address</h4>
+	                address: 
+	                <c:if test="${address.id > 0}">
+	                	<c:out value="${address.id}" />
+	                </c:if>
+	                <br />
+	                address.userEntity.id: 
+	                <c:if test="${address.id > 0}">
+	                	<c:out value="${address.userEntity.id}" />
+	                </c:if>
+	            </div>
+	            <div class = "modal-body">
+	            
+	            	<div class="form-group row">
+						<label for="addressType" class="col-sm-2 control-label">AddressType</label>
+					    <div class="col-sm-5">
+							<form:select path="addressType" class="form-control">
+								  <%-- <form:option value="NONE" label="--- Select ---" /> --%>
+								  <form:option value="HOME_ADDRESS" label="HOME_ADDRESS" />
+								  <form:option value="WORK_ADDRESS" label="WORK_ADDRESS" />
+								  <form:option value="MAILING_ADDRESS" label="MAILING_ADDRESS" />
+								  <form:option value="FOREIGN_COUNTRY_ADDRESS" label="FOREIGN_COUNTRY_ADDRESS" />
+						    </form:select>
+					    </div>
+					    <div class="col-sm-5">
+					    	<form:errors path="addressType" htmlEscape="false" />
+					    </div>
+					</div>
+					
+	            	<div class="form-group row">
+						<label for="address1" class="col-sm-2 control-label">address1</label>
+					    <div class="col-sm-5">
+					      <form:input id="address1" path="address1" class="form-control" placeholder = "Your address1" />
+					      <!-- <span class="hide help-inline">This is required</span> -->
+					      <div id="address1Error"></div>
+					    </div>
+					    <div class="col-sm-5">
+					    	<form:errors path="address1" htmlEscape="false" />
+					    </div>
+					</div>
+					
+					
+	            	<div class="form-group row">
+						<label for="address2" class="col-sm-2 control-label">address2</label>
+					    <div class="col-sm-5">
+					      <form:input path="address2" class="form-control" placeholder = "Your address2" />
+					    </div>
+					    <div class="col-sm-5">
+					    	<form:errors path="address2" htmlEscape="false" />
+					    </div>
+					</div>
+					
+	            	<div class="form-group row">
+						<label for="city" class="col-sm-2 control-label">city</label>
+					    <div class="col-sm-5">
+					      <form:input path="city" class="form-control" placeholder = "Your city" />
+					    </div>
+					    <div class="col-sm-5">
+					    	<form:errors path="city" htmlEscape="false" />
+					    </div>
+					</div>
+					
+	            	<div class="form-group row">
+						<label for="state" class="col-sm-2 control-label">state</label>
+					    <div class="col-sm-5">
+					      <form:input path="state" class="form-control" placeholder = "Your state" />
+					    </div>
+					    <div class="col-sm-5">
+					    	<form:errors path="state" htmlEscape="false" />
+					    </div>
+					</div>
+					
+	            	<div class="form-group row">
+						<label for="zipcode" class="col-sm-2 control-label">zipcode</label>
+					    <div class="col-sm-5">
+					      <form:input path="zipcode" class="form-control" placeholder = "Your zipcode" />
+					    </div>
+					    <div class="col-sm-5">
+					    	<form:errors path="zipcode" htmlEscape="false" />
+					    </div>
+					</div>
+					
+	            	<div class="form-group row">
+						<label for="country" class="col-sm-2 control-label">country</label>
+					    <div class="col-sm-5">
+					      <form:input path="country" class="form-control" placeholder = "Your country" />
+					    </div>
+					    <div class="col-sm-5">
+					    	<form:errors path="country" htmlEscape="false" />
+					    </div>
+					</div>
+	            
+	            </div>
+	            <div class = "modal-footer">
+	        		<a class = "btn btn-default" data-dismiss = "modal">Cancel</a>    
+	        		<input class="btn btn-primary" type="submit" value="Submit" id="addAddressSubmit"></input>
+	                <!-- <button class = "btn btn-primary" type = "submit">Send</button> -->
+	            </div>
+	        </form:form>
+	  </div>
+  </div>
+</div>
 
 
 <!-- edit address Modal -->
+<div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class = "modal-content">
+	  </div>
+  </div>
+</div>
 
 
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script>
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.validate.js"></script> --%>
+	
+	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/script.js"></script> --%>
+	
+	
 	
 	<!-- jQuery for Bootstrap's JavaScript plugins -->
 	
@@ -183,17 +310,84 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.validate.min.js"></script>
 	
 	
+	<!-- <script>
+			addEventListener('load', prettyPrint, false);
+			$(document).ready(function(){
+			$('pre').addClass('prettyprint linenums');
+				});
+	</script> -->	
 	<!-- 
 		When I click on EDIT button the Modal is popluated with db datas for the current address. 
 		When I clikc on Cancle and click on edit for another address, the selected value is populated to the modal.
 		After 3 - 4 clicks the modal no more reloads.
 		Using this js to fix that issue
 	 -->
+	<!-- <script type="text/javascript"> -->
 	<script>
 		$(document).ready(function(){
 			
 			/* Call the dropdowns via JavaScript */
 		    $('.dropdown-toggle').dropdown();
+			
+			
+		    $("#newAddressBtn").click(function(e){
+		    	
+		    	//e.preventDefault();
+		    	
+		    	/* Open new address modal with js */
+		        $("#myModal").modal('show');
+		    	
+		        
+		    	
+		    	$('#addAddressSubmit').click(function(evt){
+		    		
+		    				    		
+		    	    if ($('#address1').val()==="") {
+		    	      // invalid
+		    	      
+		    	      evt.preventDefault();
+		    		  alert( "This default event prevented: " + evt.type);
+		    	      
+		    	      alert( "Please provide your address1!" ); 
+		    	      /* $('#address1').next('.help-inline').show(); */
+		    	      
+		    	      /* $('<div id="errors"/>').html(errors).appendTo('.modal-body'); */
+		    	      $("<span>Please provide your address1</span>").appendTo('#address1Error');
+		    	      //return false;
+		    	    }
+		    	    else {
+		    	      // submit the form here
+		    	     // return true;
+		    	   // $("#myModal").submit();
+		    	    }
+		    	    //evt.preventDefault();
+		    	});
+		    			    	
+		    	//e.preventDefault();
+		    });
+		    
+		    $('#addressForm').validate({
+			    rules: {
+			    	address1: {
+			        required: true
+			      },
+				  
+			      city: {
+			        minlength: 6,
+			        required: true
+			      }
+				 
+				  
+			    },
+					highlight: function(element) {
+						$(element).closest('.form-group').removeClass('success').addClass('error');
+					},
+					success: function(element) {
+						element
+						.text('OK!').addClass('valid')
+						.closest('.form-group').removeClass('error').addClass('success');
+					}
+			  });
 		    
 		    
 		    
@@ -204,7 +398,7 @@
 		    that can be set to true to reload from the server rather than the cache. 
 		    by default parameter is false, so the page reloads from the browser's cache. 
 		    !!!!! I DON'T WANT TO RELOAD THE PAGE. THE PURPOSE OF USING MODAL IS TO STOP RELOADING PAGES.
-		     */
+		    */
 		    $('body').on('hidden.bs.modal', '.modal', function () {
 		    	/* alert("Modal window has been completely closed."); */
 			    $(this).removeData('bs.modal');
@@ -213,6 +407,10 @@
 			    /* $(this).empty(); */
 		    	/* location.reload(); */
 			});
+		    
+		    /* $("#myModal").on('hidden.bs.modal', function(){
+		        alert("Modal window has been completely closed.");
+		    }); */
 		    
 		});
 	</script>

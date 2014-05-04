@@ -164,19 +164,24 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/address/addresses.jsp"></put-attribute>
 	</definition>
 	
-	<!-- <definition name="editAddress" extends="prospectivestiles.base">
-		<put-attribute name="title" value="educations page"></put-attribute>
-		<put-attribute name="bodycontent" value="/WEB-INF/tiles/editAddress.jsp"></put-attribute>
-	</definition> -->
+	<definition name="newAddressForm" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/address/addressForm.jsp"></put-attribute>
+	</definition>
 	
-	<definition name="editAddress" template="/WEB-INF/templates/modalTemplate.jsp">
+	<definition name="editAddress" extends="prospectivestiles.base">
+		<put-attribute name="title" value="eidtAddress page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/address/editAddress.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="editAddress" template="/WEB-INF/templates/modalTemplate.jsp">
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value=""></put-attribute>
 		<put-attribute name="header" value=""></put-attribute>
 		<put-attribute name="sidebar" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/address/editAddress.jsp"></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
-	</definition>
+	</definition> -->
 	
 	<!-- ====================== emergencyContacts ====================================== -->
 	

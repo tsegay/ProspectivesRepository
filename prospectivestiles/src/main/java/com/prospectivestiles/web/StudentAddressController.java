@@ -28,12 +28,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Address;
+import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.Message;
 import com.prospectivestiles.domain.ProgramOfStudy;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.UserEntityService;
 
+/*
+ * Work on displaying spring err msg in Modal.
+ * 
+ * ! I am loading too many entities in the model. What is the limit???
+ * If i am not using Modal, I don't need to load new address to model
+ */
 @Controller
 public class StudentAddressController {
 	
@@ -49,6 +56,9 @@ public class StudentAddressController {
 	// =             myAccount addresses             =
 	// ======================================	
 
+	/**
+	 * For Modal: add new address to the model. as modal uses the current page to load the new address page in modal.
+	 */
 	@RequestMapping(value = "/myAccount/addresses", method = RequestMethod.GET)
 	public String getAddresses(Model model) {
 		
@@ -56,11 +66,7 @@ public class StudentAddressController {
 		
 		model.addAttribute("addresses", addressService.getAddressesByUserEntityId(userEntity.getId()));
 		
-		/*
-		 * I am loading too many entities in the model. What is the limit???
-		 */
 		Address address = new Address();
-		System.out.println("################### StudentAddressController.getAddresses: " + address.toString());
 		address.setUserEntity(userEntity);
 		
 		model.addAttribute("address", address);
@@ -70,53 +76,42 @@ public class StudentAddressController {
 		return "addresses";
 	}
 	
+//	Used a new page to add new address
+//	-----------------------------------------------------------------------------------------
+	@RequestMapping(value = "/myAccount/address/new", method = RequestMethod.GET)
+	public String getNewAddressForm(Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		
+		Address address = new Address();
+		address.setUserEntity(userEntity);
+		model.addAttribute(address);
+		model.addAttribute(userEntity);
+		
+		return "newAddressForm";
+	}
+	
+	/**
+	 * For Modal use and new page use for adding new address
+	 */
 	@RequestMapping(value = "/myAccount/addresses", method = RequestMethod.POST)
-	public String postNewAddressForm(@ModelAttribute @Valid Address address, BindingResult result) {
+	public String postNewAddressForm(@ModelAttribute @Valid Address address, BindingResult result, Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();
 		
-		System.out.println("################### IN StudentAddressController.postNewAddressForm.");
-
-		//
-//		System.out.println("######## postNewAddressForm() Called #####");
-//		System.out.println("######## getAddress1: " + address.getAddress1());
-//		System.out.println("######## getAddress2: " + address.getAddress2());
-//		System.out.println("######## getCity: " + address.getCity());
-//		
-//		if (result != null) {
-//			System.out.println("######## Error in: " + result.toString());
-//		}
-		
-		/**
-		 * There is no newAddressForm page -- check this out
-		 */
 		if (result.hasErrors()) {
 			System.out.println("######## StudentAddressController.postNewAddressForm result.hasErrors(): true" );
-			/**
-			 * Work on displaying spring err msg in Modal.
-			 */
-			return "redirect:/myAccount/addresses";
-//			return "newAddressForm";
+			model.addAttribute(userEntity);
+//			this is for modal
+//			return "redirect:/myAccount/addresses";
+			return "newAddressForm";
 		} else {
 			System.out.println("######## StudentAddressController.postNewAddressForm result.hasErrors(): false" );
 		}
-		//
-		
-
-		/*
-		 * get userEntity from URL >>>>> if logged in as admin
-		 * get userEntity from Session >>>>>>> if logged in as student
-		 */
-		UserEntity userEntity = getUserEntityFromSecurityContext();
-		System.out.println("######## StudentAddressController.userEntity.getId(): " + userEntity.getId());
-		System.out.println("######## StudentAddressController.userEntity.toString(): " + userEntity.toString());
+//		/*
+//		 * get userEntity from URL >>>>> if logged in as admin
+//		 * get userEntity from Session >>>>>>> if logged in as student
+//		 */
 		address.setUserEntity(userEntity);
-		System.out.println("######## StudentAddressController.address.getUserEntity(): " + address.getUserEntity());
 		addressService.createAddress(address);
-		/**
-		 * FOR TESTING PURPOSE
-		 */
-		System.out.println("######## StudentAddressController.address.zipcode BEFORE zipUpdate: " + address.getZipcode());
-		addressService.updateAddressZipCode(address.getId(), "22046");
-		System.out.println("######## StudentAddressController.address.zipcode AFTER zipUpdate: " + address.getZipcode());
 		
 		// Would normally set Location header and HTTP status 201, but we're
 		// using the redirect-after-post pattern, which uses the Location header
@@ -125,37 +120,19 @@ public class StudentAddressController {
 	}
 	
 	
-	
-	// ======================================
-	// =                         =
-	// ======================================
-	
-//	I may not need this
-//	-----------------------------------------------------------------------------------------
-	/*@RequestMapping(value = "/myAccount/address/new", method = RequestMethod.GET)
-	public String getNewAddressForm(Model model) {
-		UserEntity userEntity = getUserEntityFromSecurityContext();
-		
-		Address address = new Address();
-		institute.setUserEntity(userEntity);
-		model.addAttribute(address);
-		
-		return "newAddressForm";
-	}*/
-	
 //	If I list all the addresses in the addresses page, I don't need individual address pages
 //	-----------------------------------------------------------------------------------------
-	/*@RequestMapping(value = "/myAccount/address/{addressId}", method = RequestMethod.GET)
-	public String getInstitute(@PathVariable("addressId") Long addressId, Model model) {
+	@RequestMapping(value = "/myAccount/address/{addressId}", method = RequestMethod.GET)
+	public String getAddress(@PathVariable("addressId") Long addressId, Model model) {
 		
 		UserEntity userEntity = getUserEntityFromSecurityContext();		
 		model.addAttribute(getAddressValidateUserEntityId(userEntity.getId(), addressId));
 		return "address";
-	}*/
+	}
 	
-//	@RequestMapping(value = "/myAccount/address/{addressId}/edit", method = RequestMethod.GET)
-	@RequestMapping(value = "/myAccount/address/{addressId}", method = RequestMethod.GET)
-	public String editInstitute(@PathVariable("addressId") Long addressId, Model model) {
+//	@RequestMapping(value = "/myAccount/address/{addressId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/myAccount/address/{addressId}/edit", method = RequestMethod.GET)
+	public String editAddress(@PathVariable("addressId") Long addressId, Model model) {
 		UserEntity userEntity = getUserEntityFromSecurityContext();	
 		Address address = getAddressValidateUserEntityId(userEntity.getId(), addressId);
 		
@@ -164,9 +141,9 @@ public class StudentAddressController {
 		
 		return "editAddress";
 	}
-	
+
 	@RequestMapping(value = "/myAccount/address/{addressId}", method = RequestMethod.POST)
-	public String editInstitute(@PathVariable("addressId") Long addressId,
+	public String editAddress(@PathVariable("addressId") Long addressId,
 			@ModelAttribute @Valid Address origAddress, 
 			BindingResult result,
 			Model model) {
@@ -177,6 +154,7 @@ public class StudentAddressController {
 		if (result.hasErrors()) {
 //			log.debug("Validation Error in Institute form");
 			model.addAttribute("originalAddress", origAddress);
+			model.addAttribute(userEntity);
 			return "editAddress";
 		}
 
@@ -195,9 +173,8 @@ public class StudentAddressController {
 		return "redirect:/myAccount/addresses";
 	}
 	
-	
 	@RequestMapping(value = "/myAccount/address/{addressId}/delete", method = RequestMethod.POST)
-	public String deleteMessage(@PathVariable("addressId") Long addressId)
+	public String deleteAddress(@PathVariable("addressId") Long addressId)
 			throws IOException {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
 		addressService.delete(getAddressValidateUserEntityId(userEntity.getId(), addressId));
@@ -293,12 +270,10 @@ public class StudentAddressController {
 	private Address getAddressValidateUserEntityId(Long userEntityId, Long addressId) {
 		
 		Address address = addressService.getAddress(addressId);
-		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+//		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		// Use userEntityId instead of userEntity.getId(),  no need to generate it when it is already passed!!
-//		Assert.isTrue(userEntity.getId().equals(address.getUserEntity().getId()), "Address Id mismatch");
-//		Assert.isTrue(userEntity.getId().equals(userEntityId), "Address Id mismatch");
-		Assert.isTrue(userEntity.getId().equals(address.getUserEntity().getId()), "Address Id mismatch");
+		Assert.isTrue(userEntityId.equals(address.getUserEntity().getId()), "Address Id mismatch");
 		return address;
 	}
 

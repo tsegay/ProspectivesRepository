@@ -10,9 +10,6 @@
 
 <c:set var="user" value="${highSchool.userEntity}" />
 
-<%-- <c:url var="adminHighSchoolFormUrl"
-	value="/accounts/${user.id}/highSchool" /> --%>
-
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="editHighSchoolFormUrl" value="/accounts/${user.id}/highSchool/${highSchool.id}" />
@@ -174,48 +171,6 @@
         		<a class = "btn btn-default" href="${myEducationUrl}">Cancel</a>
         	</div>
         </div>
-	<!--  -->
-	<%-- <div class="panel grid">
-		<div class="gridRow yui-gf">
-			<div class="fieldLabel yui-u first">School Name</div>
-			<div class="yui-u">
-				<div>
-					<form:input path="name" cssClass="short"
-						cssErrorClass="short error" />
-				</div>
-			</div>
-		</div>
-		<div class="gridRow yui-gf">
-			<div class="fieldLabel yui-u first">State</div>
-			<div class="yui-u">
-				<div>
-					<form:input path="state" cssClass="short"
-						cssErrorClass="short error" />
-				</div>
-			</div>
-		</div>
-		<div class="gridRow yui-gf">
-			<div class="fieldLabel yui-u first">Country</div>
-			<div class="yui-u">
-				<div>
-					<form:input path="country" cssClass="short"
-						cssErrorClass="short error" />
-				</div>
-			</div>
-		</div>
-		<div class="gridRow yui-gf">
-			<div class="yui-u first"></div>
-			<div class="yui-u">
-				<form:checkbox id="diplome" path="diplome" />
-				<label for="diplome">diplome</label>
-			</div>
-		</div>
-		<div class="gridRow yui-gf">
-			<div class="yui-u first"></div>
-			<div class="yui-u">
-				<input type="submit" value="Update"></input>
-			</div>
-		</div>
-	</div> --%>
+        
 </form:form>
 
