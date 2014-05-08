@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
@@ -63,7 +64,7 @@ public class Message implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	@Size(max=100)
 	public String getSubject() {
 		return subject;
 	}
@@ -71,7 +72,8 @@ public class Message implements Serializable {
 		this.subject = subject;
 	}
 
-	@Size(max=1000)
+	@NotNull
+	@Size(min = 1, max = 1000)
 	public String getText() {
 		return text;
 	}

@@ -277,15 +277,9 @@ span.notification {
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<!-- try admin js for the form -->
-	<c:url var="getMessagesUrl" value="/accounts/${userEntity.id}/getmessages" />
-	<%-- <c:url value="/accounts/' + userEntityId + '/getmessages"/> --%>
-	<c:url var="postMessageUrl" value="/accounts/${userEntity.id}/sendmessage" />
-	<%-- <c:url value="/accounts/' + studentId + '/sendmessage"/> --%>
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<!-- try user js for the form -->
-	<c:url var="getMessagesUrl" value="/myAccount/getmessages" />
-	<c:url var="postMessageUrl" value="/myAccount/sendmessage" />
 </sec:authorize>
 
 <script>	
@@ -324,7 +318,7 @@ span.notification {
 		
 		$.ajax({
 			"type": 'POST',
-			"url" : '<c:url value="/accounts/' + studentId + '/sendmessage"/>',
+			"url" : '<c:url value="/myAccount/sendmessage"/>',
 			"data": JSON.stringify({"studentId": studentId, "subject": subject, "text": text}),
 			"complete": function(response, textStatus){
 				return alert("#### complete called. " + textStatus);
@@ -436,7 +430,7 @@ span.notification {
 	
 	function updatePage(){
 		var userEntityId = '${userEntityId}';
-		$.getJSON('<c:url value="/accounts/' + userEntityId + '/getmessages"/>', fetchAndDisplayMessages);
+		$.getJSON('<c:url value="/myAccount/getmessages"/>', fetchAndDisplayMessages);
 	}
 	
 	function onLoad(){

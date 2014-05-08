@@ -58,14 +58,11 @@ span.alert {
 
 <h1>jsonMessages page</h1>
 
+<a href="<c:url value="/messages"/>">Messages (<span id="numberMessages">0</span>)</a>
+
 <div id="messages">
 
 </div>
-
-<a href="<c:url value="/messages"/>">Messages (<span id="numberMessages">0</span>)</a>
-
-
-
 
 
 
@@ -79,7 +76,7 @@ span.alert {
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script>
 	<link rel="stylesheet" type="text/css"
 		href="${pageContext.request.contextPath}/resources/css/style.css" />
-		
+
 <script>	
 	/*
 	client javascript code needs to get data from our database in a special data format known as JSON
@@ -93,7 +90,7 @@ span.alert {
 	/* We need to temporarily stop page refresh when the user starts writing a message, 
 	otherwise their message will disappear. */
 	var timer;
-	
+
 	/*
 	Before you display the reply form, stop the timer. 
 	or the page will refresh and you loose the form
@@ -102,7 +99,7 @@ span.alert {
 		stopTimer();
 		$("#form" + i).toggle();
 	}
-	
+
 	/*
 	use target to know which message was clicked
 	hide the message form if success
@@ -116,7 +113,7 @@ span.alert {
 	function error(data){
 		alert("Error");
 	}
-	
+
 	/*
 	Put name and email in the sendMessage args, we need to know name and email of person we emailing to
 	*/
@@ -125,7 +122,7 @@ span.alert {
 		/* alert(name + " : " + email); */
 		/*
 		post back the info
-		
+
 		In the controller add a key 'target' to the return map, 
 		for the target pass on 'i' . 
 		this is the index of message form in the sendMEssage function in jquery in the list of messages
@@ -140,31 +137,31 @@ span.alert {
 			contentType : "application/json",
 			dataType : "json"
 		});
-		
+
 	}
-	
+
 	function showMessages(data){
 		/* $("#numberMessages").text(data.number); */
 		$("div#messages").html("");
 		for(var i=0; i<data.messages.length; i++){
 			var message = data.messages[i];
-			
+
 			var messageDiv = document.createElement("div");
 			messageDiv.setAttribute("class", "message");
-			
+
 			var subjectSpan = document.createElement("span");
 			subjectSpan.setAttribute("class", "subject");
 			subjectSpan.appendChild(document.createTextNode(message.subject));
-			
+
 			var contentSpan = document.createElement("span");
 			contentSpan.setAttribute("class", "messagebody");
 			contentSpan.appendChild(document.createTextNode(message.text));
-			
+
 			var nameSpan = document.createElement("span");
 			nameSpan.setAttribute("class", "name");
 			/* nameSpan.appendChild(document.createTextNode(message.student.firstName + "(" + message.student.email + ")")); */
 			nameSpan.appendChild(document.createTextNode(message.student.firstName + "("));
-			
+
 			var link = document.createElement("a");
 			link.setAttribute("class", "replylink");
 			link.setAttribute("href", "#");
@@ -172,21 +169,21 @@ span.alert {
 			link.appendChild(document.createTextNode(message.student.email));
 			nameSpan.appendChild(link);
 			nameSpan.appendChild(document.createTextNode(")"));
-			
+
 			/* get notification when message is sent */
 			var alertSpan = document.createElement("span");
 			alertSpan.setAttribute("class", "alert");
 			alertSpan.setAttribute("id", "alert" + i);
 			//alertSpan.appendChild(document.createTextNode("Message sent"));
-			
+
 			var replyForm = document.createElement("form");
 			replyForm.setAttribute("class", "replyform");
 			replyForm.setAttribute("id", "form" + i);
-			
+
 			var textarea = document.createElement("textarea");
 			textarea.setAttribute("class", "replyarea");
 			textarea.setAttribute("id", "textbox" + i);
-			
+
 			var replyButton = document.createElement("input");
 			replyButton.setAttribute("class", "replyButton");
 			replyButton.setAttribute("type", "button");
@@ -204,17 +201,17 @@ span.alert {
 					sendMessage(j, name, email);
 				}
 			}(i, message.student.firstName, message.student.email);
-			
-			
+
+
 			replyForm.appendChild(textarea);
 			replyForm.appendChild(replyButton);
-			
+
 			messageDiv.appendChild(subjectSpan);
 			messageDiv.appendChild(contentSpan);
 			messageDiv.appendChild(nameSpan);
 			messageDiv.appendChild(alertSpan);
 			messageDiv.appendChild(replyForm);
-			
+
 			$("div#messages").append(messageDiv);
 		}
 	}
@@ -223,17 +220,17 @@ span.alert {
 		updatePage();
 		startTimer();
 	}
-	
+
 	function startTimer(){
 		timer = window.setInterval(updatePage, 30000);
 	}
-	
+
 	function stopTimer(){
 		window.clearInterval(timer);
 	}
-	
+
 	/*
-	
+
 	getJSON is going to go that url and try to download the data from that url, 
 	parse that data and pass it to the function showMessages when that request is complete
 	*/
@@ -241,10 +238,36 @@ span.alert {
 		/* alert("updating page"); */
 		$.getJSON("<c:url value="/json/accounts/messages"/>", showMessages);
 	}
-	
-	
+
+
 	$(document).ready(onLoad);
 </script>
+
+
+
+		
+<!-- <script>	
+	
+	function updateMessageLink(data){
+		/* alert(data.number); */
+		$("#numberMessages").text(data.number);
+		
+	}
+	
+	function updatePage(){
+		alert("updating page");
+		$.getJSON("<c:url value="/json/accounts/messages"/>", updateMessageLink);
+		
+	}
+	
+	function onLoad(){
+		updatePage();
+		window.setInterval(updatePage, 30000);
+	}
+	
+	$(document).ready(onLoad);
+	
+</script> -->
 	
 	
 	

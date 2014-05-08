@@ -45,127 +45,68 @@ public class AdminMessageController {
 	@Inject
 	private MailSender mailSender;
 	
-	// ======================================
-	// =             messages             =
-	// ======================================
-	
-	@RequestMapping(value = "/accounts/{userEntityId}/messages", method = RequestMethod.GET)
-	public String getMessages(@PathVariable("userEntityId") Long userEntityId,
-			Model model) {
-		
-		/**
-		 * load all messages for a user
-		 */
-		model.addAttribute("messages", messageService.getMessagesByUserEntityId(userEntityId));
-		
-		/**
-		 * The modelAttribute "message" for the form to add new message
-		 */
-		Message message = new Message();
-		model.addAttribute("message", message);
-		/**
-		 * 
-		 */
-		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
-		
-		return "messages";
-	}
-	
-	@RequestMapping(value = "/accounts/{userEntityId}/messages", method = RequestMethod.POST)
-	public String postNewMessageForm(@PathVariable("userEntityId") Long userEntityId,
-			@ModelAttribute @Valid Message message, BindingResult result) {
-		
-		/**
-		 * Get the admission staff creating this message from the sercurityContext
-		 */
-		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
-		
-		if (result.hasErrors()) {
-			return "newMessageForm";
-		}
 
-		message.setStudent(userEntityService.getUserEntity(userEntityId));
-		message.setAdmissionOfficer(admissionOfficer);
-		messageService.createMessage(message);
-		
-		return "redirect:/accounts/{userEntityId}/messages";
-	}
-	
-	@RequestMapping(value = "/accounts/{userEntityId}/message/{messageId}", method = RequestMethod.GET)
-	public String editMessage(@PathVariable("userEntityId") Long userEntityId,
-			@PathVariable("messageId") Long messageId, Model model) {
-		
-		Message message = getMessageValidateUserEntityId(userEntityId, messageId);
-		
-		model.addAttribute("originalMessage", message);
-		model.addAttribute(message);
-		
-		return "editMessage";
-	}
-	
-	@RequestMapping(value = "/accounts/{userEntityId}/message/{messageId}", method = RequestMethod.POST)
-	public String editMessage(@PathVariable("userEntityId") Long userEntityId,
-			@PathVariable("messageId") Long messageId,
-			@ModelAttribute @Valid Message origMessage, 
-			BindingResult result,
-			Model model) {
-		
-		/**
-		 * Get the admission staff updating this message from the sercurityContext
-		 * db will show the last person making any changes on the message
-		 */
-		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
-		
-		Message message = getMessageValidateUserEntityId(userEntityId, messageId);
-
-		if (result.hasErrors()) {
-			model.addAttribute("originalMessage", origMessage);
-			return "editMessage";
-		}
-		
-//		message.setAdmissionOfficer(origMessage.getAdmissionOfficer());
-		message.setAdmissionOfficer(admissionOfficer);
-		message.setDateModified(origMessage.getDateModified());
-		message.setStudent(origMessage.getStudent());
-		message.setSubject(origMessage.getSubject());
-		message.setText(origMessage.getText());
-		message.setVisible(origMessage.isVisible());
-		
-		messageService.updateMessage(message);
-		
-		return "redirect:/accounts/{userEntityId}/messages";
-	}
-	
-	@RequestMapping(value = "/accounts/{userEntityId}/message/{messageId}/delete", method = RequestMethod.POST)
-	public String deleteMessage(@PathVariable("userEntityId") Long userEntityId,
-			@PathVariable("messageId") Long messageId)
-			throws IOException {
-		messageService.deleteMessage(getMessageValidateUserEntityId(userEntityId, messageId));
-		return "redirect:/accounts/{userEntityId}/messages";
-	}
 	
 	// ======================================
 	// =                JSON        =
 	// ======================================
 	
+	/**
+	 * Displays the messages page
+	 * @param userEntityId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/accounts/{userEntityId}/messages", method = RequestMethod.GET)
+	public String showJsonMessages(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+
+//		model.addAttribute("messagesJson", messageService.getMessagesByUserEntityId(userEntityId));
+		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
+		model.addAttribute("userEntityId", userEntityId);
+
+		return "messages";
+		/*
+		 * IDEA
+		 * pass all the messages to the model 
+		 * display all messages in the view
+		 * use JQ to call this method on a timer
+		 * the timer will update the page automatically
+		 */
+	}
 	
-	@RequestMapping(value = "/json/accounts/{userEntityId}/messages", method = RequestMethod.GET, produces = "application/json")
+	
+	@RequestMapping(value = "/accounts/messages", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getAllMessagesForJSON() {
+
+		List<Message> messages = messageService.getAllMessages();
+
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("messages", messages);
+		data.put("messagesCount", messages.size());
+
+		return data;
+
+	}
+	
+	@RequestMapping(value = "/accounts/{userEntityId}/getmessages", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> getMessagesForJSON(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
-		
+
 		List<Message> messages = null;
 		if (userEntityId == null) {
 			messages = new ArrayList<Message>();
 		} else {
 			messages = messageService.getMessagesByUserEntityId(userEntityId);
 		}
-		
+
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("messages", messages);
-		data.put("number", messages.size());
+		data.put("messagesCount", messages.size());
 		return data;
-		
+
 		//
 //		
 //		model.addAttribute("messagesJson", messageService.getMessagesByUserEntityId(userEntityId));
@@ -173,75 +114,84 @@ public class AdminMessageController {
 //		return "messages";
 	}
 	/**
+	 * returning a map, test with returning a string of "success" or "error"
+	 * I want to VALIDATE the subject and text. text should not be null, and subject < 100.
+	 * 
 	 * @requestBody - this enables you to get data in the appropriate data type
 	 * going to receive the @RequestBody data from javascript or jquery post
 	 * The map data is what the jquery sendMessage sent
 	 */
-//	@RequestMapping(value = "/json/accounts/{userEntityId}/sendmessage", method = RequestMethod.POST, produces="application/json")
-	@RequestMapping(value = "/json/accounts/sendmessage", method = RequestMethod.POST, produces="application/json")
+	@RequestMapping(value = "/accounts/{userEntityId}/sendmessage", method = RequestMethod.POST, produces="application/json")
+//	@RequestMapping(value = "/accounts/sendmessage", method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public Map<String, Object> sendMessageJSON(@RequestBody Map<String, Object> data) {
+	public Map<String, Object> sendMessageJSON(@PathVariable("userEntityId") Long userEntityId, 
+			@RequestBody Map<String, Object> data) {
+
+		System.out.println("############# sendMessageJSON called");
 		
+		long studentId = Long.parseLong((String) data.get("studentId"));
+		String subject = (String) data.get("subject");
 		String text = (String) data.get("text");
-		String name = (String) data.get("name");
-		String email = (String) data.get("email");
-		Integer target = (Integer)data.get("target");
+
+		System.out.println(studentId + " , " + subject + " , " + text);
+
+//		verify the studentId and userEntityId macth
+		UserEntity student = userEntityService.getUserEntity(studentId);
 		
-		System.out.println(name + " , " + email + " , " + text);
+		/**
+		 * Get the admission staff creating this message from the sercurityContext
+		 */
+		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		
+//		if (result.hasErrors()) {
+//			return "newMessageForm";
+//			System.out.println("########## inside result.hasErrors");
+//		} 
+		
+		Message message = new Message();
+		message.setAdmissionOfficer(admissionOfficer);
+//		message.setDateCreated(dateCreated);
+//		message.setDateModified(dateModified);
+		message.setStudent(student);
+		message.setSubject(subject);
+		message.setText(text);
+		message.setVisible(true);
+		
+		messageService.createMessage(message);
+
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setFrom("daniel2advance@gmail.com");
-		mail.setTo(email);
-		mail.setSubject("Re:" + name + ", your message");
+		mail.setTo(student.getEmail());
+		mail.setSubject(subject);
 		mail.setText(text);
+		
+//		String returnVal;
 		
 		try {
 			mailSender.send(mail);
+//			returnVal = "success";
 		} catch (MailException e) {
 			e.printStackTrace();
 			System.out.println("Failed to send message");
+//			returnVal = "error";
 		}
-		
-		
+
+
 		// a map that is going to be actual value to return, 
 		// the actual json value that we return to javascript
 		Map<String, Object> returnVal = new HashMap<String, Object>();
 		returnVal.put("success", true);
-		returnVal.put("target", target);
+		returnVal.put("stId", studentId);
 		return returnVal;
 	}
-	
-	
-	@RequestMapping(value = "/json/accounts/messages", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> getAllMessagesForJSON() {
-		
-		List<Message> messages = messageService.getAllMessages();
-		
-		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("messages", messages);
-		data.put("number", messages.size());
-		
-		return data;
-		
-	}
-	
-	@RequestMapping(value = "/json/jsonMessages", method = RequestMethod.GET)
-	public String showJsonMessages(Model model) {
-		
-//		model.addAttribute("messagesJson", messageService.getMessagesByUserEntityId(userEntityId));
-//		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
-		
-		return "jsonMessages";
-	}
-	
+
 	
 	// ======================================
 	// =                        =
 	// ======================================
 	
-	private Message getMessageValidateUserEntityId(Long userEntityId, Long highschoolId) {
-		Message message = messageService.getMessage(highschoolId);
+	private Message getMessageValidateUserEntityId(Long userEntityId, Long messageId) {
+		Message message = messageService.getMessage(messageId);
 		
 //		Assert.isTrue(userEntityId.equals(message.getUserEntity().getId()), "Message Id mismatch");
 		Assert.isTrue(userEntityId.equals(message.getStudent().getId()), "Message Id mismatch");
@@ -254,4 +204,100 @@ public class AdminMessageController {
 		UserEntity userEntity = (UserEntity) auth.getPrincipal();
 		return userEntity;
 	}
+	
+	// ======================================
+	// =             messages             =
+	// ======================================
+	
+//	@RequestMapping(value = "/accounts/{userEntityId}/messages", method = RequestMethod.GET)
+//	public String getMessages(@PathVariable("userEntityId") Long userEntityId,
+//			Model model) {
+//		
+//		/**
+//		 * load all messages for a user
+//		 */
+//		model.addAttribute("messages", messageService.getMessagesByUserEntityId(userEntityId));
+//		
+//		/**
+//		 * The modelAttribute "message" for the form to add new message
+//		 */
+//		Message message = new Message();
+//		model.addAttribute("message", message);
+//		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
+//		
+//		return "messages";
+//	}
+	
+//	@RequestMapping(value = "/accounts/{userEntityId}/messages", method = RequestMethod.POST)
+//	public String postNewMessageForm(@PathVariable("userEntityId") Long userEntityId,
+//			@ModelAttribute @Valid Message message, BindingResult result) {
+//		
+//		/**
+//		 * Get the admission staff creating this message from the sercurityContext
+//		 */
+//		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
+//		
+//		if (result.hasErrors()) {
+//			return "newMessageForm";
+//		}
+//
+//		message.setStudent(userEntityService.getUserEntity(userEntityId));
+//		message.setAdmissionOfficer(admissionOfficer);
+//		messageService.createMessage(message);
+//		
+//		return "redirect:/accounts/{userEntityId}/messages";
+//	}
+	
+//	@RequestMapping(value = "/accounts/{userEntityId}/message/{messageId}", method = RequestMethod.GET)
+//	public String editMessage(@PathVariable("userEntityId") Long userEntityId,
+//			@PathVariable("messageId") Long messageId, Model model) {
+//		
+//		Message message = getMessageValidateUserEntityId(userEntityId, messageId);
+//		
+//		model.addAttribute("originalMessage", message);
+//		model.addAttribute(message);
+//		
+//		return "editMessage";
+//	}
+	
+//	@RequestMapping(value = "/accounts/{userEntityId}/message/{messageId}", method = RequestMethod.POST)
+//	public String editMessage(@PathVariable("userEntityId") Long userEntityId,
+//			@PathVariable("messageId") Long messageId,
+//			@ModelAttribute @Valid Message origMessage, 
+//			BindingResult result,
+//			Model model) {
+//		
+//		/**
+//		 * Get the admission staff updating this message from the sercurityContext
+//		 * db will show the last person making any changes on the message
+//		 */
+//		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
+//		
+//		Message message = getMessageValidateUserEntityId(userEntityId, messageId);
+//
+//		if (result.hasErrors()) {
+//			model.addAttribute("originalMessage", origMessage);
+//			return "editMessage";
+//		}
+//		
+////		message.setAdmissionOfficer(origMessage.getAdmissionOfficer());
+//		message.setAdmissionOfficer(admissionOfficer);
+//		message.setDateModified(origMessage.getDateModified());
+//		message.setStudent(origMessage.getStudent());
+//		message.setSubject(origMessage.getSubject());
+//		message.setText(origMessage.getText());
+//		message.setVisible(origMessage.isVisible());
+//		
+//		messageService.updateMessage(message);
+//		
+//		return "redirect:/accounts/{userEntityId}/messages";
+//	}
+	
+//	@RequestMapping(value = "/accounts/{userEntityId}/message/{messageId}/delete", method = RequestMethod.POST)
+//	public String deleteMessage(@PathVariable("userEntityId") Long userEntityId,
+//			@PathVariable("messageId") Long messageId)
+//			throws IOException {
+//		messageService.deleteMessage(getMessageValidateUserEntityId(userEntityId, messageId));
+//		return "redirect:/accounts/{userEntityId}/messages";
+//	}
 }

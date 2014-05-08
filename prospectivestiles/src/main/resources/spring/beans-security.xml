@@ -56,6 +56,18 @@
 		<intercept-url pattern="/json/jsonMessages" access="permitAll" />
 		
 		
+		<!-- FOR TESTING use authorization!!!!! -->
+		<intercept-url pattern="/accounts/*/getmessages" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/messages" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/messages" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/sendmessage" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/sendmessage" access="hasRole('ROLE_ADMIN')" />
+		
+		<intercept-url pattern="/myAccount/getmessages" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/messages" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/sendmessage" access="isAuthenticated()" />
+		
+		
 		<intercept-url pattern="/json/accounts/*/addresses" access="permitAll" />
 		<intercept-url pattern="/json/**" access="permitAll" />
 		
