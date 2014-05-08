@@ -64,7 +64,7 @@ public class StudentMessageController {
 		model.addAttribute("userEntity", userEntity);
 		model.addAttribute("userEntityId", userEntity.getId());
 
-		return "myMessages";
+		return "messages";
 		/*
 		 * IDEA
 		 * pass all the messages to the model 

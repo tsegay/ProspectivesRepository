@@ -177,11 +177,8 @@ span.notification {
 		<p>No Message.</p>
 	</c:when>
 	<c:otherwise>
-		
 		<div class="panel-group" id="accordion">
 		<c:forEach var="message" items="${messages}">
-		
-					
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">
@@ -197,74 +194,11 @@ span.notification {
 				      </div>
 				    </div>
 				  </div>
-		
 		</c:forEach>
 		</div>
-
-		
 	</c:otherwise>
 </c:choose> --%>
 <%-- <a data-toggle="collapse" data-parent="#accordion" href="'#'+${message.id}"> --%>
-
-
-<!-- Button trigger modal -->
-<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addMessageModal">
-  Add Message
-</button> -->
-
-<!-- message Modal -->
-<%-- <div class="modal fade" id="addMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class = "modal-content">
-	        <form:form action="${messagesUrl}" modelAttribute="message" role="form" class = "form-horizontal">
-	            <div class = "modal-header">
-	                <h4>Add Message</h4>
-	                message: 
-	                <c:if test="${message.id > 0}">
-	                	<c:out value="${message.id}" />
-	                </c:if>
-	                <br />
-	            </div>
-	            <div class = "modal-body">
-	            	
-	                <div class="form-group row">
-						<label for="subject" class="col-sm-2 control-label">subject</label>
-					    <div class="col-sm-5">
-					      <form:input path="subject" class="form-control" placeholder = "Your subject" />
-					    </div>
-					    <div class="col-sm-5">
-					    	<form:errors path="subject" htmlEscape="false" />
-					    </div>
-					</div>
-	                <div class="form-group row">
-						<label for="text" class="col-sm-2 control-label">text</label>
-					    <div class="col-sm-5">
-					      <form:input path="text" class="form-control" placeholder = "Your text" />
-					    </div>
-					    <div class="col-sm-5">
-					    	<form:errors path="text" htmlEscape="false" />
-					    </div>
-					</div>
-			        
-	            </div>
-	            <div class = "modal-footer">
-	        		<a class = "btn btn-default" data-dismiss = "modal">Cancel</a>    
-	        		<input class="btn btn-primary" type="submit" value="Submit"></input>
-	            </div>
-	        </form:form>
-	  </div>
-  </div>
-</div> --%>
-
-
-<!-- edit message Modal -->
-<!-- <div class="modal fade" id="editMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class = "modal-content">
-	  </div>
-  </div>
-</div> -->
-
 <!-- ############################################################################################# -->
 <!-- 			jQuery Scripts			 -->
 <!-- ############################################################################################# -->
@@ -276,14 +210,12 @@ span.notification {
 <!-- deleted modal script -->
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<!-- try admin js for the form -->
 	<c:url var="getMessagesUrl" value="/accounts/${userEntity.id}/getmessages" />
 	<%-- <c:url value="/accounts/' + userEntityId + '/getmessages"/> --%>
 	<c:url var="postMessageUrl" value="/accounts/${userEntity.id}/sendmessage" />
 	<%-- <c:url value="/accounts/' + studentId + '/sendmessage"/> --%>
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<!-- try user js for the form -->
 	<c:url var="getMessagesUrl" value="/myAccount/getmessages" />
 	<c:url var="postMessageUrl" value="/myAccount/sendmessage" />
 </sec:authorize>
@@ -324,7 +256,7 @@ span.notification {
 		
 		$.ajax({
 			"type": 'POST',
-			"url" : '<c:url value="/accounts/' + studentId + '/sendmessage"/>',
+			"url" : '${postMessageUrl}',
 			"data": JSON.stringify({"studentId": studentId, "subject": subject, "text": text}),
 			"complete": function(response, textStatus){
 				return alert("#### complete called. " + textStatus);
@@ -436,7 +368,8 @@ span.notification {
 	
 	function updatePage(){
 		var userEntityId = '${userEntityId}';
-		$.getJSON('<c:url value="/accounts/' + userEntityId + '/getmessages"/>', fetchAndDisplayMessages);
+		/* alert('${getMessagesUrl}'); */
+		$.getJSON('${getMessagesUrl}', fetchAndDisplayMessages);
 	}
 	
 	function onLoad(){
