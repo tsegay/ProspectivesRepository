@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.StandardTest;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.StandardTestService;
@@ -52,15 +53,28 @@ public class StudentStandardTestController {
 
 		return "standardTests";
 	}
+	
+	@RequestMapping(value = "/myAccount/standardTest/new", method = RequestMethod.GET)
+	public String getNewStandardTestForm(Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		
+		StandardTest standardTest = new StandardTest();
+		standardTest.setUserEntity(userEntity);
+		model.addAttribute(standardTest);
+		model.addAttribute(userEntity);
+		
+		return "newStandardTestForm";
+	}
 
 	@RequestMapping(value = "/myAccount/standardTests", method = RequestMethod.POST)
-	public String postNewStandardTestForm(
-			@ModelAttribute @Valid StandardTest standardTest,
-			BindingResult result) {
+	public String postNewStandardTestForm(@ModelAttribute @Valid StandardTest standardTest,
+			BindingResult result, Model model) {
 
+		UserEntity userEntity = getUserEntityFromSecurityContext();
 		if (result.hasErrors()) {
+			model.addAttribute(userEntity);
 			// System.out.println("######## result.hasErrors(): true" );
-			return "standardTests";
+			return "newStandardTestForm";
 		} else {
 			// System.out.println("######## result.hasErrors(): false" );
 		}
@@ -70,12 +84,7 @@ public class StudentStandardTestController {
 		 * get userEntity from URL >>>>> if logged in as admin get userEntity
 		 * from Session >>>>>>> if logged in as student
 		 */
-		UserEntity userEntity = getUserEntityFromSecurityContext();
-		System.out
-				.println("######## userEntity.getId(): " + userEntity.getId());
 		standardTest.setUserEntity(userEntity);
-		System.out.println("######## address.getUserEntity(): "
-				+ standardTest.getUserEntity());
 		standardTestService.createStandardTest(standardTest);
 
 		return "redirect:/myAccount/standardTests";
@@ -85,7 +94,7 @@ public class StudentStandardTestController {
 	// = =
 	// ======================================
 
-	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}/edit", method = RequestMethod.GET)
 	public String editStandardTest(
 			@PathVariable("standardTestId") Long standardTestId, Model model) {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
@@ -99,8 +108,7 @@ public class StudentStandardTestController {
 	}
 
 	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}", method = RequestMethod.POST)
-	public String editInstitute(
-			@PathVariable("standardTestId") Long standardTestId,
+	public String editStandardTest(@PathVariable("standardTestId") Long standardTestId,
 			@ModelAttribute @Valid StandardTest origStandardTest,
 			BindingResult result, Model model) {
 
@@ -111,6 +119,7 @@ public class StudentStandardTestController {
 		if (result.hasErrors()) {
 			// log.debug("Validation Error in Institute form");
 			model.addAttribute("originalStandardTest", origStandardTest);
+			model.addAttribute(userEntity);
 			return "editStandardTest";
 		}
 
@@ -125,12 +134,10 @@ public class StudentStandardTestController {
 	}
 
 	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}/delete", method = RequestMethod.POST)
-	public String deleteMessage(
-			@PathVariable("standardTestId") Long standardTestId)
+	public String deleteMessage(@PathVariable("standardTestId") Long standardTestId)
 			throws IOException {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
-		StandardTest standardTest = getStandardTestsValidateUserEntityId(
-				userEntity.getId(), standardTestId);
+		StandardTest standardTest = getStandardTestsValidateUserEntityId(userEntity.getId(), standardTestId);
 		standardTestService.delete(standardTest);
 
 		return "redirect:/myAccount/standardTests";

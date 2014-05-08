@@ -57,24 +57,12 @@
 	    <li><a href="#">One more separated link</a></li>
 	  </ul>
 	</li>
-	<%-- <li>
-		<a href="${myAccount}">Personal Info</a>
-	</li>
-	<li>
-		<a href="${addressUrl}">Addresses</a>
-	</li> --%>
 	<li>
 		<a href="${educationUrl}">Educational bgd</a>
 	</li>
-	<%-- <li>
-		<a href="${emergencyContactsUrl}">EmergencyContacts</a>
-	</li> --%>
 	<li>
 		<a href="${applyingForUrl}">ApplyingFor</a>
 	</li>
-	<%-- <li>
-		<a href="${employersUrl}">Employment</a>
-	</li> --%>
 	<li class="active">
 		<a href="${standardTestsUrl}">StandardTest</a>
 	</li>
@@ -101,17 +89,6 @@
 	<li>
 		<a href="${messagesUrl}">Messages</a>
 	</li>
-	<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-		<li>
-			<a href="${checklistUrl}">Checklist</a>
-		</li>
-		<li>
-			<a href="${evaluationUrl}">Evaluation</a>
-		</li>
-		<li>
-			<a href="${reportsUrl}">Reports</a>
-		</li>
-	</sec:authorize> --%>
 </ul>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -160,12 +137,12 @@
 				
 				 <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<c:url var="standardTestUrl"	value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}" />
-					<c:url var="editStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}" />
+					<c:url var="editStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/edit" />
 					<c:url var="deleteStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/delete" />
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_USER')">
 					<c:url var="standardTestUrl"	value="/myAccount/standardTest/${standardTest.id}" />
-					<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}" />
+					<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/edit" />
 					<c:url var="deleteStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/delete" />
 				</sec:authorize>
 				
@@ -177,10 +154,7 @@
 					<td><c:out value="${standardTest.score}"></c:out></td>
 					<td><c:out value="${standardTest.validTill}"></c:out></td>
 					<td>
-						<%-- <a data-toggle="modal" href="${editStandardTestUrl}" data-target="#editStandardTestModal" 
-							class="btn btn-primary btn-lg">modal: Edit</a> --%>
-						<a data-toggle="modal" href="${editStandardTestUrl}" data-target="#editStandardTestModal" 
-							class="btn btn-primary btn-lg">Edit</a>
+						<a href="${editStandardTestUrl}" class="btn btn-primary btn-lg">Edit</a>
 					</td>
 					<td>
 						<form id="deleteForm" action="${deleteStandardTestUrl}" method="post">
@@ -196,13 +170,24 @@
 	</c:otherwise>
 </c:choose>
 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<c:url var="newStandardTestUrl" value="/accounts/${userEntity.id}/standardTest/new" />
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_USER')">
+	<c:url var="newStandardTestUrl" value="/myAccount/standardTest/new" />
+</sec:authorize>
+			
+<h3>
+	<a href="${newStandardTestUrl}">Add New StandardTest</a>
+</h3>
+
 <!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addStandardTestModal">
+<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addStandardTestModal">
   Add StandardTest
-</button>
+</button> -->
 
 <!-- standardTest Modal -->
-<div class="modal fade" id="addStandardTestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<%-- <div class="modal fade" id="addStandardTestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	        <form:form action="${standardTestsUrl}" modelAttribute="standardTest" role="form" class = "form-horizontal">
@@ -247,16 +232,16 @@
 	        </form:form>
 	  </div>
   </div>
-</div>
+</div> --%>
 
 
 <!-- edit standardTest Modal -->
-<div class="modal fade" id="editStandardTestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editStandardTestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	  </div>
   </div>
-</div>
+</div> -->
 
 
 

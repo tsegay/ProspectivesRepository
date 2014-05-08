@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.StandardTest;
+import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.StandardTestService;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -52,12 +54,27 @@ public class AdminStandardTestController {
 		
 		return "standardTests";
 	}
+
+	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/new", method = RequestMethod.GET)
+	public String getNewStandardTestForm(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		
+		StandardTest standardTest = new StandardTest();
+		standardTest.setUserEntity(userEntity);
+		
+		model.addAttribute(standardTest);
+		model.addAttribute(userEntity);
+		
+		return "newStandardTestForm";
+	}
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/standardTests", method = RequestMethod.POST)
 	public String postNewStandardTestForm(@PathVariable("userEntityId") Long userEntityId,
-			@ModelAttribute @Valid StandardTest standardTest, BindingResult result) {
-		
+			@ModelAttribute @Valid StandardTest standardTest, BindingResult result, Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		if (result.hasErrors()) {
+			model.addAttribute(userEntity);
 			return "newStandardTestForm";
 		}
 
@@ -67,7 +84,8 @@ public class AdminStandardTestController {
 		return "redirect:/accounts/{userEntityId}/standardTests";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/{standardTestId}", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/{standardTestId}/edit", method = RequestMethod.GET)
 	public String editStandardTest(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("standardTestId") Long standardTestId, Model model) {
 		
@@ -78,6 +96,7 @@ public class AdminStandardTestController {
 		
 		return "editStandardTest";
 	}
+
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/{standardTestId}", method = RequestMethod.POST)
 	public String editStandardTest(@PathVariable("userEntityId") Long userEntityId,
@@ -102,6 +121,7 @@ public class AdminStandardTestController {
 		return "redirect:/accounts/{userEntityId}/standardTests";
 	}
 	
+	
 	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/{standardTestId}/delete", method = RequestMethod.POST)
 	public String deleteStandardTest(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("standardTestId") Long standardTestId)
@@ -109,6 +129,7 @@ public class AdminStandardTestController {
 		standardTestService.delete(getStandardTestValidateUserEntityId(userEntityId, standardTestId));
 		return "redirect:/accounts/{userEntityId}/standardTests";
 	}
+	
 	
 	// ======================================
 	// =                        =
