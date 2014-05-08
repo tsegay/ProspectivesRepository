@@ -7,135 +7,168 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<c:url var="accountsUrl" value="/accounts/${userEntity.id}" />
+	<c:url var="editAccountUrl" value="/accounts/${userEntity.id}/edit" />
+	<c:url var="deleteAccountUrl" value="" />
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_USER')">
+	<c:url var="accountsUrl" value="/myAccount/accounts" />
+	<c:url var="editAccountUrl" value="/myAccount/account/${userEntity.id}" />
+	<c:url var="deleteAccountUrl" value="" />
+</sec:authorize>
 
-<h1>MyAccount editAccountUrl.jsp</h1>
-<form:form action="${editAccountUrl}" modelAttribute="userEntity"
-	role="form" class="form-horizontal">
-	<div class="modal-header">
-		<h4>editAccountUrl</h4>
-		userEntity.id:
-		<c:if test="${userEntity.id > 0}">
-			<c:out value="${userEntity.id}" />
-		</c:if>
-	</div>
-	<div class="modal-body">
+<h1>editAccount.jsp</h1>
 
+<form:form action="${editAccountUrl}"
+	modelAttribute="userEntity" role="form" class="form-horizontal">
 
-		<div class="form-group">
+		<div class="form-group row">
 			<label for="username" class="col-sm-2 control-label">username</label>
-			<div class="col-sm-10">
+			<div class="col-sm-5">
 				<form:input class="form-control" path="username"
 					placeholder="Your username" />
 			</div>
+			<div class="col-sm-5">
+				<form:errors path="username" htmlEscape="false" />
+			</div>
 		</div>
-
-		<div class="form-group">
+	
+		<div class="form-group row">
 			<label for="email" class="col-sm-2 control-label">email</label>
-			<div class="col-sm-10">
+			<div class="col-sm-5">
 				<form:input class="form-control" path="email"
 					placeholder="Your email" />
 			</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="firstName" class="col-sm-2 control-label">firstName</label>
-			<div class="col-sm-10">
-				<form:input path="firstName" class="form-control" id="firstName"
-					placeholder="Your firstName" />
+			<div class="col-sm-5">
+				<form:errors path="email" htmlEscape="false" />
 			</div>
 		</div>
-		
-		<div class="form-group">
+	
+		<div class="form-group row">
+			<label for="firstName" class="col-sm-2 control-label">firstName</label>
+			<div class="col-sm-5">
+				<form:input class="form-control" path="firstName"
+					placeholder="Your firstName" />
+			</div>
+			<div class="col-sm-5">
+				<form:errors path="firstName" htmlEscape="false" />
+			</div>
+		</div>
+	
+		<div class="form-group row">
 			<label for="middleName" class="col-sm-2 control-label">middleName</label>
-			<div class="col-sm-10">
+			<div class="col-sm-5">
 				<form:input class="form-control" path="middleName"
 					placeholder="Your middleName" />
 			</div>
+			<div class="col-sm-5">
+				<form:errors path="middleName" htmlEscape="false" />
+			</div>
 		</div>
-		<div class="form-group">
+	
+		<div class="form-group row">
 			<label for="lastName" class="col-sm-2 control-label">lastName</label>
-			<div class="col-sm-10">
+			<div class="col-sm-5">
 				<form:input class="form-control" path="lastName"
 					placeholder="Your lastName" />
 			</div>
+			<div class="col-sm-5">
+				<form:errors path="lastName" htmlEscape="false" />
+			</div>
 		</div>
-		
-		<div class="form-group">
+	
+		<div class="form-group row">
 			<label for="homePhone" class="col-sm-2 control-label">homePhone</label>
-			<div class="col-sm-10">
+			<div class="col-sm-5">
 				<form:input class="form-control" path="homePhone"
 					placeholder="Your homePhone" />
 			</div>
+			<div class="col-sm-5">
+				<form:errors path="homePhone" htmlEscape="false" />
+			</div>
 		</div>
-		<div class="form-group">
+	
+		<div class="form-group row">
 			<label for="cellPhone" class="col-sm-2 control-label">cellPhone</label>
-			<div class="col-sm-10">
+			<div class="col-sm-5">
 				<form:input class="form-control" path="cellPhone"
 					placeholder="Your cellPhone" />
 			</div>
+			<div class="col-sm-5">
+				<form:errors path="cellPhone" htmlEscape="false" />
+			</div>
 		</div>
-		
-		<div class="form-group">
+	
+		<div class="form-group row">
 			<label for="gender" class="col-sm-2 control-label">gender</label>
-			<div class="col-sm-10">
-				<form:input path="gender" class="form-control" id="gender"
+			<div class="col-sm-5">
+				<form:input class="form-control" path="gender"
 					placeholder="Your gender" />
 			</div>
+			<div class="col-sm-5">
+				<form:errors path="gender" htmlEscape="false" />
+			</div>
 		</div>
-		<div class="form-group">
+	
+		<div class="form-group row">
 			<label for="ssn" class="col-sm-2 control-label">ssn</label>
-			<div class="col-sm-10">
-				<form:input path="ssn" class="form-control" id="ssn"
+			<div class="col-sm-5">
+				<form:input class="form-control" path="ssn"
 					placeholder="Your ssn" />
 			</div>
+			<div class="col-sm-5">
+				<form:errors path="ssn" htmlEscape="false" />
+			</div>
 		</div>
-		<div class="form-group">
+	
+		<div class="form-group row">
 			<label for="citizenship" class="col-sm-2 control-label">citizenship</label>
-			<div class="col-sm-10">
-				<form:input path="citizenship" class="form-control" id="citizenship"
+			<div class="col-sm-5">
+				<form:input class="form-control" path="citizenship"
 					placeholder="Your citizenship" />
 			</div>
+			<div class="col-sm-5">
+				<form:errors path="citizenship" htmlEscape="false" />
+			</div>
 		</div>
-		<div class="form-group">
+	
+	
+		<div class="form-group row">
 			<label for="ethnicity" class="col-sm-2 control-label">ethnicity</label>
-			<div class="col-sm-10">
-				<form:input path="ethnicity" class="form-control" id="ethnicity"
+			<div class="col-sm-5">
+				<form:input class="form-control" path="ethnicity"
 					placeholder="Your ethnicity" />
 			</div>
+			<div class="col-sm-5">
+				<form:errors path="ethnicity" htmlEscape="false" />
+			</div>
 		</div>
-		<div class="form-group">
+	
+		<div class="form-group row">
 			<label for="sevisNumber" class="col-sm-2 control-label">sevisNumber</label>
-			<div class="col-sm-10">
-				<form:input path="sevisNumber" class="form-control" id="sevisNumber"
+			<div class="col-sm-5">
+				<form:input class="form-control" path="sevisNumber"
 					placeholder="Your sevisNumber" />
 			</div>
-		</div>
-		
-		<%-- Use timeStyle="short" so jquery.tablesorter can parse column as date --%>
-		<fmt:formatDate value="${userEntity.dob}" var="dateString" pattern="dd/MM/yyyy" />
-		
-		<div class="form-group">
-			<label for="dob" class="col-sm-2 control-label">dob</label>
-			<div class="col-sm-10">
-				<form:input path="dob" value="${dateString}" class="form-control" id="dob" placeholder="Your dob" />
+			<div class="col-sm-5">
+				<form:errors path="sevisNumber" htmlEscape="false" />
 			</div>
 		</div>
-				<%-- <form:input path="dob" class="form-control" id="dob" placeholder="Your dob" /> --%>
+	
+		<%-- Use timeStyle="short" so jquery.tablesorter can parse column as date --%>
+		<fmt:formatDate value="${userEntity.dob}" var="dateString" pattern="dd/MM/yyyy" />
+		<div class="form-group row">
+			<label for="dob" class="col-sm-2 control-label">dob</label>
+			<div class="col-sm-5">
+				<form:input path="dob" value="${dateString}" class="form-control" id="dob" placeholder="Your dob" />
+			</div>
+			<div class="col-sm-5">
+				<form:errors path="sevisNumber" htmlEscape="false" />
+			</div>
+		</div>
 		
-		<%-- <div class="form-group row">
-			<label for="password" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.password" /></label>
-		    <div class="col-sm-5">
-		      <form:input path="password" class="form-control" placeholder = "Your password" />
-		    </div>
-		</div> --%>
-		<%-- <div class="form-group checkbox row">
-		    <div class="col-sm-2">
-		    	<form:checkbox class="form-control" id="marketingOk" path="marketingOk" />
-		    </div>
-			<label for="marketingOk" class="col-sm-5 control-label"><spring:message code="newUserRegistration.label.marketingOk" /></label>
-		    <div class="col-sm-5">
-		    </div>
-		</div> --%>
+
 		<div class="form-group checkbox row">
 		    <div class="col-sm-2">
 		    	<form:checkbox class="form-control" id="transferee" path="transferee" />
@@ -144,21 +177,15 @@
 		    <div class="col-sm-5">
 		    </div>
 		</div>
-		
-		<%-- <div class="form-group checkbox row">
-		    <div class="col-sm-2">
-		    	<form:checkbox class="form-control" id="acceptTerms" path="acceptTerms" />
-		    </div>
-			<label for="acceptTerms" class="col-sm-5 control-label"><spring:message code="newUserRegistration.label.acceptTerms" /></label>
-		</div> --%>
-		
-		<%-- <form:hidden path="password" />
-		<form:hidden path="acceptTerms" /> --%>
 
+	
+		<div class="form-group">
+			<label for="" class="col-sm-2 control-label">&nbsp;</label>
+			<div class="col-sm-10">
+				<input class="btn btn-primary" type="submit" value="Save"></input> 
+				<a class="btn btn-default" href="${accountsUrl}">Cancel</a>
+			</div>
+		</div>
 
-	</div>
-	<div class="modal-footer">
-		<a class="btn btn-default" data-dismiss="modal">Cancel</a> <input
-			class="btn btn-primary" type="submit" value="Submit"></input>
-	</div>
 </form:form>
+

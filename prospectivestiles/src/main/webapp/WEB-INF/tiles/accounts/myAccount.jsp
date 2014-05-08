@@ -14,7 +14,6 @@
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
@@ -27,7 +26,6 @@
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
 	<!-- change address to addresses -->
 	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/myAccount/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
@@ -194,16 +192,19 @@
 	<c:url var="deleteUserEntityUrl" value="/myAccount/delete" />
 </sec:authorize>
 
-<a data-toggle="modal" data-remote="${editUserEntityUrl}"
-	data-target="#editMyAccountModal" class="btn btn-primary btn-lg">Edit/Update</a>
+<h3>
+	<a href="${editUserEntityUrl}" class="btn btn-primary btn-lg">Edit/Update</a>
+</h3>
+<%-- <a data-toggle="modal" data-remote="${editUserEntityUrl}"
+	data-target="#editMyAccountModal" class="btn btn-primary btn-lg">Edit/Update</a> --%>
 
 	<!-- editMyAccountModal  -->
-<div class="modal fade" id="editMyAccountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editMyAccountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	  </div>
   </div>
-</div>
+</div> -->
 
 
 

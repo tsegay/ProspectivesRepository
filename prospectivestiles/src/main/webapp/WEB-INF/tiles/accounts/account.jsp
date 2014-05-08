@@ -5,14 +5,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<%-- <c:url var="myAccount" value='/myAccount'/>
-	<c:url var="account" value="../accounts/${user.id}" /> --%>
 	<c:url var="myAccount" value="/accounts/${userEntity.id}" />
 	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
@@ -30,7 +27,6 @@
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
 	<!-- change address to addresses -->
 	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/myAccount/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
@@ -214,16 +210,20 @@
 	
 </sec:authorize>
 
-<a data-toggle="modal" data-remote="${editAccountUrl}"
-	data-target="#editAccountModal" class="btn btn-primary btn-lg">Edit/Update</a>
+<h3>
+	<a href="${editAccountUrl}" class="btn btn-primary btn-lg">Edit/Update</a>
+</h3>
+
+<%-- <a data-toggle="modal" data-remote="${editAccountUrl}"
+	data-target="#editAccountModal" class="btn btn-primary btn-lg">Edit/Update</a> --%>
 
 	<!-- editAccountModal  -->
-<div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	  </div>
   </div>
-</div>
+</div> -->
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

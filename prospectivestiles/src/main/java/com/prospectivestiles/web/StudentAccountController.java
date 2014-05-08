@@ -41,8 +41,9 @@ public class StudentAccountController {
 		return "editMyAccount";
 	}
 	
+	/*use @Valid to validate userEntity*/
 	@RequestMapping(value = "/myAccount/edit", method = RequestMethod.POST)
-	public String editMyAccount(@ModelAttribute UserEntity origUserEntity, BindingResult result) {
+	public String editMyAccount(@ModelAttribute UserEntity origUserEntity, BindingResult result, Model model) {
 		
 		UserEntity userEntity = getUserEntityFromSecurityContext();
 		
@@ -54,6 +55,7 @@ public class StudentAccountController {
 			System.out.println("######## result.hasErrors(): true" );
 //			model.addAttribute("origUserEntity", origUserEntity);
 //			return "newAddressForm";
+			model.addAttribute(userEntity);
 			return "myAccount";
 		} else {
 			System.out.println("######## result.hasErrors(): false");

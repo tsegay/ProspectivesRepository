@@ -61,14 +61,19 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/accounts.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="editAccount" template="/WEB-INF/templates/modalTemplate.jsp">
+	<definition name="editAccount" extends="prospectivestiles.base">
+		<put-attribute name="title" value="accounts page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/editAccount.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="editAccount" template="/WEB-INF/templates/modalTemplate.jsp">
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value=""></put-attribute>
 		<put-attribute name="header" value=""></put-attribute>
 		<put-attribute name="sidebar" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/editAccount.jsp"></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
-	</definition>
+	</definition> -->
 	
 	<!-- ====================== ^^^ Student ^^^ ====================================== -->
 	
@@ -77,14 +82,19 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/myAccount.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="editMyAccount" template="/WEB-INF/templates/modalTemplate.jsp">
+	<definition name="editMyAccount" extends="prospectivestiles.base">
+		<put-attribute name="title" value="accounts page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/editMyAccount.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="editMyAccount" template="/WEB-INF/templates/modalTemplate.jsp">
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value=""></put-attribute>
 		<put-attribute name="header" value=""></put-attribute>
 		<put-attribute name="sidebar" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/editMyAccount.jsp"></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
-	</definition>
+	</definition> -->
 	
 	<!-- ====================== Admin && Student ====================================== -->
 	

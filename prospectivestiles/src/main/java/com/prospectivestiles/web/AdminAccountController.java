@@ -2,6 +2,8 @@ package com.prospectivestiles.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -50,18 +53,18 @@ public class AdminAccountController {
 		return "editAccount";
 	}
 	
+	/**
+	 * @Valid - use validation to validate userEntity
+	 */
 	@RequestMapping(value="/accounts/{userEntityId}/edit", method = RequestMethod.POST)
 	public String editAccount(@PathVariable("userEntityId") long userEntityId, 
-			@ModelAttribute UserEntity origUserEntity, BindingResult result) {
+			@ModelAttribute UserEntity origUserEntity, BindingResult result, Model model) {
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
-		if (result != null) {
-			System.out.println("######## Error in: " + result.toString());
-		}
-		
 		if (result.hasErrors()) {
 			System.out.println("######## result.hasErrors(): true" );
+			model.addAttribute("originalUserEntity", userEntity);
 			return "accounts/account";
 		} else {
 			System.out.println("######## result.hasErrors(): false" );
@@ -71,7 +74,6 @@ public class AdminAccountController {
 		
 		return "redirect:/accounts/{userEntityId}";
 	}
-	
 	
 	/**
 	 * NO DELETE METHOD FOR STUDENTS
