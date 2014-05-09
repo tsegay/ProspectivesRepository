@@ -331,14 +331,24 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/evaluation.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="editEvaluation" template="/WEB-INF/templates/modalTemplate.jsp">
+	<definition name="newEvaluationForm" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/evaluationForm.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editEvaluation" extends="prospectivestiles.base">
+		<put-attribute name="title" value="eidtAddress page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/editEvaluation.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="editEvaluation" template="/WEB-INF/templates/modalTemplate.jsp">
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value=""></put-attribute>
 		<put-attribute name="header" value=""></put-attribute>
 		<put-attribute name="sidebar" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/editEvaluation.jsp"></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
-	</definition>
+	</definition> -->
 	
 	<!-- ====================== missingDocuments ====================================== -->
 	

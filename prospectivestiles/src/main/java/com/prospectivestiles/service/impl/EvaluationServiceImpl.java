@@ -55,6 +55,11 @@ public class EvaluationServiceImpl implements EvaluationService {
 		evaluationToUpdate.setApplicationFee(evaluation.getApplicationFee());
 		evaluationToUpdate.setTranscript(evaluation.getTranscript());
 		evaluationToUpdate.setDiplome(evaluation.getDiplome());
+		evaluationToUpdate.setAdmissionOfficer(evaluation.getAdmissionOfficer());
+		evaluationToUpdate.setAdmnOfficerReport(evaluation.getAdmnOfficerReport());
+		evaluationToUpdate.setStudentQualification(evaluation.getStudentQualification());
+//		evaluationToUpdate.setDateLastModified(dateLastModified);
+//		evaluationToUpdate.setDateCreated(dateCreated);
 		
 		evaluationDao.update(evaluationToUpdate);
 	}

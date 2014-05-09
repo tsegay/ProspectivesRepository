@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.Evaluation;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.EvaluationService;
@@ -70,27 +71,45 @@ public class AdminEvaluationController {
 		return "evaluations";
 	}
 	
+	
+	@RequestMapping(value = "/accounts/{userEntityId}/evaluation/new", method = RequestMethod.GET)
+	public String getNewEvaluationForm(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		
+		// get the admission officer and set the evaluation.admofficer
+		
+		Evaluation evaluation = new Evaluation();
+		evaluation.setUserEntity(userEntity);
+		
+		model.addAttribute(evaluation);
+		model.addAttribute(userEntity);
+		
+		return "newEvaluationForm";
+	}
+	
 	@RequestMapping(value = "/accounts/{userEntityId}/evaluations", method = RequestMethod.POST)
 	public String postNewEvaluationForm(@PathVariable("userEntityId") Long userEntityId,
-			@ModelAttribute @Valid Evaluation evaluation, BindingResult result) {
+			@ModelAttribute @Valid Evaluation evaluation, BindingResult result, Model model) {
 		
 		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		if (result.hasErrors()) {
+			model.addAttribute(userEntity);
 			return "newEvaluationForm";
 		}
 
-		evaluation.setUserEntity(userEntityService.getUserEntity(userEntityId));
+		evaluation.setUserEntity(userEntity);
 		evaluation.setAdmissionOfficer(admissionOfficer);
 		evaluationService.createEvaluation(evaluation);
 		
 		return "redirect:/accounts/{userEntityId}/evaluations";
 	}
+
 	
-	/**
-	 * NOT USING THIS AT THE TIME BEING
-	 */
-	@RequestMapping(value = "/accounts/{userEntityId}/evaluation/{evaluationId}", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/accounts/{userEntityId}/evaluation/{evaluationId}/edit", method = RequestMethod.GET)
 	public String editEvaluation(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("evaluationId") Long evaluationId, Model model) {
 		
@@ -101,10 +120,7 @@ public class AdminEvaluationController {
 		
 		return "editEvaluation";
 	}
-	
-	/**
-	 * NOT USING THIS AT THE TIME BEING
-	 */
+
 	@RequestMapping(value = "/accounts/{userEntityId}/evaluation/{evaluationId}", method = RequestMethod.POST)
 	public String editEvaluation(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("evaluationId") Long evaluationId,
@@ -113,6 +129,7 @@ public class AdminEvaluationController {
 			Model model) {
 		
 		Evaluation evaluation = getEvaluationValidateUserEntityId(userEntityId, evaluationId);
+		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 
 		if (result.hasErrors()) {
 			model.addAttribute("originalEvaluation", origEvaluation);
@@ -128,11 +145,18 @@ public class AdminEvaluationController {
 		evaluation.setApplicationFee(origEvaluation.getApplicationFee());
 		evaluation.setTranscript(origEvaluation.getTranscript());
 		evaluation.setDiplome(origEvaluation.getDiplome());
+		evaluation.setAdmissionOfficer(admissionOfficer);
+		evaluation.setAdmnOfficerReport(origEvaluation.getAdmnOfficerReport());
+		evaluation.setStudentQualification(origEvaluation.getStudentQualification());
+//		evaluation.setDateLastModified(dateLastModified);
+//		evaluation.setDateCreated(dateCreated);
 		
 		evaluationService.updateEvaluation(evaluation);
 		
 		return "redirect:/accounts/{userEntityId}/evaluations";
 	}
+
+	
 	
 	/**
 	 * NOT USING THIS AT THE TIME BEING

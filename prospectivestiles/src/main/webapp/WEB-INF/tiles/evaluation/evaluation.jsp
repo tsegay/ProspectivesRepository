@@ -18,7 +18,6 @@
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
@@ -36,7 +35,6 @@
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
 	<!-- change address to addresses -->
 	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/myAccount/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
@@ -119,12 +117,15 @@
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<!-- evaluationUrl name is already used. look up -->
 	<%-- <c:url var="evaluationUrl"	value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}" /> --%>
-	<c:url var="editEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}" />
+	<c:url var="newEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/new" />
+	<c:url var="editEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/edit" />
 	<c:url var="deleteEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/delete" />
 </sec:authorize>
+<!-- Delete this student doesn't have the evaluations page -->
 <sec:authorize access="hasRole('ROLE_USER')">
 	<%-- <c:url var="evaluationUrl"	value="/myAccount/evaluation/${userEntity.evaluation.id}" /> --%>
-	<c:url var="editEvaluationUrl" value="/myAccount/evaluation/${userEntity.evaluation.id}" />
+	<c:url var="newEvaluationUrl" value="/myAccount/evaluation/new" />
+	<c:url var="editEvaluationUrl" value="/myAccount/evaluation/${userEntity.evaluation.id}/edit" />
 	<c:url var="deleteEvaluationUrl" value="/myAccount/evaluation/${userEntity.evaluation.id}/delete" />
 </sec:authorize>
 		
@@ -132,9 +133,12 @@
 	<c:when test="${empty evaluations}">
 		<p>No Evaluation.</p>
 		<!-- Button trigger modal -->
-		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEvaluationModal">
+		<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEvaluationModal">
 		  Create Evaluation
-		</button>
+		</button> -->
+		<h3>
+			<a href="${newEvaluationUrl}">Create Evaluation</a>
+		</h3>
 	</c:when>
 	<c:otherwise>
 				
@@ -336,8 +340,24 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>notes</dt>
+		  <dt>studentQualification</dt>
+		  <dd><c:out value="${userEntity.evaluation.studentQualification}"></c:out></dd>
+		  
+		  <dt>admnOfficerReport</dt>
+		  <dd><c:out value="${userEntity.evaluation.admnOfficerReport}"></c:out></dd>
+		  
+		  <dt>admissionOfficer</dt>
+		  <dd><c:out value="${userEntity.evaluation.admissionOfficer}"></c:out></dd>
+		  
+		  <dt>dateCreated</dt>
+		  <dd><c:out value="${userEntity.evaluation.dateCreated}"></c:out></dd>
+		  
+		  <dt>dateLastModified</dt>
+		  <dd><c:out value="${userEntity.evaluation.dateLastModified}"></c:out></dd>
+		  
+		  <dt>Remarks/notes</dt>
 		  <dd><c:out value="${userEntity.evaluation.notes}"></c:out></dd>
+		  
 		  
 		</dl>
 		
@@ -345,8 +365,9 @@
 		<br />
 		
 		<!-- Evaluation can't be deleted by any user.  -->
-		<a data-toggle="modal" href="${editEvaluationUrl}" data-target="#editEvaluationModal" 
-			class="btn btn-primary btn-lg">Edit</a>
+		<%-- <a data-toggle="modal" href="${editEvaluationUrl}" data-target="#editEvaluationModal" 
+			class="btn btn-primary btn-lg">Edit</a> --%>
+		<a href="${editEvaluationUrl}" class="btn btn-primary btn-lg">Edit</a>
 		<br />
 		<br />	
 		<form id="deleteForm" action="${deleteEvaluationUrl}" method="post">
@@ -360,7 +381,7 @@
 
 
 <!-- evaluation Modal -->
-<div class="modal fade" id="addEvaluationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<%-- <div class="modal fade" id="addEvaluationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	        <form:form action="${evaluationUrl}" modelAttribute="evaluation" role="form" class = "form-horizontal">
@@ -382,7 +403,7 @@
 						<label for="f1Visa" class="col-sm-2 control-label">f1Visa</label>
 					    <div class="col-sm-5">
 							<form:select path="f1Visa" class="form-control">
-								  <%-- <form:option value="NONE" label="--- Select ---" /> --%>
+								  <form:option value="NONE" label="--- Select ---" />
 								  <form:option value="notreviewed" label="Not Reviewed" />
 								  <form:option value="valid" label="Valid" />
 								  <form:option value="invalid" label="Invalid" />
@@ -398,7 +419,7 @@
 						<label for="bankStmt" class="col-sm-2 control-label">bankStmt</label>
 					    <div class="col-sm-5">
 							<form:select path="bankStmt" class="form-control">
-								  <%-- <form:option value="NONE" label="--- Select ---" /> --%>
+								  <form:option value="NONE" label="--- Select ---" />
 								   <form:option value="notreviewed" label="Not Reviewed" />
 								  <form:option value="valid" label="Valid" />
 								  <form:option value="invalid" label="Invalid" />
@@ -518,16 +539,16 @@
 	        </form:form>
 	  </div>
   </div>
-</div>
+</div> --%>
 
 
 <!-- edit evaluation Modal -->
-<div class="modal fade" id="editEvaluationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editEvaluationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	  </div>
   </div>
-</div>
+</div> -->
 
 
 

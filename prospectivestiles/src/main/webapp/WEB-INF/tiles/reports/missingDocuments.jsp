@@ -18,7 +18,6 @@
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
@@ -36,7 +35,6 @@
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
 	<!-- change address to addresses -->
 	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/myAccount/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
@@ -133,7 +131,19 @@
 		<p>There are no missing documents for this student.</p>
 	</c:when>
 	<c:otherwise>
-		<p>The student have the following missing documents.</p>
+	
+		<a href="#" class="btn btn-primary btn-lg">Print</a>
+		<a href="#" class="btn btn-primary btn-lg">Email to Student</a>
+		<br />
+		<br />
+		
+		<p>Dear <c:out value="${userEntity.firstName}" /> <c:out value="${userEntity.lastName}" />:</p>
+		<p>The admission office is processing your application. The office has conducted initial review on your files
+		to process you application but you have some missing documents. 
+		Please submit the missing documetns listed below. Upon completion of your 
+		required files the admission officer will evaluate your documents inorder to grant you admission.
+		</p>
+		<p>These documents are missing from your file.</p>
 		
 		<ul>
 			<c:forEach var="missingDocument" items="${missingDocuments}">

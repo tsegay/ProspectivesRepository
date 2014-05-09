@@ -17,7 +17,6 @@
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
@@ -35,7 +34,6 @@
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
 	<!-- change address to addresses -->
 	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/myAccount/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
@@ -136,7 +134,6 @@
 					<th>Delete</th>
 				</tr>
 	
-				<%-- <c:forEach var="testA" items="${testAs}"> --%>
 				
 				 <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<c:url var="testAUrl"	value="/accounts/${testA.userEntity.id}/testA/${testA.id}" />
@@ -168,10 +165,6 @@
 		                </c:if>
 						<c:if test="${userEntity.programOfStudy.id > 0}">
 		                	<c:out value="${userEntity.programOfStudy.name}"></c:out>
-							<%-- <c:forEach var="programOfStudy" items="${userEntity.listOfProgramOfStudy}">
-								<c:out value="${programOfStudy.name}"></c:out>, 
-							</c:forEach> --%>
-							<%-- <c:out value="${testA.listOfProgramOfStudy}"></c:out> --%>
 		                </c:if>
 					
 					</td>
@@ -186,8 +179,6 @@
 					</td>
 				</tr>
 								
-				<%-- </c:forEach> --%>
-	
 			</table>
 		</div>
 	</c:otherwise>

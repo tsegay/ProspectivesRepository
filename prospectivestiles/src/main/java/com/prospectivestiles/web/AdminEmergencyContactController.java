@@ -62,7 +62,7 @@ public class AdminEmergencyContactController {
 	 * @return
 	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/emergencyContact/new", method = RequestMethod.GET)
-	public String getNewAddressForm(@PathVariable("userEntityId") Long userEntityId,
+	public String getNewEmergencyContactForm(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
