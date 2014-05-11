@@ -236,8 +236,8 @@
 		<intercept-url pattern="/accounts/*/evaluation/new" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/evaluation/*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/evaluation" access="hasRole('ROLE_ADMIN')" /> -->
-		<intercept-url pattern="/accounts/*/missingDocuments" access="hasRole('ROLE_ADMIN')" />
-		
+		<intercept-url pattern="/accounts/*/reports/missingDocuments" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/reports/evaluationReport" access="hasRole('ROLE_ADMIN')" />
 		<!-- Student missingDocuments -->
 		
 		<!-- Admin messages -->

@@ -25,7 +25,8 @@
 	<c:url var="checklistUrl" value="/accounts/${userEntity.id}/checklists" />
 	<c:url var="evaluationUrl" value="/accounts/${userEntity.id}/evaluations" />
 	<c:url var="reportsUrl" value="/accounts/${userEntity.id}/reports" />
-	<c:url var="missingDocumentsUrl" value="/accounts/${userEntity.id}/missingDocuments" />
+	<c:url var="missingDocumentsUrl" value="/accounts/${userEntity.id}/reports/missingDocuments" />
+	<c:url var="evaluationReportUrl" value="/accounts/${userEntity.id}/reports/evaluationReport" />
 	<c:url var="messagesUrl" value="/accounts/${userEntity.id}/messages" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
@@ -76,6 +77,7 @@
 		  <ul class="dropdown-menu">
 		    <li><a href="${reportsUrl}">Reports</a></li>
 		    <li><a href="${missingDocumentsUrl}">MissingDocuments</a></li>
+		    <li><a href="${evaluationReportUrl}">evaluationReport</a></li>
 		    <li><a href="#">Link</a></li>
 		    <li class="divider"></li>
 		    <li><a href="#">Link</a></li>
@@ -114,17 +116,18 @@
 	<div class="info alert">Checklist deleted.</div>
 </c:if>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<!-- don't need the security -->
+<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<!-- checklistUrl name is already used. look up -->
-	<%-- <c:url var="checklistUrl"	value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" /> --%>
+	<c:url var="checklistUrl"	value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" />
 	<c:url var="editChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" />
 	<c:url var="deleteChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}/delete" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<%-- <c:url var="checklistUrl"	value="/myAccount/checklist/${userEntity.checklist.id}" /> --%>
+	<c:url var="checklistUrl"	value="/myAccount/checklist/${userEntity.checklist.id}" />
 	<c:url var="editChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}" />
 	<c:url var="deleteChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}/delete" />
-</sec:authorize>
+</sec:authorize> --%>
 		
 <c:choose>
 	<c:when test="${empty missingDocuments}">
@@ -137,7 +140,7 @@
 		<br />
 		<br />
 		
-		<p>Dear <c:out value="${userEntity.firstName}" /> <c:out value="${userEntity.lastName}" />:</p>
+		<p>Dear <c:out value="${userEntity.fullName}" />:</p>
 		<p>The admission office is processing your application. The office has conducted initial review on your files
 		to process you application but you have some missing documents. 
 		Please submit the missing documetns listed below. Upon completion of your 
@@ -159,6 +162,7 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- don't need the modal js -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script

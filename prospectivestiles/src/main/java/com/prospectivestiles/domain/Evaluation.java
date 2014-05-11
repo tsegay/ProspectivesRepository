@@ -33,7 +33,6 @@ public class Evaluation implements Serializable {
 	private String i20;
 	private String passport;
 	private String financialAffidavit;
-//	private String applicationForm;
 	private String applicationFee;
 	private String transcript;
 	private String diplome;

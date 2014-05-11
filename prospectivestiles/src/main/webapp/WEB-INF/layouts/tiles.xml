@@ -357,6 +357,11 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/reports/missingDocuments.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="evaluationReport" extends="prospectivestiles.base">
+		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/reports/evaluationReport.jsp"></put-attribute>
+	</definition>
+	
 	<!-- ====================== messages ====================================== -->
 	
 	<definition name="messages" extends="prospectivestiles.base">

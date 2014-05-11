@@ -5,11 +5,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+
 <!-- Use this for ROLE_USER to get current user -->
 <%-- <sec:authentication var="myAccount" property="principal" /> --%>
 
-<!-- Should delete this user, NOT using it -->
-<%-- <c:set var="user" value="${highSchool.userEntity}" /> --%>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<%-- <c:url var="myAccount" value='/myAccount'/>
@@ -19,7 +18,6 @@
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
@@ -38,14 +36,12 @@
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
 	<!-- change address to addresses -->
 	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/myAccount/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
 	<c:url var="employersUrl" value="/myAccount/employers" />
 	<c:url var="messagesUrl" value="/myAccount/messages" />
 </sec:authorize>
-
 
 <ul class="nav nav-tabs">
 	<li class="dropdown">
@@ -60,22 +56,23 @@
 	    <li><a href="#">One more separated link</a></li>
 	  </ul>
 	</li>
-	<li class="active">
-		<a href="${educationUrl}">Educational bg</a>	
+	<li>
+		<a href="${educationUrl}">Educational bgd</a>
 	</li>
 	<li>
 		<a href="${applyingForUrl}">ApplyingFor</a>
 	</li>
 	<li>
 		<a href="${standardTestsUrl}">StandardTest</a>
-	</li><sec:authorize access="hasRole('ROLE_ADMIN')">
+	</li>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<li>
 			<a href="${checklistUrl}">Checklist</a>
 		</li>
 		<li>
 			<a href="${evaluationUrl}">Evaluation</a>
 		</li>
-		<li class="dropdown">
+		<li class="dropdown active">
 		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Reports<span class="caret"></span></a>
 		  <ul class="dropdown-menu">
 		    <li><a href="${reportsUrl}">Reports</a></li>
@@ -91,7 +88,6 @@
 	<li>
 		<a href="${messagesUrl}">Messages</a>
 	</li>
-	
 </ul>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -112,151 +108,79 @@
 	</div>
 </sec:authorize>
 
-<h1>HighSchools page</h1>
+<h1>Evaluation Report</h1>
 
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<h3>
-		<a href="${newHighSchoolUrl}">Add New HighSchool</a>
-	</h3>
+	<!-- checklistUrl name is already used. look up -->
+	<%-- <c:url var="checklistUrl"	value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" /> --%>
+	<c:url var="editChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" />
+	<c:url var="deleteChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}/delete" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<h3>
-		<a href="${newHighSchoolUrl}">Add New HighSchool</a>
-	</h3>
+	<%-- <c:url var="checklistUrl"	value="/myAccount/checklist/${userEntity.checklist.id}" /> --%>
+	<c:url var="editChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}" />
+	<c:url var="deleteChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}/delete" />
 </sec:authorize>
-
-
-<c:if test="${param.deleted == true}">
-	<div class="info alert">HighSchool/Institute deleted.</div>
-</c:if>
-
+		
 <c:choose>
-	<c:when test="${empty highSchools}">
-		<p>No HighSchool.</p>
+	<c:when test="${empty evaluationReportSummary}">
+		<p>Evaluation is not complete.</p>
 	</c:when>
 	<c:otherwise>
-
-		<div class="table-responsive">
-			<table class="table table-hover table-striped">
-				<tr>
-					<th>Id</th>
-					<th>Name</th>
-					<th>State</th>
-					<th>Country</th>
-					<th>Diplome</th>
-					<th>Edit</th>
-					<th>Delete</th>
-				</tr>
 	
-				<c:forEach var="highSchool" items="${highSchools}">
-				
-				 <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<c:url var="highSchoolUrl"	value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}" />
-					<c:url var="editHighSchoolUrl" value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}/edit" />
-					<c:url var="deleteHighSchoolUrl" value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}/delete" />
-				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_USER')">
-					<c:url var="highSchoolUrl"	value="/myAccount/highSchool/${highSchool.id}" />
-					<c:url var="editHighSchoolUrl" value="/myAccount/highSchool/${highSchool.id}/edit" />
-					<c:url var="deleteHighSchoolUrl" value="/myAccount/highSchool/${highSchool.id}/delete" />
-				</sec:authorize>
-				
-				<tr>
-					<td><c:out value="${highSchool.id}"></c:out></td>
-					<td>
-						<a href="${highSchoolUrl}"><c:out value="${highSchool.name}"></c:out></a>
-					</td>
-					<td><c:out value="${highSchool.state}"></c:out></td>
-					<td><c:out value="${highSchool.country}"></c:out></td>
-					<td><c:out value="${highSchool.diplome}"></c:out></td>
-					<td>
-						<a href="${editHighSchoolUrl}">Edit</a>
-					</td>
-					<td>
-						<form id="deleteForm" action="${deleteHighSchoolUrl}" method="post">
-							<div><input type="submit" value="DELETE" /></div>
-						</form>
-					</td>
-				</tr>
-								
-				</c:forEach>
-	
-			</table>
-		</div>
+		<a href="#" class="btn btn-primary btn-lg">Print</a>
+		<a href="#" class="btn btn-primary btn-lg">Email to Student</a>
+		<br />
+		<br />
+		
+		<!-- use userEntity.fullName -->
+		<p>Student Name: <c:out value="${userEntity.fullName}" /></p>
+		<p>
+			I have carefully evaluated 
+			<c:choose>
+				<c:when test="${userEntity.gender == 'male'}">his</c:when>
+				<c:when test="${userEntity.gender == 'female'}">her</c:when>
+				<c:otherwise>his/her</c:otherwise>
+			</c:choose>
+			files.
+			I grant
+			<c:choose>
+				<c:when test="${userEntity.gender == 'male'}">him</c:when>
+				<c:when test="${userEntity.gender == 'female'}">her</c:when>
+				<c:otherwise>him/her</c:otherwise>
+			</c:choose>
+			admission.
+		</p>
+		
+		<p><strong>admnOfficerReport</strong></p>
+		<p>
+			<c:out value="${evaluationReportSummary.admnOfficerReport}" />
+		</p>
+		
+		<p><strong>studentQualification</strong></p>
+		<p>
+			<c:out value="${evaluationReportSummary.studentQualification}" />
+		</p>
+		
+		<p><strong>admissionOfficerName</strong></p>
+		<p>
+			<c:out value="${evaluationReportSummary.admissionOfficerName}" />
+		</p>
+		
+		<p><strong>Date</strong></p>
+		<%-- <p>
+			<c:out value="${evaluationReportSummary.dateLastModified}" />
+		</p> --%>
+		
+						
 	</c:otherwise>
 </c:choose>
 
 
 
-<h1>Institutes</h1>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<h3>
-		<a href="${newInstituteUrl}">Add New Institute</a>
-	</h3>
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
-	<h3>
-		<a href="${newInstituteUrl}">Add New Institute</a>
-	</h3>
-</sec:authorize>
-
-
-<c:choose>
-	<c:when test="${empty institutes}">
-		<p>No Institute.</p>
-	</c:when>
-	<c:otherwise>
-
-		<div class="table-responsive">
-			<table class="table table-hover table-striped">
-				<tr>
-					<th>Id</th>
-					<th>Name</th>
-					<th>State</th>
-					<th>Country</th>
-					<th>Edit</th>
-					<th>Delete</th>
-				</tr>
-	
-				<c:forEach var="institute" items="${institutes}">
-				
-				 <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<c:url var="instituteUrl"	value="/accounts/${institute.userEntity.id}/institute/${institute.id}" />
-					<c:url var="editInstituteUrl" value="/accounts/${institute.userEntity.id}/institute/${institute.id}/edit" />
-					<c:url var="deleteInstituteUrl" value="/accounts/${institute.userEntity.id}/institute/${institute.id}/delete" />
-				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_USER')">
-					<c:url var="instituteUrl"	value="/myAccount/institute/${institute.id}" />
-					<c:url var="editInstituteUrl" value="/myAccount/institute/${institute.id}/edit" />
-					<c:url var="deleteInstituteUrl" value="/myAccount/institute/${institute.id}/delete" />
-				</sec:authorize>
-				
-				<tr>
-						<td><c:out value="${institute.id}"></c:out></td>
-						<td>
-							<a href="${instituteUrl}"><c:out value="${institute.name}"></c:out></a>
-						</td>
-						<td><c:out value="${institute.state}"></c:out></td>
-						<td><c:out value="${institute.country}"></c:out></td>
-						<td>
-							<a href="${editInstituteUrl}">Edit</a>
-						</td>
-						<td>
-							<form id="deleteForm" action="${deleteInstituteUrl}" method="post">
-								<div><input type="submit" value="DELETE" /></div>
-							</form>
-						</td>
-					</tr>
-				
-				</c:forEach>
-	
-			</table>
-		</div>
-	</c:otherwise>
-</c:choose>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
