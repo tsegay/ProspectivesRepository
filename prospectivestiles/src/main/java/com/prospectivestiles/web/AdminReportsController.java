@@ -45,12 +45,6 @@ public class AdminReportsController {
 	// =             reports             =
 	// ======================================
 	
-	
-//	@RequestMapping(value = "/accounts/{userEntityId}/reports/missingDocuments", method = RequestMethod.GET)
-//	@RequestMapping(value = "/accounts/{userEntityId}/reports/evaluationReport", method = RequestMethod.GET)
-//	@RequestMapping(value = "/accounts/{userEntityId}/reports/acceptanceLetter", method = RequestMethod.GET)
-	
-//	@RequestMapping(value = "/accounts/{userEntityId}/reports/missingDocuments", method = RequestMethod.GET)
 	@RequestMapping(value = "/accounts/{userEntityId}/reports/missingDocuments", method = RequestMethod.GET)
 	public String getMissingDocuments(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
@@ -99,6 +93,7 @@ public class AdminReportsController {
 		
 		return "missingDocuments";
 	}
+	
 	@RequestMapping(value = "/accounts/{userEntityId}/reports/evaluationReport", method = RequestMethod.GET)
 	public String getEvaluationReport(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
@@ -144,85 +139,31 @@ public class AdminReportsController {
 		return "evaluationReport";
 	}
 	
+	@RequestMapping(value = "/accounts/{userEntityId}/reports/acceptanceLetter", method = RequestMethod.GET)
+	public String getAcceptanceLetter(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		
+		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
+		Map<String, Object> acceptanceLetterReport = new HashMap<String, Object>();
+		
+		/**
+		 * if user has no checklist created, you can't generate missing documents report
+		 */
+		if ((evaluation != null) && (evaluation.getStatus() != null)) {
+			if(evaluation.getStatus().equalsIgnoreCase("admitted")){
+				acceptanceLetterReport.put("status", "admitted");
+				acceptanceLetterReport.put("admissionOfficerName",evaluation.getAdmissionOfficer().getFullName());
+				acceptanceLetterReport.put("admittedBy",evaluation.getAdmittedBy().getFullName());
+				acceptanceLetterReport.put("dateAdmitted",evaluation.getDateAdmitted());
+			}
+		}
+		
+		model.addAttribute("acceptanceLetterReport", acceptanceLetterReport);
+		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
+		
+		return "acceptanceLetter";
+	}
 	
-//	@RequestMapping(value = "/accounts/{userEntityId}/reports", method = RequestMethod.GET)
-//	public String getReports(@PathVariable("userEntityId") Long userEntityId,
-//			Model model) {
-//		
-//		/**
-//		 * load evaluation for a user, if exist
-//		 */
-//		model.addAttribute("evaluations", evaluationService.getEvaluationByUserEntityId(userEntityId));
-//		
-//		/**
-//		 * The modelAttribute "evaluation" for the form to add new evaluation
-//		 */
-//		Evaluation evaluation = new Evaluation();
-//		model.addAttribute("evaluation", evaluation);
-//		
-//		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
-//		
-//		return "reports";
-//	}
-//	
-//	@RequestMapping(value = "/accounts/{userEntityId}/reports", method = RequestMethod.POST)
-//	public String postNewEvaluationForm(@PathVariable("userEntityId") Long userEntityId,
-//			@ModelAttribute @Valid Evaluation evaluation, BindingResult result) {
-//		
-//		if (result.hasErrors()) {
-//			return "newEvaluationForm";
-//		}
-//
-//		evaluation.setUserEntity(userEntityService.getUserEntity(userEntityId));
-//		evaluationService.createEvaluation(evaluation);
-//		
-//		return "redirect:/accounts/{userEntityId}/reports";
-//	}
-//	
-//	@RequestMapping(value = "/accounts/{userEntityId}/report/{evaluationId}", method = RequestMethod.GET)
-//	public String editEvaluation(@PathVariable("userEntityId") Long userEntityId,
-//			@PathVariable("evaluationId") Long evaluationId, Model model) {
-//		
-//		Evaluation evaluation = getEvaluationValidateUserEntityId(userEntityId, evaluationId);
-//		
-//		model.addAttribute("originalEvaluation", evaluation);
-//		model.addAttribute(evaluation);
-//		
-//		return "editEvaluation";
-//	}
-//	
-//	@RequestMapping(value = "/accounts/{userEntityId}/report/{evaluationId}", method = RequestMethod.POST)
-//	public String editEvaluation(@PathVariable("userEntityId") Long userEntityId,
-//			@PathVariable("evaluationId") Long evaluationId,
-//			@ModelAttribute @Valid Evaluation origEvaluation, 
-//			BindingResult result,
-//			Model model) {
-//		
-//		Evaluation evaluation = getEvaluationValidateUserEntityId(userEntityId, evaluationId);
-//
-//		if (result.hasErrors()) {
-//			model.addAttribute("originalEvaluation", origEvaluation);
-//			return "editEvaluation";
-//		}
-//		
-//		evaluation.setBankStmt(origEvaluation.getBankStmt());
-//		evaluation.setF1Visa(origEvaluation.getF1Visa());
-//		evaluation.setI20(origEvaluation.getI20());
-//		evaluation.setNotes(origEvaluation.getNotes());
-//		
-//		
-//		evaluationService.updateEvaluation(evaluation);
-//		
-//		return "redirect:/accounts/{userEntityId}/evaluations";
-//	}
-//	
-//	@RequestMapping(value = "/accounts/{userEntityId}/report/{evaluationId}/delete", method = RequestMethod.POST)
-//	public String deleteEvaluation(@PathVariable("userEntityId") Long userEntityId,
-//			@PathVariable("evaluationId") Long evaluationId)
-//			throws IOException {
-//		evaluationService.deleteEvaluation(getEvaluationValidateUserEntityId(userEntityId, evaluationId));
-//		return "redirect:/accounts/{userEntityId}/reports";
-//	}
 	
 	// ======================================
 	// =                        =

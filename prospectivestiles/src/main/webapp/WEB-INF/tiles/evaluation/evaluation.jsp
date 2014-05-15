@@ -27,6 +27,7 @@
 	<c:url var="reportsUrl" value="/accounts/${userEntity.id}/reports" />
 	<c:url var="missingDocumentsUrl" value="/accounts/${userEntity.id}/reports/missingDocuments" />
 	<c:url var="evaluationReportUrl" value="/accounts/${userEntity.id}/reports/evaluationReport" />
+	<c:url var="acceptanceLetterUrl" value="/accounts/${userEntity.id}/reports/acceptanceLetter" />
 	<c:url var="messagesUrl" value="/accounts/${userEntity.id}/messages" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
@@ -78,6 +79,7 @@
 		    <li><a href="${reportsUrl}">Reports</a></li>
 		    <li><a href="${missingDocumentsUrl}">MissingDocuments</a></li>
 		    <li><a href="${evaluationReportUrl}">evaluationReport</a></li>
+		    <li><a href="${acceptanceLetterUrl}">acceptanceLetter</a></li>
 		    <li class="divider"></li>
 		    <li><a href="#">Link</a></li>
 		    <li class="divider"></li>
@@ -121,6 +123,7 @@
 	<c:url var="newEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/new" />
 	<c:url var="editEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/edit" />
 	<c:url var="deleteEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/delete" />
+	<c:url var="grantAdmisionUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/grantAdmision" />
 </sec:authorize>
 <!-- Delete this student doesn't have the evaluations page -->
 <sec:authorize access="hasRole('ROLE_USER')">
@@ -374,6 +377,20 @@
 		<form id="deleteForm" action="${deleteEvaluationUrl}" method="post">
 			<div><input type="submit" value="DELETE" /></div>
 		</form>
+		
+		<br />	
+		<c:choose>
+			<c:when test="${userEntity.evaluation.status != 'admitted'}">
+				<form id="grantAdmisionForm" action="${grantAdmisionUrl}" method="post">
+					<div><input type="submit" value="grantAdmision" /></div>
+				</form>
+			</c:when>
+			<c:otherwise>Prospective student already admitted</c:otherwise>
+		</c:choose>
+		
+		
+		
+		
 		
 	</c:otherwise>
 </c:choose>

@@ -127,8 +127,8 @@
 </sec:authorize>
 		
 <c:choose>
-	<c:when test="${empty evaluationReportSummary}">
-		<p>Evaluation is not complete.</p>
+	<c:when test="${empty acceptanceLetterReport}">
+		<p>Admission not granted yet.</p>
 	</c:when>
 	<c:otherwise>
 	
@@ -137,46 +137,34 @@
 		<br />
 		<br />
 		
-		<!-- use userEntity.fullName -->
-		<p>Student Name: <c:out value="${userEntity.fullName}" /></p>
-		<p>
-			I have carefully evaluated 
-			<c:choose>
-				<c:when test="${userEntity.gender == 'male'}">his</c:when>
-				<c:when test="${userEntity.gender == 'female'}">her</c:when>
-				<c:otherwise>his/her</c:otherwise>
-			</c:choose>
-			files.
-			I grant
-			<c:choose>
-				<c:when test="${userEntity.gender == 'male'}">him</c:when>
-				<c:when test="${userEntity.gender == 'female'}">her</c:when>
-				<c:otherwise>him/her</c:otherwise>
-			</c:choose>
-			admission.
-		</p>
 		
-		<p><strong>admnOfficerReport</strong></p>
-		<p>
-			<c:out value="${evaluationReportSummary.admnOfficerReport}" />
-		</p>
+		<c:choose>
+			<c:when test="${acceptanceLetterReport.status == 'admitted'}">
+				<p>Dear <c:out value="${userEntity.fullName}" />:</p>
+				<p>Congratulations!!!</p>
+				<p>The admission officer has approved your application for admission.</p>
+				
+				<p><strong>admissionOfficerName</strong></p>
+				
+				<p>
+					<c:out value="${acceptanceLetterReport.admissionOfficerName}" />
+				</p>
+				
+				<p><strong>admittedBy</strong></p>
+				
+				<p>
+					<c:out value="${acceptanceLetterReport.admittedBy}" />
+				</p>
+				
+				<p><strong>dateAdmitted</strong></p>
+				<p>
+					<c:out value="${acceptanceLetterReport.dateAdmitted}" />
+				</p>
+				
+			</c:when>
+			<c:otherwise>No acceptanc letter yet.</c:otherwise>
+		</c:choose>
 		
-		<p><strong>studentQualification</strong></p>
-		<p>
-			<c:out value="${evaluationReportSummary.studentQualification}" />
-		</p>
-		
-		<p><strong>admissionOfficerName</strong></p>
-		<p>
-			<c:out value="${evaluationReportSummary.admissionOfficerName}" />
-		</p>
-		
-		<p><strong>Date</strong></p>
-		<%-- <p>
-			<c:out value="${evaluationReportSummary.dateLastModified}" />
-		</p> --%>
-		
-						
 	</c:otherwise>
 </c:choose>
 

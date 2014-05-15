@@ -1,10 +1,12 @@
 package com.prospectivestiles.web;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.apache.velocity.tools.config.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -23,6 +25,13 @@ import com.prospectivestiles.domain.Evaluation;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.EvaluationService;
 import com.prospectivestiles.service.UserEntityService;
+
+/**
+ * There is one evaluation for every student.
+ * I may not need to pass evaluationId in the url, userId is enough
+ * @author danielanenia
+ *
+ */
 
 @Controller
 public class AdminEvaluationController {
@@ -156,7 +165,40 @@ public class AdminEvaluationController {
 		return "redirect:/accounts/{userEntityId}/evaluations";
 	}
 
-	
+	@RequestMapping(value = "/accounts/{userEntityId}/evaluation/{evaluationId}/grantAdmision", method = RequestMethod.POST)
+	public String grantAdmision(@PathVariable("userEntityId") Long userEntityId,
+			@PathVariable("evaluationId") Long evaluationId,
+			@ModelAttribute @Valid Evaluation origEvaluation, 
+			BindingResult result,
+			Model model){
+			
+		Evaluation evaluation = getEvaluationValidateUserEntityId(userEntityId, evaluationId);
+		UserEntity admittedBy = getUserEntityFromSecurityContext();
+//		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
+		System.out.println("#### admittedBy: " + admittedBy);
+//		System.out.println("#### admissionOfficer: " + admissionOfficer);
+
+		if (result.hasErrors()) {
+			model.addAttribute("originalEvaluation", origEvaluation);
+			return "editEvaluation";
+		}
+		
+		evaluation.setStatus("admitted");
+		evaluation.setAdmittedBy(admittedBy);
+//		evaluation.setAdmissionOfficer(admissionOfficer);
+		Date dateAdmitted = new Date();
+		evaluation.setDateAdmitted(dateAdmitted);
+		
+		System.out.println("### evaluation.getAdmittedBy: " + evaluation.getAdmittedBy());
+//		System.out.println("### evaluation.getAdmissionOfficer: " + evaluation.getAdmissionOfficer());
+		
+		evaluationService.updateEvaluation(evaluation);
+		
+		
+		
+		return "redirect:/accounts/{userEntityId}/evaluations";
+		
+	}
 	
 	/**
 	 * NOT USING THIS AT THE TIME BEING

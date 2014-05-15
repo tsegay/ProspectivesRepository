@@ -28,6 +28,9 @@ public class Evaluation implements Serializable {
     // ======================================
 
 	private long id;
+	/**
+	 * Values for the ff are: valid, invalid, incomplete, not reviewed
+	 */
 	private String f1Visa;
 	private String bankStmt;
 	private String i20;
@@ -47,8 +50,12 @@ public class Evaluation implements Serializable {
 	 */
 	private UserEntity userEntity;
 	
+	/**
+	 * Date the evaluation was started
+	 */
 	private Date dateCreated;
 	private Date dateLastModified;
+	
 	/**
 	 * what are the qualifications the student has that enable him to get admission
 	 */
@@ -62,8 +69,17 @@ public class Evaluation implements Serializable {
 	/**
 	 * The admission officer evaluating the student's records
 	 */
-//	@Column(name="admissionOfficer")
 	private UserEntity admissionOfficer; 
+	
+	/**
+	 * Status values are pending, in process, admitted, (transfered to enrolled students portal)
+	 */
+	private String status;
+	/**
+	 * Date admission was approved
+	 */
+	private Date dateAdmitted;
+	private UserEntity admittedBy;
 	
 	// ======================================
     // =            Constructors            =
@@ -188,5 +204,25 @@ public class Evaluation implements Serializable {
 	public void setAdmissionOfficer(UserEntity admissionOfficer) {
 		this.admissionOfficer = admissionOfficer;
 	}
-			
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Date getDateAdmitted() {
+		return dateAdmitted;
+	}
+	public void setDateAdmitted(Date dateAdmitted) {
+		this.dateAdmitted = dateAdmitted;
+	}
+	@OneToOne
+	@JoinColumn(name="admittedBy")
+	public UserEntity getAdmittedBy() {
+		return admittedBy;
+	}
+	public void setAdmittedBy(UserEntity admittedBy) {
+		this.admittedBy = admittedBy;
+	}
+		
 }

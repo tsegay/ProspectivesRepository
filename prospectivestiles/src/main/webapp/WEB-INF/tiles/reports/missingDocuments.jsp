@@ -27,6 +27,7 @@
 	<c:url var="reportsUrl" value="/accounts/${userEntity.id}/reports" />
 	<c:url var="missingDocumentsUrl" value="/accounts/${userEntity.id}/reports/missingDocuments" />
 	<c:url var="evaluationReportUrl" value="/accounts/${userEntity.id}/reports/evaluationReport" />
+	<c:url var="acceptanceLetterUrl" value="/accounts/${userEntity.id}/reports/acceptanceLetter" />
 	<c:url var="messagesUrl" value="/accounts/${userEntity.id}/messages" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
@@ -78,6 +79,7 @@
 		    <li><a href="${reportsUrl}">Reports</a></li>
 		    <li><a href="${missingDocumentsUrl}">MissingDocuments</a></li>
 		    <li><a href="${evaluationReportUrl}">evaluationReport</a></li>
+		    <li><a href="${acceptanceLetterUrl}">acceptanceLetter</a></li>
 		    <li><a href="#">Link</a></li>
 		    <li class="divider"></li>
 		    <li><a href="#">Link</a></li>

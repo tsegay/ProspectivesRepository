@@ -350,16 +350,21 @@
 		<put-attribute name="footer" value=""></put-attribute>
 	</definition> -->
 	
-	<!-- ====================== missingDocuments ====================================== -->
+	<!-- ====================== reports ====================================== -->
 	
 	<definition name="missingDocuments" extends="prospectivestiles.base">
-		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="title" value="missingDocuments page"></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/reports/missingDocuments.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="evaluationReport" extends="prospectivestiles.base">
-		<put-attribute name="title" value="addresses page"></put-attribute>
+		<put-attribute name="title" value="evaluationReport page"></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/reports/evaluationReport.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="acceptanceLetter" extends="prospectivestiles.base">
+		<put-attribute name="title" value="acceptanceLetter page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/reports/acceptanceLetter.jsp"></put-attribute>
 	</definition>
 	
 	<!-- ====================== messages ====================================== -->
