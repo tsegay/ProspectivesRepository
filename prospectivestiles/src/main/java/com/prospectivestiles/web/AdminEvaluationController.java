@@ -111,6 +111,7 @@ public class AdminEvaluationController {
 
 		evaluation.setUserEntity(userEntity);
 		evaluation.setAdmissionOfficer(admissionOfficer);
+		evaluation.setStatus("inprocess");
 		evaluationService.createEvaluation(evaluation);
 		
 		return "redirect:/accounts/{userEntityId}/evaluations";
@@ -159,6 +160,21 @@ public class AdminEvaluationController {
 		evaluation.setStudentQualification(origEvaluation.getStudentQualification());
 //		evaluation.setDateLastModified(dateLastModified);
 //		evaluation.setDateCreated(dateCreated);
+		
+		
+		if (evaluation.getF1Visa().equalsIgnoreCase("valid") &&
+				evaluation.getApplicationFee().equalsIgnoreCase("valid") &&  
+				evaluation.getBankStmt().equalsIgnoreCase("valid") && 
+				evaluation.getDiplome().equalsIgnoreCase("valid") && 
+				evaluation.getF1Visa().equalsIgnoreCase("valid") && 
+				evaluation.getFinancialAffidavit().equalsIgnoreCase("valid") && 
+				evaluation.getI20().equalsIgnoreCase("valid") && 
+				evaluation.getPassport().equalsIgnoreCase("valid") && 
+				evaluation.getTranscript().equalsIgnoreCase("valid")) {
+			evaluation.setStatus("complete");
+		} else {
+			evaluation.setStatus("inprocess");
+		}
 		
 		evaluationService.updateEvaluation(evaluation);
 		

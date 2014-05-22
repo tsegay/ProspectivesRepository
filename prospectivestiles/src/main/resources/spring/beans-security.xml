@@ -210,6 +210,14 @@
 		<intercept-url pattern="/myAccount/applyingFor" access="isAuthenticated()" />
 		<!-- <intercept-url pattern="/myAccount/applyingFors" access="isAuthenticated()" /> -->
 		
+		<!-- Admin uploadFiles -->
+		<intercept-url pattern="/accounts/*/files/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/files/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/saveFile" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/files" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student uploadFiles -->
+		
 		<!-- Admin checklists -->
 		<intercept-url pattern="/accounts/*/checklist/*/delete" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/checklist/*/edit" access="hasRole('ROLE_ADMIN')" />

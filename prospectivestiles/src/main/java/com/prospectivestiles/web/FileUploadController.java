@@ -74,7 +74,8 @@ public class FileUploadController {
                 
                 
                 //  TO SAVE IN DB
-                uploadedFile.setFileToSaveInDb(bytes);
+//                uploadedFile.setFileToSaveInDb(bytes);
+                uploadedFile.setFileUploaded(bytes);
 //                uploadedFile.setUserEntity(getUserEntityFromSecurityContext());
                 uploadedFilesService.createUploadedFiles(uploadedFile);
                 System.out.println("After uploadedFilesService.createUploadedFiles: " + uploadedFilesService.getAllUploadedFiles().toString());

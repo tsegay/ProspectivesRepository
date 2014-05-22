@@ -221,6 +221,12 @@
 	
 	<!-- ====================== File Upload ====================================== -->
 	
+	<definition name="uploadFiles" extends="prospectivestiles.base">
+		<put-attribute name="title" value="uploadFiles page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/documents/uploadFiles.jsp"></put-attribute>
+	</definition>
+	
+	<!-- For testing --> 
 	<definition name="file_upload_form" extends="prospectivestiles.base">
 		<put-attribute name="title" value="addresses page"></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/file_upload_form.jsp"></put-attribute>

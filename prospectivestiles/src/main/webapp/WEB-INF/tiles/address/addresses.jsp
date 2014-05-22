@@ -26,6 +26,7 @@
 		value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="standardTestsUrl"
 		value="/accounts/${userEntity.id}/standardTests" />
+	<c:url var="uploadedFilesUrl" value="/accounts/${userEntity.id}/files" />
 	<c:url var="employersUrl" value="/accounts/${userEntity.id}/employers" />
 	<c:url var="checklistUrl" value="/accounts/${userEntity.id}/checklists" />
 	<c:url var="evaluationUrl"
@@ -46,6 +47,7 @@
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
+	<c:url var="uploadedFilesUrl" value="/myAccount/files" />
 	<c:url var="employersUrl" value="/myAccount/employers" />
 	<c:url var="messagesUrl" value="/myAccount/messages" />
 </sec:authorize>
@@ -67,6 +69,9 @@
 	<li><a href="${educationUrl}">Educational bgd</a></li>
 	<li><a href="${applyingForUrl}">ApplyingFor</a></li>
 	<li><a href="${standardTestsUrl}">StandardTest</a></li>
+	<li>
+		<a href="${uploadedFilesUrl}">Documents</a>
+	</li>
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<li><a href="${checklistUrl}">Checklist</a></li>
 		<li><a href="${evaluationUrl}">Evaluation</a></li>

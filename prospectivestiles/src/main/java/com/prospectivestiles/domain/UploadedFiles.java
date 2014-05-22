@@ -1,5 +1,7 @@
 package com.prospectivestiles.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,15 +24,39 @@ import org.springframework.web.multipart.MultipartFile;
 		)
 public class UploadedFiles {
 	
+    // ======================================
+    // =             Attributes             =
+    // ======================================
+	
 	private Long id;
+	// file name, actual name of the file
 	private String fileName;
+	// file size
+	private Long size;
+	private String contentType;
+	
+	// file description provided by user
+	private String description;
+	
+	// 
 	private MultipartFile file;
-	private byte[] fileToSaveInDb;
+	// content - file To  Save In Db
+	private byte[] fileUploaded;
+	
 	private UserEntity userEntity;
+	
+	private Date dateCreated;
+	
+	// ======================================
+    // =            Constructors            =
+    // ======================================
 	
 	public UploadedFiles() {
 	}
 	
+	// ======================================
+    // =          Getters & Setters         =
+    // ======================================
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,7 +67,7 @@ public class UploadedFiles {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@Transient
+
 	public String getFileName() {
 		return fileName;
 	}
@@ -49,6 +75,27 @@ public class UploadedFiles {
 		this.fileName = fileName;
 	}
 	
+	public Long getSize() {
+		return size;
+	}
+	public void setSize(Long size) {
+		this.size = size;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Transient
 	public MultipartFile getFile() {
 		return file;
@@ -57,18 +104,29 @@ public class UploadedFiles {
 		this.file = file;
 	}
 	@Lob
-	public byte[] getFileToSaveInDb() {
-		return fileToSaveInDb;
+	public byte[] getFileUploaded() {
+		return fileUploaded;
 	}
-	public void setFileToSaveInDb(byte[] fileToSaveInDb) {
-		this.fileToSaveInDb = fileToSaveInDb;
+	public void setFileUploaded(byte[] fileUploaded) {
+		this.fileUploaded = fileUploaded;
 	}
+	
 	@OneToOne
 	public UserEntity getUserEntity() {
 		return userEntity;
 	}
 	public void setUserEntity(UserEntity userEntity) {
 		this.userEntity = userEntity;
+	}
+
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 	
 }
