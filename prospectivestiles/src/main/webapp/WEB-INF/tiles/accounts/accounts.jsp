@@ -13,61 +13,50 @@
 	<!-- <table class="footable table"> -->
 	<table class="table table-hover table-striped" data-filter="#filter" data-page-size="5"> 
 		 <thead>
-		<tr>
-			<th data-toggle="true">Username</th>
-			<th data-sort-initial="true">firstName</th>
-			<th>lastName</th>
-			<th data-hide="phone,tablet" data-name="Email address">Email</th>
-			<th>acceptTerms</th>
-		</tr>
+			<tr>
+				<th data-toggle="true">Username</th>
+				<th data-sort-initial="true">firstName</th>
+				<th>lastName</th>
+				<th data-hide="phone,tablet" data-name="Email address">Email</th>
+				<th>acceptTerms</th>
+			</tr>
 		</thead>
-	
 		<tbody>
 		<c:forEach var="user" items="${users}">
-	
 			<tr>
 				<td>
-					<c:url var="myAccountUrl" value="../accounts/${user.id}" />
+					<c:url var="myAccountUrl" value="/accounts/${user.id}" />
 					<a href="${myAccountUrl}"><c:out value="${user.username}"></c:out></a>
 				</td>
 				<td><c:out value="${user.firstName}"></c:out></td>
 				<td><c:out value="${user.lastName}"></c:out></td>
 				<td><c:out value="${user.email}"></c:out></td>
 				<td><c:out value="${user.acceptTerms}"></c:out></td>
-				
-				
-				
 			</tr>
-	
 		</c:forEach>
 		</tbody>
-			<tfoot class="hide-if-no-paging">
-                <tr>
-                    <td colspan="5">
-                        <div class="pagination pagination-centered"></div>
-                    </td>
-                </tr>
-             </tfoot>
+		<tfoot>
+			<ul class="pagination">
+			  <li><a href="#">&laquo;</a></li>
+			  <c:forEach var="i" begin="1" end="${totalPages}">
+				   <c:choose> 
+					  <c:when test="${i == page}" > 
+					    <li class="active"><a href="<c:url value='/accounts/accounts/${i}'/>"><c:out value="${i}"/></a></li> 
+					  </c:when> 
+					  <c:otherwise> 
+					    <li><a href="<c:url value='/accounts/accounts/${i}'/>"><c:out value="${i}"/></a></li>
+					  </c:otherwise> 
+					</c:choose> 
+				</c:forEach>
+			  <li><a href="#">&raquo;</a></li>
+			</ul>
+        </tfoot>
 	</table>
+                   		usersCount:<c:out value="${usersCount}" />
+                   		pageSize:<c:out value="${pageSize}" />
+                   		page:<c:out value="${page}" />
+                   		totalPages:<c:out value="${totalPages}" />
 </div>
-
-
-	
-<%-- <script rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footable.core.css" type="text/css" ></script>
-<script rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footable.standalone.css" type="text/css" ></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script> --%>
 		
-<%-- <script src="${pageContext.request.contextPath}/resources/js/footable.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/footable.sort.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/footable.filter.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/footable.paginate.js"></script>
 
-<script type="text/javascript">
 
-	$(document).ready(function(){
-		$('.footable').footable();
-	});
-</script> --%>

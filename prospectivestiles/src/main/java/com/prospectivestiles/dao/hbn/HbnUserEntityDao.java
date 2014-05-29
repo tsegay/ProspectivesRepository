@@ -1,6 +1,7 @@
 package com.prospectivestiles.dao.hbn;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -17,9 +18,10 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.Query;
 import org.hibernate.validator.constraints.Email;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
@@ -36,7 +38,7 @@ import com.prospectivestiles.domain.UserEntity;
 @Repository("userEntityDao")
 public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements UserEntityDao {
 	
-	private static final Logger log = LoggerFactory.getLogger(HbnUserEntityDao.class);
+//	private static final Logger log = LoggerFactory.getLogger(HbnUserEntityDao.class);
 	private static final String INSERT_TERM_SQL =
 			"update userEntity set term_id = ? where id = ?";
 	private static final String INSERT_PROGRAMOFSTUDY_SQL =
@@ -60,10 +62,11 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	}*/
 	
 	public void createUserEntity(UserEntity userEntity) {
-		log.debug("Creating userEntity: {}", userEntity);
-		log.debug("Raw Password is: {}", userEntity.getPassword());
+//		log.debug("Creating userEntity: {}", userEntity);
+		System.out.println("###########Creating userEntity: {}" + userEntity);
+//		log.debug("Raw Password is: {}", userEntity.getPassword());
 		
-		log.debug("Updating password");
+//		log.debug("Updating password");
 //		Object salt = saltSource.getSalt(account);
 //		if (salt != null) {
 //			log.debug("Salting password: {}", salt.toString());
@@ -71,11 +74,11 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 //		String encPassword = passwordEncoder.encodePassword(account.getPassword(), salt);
 		String encPassword = passwordEncoder.encodePassword(userEntity.getPassword(), null);
 		if (encPassword != null) {
-			log.debug("Encrypting password: {}", encPassword);
+//			log.debug("Encrypting password: {}", encPassword);
 		}
 		userEntity.setPassword(encPassword);
 		create(userEntity);
-		log.debug("Password after userEntity created. Should be encrypted: {}", userEntity.getPassword());
+//		log.debug("Password after userEntity created. Should be encrypted: {}", userEntity.getPassword());
 //		log.debug("Password after account updated. Should be encrypted: {}", account.getPassword());
 	}
 
@@ -136,7 +139,28 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 				userEntity.getSevisNumber(), userEntity.isTransferee(),
 				userEntityId});
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserEntity> findAll(int page, int pageSize) {
+		
+		String hql = "FROM UserEntity";
+		Query query = getSession().createQuery(hql);
+		// setFirst shoulb be set with the index of the first element in the page, 
+		// something like page * pageSize
+		query.setFirstResult((page - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		
+		List<UserEntity> results = query.list();
+		
+//		String hql = "FROM Employee E WHERE E.id > 10 ORDER BY E.salary DESC";
+//		Query query = session.createQuery(hql);
+//		List results = query.list();
+		
+		return results;
+	}
 	
+
 	
 	
 }

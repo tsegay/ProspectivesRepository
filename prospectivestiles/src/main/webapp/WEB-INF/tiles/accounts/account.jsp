@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="myAccount" value="/accounts/${userEntity.id}" />
@@ -152,12 +152,14 @@
 	
 	<dt>dateCreated</dt>
 	<dd>
-		<c:out value="${userEntity.dateCreated}" />
+		<fmt:formatDate var="dateCreatedString" value="${userEntity.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" />
+		<c:out value="${dateCreatedString}" />
 	</dd>
 	
 	<dt>dob</dt>
 	<dd>
-		<c:out value="${userEntity.dob}" />
+		<fmt:formatDate var="dobString" value="${userEntity.dob}" pattern="yyyy-MM-dd" />
+		<c:out value="${dobString}" />
 	</dd>
 	
 	<dt>gender</dt>

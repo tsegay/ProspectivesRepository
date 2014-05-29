@@ -43,4 +43,9 @@ public interface UserEntityService {
 	void insertTerm(long userEntityId, long termId);
 	void insertProgramOfStudy(long userEntityId, long programOfStudyId);
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
+
+	List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize);
+
+	long count();
+
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+/*import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;*/
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.repository.UserEntityRepository;
 import com.prospectivestiles.service.UserEntityService;
 
 @Controller
@@ -26,13 +29,53 @@ public class AdminAccountController {
 	@Autowired
 	private UserEntityService userEntityService;
 	
+	/*@Autowired
+	private UserEntityRepository userEntityRepository;*/
+	
+	
 	// ======================================
 	// =             accounts             =
 	// ======================================
-	@RequestMapping(value="/accounts/accounts", method = RequestMethod.GET)
+	
+	/*@RequestMapping(value="/accounts/accounts", method = RequestMethod.GET)
 	public String getAllAccounts(Model model) {
 		List<UserEntity> users = userEntityService.getAllUserEntities();
 		model.addAttribute("users", users);
+		return "accounts/accounts";
+	}*/
+	
+	/*@RequestMapping(value="/accounts/accounts", method = RequestMethod.GET, produces="text/html")
+	public String list(Pageable pageable, Model model){
+		System.out.println(pageable);
+		Page<UserEntity> users = this.userEntityRepository.findAll(pageable);
+		
+        model.addAttribute("users", users);
+		return "accounts/accounts";
+	}*/
+	
+//	@RequestMapping(value="/accounts/accounts/{page}/{pageSize}", method = RequestMethod.GET)
+//	public String getAllAccounts(@PathVariable("page") int page, 
+//			@PathVariable("pageSize") int pageSize, 
+//			Model model) {
+	@RequestMapping(value="/accounts/accounts/{page}", method = RequestMethod.GET)
+	public String getAllAccounts(@PathVariable("page") int page, Model model) {
+		
+		int pageSize = 4;
+		long usersCount = userEntityService.count();
+		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
+		
+		// getAllUserEntitiesForPage -- TO BE CHANGED
+		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(page, pageSize);
+		model.addAttribute("users", users);
+		model.addAttribute("usersCount", usersCount);
+		model.addAttribute("page", page);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("totalPages", totalPages);
+		
+		System.out.println("################## usersCount: " + usersCount + 
+				" ### page: " + page +
+				" ### pageSize: " + pageSize +
+				" ### totalPages: " + totalPages);
 		return "accounts/accounts";
 	}
 	

@@ -246,7 +246,7 @@
 	
 	<!-- not using edit page -->
 	
-	<!-- ====================== testAs ====================================== -->
+	<!-- ====================== testAs purpose ====================================== -->
 	
 	<definition name="testAs" extends="prospectivestiles.base">
 		<put-attribute name="title" value="addresses page"></put-attribute>
@@ -389,7 +389,15 @@
 		<put-attribute name="footer" value=""></put-attribute>
 	</definition> -->
 	
-	<!-- ====================== jsonMessages Test ====================================== -->
+	<!-- ====================== notification ====================================== -->
+	
+	<definition name="notification" extends="prospectivestiles.base">
+		<put-attribute name="title" value="notification page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/notifications/notification.jsp"></put-attribute>
+	</definition>
+	
+	
+	<!-- ====================== jsonMessages Test purpose ====================================== -->
 	
 	<definition name="jsonMessages" extends="prospectivestiles.base">
 		<put-attribute name="title" value="addresses page"></put-attribute>

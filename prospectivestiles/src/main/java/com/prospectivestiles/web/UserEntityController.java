@@ -52,6 +52,7 @@ public class UserEntityController {
 	
 	@RequestMapping(value = "/registrationform", method = RequestMethod.GET)
 	public String getRegistrationForm(Model model) {
+		System.out.println("####### registrationform displayed");
 		model.addAttribute("userEntity", new UserEntity());
 		return "registrationform";
 	}

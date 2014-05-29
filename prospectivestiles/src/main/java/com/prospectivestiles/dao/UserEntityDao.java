@@ -1,5 +1,7 @@
 package com.prospectivestiles.dao;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.prospectivestiles.domain.Term;
@@ -25,5 +27,9 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	 * @param userEntity
 	 */
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
+	
+	// used for pagination
+	// put it in dao.java
+	List<UserEntity> findAll(int page, int pageSize);
 	
 }

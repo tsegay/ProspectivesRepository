@@ -91,7 +91,7 @@ span.notification {
 	<c:url var="messagesUrl" value="/myAccount/messages" />
 </sec:authorize>
 
-<ul class="nav nav-tabs">
+<%-- <ul class="nav nav-tabs">
 	<li class="dropdown">
 	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Profile <span class="caret"></span></a>
 	  <ul class="dropdown-menu">
@@ -136,9 +136,9 @@ span.notification {
 	<li class="active">
 		<a href="${messagesUrl}">Messages</a>
 	</li>
-</ul>
+</ul> --%>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
 	  		<img src="${pageContext.request.contextPath}/resources/images/placeholderImage_140x140.jpg" alt="Your Pic" class="img-rounded profileImg">
@@ -154,10 +154,10 @@ span.notification {
 			</dd>
 		</dl>
 	</div>
-</sec:authorize>
+</sec:authorize> --%>
 
 
-<h1>Messages page</h1>
+<h1>Notifications page</h1>
 
 
 
@@ -168,57 +168,27 @@ span.notification {
 </div>
 
 
-
-
-
-<!-- ############################################################################################# -->
-<!-- ############################################################################################# -->
-<%-- <c:choose>
-	<c:when test="${empty messages}">
-		<p>No Message.</p>
-	</c:when>
-	<c:otherwise>
-		<div class="panel-group" id="accordion">
-		<c:forEach var="message" items="${messages}">
-				  <div class="panel panel-default">
-				    <div class="panel-heading">
-				      <h4 class="panel-title">
-				        
-				        <a data-toggle="collapse" data-parent="#accordion" href="#_${message.id}">
-				          <p><c:out value="${message.id}"></c:out>. <c:out value="${message.subject}"></c:out></p>
-				        </a>
-				      </h4>
-				    </div>
-				    <div id="_${message.id}" class="panel-collapse collapse in">
-				      <div class="panel-body">
-				        <p><c:out value="${message.text}"></c:out></p>
-				      </div>
-				    </div>
-				  </div>
-		</c:forEach>
-		</div>
-	</c:otherwise>
-</c:choose> --%>
-<%-- <a data-toggle="collapse" data-parent="#accordion" href="'#'+${message.id}"> --%>
 <!-- ############################################################################################# -->
 <!-- 			jQuery Scripts			 -->
 <!-- ############################################################################################# -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script>
-<!-- deleted modal script -->
+
+<!-- <script type="text/javascript" src="http://www.datejs.com/build/date.js"></script> -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/date.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+
+<%-- <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script> --%>
+
+
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="getMessagesUrl" value="/accounts/${userEntity.id}/getmessages" />
-	<%-- <c:url value="/accounts/' + userEntityId + '/getmessages"/> --%>
-	<c:url var="postMessageUrl" value="/accounts/${userEntity.id}/sendmessage" />
-	<%-- <c:url value="/accounts/' + studentId + '/sendmessage"/> --%>
+	<c:url var="getMessagesUrl" value="/accounts/messages" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="getMessagesUrl" value="/myAccount/getmessages" />
-	<c:url var="postMessageUrl" value="/myAccount/sendmessage" />
+
 </sec:authorize>
 
 <script>	
@@ -227,99 +197,19 @@ span.notification {
 	/* This displays the message compose form when the user click the link 
 	first stop the timer, so the page won't refresh while user is composing an email
 	*/
-	function displayMessageForm(studentId){
+	/* function displayMessageForm(studentId){
 		alert("displayMessageForm called " + studentId);
 		stopTimer();
 		$("#messageform").toggle();
-	}
-	
-	function success(data){
-		alert("Successfully sent email");
-		alert(data.stId);
-		$("#messageform").toggle();
-		/* update the page first to load the new message to the page
-		and start the timer */
-		updatePage();
-		startTimer();
-		$(".notification").text("Message sent");
-	}
-	
-	function error(data){
-		alert("Error. Send message failed. within JS");
-		alert(data.stId);
-	}
-	
-	function sendMessage(studentId){
-		alert("sending message..." + studentId);
-		
-		var subject = $("#subjectfield").val();
-		var text = $("#textareafield").val();
-		
-		$.ajax({
-			"type": 'POST',
-			"url" : '${postMessageUrl}',
-			"data": JSON.stringify({"studentId": studentId, "subject": subject, "text": text}),
-			"complete": function(response, textStatus){
-				return alert("#### complete called. " + textStatus);
-			},
-			"success": success,
-			"error" : error,
-			contentType : "application/json",
-			dataType : "json"
-		});
-		
-	}
+	} */
 	
 	
 	function fetchAndDisplayMessages(data){
 		/* get student id from the model */
-		var studentId = '${userEntityId}';
+		/* var studentId = '${userEntityId}'; */
 		
 		$("#messagesCount").text(data.messagesCount);
 		$("div#messages").html("");
-		
-		
-		var messageForm = document.createElement("form");
-		messageForm.setAttribute("class", "messageform");
-		messageForm.setAttribute("id", "messageform");
-		
-		var subjectField = document.createElement("input");
-		subjectField.setAttribute("class", "subjectfield");
-		subjectField.setAttribute("id", "subjectfield");
-		
-		var textareaField = document.createElement("textarea");
-		textareaField.setAttribute("class", "textareafield");
-		textareaField.setAttribute("id", "textareafield");
-		
-		var sendButton = document.createElement("button");
-		sendButton.setAttribute("class", "sendbutton");
-		sendButton.setAttribute("type", "submit");
-		sendButton.setAttribute("value", "Compose");
-		
-			sendButton.onclick = function(id){
-				return function(){
-					sendMessage(id);
-				}
-			}(studentId);
-		
-		messageForm.appendChild(subjectField);
-		messageForm.appendChild(textareaField);
-		messageForm.appendChild(sendButton);
-		
-		/* notification when message is sent */
-		var notificationDiv = document.createElement("div");
-		notificationDiv.setAttribute("class", "notification");
-		
-		$("div#messages").append(messageForm);
-		$("div#messages").append(notificationDiv);
-		
-		/* a link to display the message form */
-		var composeLink = document.createElement("a");
-		composeLink.setAttribute("class", "composeLink");
-		composeLink.setAttribute("href", "#");
-		composeLink.setAttribute("onclick", "displayMessageForm(" + studentId +")");
-		composeLink.appendChild(document.createTextNode("ComposeMesage"));
-		$("div#messages").append(composeLink);
 		
 		/* fetch all the messages from the db and display it */
 		for (var i = 0; i < data.messages.length; i++) {
@@ -328,31 +218,38 @@ span.notification {
 			var messageDiv = document.createElement("div");
 			messageDiv.setAttribute("class", "message");
 			
-			var subjectDiv = document.createElement("div");
-			subjectDiv.setAttribute("class", "subject");
-			subjectDiv.appendChild(document.createTextNode(message.subject));
+			var dateSpan = document.createElement("span");
+			dateSpan.setAttribute("class", "date");
 			
-			var textDiv = document.createElement("div");
-			textDiv.setAttribute("class", "text");
-			textDiv.appendChild(document.createTextNode(message.text));
+			var now = new Date(message.dateCreated);
 			
-			var studentDiv = document.createElement("div");
-			studentDiv.setAttribute("class", "student");
-			studentDiv.appendChild(document.createTextNode(message.student.firstName));
+			dateSpan.appendChild(document.createTextNode(now.toString('MM-dd-yyyy')));
+			dateSpan.appendChild(document.createTextNode(" "));
+			dateSpan.appendChild(document.createTextNode(now.toString('HH:mm')));
+			dateSpan.appendChild(document.createTextNode(" "));
 			
-			studentDiv.appendChild(document.createTextNode("("));
+			var studentSpan = document.createElement("span");
+			studentSpan.setAttribute("class", "student");
+			studentSpan.appendChild(document.createTextNode(message.student.firstName));
+			studentSpan.appendChild(document.createTextNode(" "));
+			
+			var subjectSpan = document.createElement("span");
+			subjectSpan.setAttribute("class", "subject");
+			
+			subjectSpan.appendChild(document.createTextNode("("));
 				var emailLink = document.createElement("a");
 				emailLink.setAttribute("class", "emaillink");
 				emailLink.setAttribute("href", "#");
 				/* emailLink.setAttribute("onclick", "displayMessageForm(" + i + ")"); */
-				emailLink.appendChild(document.createTextNode(message.student.email));
+				/* emailLink.appendChild(document.createTextNode(message.student.email)); */
+				emailLink.appendChild(document.createTextNode(message.subject));
 			
-			studentDiv.appendChild(emailLink);
-			studentDiv.appendChild(document.createTextNode(")"));
+			subjectSpan.appendChild(emailLink);
+			subjectSpan.appendChild(document.createTextNode(")"));
 			
-			messageDiv.appendChild(subjectDiv);
-			messageDiv.appendChild(textDiv);
-			messageDiv.appendChild(studentDiv);
+			messageDiv.appendChild(dateSpan);
+			messageDiv.appendChild(studentSpan);
+			messageDiv.appendChild(subjectSpan);
 			
 			$("div#messages").append(messageDiv);
 			
@@ -368,12 +265,13 @@ span.notification {
 	}
 	
 	function updatePage(){
-		var userEntityId = '${userEntityId}';
+		/* var userEntityId = '${userEntityId}'; */
 		/* alert('${getMessagesUrl}'); */
 		$.getJSON('${getMessagesUrl}', fetchAndDisplayMessages);
 	}
 	
 	function onLoad(){
+		/* Call the dropdowns for the menu bar (Profile, Reports) via JavaScript */
 		$('.dropdown-toggle').dropdown();
 		updatePage();
 		startTimer();
@@ -384,17 +282,5 @@ span.notification {
 </script>
 
 
-
-
-
-
-
-
-<!-- Call the dropdowns via JavaScript  -->
-<!-- <script>
-	$(document).ready(function () {
-        $('.dropdown-toggle').dropdown();
-    });
-</script> -->
 
 

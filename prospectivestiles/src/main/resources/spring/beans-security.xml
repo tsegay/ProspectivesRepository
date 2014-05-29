@@ -82,7 +82,8 @@
 		<intercept-url pattern="/accounts/*/institute/*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/institute" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/institutes" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accounts" access="hasRole('ROLE_ADMIN')" />
+		
+		
 
 		<!-- Student institute -->
 		<intercept-url pattern="/myAccount/institute/*/delete" access="isAuthenticated()" />
@@ -99,7 +100,6 @@
 		<intercept-url pattern="/accounts/*/highSchool/*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/highSchool" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/highSchools" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accounts" access="hasRole('ROLE_ADMIN')" />
 
 		<!-- Student highSchool -->
 		<intercept-url pattern="/myAccount/highSchool/*/delete" access="isAuthenticated()" />
@@ -267,6 +267,11 @@
 		<intercept-url pattern="/myAccount/message" access="isAuthenticated()" />
 		<intercept-url pattern="/myAccount/messages" access="isAuthenticated()" />
 		
+		<!-- Admin notification -->
+		<intercept-url pattern="/accounts/notification" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student notification -->
+		
 		<!-- =========================================================================== -->
 		
 		<!-- myAccount -->
@@ -277,6 +282,9 @@
 		<!-- JUST FOR TESTING PURPOSE; REMOVE  /accounts/** -->
 		<!-- <intercept-url pattern="/accounts/**" method="GET" access="isAuthenticated()" /> -->
 		<intercept-url pattern="/accounts/*/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/accounts/*/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/accounts/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/accounts" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*" method="GET" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*" access="hasRole('ROLE_ADMIN')" />
 		

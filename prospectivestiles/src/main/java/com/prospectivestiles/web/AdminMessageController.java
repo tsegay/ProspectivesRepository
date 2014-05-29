@@ -122,7 +122,6 @@ public class AdminMessageController {
 	 * The map data is what the jquery sendMessage sent
 	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/sendmessage", method = RequestMethod.POST, produces="application/json")
-//	@RequestMapping(value = "/accounts/sendmessage", method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
 	public Map<String, Object> sendMessageJSON(@PathVariable("userEntityId") Long userEntityId, 
 			@RequestBody Map<String, Object> data) {

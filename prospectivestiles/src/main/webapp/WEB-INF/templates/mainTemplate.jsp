@@ -2,8 +2,7 @@
 	pageEncoding="US-ASCII"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -64,7 +63,7 @@
 		<div class="navbar navbar-inverse navbar-static-top">
 			<div>
 
-				<a href="#" class="navbar-brand">Prospectives</a>
+				<a href="<c:url value='/welcome'/>" class="navbar-brand">Prospectives</a>
 
 				<button class="navbar-toggle" data-toggle="collapse"
 					data-target=".navHeaderCollapse">
@@ -76,8 +75,20 @@
 
 					<ul class="nav navbar-nav navbar-right">
 
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">Blog</a></li>
+						<li><a href="<c:url value='/welcome'/>">Home</a></li>
+						<sec:authorize access="!isAuthenticated()">
+							<li><a href="<c:url value='/registrationform'/>">Register</a></li>
+						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<li><a href="<c:url value='/registrationform'/>">Register</a></li>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<li><a href="<c:url value='/myAccount'/>">MyAccount</a></li>
+						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<li><a href="<c:url value='/accounts/notification'/>">Notifications</a></li>
+						</sec:authorize>
+						<!-- <li><a href="#">Blog</a></li> -->
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Social Media <b class="caret"></b></a>
 							<ul class="dropdown-menu">
@@ -86,8 +97,8 @@
 								<li><a href="#">Google+</a></li>
 								<li><a href="#">Instagram</a></li>
 							</ul></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Contact</a></li>
+						<!-- <li><a href="#">About</a></li> -->
+						<!-- <li><a href="#">Contact</a></li> -->
 
 					</ul>
 
