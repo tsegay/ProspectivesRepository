@@ -115,14 +115,6 @@
 
 		</div> -->
 		
-		<%-- <div class="row">
-
-			<div class="navMenu">
-				<tiles:insertAttribute name="navMenu"></tiles:insertAttribute>
-			</div>
-			
-		</div> --%>
-
 		<div>
 			<div class="row">
 
@@ -135,8 +127,14 @@
 					<div class="panel panel-default">
 
 						<div class="panel-body">
-
+						
 							<div class="bodycontent">
+								<div class="row">
+									<div class="navMenu">
+										<tiles:insertAttribute name="navMenu"></tiles:insertAttribute>
+									</div>
+								</div>
+								
 								<tiles:insertAttribute name="bodycontent"></tiles:insertAttribute>
 							</div>
 

@@ -10,16 +10,13 @@
 <%-- <sec:authentication var="myAccount" property="principal" /> --%>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<%-- <c:url var="myAccount" value='/myAccount'/>
-	<c:url var="account" value="../accounts/${user.id}" /> --%>
+<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="myAccount" value="/accounts/${userEntity.id}" />
 	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
 	<c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" />
-	<%-- <c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
@@ -37,9 +34,7 @@
 	<c:url var="educationUrl" value="/myAccount/educations" />
 	<c:url var="newHighSchoolUrl" value="/myAccount/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
-	<!-- change address to addresses -->
 	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<%-- <c:url var="newAddressUrl" value="/myAccount/address/new" /> --%>
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
@@ -97,7 +92,7 @@
 	<li>
 		<a href="${messagesUrl}">Messages</a>
 	</li>
-</ul>
+</ul> --%>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">

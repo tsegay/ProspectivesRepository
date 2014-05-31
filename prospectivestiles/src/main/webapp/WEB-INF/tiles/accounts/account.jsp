@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="myAccount" value="/accounts/${userEntity.id}" />
 	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
@@ -86,7 +86,7 @@
 		</li>
 	</sec:authorize>
 	
-</ul>
+</ul> --%>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">

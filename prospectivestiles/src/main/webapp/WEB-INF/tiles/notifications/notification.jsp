@@ -58,9 +58,7 @@ span.notification {
 <%-- <sec:authentication var="myAccount" property="principal" /> --%>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<%-- <c:url var="myAccount" value='/myAccount'/>
-	<c:url var="account" value="../accounts/${user.id}" /> --%>
+<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="myAccount" value="/accounts/${userEntity.id}" />
 	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
@@ -82,79 +80,15 @@ span.notification {
 	<c:url var="educationUrl" value="/myAccount/educations" />
 	<c:url var="newHighSchoolUrl" value="/myAccount/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
-	<!-- change address to addresses -->
 	<c:url var="addressUrl" value="/myAccount/addresses" />
 	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
 	<c:url var="employersUrl" value="/myAccount/employers" />
 	<c:url var="messagesUrl" value="/myAccount/messages" />
-</sec:authorize>
-
-<%-- <ul class="nav nav-tabs">
-	<li class="dropdown">
-	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Profile <span class="caret"></span></a>
-	  <ul class="dropdown-menu">
-	    <li><a href="${myAccount}">Personal Info</a></li>
-	    <li><a href="${addressUrl}">Addresses</a></li>
-	    <li><a href="${emergencyContactsUrl}">EmergencyContacts</a></li>
-	    <li class="divider"></li>
-	    <li><a href="${employersUrl}">Employment</a></li>
-	    <li class="divider"></li>
-	    <li><a href="#">One more separated link</a></li>
-	  </ul>
-	</li>
-	<li>
-		<a href="${educationUrl}">Educational bg</a>
-	</li>
-	<li>
-		<a href="${applyingForUrl}">ApplyingFor</a>
-	</li>
-	<li>
-		<a href="${standardTestsUrl}">StandardTest</a>
-	</li>
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<li>
-			<a href="${checklistUrl}">Checklist</a>
-		</li>
-		<li>
-			<a href="${evaluationUrl}">Evaluation</a>
-		</li>
-		<li class="dropdown">
-		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Reports<span class="caret"></span></a>
-		  <ul class="dropdown-menu">
-		    <li><a href="${reportsUrl}">Reports</a></li>
-		    <li><a href="${missingDocumentsUrl}">MissingDocuments</a></li>
-		    <li><a href="${evaluationReportUrl}">evaluationReport</a></li>
-		    <li class="divider"></li>
-		    <li><a href="#">Link</a></li>
-		    <li class="divider"></li>
-		    <li><a href="#">Link</a></li>
-		  </ul>
-		</li>
-	</sec:authorize>
-	<li class="active">
-		<a href="${messagesUrl}">Messages</a>
-	</li>
-</ul> --%>
-
-<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<div class="well well-sm row">
-		<div class="col-sm-3">
-	  		<img src="${pageContext.request.contextPath}/resources/images/placeholderImage_140x140.jpg" alt="Your Pic" class="img-rounded profileImg">
-	    </div>
-		<dl class="dl-horizontal col-sm-9">
-			<dt>Full name:</dt>
-			<dd>
-				<c:out value="${userEntity.firstName}"></c:out> <c:out value="${userEntity.lastName}"></c:out>
-			</dd>
-			<dt>Username</dt>
-			<dd>
-				<c:out value="${userEntity.username}" />
-			</dd>
-		</dl>
-	</div>
 </sec:authorize> --%>
+
+
 
 
 <h1>Notifications page</h1>

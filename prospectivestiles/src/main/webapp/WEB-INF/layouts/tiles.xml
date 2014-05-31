@@ -11,6 +11,7 @@
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value="prospectivestiles"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/tiles/include/header.jsp"></put-attribute>
+		<put-attribute name="navMenu" value="/WEB-INF/tiles/include/navMenus.jsp"></put-attribute>
 		<put-attribute name="sidebar" value="/WEB-INF/tiles/include/sidebar.jsp"></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/include/content.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/include/footer.jsp"></put-attribute>
@@ -20,6 +21,7 @@
 
 	<definition name="welcome" extends="prospectivestiles.base">
 		<put-attribute name="title" value="Homepage"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/welcome.jsp"></put-attribute>
 	</definition>
 	
@@ -30,16 +32,19 @@
 	
 	<definition name="denied" extends="prospectivestiles.base">
 		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/denied.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="registrationform" extends="prospectivestiles.base">
 		<put-attribute name="title" value="registrationForm page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/registrationform.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="registrationok" extends="prospectivestiles.base">
 		<put-attribute name="title" value="registrationok page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/registrationok.jsp"></put-attribute>
 	</definition>
 	
@@ -48,6 +53,7 @@
 	
 	<definition name="adminpage" extends="prospectivestiles.base">
 		<put-attribute name="title" value="admin page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/admin.jsp"></put-attribute>
 	</definition>
 	
@@ -58,6 +64,7 @@
 	
 	<definition name="accounts/accounts" extends="prospectivestiles.base">
 		<put-attribute name="title" value="accounts page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/accounts.jsp"></put-attribute>
 	</definition>
 	
@@ -393,6 +400,7 @@
 	
 	<definition name="notification" extends="prospectivestiles.base">
 		<put-attribute name="title" value="notification page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/notifications/notification.jsp"></put-attribute>
 	</definition>
 	
