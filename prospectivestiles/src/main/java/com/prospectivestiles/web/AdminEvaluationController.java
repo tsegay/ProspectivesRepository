@@ -49,7 +49,7 @@ public class AdminEvaluationController {
 	
 	/**
 	 * One Student has one evaluation only.
-	 * Thinking of Modiying the getEvaluations and editCheklist methods!!
+	 * Thinking of Modifying the getEvaluations and editCheklist methods!!
 	 * Check if user has evaluation
 	 * If user has evaluation return it
 	 * Else create new evaluation for user
@@ -57,6 +57,9 @@ public class AdminEvaluationController {
 	 * in the view page, check if user has a evaluation created
 	 * If no evaluation exist for user, display create evaluation button
 	 * Else display Edit evaluation button
+	 * 
+	 * Better option: when user registers, create the checklist and evaluation by default.
+	 * then admission office don't have to click on 'create ...' button as every applicant should have one.
 	 * 
 	 */
 	

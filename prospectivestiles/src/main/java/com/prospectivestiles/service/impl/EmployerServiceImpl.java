@@ -44,8 +44,9 @@ public class EmployerServiceImpl implements EmployerService {
 		
 		Employer  employerToUpdate = employerDao.find(employer.getId());
 		
-		employerToUpdate.setEmployed(employer.isEmployed());
-		employerToUpdate.setEmployedSince(employer.getEmployedSince());
+//		employerToUpdate.setEmployed(employer.isEmployed());
+		employerToUpdate.setEmployedFrom(employer.getEmployedFrom());
+		employerToUpdate.setEmployedTo(employer.getEmployedTo());
 		employerToUpdate.setPosition(employer.getPosition());
 		employerToUpdate.setEmployerName(employer.getEmployerName());
 		employerToUpdate.setCompanyName(employer.getCompanyName());

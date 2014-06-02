@@ -132,8 +132,9 @@ public class StudentEmployerController {
 
 		// log.debug("Message validated; updating message subject and text");
 		employer.setCompanyName(origEmployer.getCompanyName());
-		employer.setEmployed(origEmployer.isEmployed());
-		employer.setEmployedSince(origEmployer.getEmployedSince());
+//		employer.setEmployed(origEmployer.isEmployed());
+		employer.setEmployedFrom(origEmployer.getEmployedFrom());
+		employer.setEmployedTo(origEmployer.getEmployedTo());
 		employer.setPosition(origEmployer.getPosition());
 		employer.setEmployerName(origEmployer.getEmployerName());
 		employer.setCompanyName(origEmployer.getCompanyName());

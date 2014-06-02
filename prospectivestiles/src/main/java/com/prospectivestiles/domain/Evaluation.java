@@ -72,7 +72,7 @@ public class Evaluation implements Serializable {
 	private UserEntity admissionOfficer; 
 	
 	/**
-	 * Status values are pending, in process, admitted, (transfered to enrolled students portal)
+	 * Status values are pending, in process, complete, admitted, (transfered to enrolled students portal)
 	 */
 	private String status;
 	/**

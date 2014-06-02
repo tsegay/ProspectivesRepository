@@ -7,9 +7,6 @@
  */
 package com.prospectivestiles.util;
 
-/**
- * @author Willie Wheeler (willie.wheeler@gmail.com)
- */
 public class StringUtils {
 
 	/**

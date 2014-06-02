@@ -5,95 +5,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<!-- Use this for ROLE_USER to get current user -->
-<%-- <sec:authentication var="myAccount" property="principal" /> --%>
-
-<!-- Should delete this user, NOT using it -->
-<%-- <c:set var="user" value="${highSchool.userEntity}" /> --%>
-
-<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="myAccount" value="/accounts/${userEntity.id}" />
-	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
-	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
-	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
-	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
-	<c:url var="uploadedFilesUrl" value="/accounts/${userEntity.id}/files" />
-	<c:url var="employersUrl" value="/accounts/${userEntity.id}/employers" />
-	<c:url var="checklistUrl" value="/accounts/${userEntity.id}/checklists" />
-	<c:url var="evaluationUrl" value="/accounts/${userEntity.id}/evaluations" />
-	<c:url var="reportsUrl" value="/accounts/${userEntity.id}/reports" />
-	<c:url var="missingDocumentsUrl" value="/accounts/${userEntity.id}/reports/missingDocuments" />
-	<c:url var="evaluationReportUrl" value="/accounts/${userEntity.id}/reports/evaluationReport" />
-	<c:url var="messagesUrl" value="/accounts/${userEntity.id}/messages" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="myAccount" value='/myAccount'/>
-	<c:url var="educationUrl" value="/myAccount/educations" />
 	<c:url var="newHighSchoolUrl" value="/myAccount/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
-	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
-	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
-	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
-	<c:url var="uploadedFilesUrl" value="/myAccount/files" />
-	<c:url var="employersUrl" value="/myAccount/employers" />
-	<c:url var="messagesUrl" value="/myAccount/messages" />
 </sec:authorize>
 
-
-<ul class="nav nav-tabs">
-	<li class="dropdown">
-	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Profile <span class="caret"></span></a>
-	  <ul class="dropdown-menu">
-	    <li><a href="${myAccount}">Personal Info</a></li>
-	    <li><a href="${addressUrl}">Addresses</a></li>
-	    <li><a href="${emergencyContactsUrl}">EmergencyContacts</a></li>
-	    <li class="divider"></li>
-	    <li><a href="${employersUrl}">Employment</a></li>
-	    <li class="divider"></li>
-	    <li><a href="#">One more separated link</a></li>
-	  </ul>
-	</li>
-	<li class="active">
-		<a href="${educationUrl}">Educational bg</a>	
-	</li>
-	<li>
-		<a href="${applyingForUrl}">ApplyingFor</a>
-	</li>
-	<li>
-		<a href="${standardTestsUrl}">StandardTest</a>
-	</li>
-	<li>
-		<a href="${uploadedFilesUrl}">Documents</a>
-	</li>
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<li>
-			<a href="${checklistUrl}">Checklist</a>
-		</li>
-		<li>
-			<a href="${evaluationUrl}">Evaluation</a>
-		</li>
-		<li class="dropdown">
-		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Reports<span class="caret"></span></a>
-		  <ul class="dropdown-menu">
-		    <li><a href="${reportsUrl}">Reports</a></li>
-		    <li><a href="${missingDocumentsUrl}">MissingDocuments</a></li>
-		    <li><a href="${evaluationReportUrl}">evaluationReport</a></li>
-		    <li class="divider"></li>
-		    <li><a href="#">Link</a></li>
-		    <li class="divider"></li>
-		    <li><a href="#">Link</a></li>
-		  </ul>
-		</li>
-	</sec:authorize>
-	<li>
-		<a href="${messagesUrl}">Messages</a>
-	</li>
-	
-</ul> --%>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
@@ -115,19 +35,10 @@
 
 <h1>HighSchools page</h1>
 
-
-
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<h3>
-		<a href="${newHighSchoolUrl}">Add New HighSchool</a>
-	</h3>
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
-	<h3>
-		<a href="${newHighSchoolUrl}">Add New HighSchool</a>
-	</h3>
-</sec:authorize>
-
+<h3>
+	<a href="${newHighSchoolUrl}">Add New HighSchool</a>
+</h3>
+	
 
 <c:if test="${param.deleted == true}">
 	<div class="info alert">HighSchool/Institute deleted.</div>
@@ -192,17 +103,10 @@
 
 
 <h1>Institutes</h1>
-
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<h3>
-		<a href="${newInstituteUrl}">Add New Institute</a>
-	</h3>
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
-	<h3>
-		<a href="${newInstituteUrl}">Add New Institute</a>
-	</h3>
-</sec:authorize>
+<h3>
+	<a href="${newInstituteUrl}">Add New Institute</a>
+</h3>
+	
 
 
 <c:choose>

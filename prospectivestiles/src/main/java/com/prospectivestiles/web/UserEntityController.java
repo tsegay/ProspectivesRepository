@@ -22,8 +22,6 @@ import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.UserEntityService;
 
 
-/*@ManagedBean
-@SessionScoped*/
 @Controller
 //@RequestMapping("/users")
 public class UserEntityController {

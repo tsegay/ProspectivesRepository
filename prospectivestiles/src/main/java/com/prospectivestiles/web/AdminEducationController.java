@@ -32,7 +32,7 @@ public class AdminEducationController {
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/educations", method = RequestMethod.GET)
 	public String getEducations(@PathVariable("userEntityId") Long userEntityId, Model model) {
-		
+//		System.out.println("############ getEducations");
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		model.addAttribute("institutes", instituteService.getInstitutesByUserEntityId(userEntity.getId()));

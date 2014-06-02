@@ -36,16 +36,21 @@
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		
 		<!-- =========================================================================== -->
+		<!-- ###############  TESTING PURPOSE ONLY #################### -->
+		<!-- =========================================================================== -->
+		<intercept-url pattern="/show" access="permitAll" />
+		<intercept-url pattern="/save" access="permitAll" />
+		<intercept-url pattern="/createPDF" access="permitAll" />
+		<intercept-url pattern="/download/*" access="permitAll" />
+		<intercept-url pattern="/createMemPDF" access="permitAll" />
+		<!-- =========================================================================== -->
+		<!-- ###############  END TESTING PURPOSE ONLY #################### -->
+		<!-- =========================================================================== -->
 		
 		<!-- Get home page -->
 		<intercept-url pattern="/welcome.jsp" method="GET" access="permitAll" />
 		
 		<intercept-url pattern="/registrationform" access="permitAll" />
-		
-		<!-- =========================================================================== -->
-		<!-- For testing file upload show and save -->
-		<intercept-url pattern="/show" access="permitAll" />
-		<intercept-url pattern="/save" access="permitAll" />
 		
 		<!-- =========================================================================== -->
 		<!-- For testing JSON -->
@@ -217,6 +222,10 @@
 		<intercept-url pattern="/accounts/*/files" access="hasRole('ROLE_ADMIN')" />
 		
 		<!-- Student uploadFiles -->
+		<intercept-url pattern="/myAccount/files/*/delete" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/files/*" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/saveFile" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/files" access="isAuthenticated()" />
 		
 		<!-- Admin checklists -->
 		<intercept-url pattern="/accounts/*/checklist/*/delete" access="hasRole('ROLE_ADMIN')" />

@@ -32,15 +32,56 @@
 
 
 
-	<div class="form-group checkbox row">
+	<%-- <div class="form-group checkbox row">
 		<div class="col-sm-2">
 			<form:checkbox class="form-control" id="employed" path="employed" />
 		</div>
 		<label for="employed" class="col-sm-5 control-label">employed</label>
 		<div class="col-sm-5">
-			<%-- <form:errors path="employed" htmlEscape="false" /> --%>
+			<form:errors path="employed" htmlEscape="false" />
+		</div>
+	</div> --%>
+	
+	<div class="form-group row">
+		<label for="position" class="col-sm-2 control-label">position</label>
+		<div class="col-sm-5">
+			<form:input path="position" class="form-control"
+				placeholder="Your position" />
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="position" htmlEscape="false" />
 		</div>
 	</div>
+	
+	<fmt:formatDate value="${employer.employedFrom}"
+		var="employedFromString" pattern="dd/MM/yyyy" />
+	<div class="form-group row">
+		<label for="employedFrom" class="col-sm-2 control-label">employedFrom</label>
+		<div class="col-sm-5">
+			<form:input path="employedFrom" value="${employedFromString}"
+				class="form-control" id="employedFrom"
+				placeholder="Your employedFrom" />
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="employedFrom" htmlEscape="false" />
+		</div>
+	</div>
+	
+	<fmt:formatDate value="${employer.employedTo}"
+		var="employedToString" pattern="dd/MM/yyyy" />
+	<div class="form-group row">
+		<label for="employedTo" class="col-sm-2 control-label">employedTo</label>
+		<div class="col-sm-5">
+			<form:input path="employedTo" value="${employedToString}"
+				class="form-control" id="employedTo"
+				placeholder="Your employedTo" />
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="employedTo" htmlEscape="false" />
+		</div>
+	</div>
+
+
 
 	<div class="form-group row">
 		<label for="employerName" class="col-sm-2 control-label">employerName</label>
@@ -64,30 +105,7 @@
 		</div>
 	</div>
 
-	<fmt:formatDate value="${employer.employedSince}"
-		var="employedSinceString" pattern="dd/MM/yyyy" />
-	<div class="form-group row">
-		<label for="employedSince" class="col-sm-2 control-label">employedSince</label>
-		<div class="col-sm-5">
-			<form:input path="employedSince" value="${employedSinceString}"
-				class="form-control" id="employedSince"
-				placeholder="Your employedSince" />
-		</div>
-		<div class="col-sm-5">
-			<form:errors path="employedSince" htmlEscape="false" />
-		</div>
-	</div>
-
-	<div class="form-group row">
-		<label for="position" class="col-sm-2 control-label">position</label>
-		<div class="col-sm-5">
-			<form:input path="position" class="form-control"
-				placeholder="Your position" />
-		</div>
-		<div class="col-sm-5">
-			<form:errors path="position" htmlEscape="false" />
-		</div>
-	</div>
+	
 
 	<div class="form-group">
 		<label for="" class="col-sm-2 control-label">&nbsp;</label>

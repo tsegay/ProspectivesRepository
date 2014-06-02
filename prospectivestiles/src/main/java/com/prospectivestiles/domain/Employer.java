@@ -32,10 +32,11 @@ public class Employer implements Serializable {
 	
 	
 	private long id;
-	private boolean employed;
+//	private boolean employed;
 	private String employerName;
 	private String companyName;
-	private Date employedSince;
+	private Date employedFrom;
+	private Date employedTo;
 	private String position;
 	
 	private UserEntity userEntity;
@@ -47,11 +48,11 @@ public class Employer implements Serializable {
 	public Employer() {
 	}
 	public Employer(boolean employed, String employerName, String companyName,
-			Date employedSince, String position) {
-		this.employed = employed;
+			Date employedFrom, Date employedTo, String position) {
 		this.employerName = employerName;
 		this.companyName = companyName;
-		this.employedSince = employedSince;
+		this.employedFrom = employedFrom;
+		this.employedTo = employedTo;
 		this.position = position;
 	}
 	
@@ -66,12 +67,12 @@ public class Employer implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public boolean isEmployed() {
-		return employed;
-	}
-	public void setEmployed(boolean employed) {
-		this.employed = employed;
-	}
+//	public boolean isEmployed() {
+//		return employed;
+//	}
+//	public void setEmployed(boolean employed) {
+//		this.employed = employed;
+//	}
 	public String getEmployerName() {
 		return employerName;
 	}
@@ -85,11 +86,17 @@ public class Employer implements Serializable {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public Date getEmployedSince() {
-		return employedSince;
+	public Date getEmployedFrom() {
+		return employedFrom;
 	}
-	public void setEmployedSince(Date employedSince) {
-		this.employedSince = employedSince;
+	public void setEmployedFrom(Date employedFrom) {
+		this.employedFrom = employedFrom;
+	}
+	public Date getEmployedTo() {
+		return employedTo;
+	}
+	public void setEmployedTo(Date employedTo) {
+		this.employedTo = employedTo;
 	}
 	public String getPosition() {
 		return position;

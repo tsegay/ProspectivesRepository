@@ -97,6 +97,7 @@ public class AdminHighSchoolController {
 	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/new", method = RequestMethod.GET)
 	public String getNewHighSchoolForm(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
+//		System.out.println("########### getNewHighSchoolForm");
 		HighSchool highSchool = new HighSchool();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		

@@ -54,45 +54,7 @@ span.notification {
 -->
 </style>
 
-<!-- Use this for ROLE_USER to get current user -->
-<%-- <sec:authentication var="myAccount" property="principal" /> --%>
-
-
-<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="myAccount" value="/accounts/${userEntity.id}" />
-	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
-	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
-	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
-	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
-	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
-	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
-	<c:url var="employersUrl" value="/accounts/${userEntity.id}/employers" />
-	<c:url var="checklistUrl" value="/accounts/${userEntity.id}/checklists" />
-	<c:url var="evaluationUrl" value="/accounts/${userEntity.id}/evaluations" />
-	<c:url var="reportsUrl" value="/accounts/${userEntity.id}/reports" />
-	<c:url var="missingDocumentsUrl" value="/accounts/${userEntity.id}/reports/missingDocuments" />
-	<c:url var="evaluationReportUrl" value="/accounts/${userEntity.id}/reports/evaluationReport" />
-	<c:url var="messagesUrl" value="/accounts/${userEntity.id}/messages" />
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="myAccount" value='/myAccount'/>
-	<c:url var="educationUrl" value="/myAccount/educations" />
-	<c:url var="newHighSchoolUrl" value="/myAccount/highSchool/new" />
-	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
-	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
-	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
-	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
-	<c:url var="employersUrl" value="/myAccount/employers" />
-	<c:url var="messagesUrl" value="/myAccount/messages" />
-</sec:authorize> --%>
-
-
-
-
 <h1>Notifications page</h1>
-
 
 
 <a href="<c:url value="/messages"/>">Messages (<span id="messagesCount">0</span>)</a>

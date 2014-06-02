@@ -5,88 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-
-<!-- Use this for ROLE_USER to get current user -->
-<%-- <sec:authentication var="myAccount" property="principal" /> --%>
-
-<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="myAccount" value="/accounts/${userEntity.id}" />
-	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
-	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
-	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
-	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
-	<c:url var="emergencyContactsUrl" value="/accounts/${userEntity.id}/emergencyContacts" />
-	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
-	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
-	<c:url var="employersUrl" value="/accounts/${userEntity.id}/employers" />
-	<c:url var="checklistUrl" value="/accounts/${userEntity.id}/checklists" />
-	<c:url var="evaluationUrl" value="/accounts/${userEntity.id}/evaluations" />
-	<c:url var="reportsUrl" value="/accounts/${userEntity.id}/reports" />
-	<c:url var="missingDocumentsUrl" value="/accounts/${userEntity.id}/reports/missingDocuments" />
-	<c:url var="evaluationReportUrl" value="/accounts/${userEntity.id}/reports/evaluationReport" />
-	<c:url var="messagesUrl" value="/accounts/${userEntity.id}/messages" />
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="myAccount" value='/myAccount'/>
-	<c:url var="educationUrl" value="/myAccount/educations" />
-	<c:url var="newHighSchoolUrl" value="/myAccount/highSchool/new" />
-	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
-	<c:url var="addressUrl" value="/myAccount/addresses" />
-	<c:url var="emergencyContactsUrl" value="/myAccount/emergencyContacts" />
-	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
-	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
-	<c:url var="employersUrl" value="/myAccount/employers" />
-	<c:url var="messagesUrl" value="/myAccount/messages" />
-</sec:authorize>
-
-
-<ul class="nav nav-tabs">
-	<li class="dropdown">
-	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Profile <span class="caret"></span></a>
-	  <ul class="dropdown-menu">
-	    <li><a href="${myAccount}">Personal Info</a></li>
-	    <li><a href="${addressUrl}">Addresses</a></li>
-	    <li><a href="${emergencyContactsUrl}">EmergencyContacts</a></li>
-	    <li class="divider"></li>
-	    <li><a href="${employersUrl}">Employment</a></li>
-	    <li class="divider"></li>
-	    <li><a href="#">One more separated link</a></li>
-	  </ul>
-	</li>
-	<li>
-		<a href="${educationUrl}">Educational bgd</a>
-	</li>
-	<li class="active">
-		<a href="${applyingForUrl}">ApplyingFor</a>
-	</li>
-	<li>
-		<a href="${standardTestsUrl}">StandardTest</a>
-	</li>
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<li>
-			<a href="${checklistUrl}">Checklist</a>
-		</li>
-		<li>
-			<a href="${evaluationUrl}">Evaluation</a>
-		</li>
-		<li class="dropdown">
-		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Reports<span class="caret"></span></a>
-		  <ul class="dropdown-menu">
-		    <li><a href="${reportsUrl}">Reports</a></li>
-		    <li><a href="${missingDocumentsUrl}">MissingDocuments</a></li>
-		    <li><a href="${evaluationReportUrl}">evaluationReport</a></li>
-		    <li class="divider"></li>
-		    <li><a href="#">Link</a></li>
-		    <li class="divider"></li>
-		    <li><a href="#">Link</a></li>
-		  </ul>
-		</li>
-	</sec:authorize>
-	<li>
-		<a href="${messagesUrl}">Messages</a>
-	</li>
-</ul> --%>
-
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
@@ -113,82 +31,57 @@
 	<div class="info alert">Address deleted.</div>
 </c:if>
 
+<!-- if student has selected the term and program of study, show his selection and hide the add button
+if student hasn't selected show the add button -->
 
+
+
+	<%-- <c:when test="${userEntity.term.id < 1 && userEntity.programOfStudy.id < 1}"> --%>
+	
+	
 <c:choose>
-	<c:when test="${empty userEntity}">
-		<p>No testAs.</p>
+	<c:when test="${empty userEntity.term}">
+	<%-- <c:if test="${userEntity.term.id < 1}"> --%>
+		<p>No term</p>
+		
+		<!-- Button trigger modal -->
+		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addTermModal">
+		  Select term and program of study you are applying for
+		</button>
+	<%-- </c:if>
+	<c:if test="${userEntity.term.id > 0}"> --%>
 	</c:when>
 	<c:otherwise>
-
-		<div class="table-responsive">
-			<table class="table table-hover table-striped">
-				<tr>
-					<th>Id</th>
-					<th>firstName</th>
-					<th>lastName</th>
-					<th>Email</th>
-					<th>term</th>
-					<th>programOfStudy</th>
-					<th>Edit</th>
-					<th>Delete</th>
-				</tr>
-	
-				
-				 <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<c:url var="testAUrl"	value="/accounts/${testA.userEntity.id}/testA/${testA.id}" />
-					<c:url var="editTestAUrl" value="/accounts/${testA.userEntity.id}/testA/${testA.id}/edit" />
-					<c:url var="deleteTestAUrl" value="/accounts/${testA.userEntity.id}/testA/${testA.id}/delete" />
-				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_USER')">
-					<c:url var="testAUrl"	value="/myAccount/testA/${testA.id}" />
-					<c:url var="editTestAUrl" value="/myAccount/testA/${testA.id}" />
-					<c:url var="deleteTestAUrl" value="/myAccount/testA/${testA.id}/delete" />
-				</sec:authorize>
-				
-				<tr>
-					<td><c:out value="${userEntity.id}"></c:out></td>
-					<td><c:out value="${userEntity.firstName}"></c:out></td>
-					<td><c:out value="${userEntity.lastName}"></c:out></td>
-					<td><c:out value="${userEntity.email}"></c:out></td>
-					<td>
-						<c:if test="${userEntity.term.id < 1}">
-							No term
-						</c:if>
-						<c:if test="${userEntity.term.id > 0}">
-							<c:out value="${userEntity.term.name}"></c:out>
-						</c:if>
-					</td>
-					<td>
-						<c:if test="${userEntity.programOfStudy.id < 1}">
-		                	No programOfStudy.
-		                </c:if>
-						<c:if test="${userEntity.programOfStudy.id > 0}">
-		                	<c:out value="${userEntity.programOfStudy.name}"></c:out>
-		                </c:if>
-					
-					</td>
-					<td>
-						<a data-toggle="modal" data-remote="${editTestAUrl}" data-target="#editTestAModal" 
+		
+		<dl class="dl-horizontal">
+			<dt>term</dt>
+			<dd>
+				<c:out value="${userEntity.term.name}"></c:out>
+			</dd>
+		
+			<dt>programOfStudy</dt>
+			<dd>
+				<c:out value="${userEntity.programOfStudy.name}"></c:out>
+			</dd>
+			
+			<dt></dt>
+			<dd>
+				<a data-toggle="modal" data-remote="${editTermUrl}" data-target="#editTermModal" 
 							class="btn btn-primary btn-lg">Edit</a>
-					</td>
-					<td>
-						<form id="deleteForm" action="${deleteTestAUrl}" method="post">
-							<div><input type="submit" value="DELETE" /></div>
-						</form>
-					</td>
-				</tr>
-								
-			</table>
-		</div>
+			</dd>
+			
+			<dt></dt>
+			<dd>
+				<form id="deleteForm" action="${deleteTermUrl}" method="post">
+					<div><input type="submit" value="DELETE" /></div>
+				</form>
+			</dd>
+			
+		</dl>
+	<%-- </c:if> --%>
 	</c:otherwise>
 </c:choose>
-
-
-
-<!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addTermModal">
-  Add ApplyingFor Term
-</button>
+	
 
 <!-- address Modal -->
 <div class="modal fade" id="addTermModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -245,16 +138,6 @@
 	  </div>
   </div>
 </div>
-
-
-<!-- edit address Modal -->
-<!-- <div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class = "modal-content">
-	  </div>
-  </div>
-</div> -->
-
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

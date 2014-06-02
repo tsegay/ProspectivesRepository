@@ -10,9 +10,6 @@ package com.prospectivestiles.util;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
-/**
- * @author Willie Wheeler (willie.wheeler@gmail.com)
- */
 public class NumberUtils {
 //	private static final Logger log = LoggerFactory.getLogger(NumberUtils.class);
 	
