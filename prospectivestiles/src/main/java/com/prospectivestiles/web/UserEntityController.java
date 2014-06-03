@@ -114,7 +114,7 @@ public class UserEntityController {
 		}
 		
 		
-		return (result.hasErrors() ? "registrationform" : "registrationok");
+		return (result.hasErrors() ? "registrationform" : "welcome");
 	}
 
 }

@@ -59,6 +59,10 @@ public class StudentAddressController {
 	/**
 	 * For Modal: add new address to the model. as modal uses the current page to load the new address page in modal.
 	 */
+	/*
+	 * I am going to merge the personal info and addresses page together.
+	 * Then i am not going to have addresses page. this method will be removed.
+	 */
 	@RequestMapping(value = "/myAccount/addresses", method = RequestMethod.GET)
 	public String getAddresses(Model model) {
 		
@@ -116,7 +120,10 @@ public class StudentAddressController {
 		// Would normally set Location header and HTTP status 201, but we're
 		// using the redirect-after-post pattern, which uses the Location header
 		// and status code for redirection.
-		return "redirect:/myAccount/addresses";
+		
+		// I am no longer using the addresses page!
+//		return "redirect:/myAccount/addresses";
+		return "redirect:/myAccount";
 	}
 	
 	
@@ -170,7 +177,9 @@ public class StudentAddressController {
 		
 		addressService.updateAddress(address);
 		
-		return "redirect:/myAccount/addresses";
+		// I am no longer using the addresses page!
+//		return "redirect:/myAccount/addresses";
+		return "redirect:/myAccount";
 	}
 	
 	@RequestMapping(value = "/myAccount/address/{addressId}/delete", method = RequestMethod.POST)
@@ -178,7 +187,9 @@ public class StudentAddressController {
 			throws IOException {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
 		addressService.delete(getAddressValidateUserEntityId(userEntity.getId(), addressId));
-		return "redirect:/myAccount/addresses";
+		// I am no longer using the addresses page!
+//		return "redirect:/myAccount/addresses";
+		return "redirect:/myAccount";
 	}
 	
 	// ======================================

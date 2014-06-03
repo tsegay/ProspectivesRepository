@@ -32,24 +32,22 @@
 </c:if>
 
 <!-- if student has selected the term and program of study, show his selection and hide the add button
-if student hasn't selected show the add button -->
+if student hasn't selected show the add button 
+user can't delete term or program of study but they can change it.
+I am using the same method to create and edit the term and program of study to 
+insert the term and program of study to the suerEntity uisng jdbc
+-->
 
-
-
-	<%-- <c:when test="${userEntity.term.id < 1 && userEntity.programOfStudy.id < 1}"> --%>
-	
-	
 <c:choose>
 	<c:when test="${empty userEntity.term}">
-	<%-- <c:if test="${userEntity.term.id < 1}"> --%>
 		<p>No term</p>
 		
 		<!-- Button trigger modal -->
+		Select term and program of study you are applying for: <br />
 		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addTermModal">
-		  Select term and program of study you are applying for
+		  Select
 		</button>
-	<%-- </c:if>
-	<c:if test="${userEntity.term.id > 0}"> --%>
+
 	</c:when>
 	<c:otherwise>
 		
@@ -65,20 +63,20 @@ if student hasn't selected show the add button -->
 			</dd>
 			
 			<dt></dt>
-			<dd>
-				<a data-toggle="modal" data-remote="${editTermUrl}" data-target="#editTermModal" 
-							class="btn btn-primary btn-lg">Edit</a>
-			</dd>
-			
-			<dt></dt>
-			<dd>
-				<form id="deleteForm" action="${deleteTermUrl}" method="post">
-					<div><input type="submit" value="DELETE" /></div>
-				</form>
-			</dd>
-			
+
 		</dl>
-	<%-- </c:if> --%>
+		
+		<div class="row">
+			<div class="col-md-2">
+				<%-- <a data-toggle="modal" data-remote="${editTermUrl}" data-target="#addTermModal" 
+							class="btn btn-primary btn-sm">Edit</a> --%>
+				<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTermModal">
+				  Edit
+				</button>
+			</div>
+		</div>
+		
+		
 	</c:otherwise>
 </c:choose>
 	

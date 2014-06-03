@@ -24,123 +24,205 @@
 
 
 <h1 class="page-header">MyAccount Page</h1>
-<p>
-	Welcome
-	<c:out value="${userEntity.username}" />
-</p>
 
+<div class="row">
+	<dl class="dl-horizontal col-md-6">
+	
+		<dt>id</dt>
+		<dd>
+			<c:out value="${userEntity.id}" />
+		</dd>
+		
+		<dt>firstName</dt>
+		<dd>
+			<c:out value="${userEntity.firstName}" />
+		</dd>
+	
+		<dt>middleName</dt>
+		<dd>
+			<c:out value="${userEntity.middleName}" />
+		</dd>
+	
+		<dt>lastName</dt>
+		<dd>
+			<c:out value="${userEntity.lastName}" />
+		</dd>
+	
+		<dt>Username</dt>
+		<dd>
+			<c:out value="${userEntity.username}" />
+		</dd>
+	
+		<dt>E-mail</dt>
+		<dd>
+			<a href="mailto:${userEntity.email}">${userEntity.email}</a>
+		</dd>
+		
+		<dt>marketingOk</dt>
+		<dd>
+			<c:out value="${userEntity.marketingOk}" />
+		</dd>
+		
+		<dt>acceptTerms</dt>
+		<dd>
+			<c:out value="${userEntity.acceptTerms}" />
+		</dd>
+		
+		<dt>dateCreated</dt>
+		<dd>
+			<c:out value="${userEntity.dateCreated}" />
+		</dd>
+	</dl>
+	<dl class="dl-horizontal col-md-6">
+	
+		<dt>dob</dt>
+		<dd>
+			<c:out value="${userEntity.dob}" />
+		</dd>
+		
+		<dt>gender</dt>
+		<dd>
+			<c:out value="${userEntity.gender}" />
+		</dd>
+		
+		<dt>transferee</dt>
+		<dd>
+			<c:out value="${userEntity.transferee}" />
+		</dd>
+		<dt>homePhone</dt>
+		<dd>
+			<c:out value="${userEntity.homePhone}" />
+		</dd>
+		<dt>cellPhone</dt>
+		<dd>
+			<c:out value="${userEntity.cellPhone}" />
+		</dd>
+		<dt>ssn</dt>
+		<dd>
+			<c:out value="${userEntity.ssn}" />
+		</dd>
+		
+		<dt>citizenship</dt>
+		<dd>
+			<c:out value="${userEntity.citizenship}" />
+		</dd>
+		
+		<dt>ethnicity</dt>
+		<dd>
+			<c:out value="${userEntity.ethnicity}" />
+		</dd>
+		
+		<dt>Account enabled</dt>
+		<dd>
+			<c:out value="${userEntity.enabled}" />
+		</dd>
+	
+		<dt>Roles</dt>
+		<dd>
+			<c:forEach var="role" items="${userEntity.roles}">
+				<c:out value="${role.name}" />
+				<br />
+			</c:forEach>
+		</dd>
 
-<dl class="dl-horizontal">
-	
-	<dt>id</dt>
-	<dd>
-		<c:out value="${userEntity.id}" />
-	</dd>
-	
-	<dt>firstName</dt>
-	<dd>
-		<c:out value="${userEntity.firstName}" />
-	</dd>
-
-	<dt>middleName</dt>
-	<dd>
-		<c:out value="${userEntity.middleName}" />
-	</dd>
-
-	<dt>lastName</dt>
-	<dd>
-		<c:out value="${userEntity.lastName}" />
-	</dd>
-
-	<dt>Username</dt>
-	<dd>
-		<c:out value="${userEntity.username}" />
-	</dd>
-
-	<dt>E-mail</dt>
-	<dd>
-		<a href="mailto:${userEntity.email}">${userEntity.email}</a>
-	</dd>
-	
-	<dt>marketingOk</dt>
-	<dd>
-		<c:out value="${userEntity.marketingOk}" />
-	</dd>
-	
-	<dt>acceptTerms</dt>
-	<dd>
-		<c:out value="${userEntity.acceptTerms}" />
-	</dd>
-	
-	<dt>dateCreated</dt>
-	<dd>
-		<c:out value="${userEntity.dateCreated}" />
-	</dd>
-	
-	<dt>dob</dt>
-	<dd>
-		<c:out value="${userEntity.dob}" />
-	</dd>
-	
-	<dt>gender</dt>
-	<dd>
-		<c:out value="${userEntity.gender}" />
-	</dd>
-	
-	<dt>transferee</dt>
-	<dd>
-		<c:out value="${userEntity.transferee}" />
-	</dd>
-	<dt>homePhone</dt>
-	<dd>
-		<c:out value="${userEntity.homePhone}" />
-	</dd>
-	<dt>cellPhone</dt>
-	<dd>
-		<c:out value="${userEntity.cellPhone}" />
-	</dd>
-	<dt>ssn</dt>
-	<dd>
-		<c:out value="${userEntity.ssn}" />
-	</dd>
-	
-	<dt>citizenship</dt>
-	<dd>
-		<c:out value="${userEntity.citizenship}" />
-	</dd>
-	
-	<dt>ethnicity</dt>
-	<dd>
-		<c:out value="${userEntity.ethnicity}" />
-	</dd>
-	
-	<dt>Account enabled</dt>
-	<dd>
-		<c:out value="${userEntity.enabled}" />
-	</dd>
-
-	<dt>Roles</dt>
-	<dd>
-		<c:forEach var="role" items="${userEntity.roles}">
-			<c:out value="${role.name}" />
-			<br />
-		</c:forEach>
-	</dd>
-
-</dl>
+	</dl>
+</div>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<c:url var="userEntityUrl"	value="/myAccount" />
-	<c:url var="editUserEntityUrl" value="/myAccount/edit" />
+	<c:url var="editAccountUrl" value="/myAccount/edit" />
 	<c:url var="deleteUserEntityUrl" value="/myAccount/delete" />
 </sec:authorize>
 
+
 <h3>
-	<a href="${editUserEntityUrl}" class="btn btn-primary btn-lg">Edit/Update</a>
+	<a href="${editAccountUrl}" class="btn btn-primary btn-sm">Update Personal Information</a>
 </h3>
 
+
+<h1>Addresses</h1>
+<hr />
+
+<!-- 
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+I have to put the addresses in two clolumsn in the page.
+I will have to iterate over all the addresses when displaying, 
+then put the odds on the left column and even on right column. 
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+ -->
+
+
+<c:choose>
+	<c:when test="${empty addresses}">
+		<p>No Address.</p>
+	</c:when>
+	<c:otherwise>
+		<c:forEach var="address" items="${addresses}">
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<%-- <c:url var="addressUrl"	value="/accounts/${address.userEntity.id}/address/${address.id}" /> --%>
+				<c:url var="editAddressUrl"
+					value="/accounts/${address.userEntity.id}/address/${address.id}/edit" />
+				<c:url var="deleteAddressUrl"
+					value="/accounts/${address.userEntity.id}/address/${address.id}/delete" />
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_USER')">
+				<%-- <c:url var="addressUrl"	value="/myAccount/address/${address.id}" /> --%>
+				<c:url var="editAddressUrl"
+					value="/myAccount/address/${address.id}/edit" />
+				<c:url var="deleteAddressUrl"
+					value="/myAccount/address/${address.id}/delete" />
+			</sec:authorize>
+
+			<address>
+				<%-- <c:out value="${address.id}" /> --%>
+				<span class="addressType"> <em><c:out
+							value="${address.addressType}" /></em>
+				</span>
+				<hr />
+				<c:out value="${address.address1}" />
+				<c:if test="${address.address2 != null}">
+			  	, <c:out value="${address.address2}" />
+					<br>
+				</c:if>
+				<c:out value="${address.city}" /> <c:out value="${address.state}" />, <c:out value="${address.zipcode}" />
+				<br>
+				<c:out value="${address.country}" />
+				<!-- <br> <abbr title="Phone">P:</abbr> (123) 456-7890<br> <a
+					href="mailto:#">first.last@example.com</a><br> -->
+				<br><br>
+					
+				<div class="row">
+					<div class="col-md-2">
+						<a href="${editAddressUrl}" class="btn btn-primary btn-sm">Edit</a>
+					</div>
+					<div class="col-md-2">
+						<form id="deleteForm" action="${deleteAddressUrl}" method="post">
+							<div>
+								<input class="btn btn-danger btn-sm" type="submit" value="DELETE" />
+							</div>
+						</form>
+					</div>
+				</div>
+			</address>
+		</c:forEach>
+
+	</c:otherwise>
+</c:choose>
+
+
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<c:url var="newAddressUrl"
+		value="/accounts/${userEntity.id}/address/new" />
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_USER')">
+	<c:url var="newAddressUrl" value="/myAccount/address/new" />
+</sec:authorize>
+
+<h3>
+	<a href="${newAddressUrl}">Add New Address</a>
+</h3>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script

@@ -2,6 +2,7 @@ package com.prospectivestiles.web;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.repository.UserEntityRepository;
+import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.UserEntityService;
 
 @Controller
@@ -28,6 +31,9 @@ public class AdminAccountController {
 	
 	@Autowired
 	private UserEntityService userEntityService;
+	
+	@Inject
+	private AddressService addressService;
 	
 	/*@Autowired
 	private UserEntityRepository userEntityRepository;*/
@@ -79,10 +85,32 @@ public class AdminAccountController {
 		return "accounts/accounts";
 	}
 	
+	/*
+	 * I am going to merge the personal info and addresses page together.
+	 * I will load the addresses to the model
+	 */
 	@RequestMapping(value = "/accounts/{userEntityId}", method = RequestMethod.GET)
 	public String getAccountInfo(@PathVariable("userEntityId") long userEntityId, Model model) {
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
-		model.addAttribute(userEntity);
+		
+		/**
+		 * load all addresses for a user
+		 */
+		model.addAttribute("addresses", addressService.getAddressesByUserEntityId(userEntityId));
+		
+		/**
+		 * The modelAttribute "address" for the form to add new address
+		 */
+		Address address = new Address();
+		model.addAttribute("address", address);
+		
+		/**
+		 * Do I really need to add the userEntity? 
+		 * Maybe, I just need the Full Name of the user or userId
+		 */
+		model.addAttribute("userEntity", userEntity);
+		
 		return "accounts/account";
 	}
 	

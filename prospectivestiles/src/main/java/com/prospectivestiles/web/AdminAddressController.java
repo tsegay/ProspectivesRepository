@@ -45,6 +45,10 @@ public class AdminAddressController {
 	// =             addresses             =
 	// ======================================
 	
+	/*
+	 * I am going to merge the personal info and addresses page together.
+	 * Then i am not going to have addresses page. this method will be removed.
+	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/addresses", method = RequestMethod.GET)
 	public String getAddresses(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
@@ -104,7 +108,9 @@ public class AdminAddressController {
 		address.setUserEntity(userEntity);
 		addressService.createAddress(address);
 		
-		return "redirect:/accounts/{userEntityId}/addresses";
+		// I am no longer using the addresses page!
+//		return "redirect:/accounts/{userEntityId}/addresses";
+		return "redirect:/accounts/{userEntityId}";
 	}
 
 
@@ -146,7 +152,9 @@ public class AdminAddressController {
 		
 		addressService.updateAddress(address);
 		
-		return "redirect:/accounts/{userEntityId}/addresses";
+		// I am no longer using the addresses page!
+//		return "redirect:/accounts/{userEntityId}/addresses";
+		return "redirect:/accounts/{userEntityId}";
 	}
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}/delete", method = RequestMethod.POST)
@@ -154,7 +162,9 @@ public class AdminAddressController {
 			@PathVariable("addressId") Long addressId)
 			throws IOException {
 		addressService.delete(getAddressValidateUserEntityId(userEntityId, addressId));
-		return "redirect:/accounts/{userEntityId}/addresses";
+		// I am no longer using the addresses page!
+//		return "redirect:/accounts/{userEntityId}/addresses";
+		return "redirect:/accounts/{userEntityId}";
 	}
 	
 	// ======================================

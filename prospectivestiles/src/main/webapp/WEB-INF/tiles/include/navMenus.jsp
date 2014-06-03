@@ -39,7 +39,10 @@
 <div id="navmenu">
 	<ul class="nav nav-tabs">
 		<sec:authorize access="isAuthenticated()">
-			<li id="personal-li" class="dropdown active">
+			<li id="personal-li active">
+				<a href="${myAccount}">Profile</a>
+			</li>
+			<%-- <li id="personal-li" class="dropdown active">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Profile <span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 			    <li id="personal-personal-li"><a href="${myAccount}">Personal Info</a></li>
@@ -50,12 +53,12 @@
 			    <li class="divider"></li>
 			    <li><a href="#">One more separated link</a></li>
 			  </ul>
+			</li> --%>
+			<li id="applyingfor-li">
+				<a href="${applyingForUrl}">ApplyingFor</a>
 			</li>
 			<li id="education-li">
 				<a href="${educationUrl}">Educational bgd</a>
-			</li>
-			<li id="applyingfor-li">
-				<a href="${applyingForUrl}">ApplyingFor</a>
 			</li>
 			<li id="standardtests-li">
 				<a href="${standardTestsUrl}">StandardTest</a>
