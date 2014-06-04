@@ -293,6 +293,10 @@
 		<intercept-url pattern="/accounts/*/edit" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/accounts/*/*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/accounts/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/accounts/accounts/getAccounts" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/accounts/getAccounts" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/getAccounts" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/accountspage" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/accounts" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*" method="GET" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*" access="hasRole('ROLE_ADMIN')" />
