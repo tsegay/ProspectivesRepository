@@ -29,6 +29,7 @@ public interface UserEntityService {
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
 
 	List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize);
+	List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize, String filter, boolean asc);
 
 	long count();
 

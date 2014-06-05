@@ -144,7 +144,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	@Override
 	public List<UserEntity> findAll(int page, int pageSize) {
 		
-		String hql = "FROM UserEntity";
+		String hql = "FROM UserEntity u ORDER BY u.lastName ASC";
 		Query query = getSession().createQuery(hql);
 		// setFirst shoulb be set with the index of the first element in the page, 
 		// something like page * pageSize
@@ -153,9 +153,37 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		
 		List<UserEntity> results = query.list();
 		
-//		String hql = "FROM Employee E WHERE E.id > 10 ORDER BY E.salary DESC";
-//		Query query = session.createQuery(hql);
-//		List results = query.list();
+		return results;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserEntity> findAll(int page, int pageSize, String filter, boolean asc) {
+		
+		String hql;
+		if (filter != null) {
+			if(asc){
+				hql = "FROM UserEntity u WHERE u.lastName LIKE '%" + filter + "%' ORDER BY u.lastName ASC";
+			} else {
+				hql = "FROM UserEntity u WHERE u.lastName LIKE '%" + filter + "%' ORDER BY u.lastName DESC";
+				
+			}
+		} else {
+			if(asc){
+				hql = "FROM UserEntity u ORDER BY u.lastName ASC";
+			} else {
+				hql = "FROM UserEntity u ORDER BY u.lastName DESC";
+				
+			}
+		}
+		
+		Query query = getSession().createQuery(hql);
+		// setFirst shoulb be set with the index of the first element in the page, 
+		// something like page * pageSize
+		query.setFirstResult((page - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		
+		List<UserEntity> results = query.list();
 		
 		return results;
 	}

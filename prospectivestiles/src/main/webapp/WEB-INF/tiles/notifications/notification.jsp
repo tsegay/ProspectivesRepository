@@ -99,6 +99,12 @@ span.notification {
 		$("#messageform").toggle();
 	} */
 	
+	/* when user clicks on the email subject link rediredt to the student's messages page */
+	function goToMessage(id){
+		var url = "${pageContext.request.contextPath}"+"/accounts/" + id + "/messages";
+		/* to simulate an HTTP redirect, use location.replace */
+		window.location.replace(url);
+	}
 	
 	function fetchAndDisplayMessages(data){
 		/* get student id from the model */
@@ -136,8 +142,7 @@ span.notification {
 				var emailLink = document.createElement("a");
 				emailLink.setAttribute("class", "emaillink");
 				emailLink.setAttribute("href", "#");
-				/* emailLink.setAttribute("onclick", "displayMessageForm(" + i + ")"); */
-				/* emailLink.appendChild(document.createTextNode(message.student.email)); */
+				emailLink.setAttribute("onclick", "goToMessage(" + message.student.id + ")");
 				emailLink.appendChild(document.createTextNode(message.subject));
 			
 			subjectSpan.appendChild(emailLink);

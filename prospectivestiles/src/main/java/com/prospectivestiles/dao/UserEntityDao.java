@@ -31,5 +31,7 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	// used for pagination
 	// put it in dao.java
 	List<UserEntity> findAll(int page, int pageSize);
+
+	List<UserEntity> findAll(int page, int pageSize, String filter, boolean asc);
 	
 }

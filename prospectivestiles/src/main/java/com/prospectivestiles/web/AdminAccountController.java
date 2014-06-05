@@ -68,6 +68,12 @@ public class AdminAccountController {
 		return "accounts/accounts";
 	}*/
 	
+	/*
+	 * I used this method for pagination by passing page, pageSize and the accounts to the Model.
+	 * I dropped this method when I used JSON and JS instead. 
+	 * that way I don't have to pass the page num and size in the url.
+	 */
+	
 //	@RequestMapping(value="/accounts/accounts/{page}/{pageSize}", method = RequestMethod.GET)
 //	public String getAllAccounts(@PathVariable("page") int page, 
 //			@PathVariable("pageSize") int pageSize, 
@@ -94,11 +100,16 @@ public class AdminAccountController {
 		return "accounts/accounts";
 	}*/
 	
+	/*
+	 * passing page and pageSize
+	 */
+	
 	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> getAccountsForJSON(@PathVariable("page") int page, 
 			@PathVariable("pageSize") int pageSize, 
 			Model model) {
+		// I used @RequestParam when the c:url was not passing parameters in the url -- for testing
 //	@RequestMapping(value = "/accounts/accountspage/", method = RequestMethod.GET, produces = "application/json")
 //	@ResponseBody
 //	public Map<String, Object> getAccountsForJSON(
@@ -125,6 +136,97 @@ public class AdminAccountController {
 				" ### pageSize: " + pageSize +
 				" ### totalPages: " + totalPages);
 		
+		return data;
+	}
+	
+	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}/{asc}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getAccountsForJSON(@PathVariable("page") int page, 
+			@PathVariable("pageSize") int pageSize, 
+			@PathVariable("asc") boolean asc, 
+			Model model) {
+		
+		System.out.println("page: " + page);
+		System.out.println("pageSize: " + pageSize);
+		System.out.println("asc: " + asc);
+		long usersCount = userEntityService.count();
+		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
+		// getAllUserEntitiesForPage -- TO BE CHANGED
+		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(page, pageSize, null, asc);
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("users", users);
+		data.put("usersCount", usersCount);
+		data.put("page", page);
+		data.put("pageSize", pageSize);
+		data.put("totalPages", totalPages);
+		
+		System.out.println("################## usersCount: " + usersCount + 
+				" ### page: " + page +
+				" ### pageSize: " + pageSize +
+				" ### totalPages: " + totalPages);
+		
+		return data;
+	}
+	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}/{filter}/{asc}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getAccountsForJSON(@PathVariable("page") int page, 
+			@PathVariable("pageSize") int pageSize, 
+			@PathVariable("filter") String filter, 
+			@PathVariable("asc") boolean asc, 
+			Model model) {
+		
+		System.out.println("page: " + page);
+		System.out.println("pageSize: " + pageSize);
+		System.out.println("filter: " + filter);
+		System.out.println("asc: " + asc);
+		long usersCount = userEntityService.count();
+		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
+		// getAllUserEntitiesForPage -- TO BE CHANGED
+		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(page, pageSize, filter, asc);
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("users", users);
+		data.put("usersCount", usersCount);
+		data.put("page", page);
+		data.put("pageSize", pageSize);
+		data.put("totalPages", totalPages);
+		
+		System.out.println("################## usersCount: " + usersCount + 
+				" ### page: " + page +
+				" ### pageSize: " + pageSize +
+				" ### totalPages: " + totalPages);
+		
+		return data;
+	}
+	
+	@RequestMapping(value = "/accounts/accounts/searchAccount", method = RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public Map<String, Object> sendMessageJSON( 
+			@RequestBody Map<String, Object> origdata) {
+
+		System.out.println("############# sendMessageJSON called");
+		
+		String text = (String) origdata.get("text");
+
+		System.out.println("text:" + text);
+		
+		int pageSize = 3; // for testing purpose
+		int page = 1; // for testing purpose
+		long usersCount = userEntityService.count();
+		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
+
+		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(1, 10, text, true);
+
+		// a map that is going to be actual value to return, 
+		// the actual json value that we return to javascript
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("users", users);
+		data.put("usersCount", usersCount);
+		data.put("page", page);
+		data.put("pageSize", pageSize);
+		data.put("totalPages", totalPages);
+		data.put("success", true);
 		return data;
 	}
 	

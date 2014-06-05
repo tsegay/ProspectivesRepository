@@ -158,5 +158,11 @@ public class UserEntityServiceImpl implements UserEntityService {
 		
 		return userEntityDao.count();
 	}
+
+	@Override
+	public List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize,
+			String filter, boolean asc) {
+		return userEntityDao.findAll(page, pageSize, filter, asc);
+	}
 	
 }
