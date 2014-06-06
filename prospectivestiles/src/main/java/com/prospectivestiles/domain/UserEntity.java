@@ -72,8 +72,8 @@ public class UserEntity implements UserDetails {
 	private String gender;
 	private boolean transferee;
 	
-	
 	private Set<Role> roles = new HashSet<Role>();
+	
 	@JsonIgnore
 	private Checklist checklist;
 	@JsonIgnore

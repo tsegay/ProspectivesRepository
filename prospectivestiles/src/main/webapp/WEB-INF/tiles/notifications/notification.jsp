@@ -7,7 +7,7 @@
 
 <style>
 <!--
-.message {
+.notification {
 	margin-bottom: 20px;
 	border-bottom: 1px dashed brown;
 }
@@ -17,7 +17,7 @@ div.subject {
 	font-weight: bold;
 }
 
-div.messagebody {
+div.notificationbody {
 	display: block;
 	font-style: italic;
 }
@@ -26,7 +26,7 @@ div.name {
 	font-size: medium;
 }
 
-form.messageform {
+form.notificationform {
 	padding: 20px;
 	display: none;
 }
@@ -57,9 +57,9 @@ span.notification {
 <h1>Notifications page</h1>
 
 
-<a href="<c:url value="/messages"/>">Messages (<span id="messagesCount">0</span>)</a>
+<a href="<c:url value="/notifications"/>">Notifications (<span id="notificationsCount">0</span>)</a>
 
-<div id="messages">
+<div id="notifications">
 
 </div>
 
@@ -81,7 +81,7 @@ span.notification {
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="getMessagesUrl" value="/accounts/messages" />
+	<c:url var="getNotificationsUrl" value="/accounts/notifications" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 
@@ -90,50 +90,45 @@ span.notification {
 <script>	
 	var timer;
 	
-	/* This displays the message compose form when the user click the link 
-	first stop the timer, so the page won't refresh while user is composing an email
-	*/
-	/* function displayMessageForm(studentId){
-		alert("displayMessageForm called " + studentId);
-		stopTimer();
-		$("#messageform").toggle();
-	} */
-	
-	/* when user clicks on the email subject link rediredt to the student's messages page */
+	/* when user clicks on the email subject link rediredt to the student's notifications page */
 	function goToMessage(id){
-		var url = "${pageContext.request.contextPath}"+"/accounts/" + id + "/messages";
+		/* 
+		when user click on the notice, assuming user read it, i want to mark the notice as read
+		 */
+		/* var url = "${pageContext.request.contextPath}"+"/accounts/" + id + "/messages"; */
+		var url = "${pageContext.request.contextPath}"+"/accounts/" + id;
 		/* to simulate an HTTP redirect, use location.replace */
 		window.location.replace(url);
 	}
 	
-	function fetchAndDisplayMessages(data){
-		/* get student id from the model */
-		/* var studentId = '${userEntityId}'; */
+	function fetchAndDisplayNotifications(data){
 		
-		$("#messagesCount").text(data.messagesCount);
-		$("div#messages").html("");
+		$("#notificationsCount").text(data.notificationsCount);
+		$("div#notifications").html("");
 		
-		/* fetch all the messages from the db and display it */
-		for (var i = 0; i < data.messages.length; i++) {
-			var message = data.messages[i];
+		/* fetch all the notifications from the db and display it */
+		for (var i = 0; i < data.notifications.length; i++) {
+			var notification = data.notifications[i];
 			
-			var messageDiv = document.createElement("div");
-			messageDiv.setAttribute("class", "message");
+			var notificationDiv = document.createElement("div");
+			notificationDiv.setAttribute("class", "notification");
 			
 			var dateSpan = document.createElement("span");
 			dateSpan.setAttribute("class", "date");
 			
-			var now = new Date(message.dateCreated);
+			var date = new Date(notification.dateCreated);
 			
-			dateSpan.appendChild(document.createTextNode(now.toString('MM-dd-yyyy')));
+			dateSpan.appendChild(document.createTextNode(date.toString('MM-dd-yyyy')));
 			dateSpan.appendChild(document.createTextNode(" "));
-			dateSpan.appendChild(document.createTextNode(now.toString('HH:mm')));
+			dateSpan.appendChild(document.createTextNode(date.toString('HH:mm')));
 			dateSpan.appendChild(document.createTextNode(" "));
 			
 			var studentSpan = document.createElement("span");
 			studentSpan.setAttribute("class", "student");
-			studentSpan.appendChild(document.createTextNode(message.student.firstName));
+			studentSpan.appendChild(document.createTextNode(notification.student.fullName));
 			studentSpan.appendChild(document.createTextNode(" "));
+			/* studentSpan.appendChild(document.createTextNode(notification.student.lastName));
+			studentSpan.appendChild(document.createTextNode(" ")); */
 			
 			var subjectSpan = document.createElement("span");
 			subjectSpan.setAttribute("class", "subject");
@@ -142,17 +137,17 @@ span.notification {
 				var emailLink = document.createElement("a");
 				emailLink.setAttribute("class", "emaillink");
 				emailLink.setAttribute("href", "#");
-				emailLink.setAttribute("onclick", "goToMessage(" + message.student.id + ")");
-				emailLink.appendChild(document.createTextNode(message.subject));
+				emailLink.setAttribute("onclick", "goToMessage(" + notification.student.id + ")");
+				emailLink.appendChild(document.createTextNode(notification.notice));
 			
 			subjectSpan.appendChild(emailLink);
 			subjectSpan.appendChild(document.createTextNode(")"));
 			
-			messageDiv.appendChild(dateSpan);
-			messageDiv.appendChild(studentSpan);
-			messageDiv.appendChild(subjectSpan);
+			notificationDiv.appendChild(dateSpan);
+			notificationDiv.appendChild(studentSpan);
+			notificationDiv.appendChild(subjectSpan);
 			
-			$("div#messages").append(messageDiv);
+			$("div#notifications").append(notificationDiv);
 			
 		}
 	}
@@ -166,9 +161,7 @@ span.notification {
 	}
 	
 	function updatePage(){
-		/* var userEntityId = '${userEntityId}'; */
-		/* alert('${getMessagesUrl}'); */
-		$.getJSON('${getMessagesUrl}', fetchAndDisplayMessages);
+		$.getJSON('${getNotificationsUrl}', fetchAndDisplayNotifications);
 	}
 	
 	function onLoad(){

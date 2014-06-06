@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Message;
+import com.prospectivestiles.domain.NotificationAlert;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.MessageService;
+import com.prospectivestiles.service.NotificationService;
 import com.prospectivestiles.service.UserEntityService;
 
 @Controller
@@ -32,6 +34,9 @@ public class AdminNotificationsController {
 	@Inject
 	private MessageService messageService;
 	
+	@Inject
+	private NotificationService notificationService;
+	
 	
 	// ======================================
 	// =                JSON        =
@@ -43,39 +48,20 @@ public class AdminNotificationsController {
 		return "notification";
 	}
 	
+	@RequestMapping(value = "/accounts/notifications", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getAllNotifications() {
+
+		List<NotificationAlert> notifications = notificationService.getAllNotificationAlerts();
+
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("notifications", notifications);
+		data.put("notificationsCount", notifications.size());
+
+		return data;
+
+	}
 	
-//	@RequestMapping(value = "/accounts/messages", method = RequestMethod.GET, produces = "application/json")
-//	@ResponseBody
-//	public Map<String, Object> getAllMessagesForJSON() {
-//
-//		List<Message> messages = messageService.getAllMessages();
-//
-//		Map<String, Object> data = new HashMap<String, Object>();
-//		data.put("messages", messages);
-//		data.put("messagesCount", messages.size());
-//
-//		return data;
-//
-//	}
-	
-//	@RequestMapping(value = "/accounts/{userEntityId}/getmessages", method = RequestMethod.GET, produces = "application/json")
-//	@ResponseBody
-//	public Map<String, Object> getMessagesForJSON(@PathVariable("userEntityId") Long userEntityId,
-//			Model model) {
-//
-//		List<Message> messages = null;
-//		if (userEntityId == null) {
-//			messages = new ArrayList<Message>();
-//		} else {
-//			messages = messageService.getMessagesByUserEntityId(userEntityId);
-//		}
-//
-//		Map<String, Object> data = new HashMap<String, Object>();
-//		data.put("messages", messages);
-//		data.put("messagesCount", messages.size());
-//		return data;
-//
-//	}
 
 	
 	// ======================================

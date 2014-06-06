@@ -278,6 +278,7 @@
 		
 		<!-- Admin notification -->
 		<intercept-url pattern="/accounts/notification" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/notifications" access="hasRole('ROLE_ADMIN')" />
 		
 		<!-- Student notification -->
 		

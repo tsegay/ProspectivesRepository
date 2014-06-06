@@ -2,6 +2,7 @@ package com.prospectivestiles.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +29,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Message;
+import com.prospectivestiles.domain.NotificationAlert;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.MessageService;
+import com.prospectivestiles.service.NotificationService;
 import com.prospectivestiles.service.UserEntityService;
 
 @Controller
@@ -45,6 +48,8 @@ public class AdminMessageController {
 	@Inject
 	private MailSender mailSender;
 	
+	@Inject
+	private NotificationService notificationService;
 
 	
 	// ======================================
@@ -157,7 +162,30 @@ public class AdminMessageController {
 		message.setVisible(true);
 		
 		messageService.createMessage(message);
+		/*
+		 * after a message is successfuly sent I want to create a notification
+		 * I need to craete an enum NotificationType: message, uploadedDoc, statusChanged, updatedProfile, ...
+		*/
+//		NotificationAlert notification = new NotificationAlert("message", student.getFullName() + " sent a message", student);
+		
+		/*NotificationAlert notification = new NotificationAlert();
+		notification.setDateCreated(new Date());
+		notification.setDateModified(new Date());
+		notification.setNotice(student.getFullName() + " sent a message");
+		notification.setRead(false);
+		notification.setReadBy(admissionOfficer);
+		notification.setReadOn(new Date());
+		notification.setStudent(student);
+		notification.setType("message");
+		notification.setVisible(true);
+		
+		
+		notificationService.createNotificationAlert(notification);*/
 
+		System.out.println("new Date(): " + new Date());
+		//notificationService.createNotificationJDBC("message", student.getFullName() + " sent a message", new Date(), true, student.getId(), false);
+		notificationService.createNotificationJDBC("message", student.getFullName() + " sent a message", student.getId(), new Date());
+		
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setFrom("daniel2advance@gmail.com");
 		mail.setTo(student.getEmail());

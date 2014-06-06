@@ -9,8 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "standardTest")
 @NamedQueries(
 		@NamedQuery(name = "findStandardTestsByUserEntityId", 
 		query = "FROM StandardTest WHERE userEntity.id = :id")
