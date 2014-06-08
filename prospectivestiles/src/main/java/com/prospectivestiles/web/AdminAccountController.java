@@ -1,16 +1,12 @@
 package com.prospectivestiles.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 /*import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;*/
 import org.springframework.security.core.Authentication;
@@ -24,14 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Address;
-import com.prospectivestiles.domain.EmergencyContact;
-import com.prospectivestiles.domain.Message;
 import com.prospectivestiles.domain.UserEntity;
-import com.prospectivestiles.repository.UserEntityRepository;
 import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -43,10 +35,6 @@ public class AdminAccountController {
 	
 	@Inject
 	private AddressService addressService;
-	
-	/*@Autowired
-	private UserEntityRepository userEntityRepository;*/
-	
 	
 	// ======================================
 	// =             accounts             =
@@ -101,7 +89,9 @@ public class AdminAccountController {
 	}*/
 	
 	/*
-	 * passing page and pageSize
+	 * passing page and pageSize, MAKE optional
+	 * if page is null page = 1
+	 * if pageSize is null pageSize = 10
 	 */
 	
 	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}", method = RequestMethod.GET, produces = "application/json")

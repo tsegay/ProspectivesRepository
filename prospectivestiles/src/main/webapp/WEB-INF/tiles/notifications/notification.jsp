@@ -82,6 +82,7 @@ span.notification {
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="getNotificationsUrl" value="/accounts/notifications" />
+	<%-- <c:url var="markReadUrl" value="/accounts/notifications/markRead" /> --%>
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 
@@ -90,15 +91,74 @@ span.notification {
 <script>	
 	var timer;
 	
-	/* when user clicks on the email subject link rediredt to the student's notifications page */
-	function goToMessage(id){
+	/* 
+	#############################################
+			markNoticeRead
+	#############################################
+	 */
+	
+	function success(data){
+		alert("Successfully markNoticeRead");
+		/* alert(data);
+		updatePage();
+		startTimer();
+		$(".notification").text("Message sent"); */
+		
+		var url = "${pageContext.request.contextPath}"+"/accounts/" + studentId;
+		
+		/* to simulate an HTTP redirect, use location.replace */
+		window.location.replace(url);
+	}
+	
+	function error(data){
+		alert("Error. markNoticeRead");
+		/* alert(data); */
+	}
+	
+	function markNoticeRead(noticeId){
+		alert("markNoticeRead noticeId..." + noticeId);
+		var markReadUrl = "${pageContext.request.contextPath}"+"/accounts/notifications/markRead";
+		alert("markNoticeRead markReadUrl..." + markReadUrl);
+		
+		$.ajax({
+			"type": 'POST',
+			"url" : '${markReadUrl}',
+			"data": JSON.stringify({"noticeId": noticeId}),
+			"complete": function(response, textStatus){
+				return alert("#### complete called. " + textStatus);
+			},
+			"success": success,
+			"error" : error,
+			contentType : "application/json",
+			dataType : "json"
+		});
+		
+		
+	}
+	
+	/* 
+	#############################################
+			End markNoticeRead
+	#############################################
+	 */
+	 
+	/* when user clicks on the email subject link 
+	mark the notice as read: pass the notice id to the fn markNoticeRead
+	rediredt to the student's page */
+	function goToMessage(noticeId, studentId){
+		alert("goToMessage noticeId..." + noticeId);
+		alert("goToMessage studentId..." + studentId);
 		/* 
 		when user click on the notice, assuming user read it, i want to mark the notice as read
 		 */
+		 
+		 markNoticeRead(noticeId);
+		 
 		/* var url = "${pageContext.request.contextPath}"+"/accounts/" + id + "/messages"; */
-		var url = "${pageContext.request.contextPath}"+"/accounts/" + id;
+		/* var url = "${pageContext.request.contextPath}"+"/accounts/" + studentId; */
+		
 		/* to simulate an HTTP redirect, use location.replace */
-		window.location.replace(url);
+		/* window.location.replace(url); */
 	}
 	
 	function fetchAndDisplayNotifications(data){
@@ -134,13 +194,15 @@ span.notification {
 			subjectSpan.setAttribute("class", "subject");
 			
 			subjectSpan.appendChild(document.createTextNode("("));
-				var emailLink = document.createElement("a");
-				emailLink.setAttribute("class", "emaillink");
-				emailLink.setAttribute("href", "#");
-				emailLink.setAttribute("onclick", "goToMessage(" + notification.student.id + ")");
-				emailLink.appendChild(document.createTextNode(notification.notice));
+				var studentLink = document.createElement("a");
+				studentLink.setAttribute("class", "emaillink");
+				studentLink.setAttribute("href", "#");
+				/* studentLink.setAttribute("onclick", "goToMessage(" + notification.student.id + ")"); */
+				/* pass the notification */
+				studentLink.setAttribute("onclick", "goToMessage(" + notification.id + ", " + notification.student.id + ")");
+				studentLink.appendChild(document.createTextNode(notification.notice));
 			
-			subjectSpan.appendChild(emailLink);
+			subjectSpan.appendChild(studentLink);
 			subjectSpan.appendChild(document.createTextNode(")"));
 			
 			notificationDiv.appendChild(dateSpan);

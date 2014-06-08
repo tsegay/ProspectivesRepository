@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.prospectivestiles.dao.NotificationDao;
 import com.prospectivestiles.domain.NotificationAlert;
+import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.NotificationService;
 
 @Service
@@ -62,15 +63,6 @@ public class NotificationServiceImpl implements NotificationService {
 		notificationDao.delete(notification);
 	}
 
-	/*@Transactional(readOnly = false)
-	@Override
-	public void createNotificationJDBC(String type, String notice,
-			Date dateCreated, boolean visible, long studentId, boolean read) {
-		
-		notificationDao.createNotificationJDBC(type, notice, dateCreated, visible, studentId, read);
-		
-	}*/
-
 	@Transactional(readOnly = false)
 	@Override
 	public void createNotificationJDBC(String type, String notice,
@@ -79,7 +71,14 @@ public class NotificationServiceImpl implements NotificationService {
 		notificationDao.createNotificationJDBC(type, notice, studentId, dateCreated);
 		
 	}
-	
+
+	@Override
+	@Transactional(readOnly = false)
+	public void insertIntoNotificationJDBC(long noticeId, NotificationAlert notification) {
+		
+		notificationDao.insertIntoNotificationJDBC(noticeId, notification);
+		
+	}
 
 
 }

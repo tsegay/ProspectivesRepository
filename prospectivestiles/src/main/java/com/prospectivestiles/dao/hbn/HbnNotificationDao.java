@@ -20,8 +20,16 @@ import com.prospectivestiles.domain.UserEntity;
 public class HbnNotificationDao extends AbstractHbnDao<NotificationAlert> implements
 		NotificationDao {
 	@Inject private JdbcTemplate jdbcTemplate;
+	
 	private static final String INSERT_NOTIFICATION_SQL =
 			"insert into notificationAlert (type, notice, studentId, dateCreated) VALUES(?,?,?,?)";
+	private static final String UPDATE_NOTIFICATION_SQL = 
+			"update notificationAlert set read = ?, readOn = ?, readBy = ? where id = ?";
+	
+	
+	/*
+	 * I am using JDBC to insert create notification, it is not working normally
+	 */
 	@Override
 	/*public void createNotification(NotificationAlert notification) {*/
 	public void createNotificationJDBC(String type, String notice, long studentId, Date dateCreated) {
@@ -32,23 +40,7 @@ public class HbnNotificationDao extends AbstractHbnDao<NotificationAlert> implem
 		jdbcTemplate.update(INSERT_NOTIFICATION_SQL, type, notice, studentId, dateCreated);
 				
 	}
-//	private static final String INSERT_NOTIFICATION_SQL =
-//			"insert into notificationAlert (type, notice, dateCreated, visible, studentId, read) VALUES(?,?,?,?,?,?)";
-	/*
-	 * I am using JDBC to insert create notification, it is not working normally
-	 */
-//	@Override
-//	/*public void createNotification(NotificationAlert notification) {*/
-//	public void createNotificationJDBC(String type, String notice,
-//			Date dateCreated, boolean visible, long studentId, boolean read) {
-//		
-////		jdbcTemplate.update(INSERT_TERM_SQL, termId, userEntityId);
-////		jdbcTemplate.update("INSERT INTO PERSON (FIRSTNAME, LASTNAME) VALUES(?,?)",
-////		        new Object[] { firstName, lastName });
-//		
-//		jdbcTemplate.update(INSERT_NOTIFICATION_SQL, type, notice, dateCreated, visible, studentId, read);
-//		
-//	}
+	
 	
 	
 	/*overide the findAll in AbstractHbnDao as i want to sort messages by dateCreated*/
@@ -78,6 +70,8 @@ public class HbnNotificationDao extends AbstractHbnDao<NotificationAlert> implem
 		
 		String hql = "FROM NotificationAlert n WHERE n.student.id = " + userEntityId + 
 				" AND n.visible = " + true + " AND read = " + false + " ORDER BY n.dateCreated DESC";
+		
+		
 //		String hql = "FROM NotificationAlert";
 		Session session = getSession();
 		Query query = session.createQuery(hql);
@@ -108,6 +102,17 @@ public class HbnNotificationDao extends AbstractHbnDao<NotificationAlert> implem
 		}
 		return message;*/
 		
+	}
+
+
+
+	@Override
+	public void insertIntoNotificationJDBC(long noticeId,
+			NotificationAlert notification) {
+		
+		jdbcTemplate.update(UPDATE_NOTIFICATION_SQL, new Object[] {
+				notification.isRead(), notification.getReadBy(), notification.getReadOn(),
+				noticeId});
 	}
 
 

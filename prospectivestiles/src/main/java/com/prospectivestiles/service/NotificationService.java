@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.prospectivestiles.domain.NotificationAlert;
+import com.prospectivestiles.domain.UserEntity;
 
 public interface NotificationService {
 	
@@ -13,6 +14,7 @@ public interface NotificationService {
 	void createNotificationAlert(NotificationAlert notification);
 	void updateNotificationAlert(NotificationAlert notification);
 	void deleteNotificationAlert(NotificationAlert notification);
-//	void createNotificationJDBC(String type, String notice, Date dateCreated, boolean visible, long studentId, boolean read);
 	void createNotificationJDBC(String type, String notice, long studentId, Date dateCreated);
+	void insertIntoNotificationJDBC(long noticeId, NotificationAlert notification);
+	
 }
