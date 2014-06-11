@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prospectivestiles.dao.NotificationDao;
-import com.prospectivestiles.domain.NotificationAlert;
+import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.NotificationService;
 
@@ -21,33 +21,32 @@ public class NotificationServiceImpl implements NotificationService {
 	private NotificationDao notificationDao;
 	
 	@Override
-	public NotificationAlert getNotificationAlert(long id) {
+	public Notification getNotification(long id) {
 		return notificationDao.find(id);
 	}
 
 	@Override
-	public List<NotificationAlert> getAllNotificationAlerts() {
+	public List<Notification> getAllNotifications() {
 		return notificationDao.findAll();
 	}
 
 	@Override
-	public List<NotificationAlert> getNotificationAlertsByUserEntityId(long userEntityId) {
-		return notificationDao.getNotificationAlertsByUserEntityId(userEntityId);
+	public List<Notification> getNotificationsByUserEntityId(long userEntityId) {
+		return notificationDao.getNotificationsByUserEntityId(userEntityId);
 	}
 
 	@Transactional(readOnly = false)
 	@Override
-	public void createNotificationAlert(NotificationAlert notification) {
+	public void createNotification(Notification notification) {
 		notificationDao.create(notification);
 	}
 
 	@Override
-	public void updateNotificationAlert(NotificationAlert notification) {
-		NotificationAlert notificationToUpdate = notificationDao.find(notification.getId());
+	public void updateNotification(Notification notification) {
+		Notification notificationToUpdate = notificationDao.find(notification.getId());
 		
 		notificationToUpdate.setNotice(notification.getNotice());
 		notificationToUpdate.setDateCreated(notification.getDateCreated());
-		notificationToUpdate.setRead(notification.isRead());
 		notificationToUpdate.setReadOn(notification.getReadOn());
 		notificationToUpdate.setReadBy(notification.getReadBy());
 		notificationToUpdate.setStudent(notification.getStudent());
@@ -59,11 +58,11 @@ public class NotificationServiceImpl implements NotificationService {
 	}
 
 	@Override
-	public void deleteNotificationAlert(NotificationAlert notification) {
+	public void deleteNotification(Notification notification) {
 		notificationDao.delete(notification);
 	}
 
-	@Transactional(readOnly = false)
+	/*@Transactional(readOnly = false)
 	@Override
 	public void createNotificationJDBC(String type, String notice,
 			long studentId, Date dateCreated) {
@@ -74,11 +73,11 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public void insertIntoNotificationJDBC(long noticeId, NotificationAlert notification) {
+	public void insertIntoNotificationJDBC(long noticeId, Notification notification) {
 		
 		notificationDao.insertIntoNotificationJDBC(noticeId, notification);
 		
-	}
+	}*/
 
 
 }

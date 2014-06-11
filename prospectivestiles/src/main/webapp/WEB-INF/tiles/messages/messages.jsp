@@ -210,7 +210,8 @@ span.notification {
 		var sendButton = document.createElement("button");
 		sendButton.setAttribute("class", "sendbutton");
 		sendButton.setAttribute("type", "submit");
-		sendButton.setAttribute("value", "Compose");
+		/* sendButton.setAttribute("value", "Compose"); */
+		sendButton.appendChild(document.createTextNode("Send"));
 		
 			sendButton.onclick = function(id){
 				return function(){

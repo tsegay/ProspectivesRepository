@@ -14,12 +14,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "notificationAlert")
+@Table(name = "notification")
 @NamedQueries(
-@NamedQuery(name = "findNotificationAlertsByUserEntityId", 
-query = "FROM NotificationAlert WHERE student.id = :id")
+@NamedQuery(name = "findNotificationsByUserEntityId", 
+query = "FROM Notification WHERE student.id = :id")
 )
-public class NotificationAlert {
+public class Notification {
 	
 	// ======================================
     // =             Attributes             =
@@ -38,7 +38,7 @@ public class NotificationAlert {
 
 	private UserEntity student;
 
-	private boolean read = false;
+	/*private boolean read = false;*/
 	private UserEntity readBy;
 	private Date readOn;
 	
@@ -46,10 +46,10 @@ public class NotificationAlert {
     // =            Constructors            =
     // ======================================
 
-	public NotificationAlert() {
+	public Notification() {
 	}
 	
-	public NotificationAlert(String type, String notice, UserEntity student) {
+	public Notification(String type, String notice, UserEntity student) {
 		this.type = type;
 		this.notice = notice;
 		this.student = student;
@@ -107,12 +107,12 @@ public class NotificationAlert {
 	public void setStudent(UserEntity student) {
 		this.student = student;
 	}
-	public boolean isRead() {
+	/*public boolean isRead() {
 		return read;
 	}
 	public void setRead(boolean read) {
 		this.read = read;
-	}
+	}*/
 	@ManyToOne
 	@JoinColumn(name = "readById")
 	public UserEntity getReadBy() {

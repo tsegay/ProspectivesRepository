@@ -3,19 +3,19 @@ package com.prospectivestiles.dao;
 import java.util.Date;
 import java.util.List;
 
-import com.prospectivestiles.domain.NotificationAlert;
+import com.prospectivestiles.domain.Notification;
 
 
 
-public interface NotificationDao extends Dao<NotificationAlert> {
+public interface NotificationDao extends Dao<Notification> {
 	
-	List<NotificationAlert> getNotificationAlertsByUserEntityId(long userEntityId);
+	List<Notification> getNotificationsByUserEntityId(long userEntityId);
 	/*overide the findAll in AbstractHbnDao as i want to sort messages by dateCreated*/
-	List<NotificationAlert> findAll();
+	List<Notification> findAll();
 	/*
-	 * Using JDBC to update to create and update NotificationAlert
+	 * Using JDBC to update to create and update Notification
 	 */
-	void createNotificationJDBC(String type, String notice, long studentId, Date dateCreated);
-	void insertIntoNotificationJDBC(long noticeId, NotificationAlert notification); 
+	/*void createNotificationJDBC(String type, String notice, long studentId, Date dateCreated);
+	void insertIntoNotificationJDBC(long noticeId, Notification notification);*/ 
 	
 }

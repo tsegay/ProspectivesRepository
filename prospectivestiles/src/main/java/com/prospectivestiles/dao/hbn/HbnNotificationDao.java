@@ -12,50 +12,49 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.prospectivestiles.dao.NotificationDao;
-import com.prospectivestiles.domain.NotificationAlert;
+import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.UserEntity;
 
 
 @Repository
-public class HbnNotificationDao extends AbstractHbnDao<NotificationAlert> implements
+public class HbnNotificationDao extends AbstractHbnDao<Notification> implements
 		NotificationDao {
-	@Inject private JdbcTemplate jdbcTemplate;
+//	@Inject private JdbcTemplate jdbcTemplate;
+//	
+//	private static final String INSERT_NOTIFICATION_SQL =
+//			"insert into notificationAlert (type, notice, studentId, dateCreated) VALUES(?,?,?,?)";
 	
-	private static final String INSERT_NOTIFICATION_SQL =
-			"insert into notificationAlert (type, notice, studentId, dateCreated) VALUES(?,?,?,?)";
-	private static final String UPDATE_NOTIFICATION_SQL = 
-			"update notificationAlert set read = ?, readOn = ?, readBy = ? where id = ?";
+//	private static final String UPDATE_NOTIFICATION_SQL = 
+//			"update notificationAlert set read = ?, readOn = ?, readBy = ? where id = ?";
+//	private static final String UPDATE_NOTIFICATION_SQL = 
+//			"update notificationAlert set type = ? where id = ?";
 	
 	
 	/*
 	 * I am using JDBC to insert create notification, it is not working normally
 	 */
-	@Override
-	/*public void createNotification(NotificationAlert notification) {*/
+	/*@Override
 	public void createNotificationJDBC(String type, String notice, long studentId, Date dateCreated) {
-//		jdbcTemplate.update(INSERT_TERM_SQL, termId, userEntityId);
-//		jdbcTemplate.update("INSERT INTO PERSON (FIRSTNAME, LASTNAME) VALUES(?,?)",
-//		        new Object[] { firstName, lastName });
 		
 		jdbcTemplate.update(INSERT_NOTIFICATION_SQL, type, notice, studentId, dateCreated);
 				
-	}
+	}*/
 	
 	
 	
 	/*overide the findAll in AbstractHbnDao as i want to sort messages by dateCreated*/
 	@Override
-	public List<NotificationAlert> findAll() {
+	public List<Notification> findAll() {
 		
-//		String hql = "FROM NotificationAlert n ORDER BY n.dateCreated DESC";
-		String hql = "FROM NotificationAlert n WHERE n.visible = " + true + " AND read = " + false + " ORDER BY n.dateCreated DESC";
-//		String hql = "FROM NotificationAlert";
+//		String hql = "FROM Notification n ORDER BY n.dateCreated DESC";
+		String hql = "FROM Notification n WHERE n.visible = " + true + " ORDER BY n.dateCreated DESC";
+//		String hql = "FROM Notification";
 		
 		Session session = getSession();
 		Query query = session.createQuery(hql);
 		
-		List<NotificationAlert> notices = query.list();
-//		List<NotificationAlert> notices = new ArrayList<NotificationAlert>();
+		List<Notification> notices = query.list();
+//		List<Notification> notices = new ArrayList<Notification>();
 		
 		return notices;
 	}
@@ -66,19 +65,19 @@ public class HbnNotificationDao extends AbstractHbnDao<NotificationAlert> implem
 	 * */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<NotificationAlert> getNotificationAlertsByUserEntityId(long userEntityId) {
+	public List<Notification> getNotificationsByUserEntityId(long userEntityId) {
 		
-		String hql = "FROM NotificationAlert n WHERE n.student.id = " + userEntityId + 
-				" AND n.visible = " + true + " AND read = " + false + " ORDER BY n.dateCreated DESC";
+		String hql = "FROM Notification n WHERE n.student.id = " + userEntityId + 
+				" AND n.visible = " + true + " ORDER BY n.dateCreated DESC";
 		
 		
-//		String hql = "FROM NotificationAlert";
+//		String hql = "FROM Notification";
 		Session session = getSession();
 		Query query = session.createQuery(hql);
 		
-		List<NotificationAlert> notices = query.list();
+		List<Notification> notices = query.list();
 		
-//		List<NotificationAlert> notices = new ArrayList<NotificationAlert>();
+//		List<Notification> notices = new ArrayList<Notification>();
 		return notices;
 		
 		
@@ -106,21 +105,14 @@ public class HbnNotificationDao extends AbstractHbnDao<NotificationAlert> implem
 
 
 
-	@Override
+	/*@Override
 	public void insertIntoNotificationJDBC(long noticeId,
-			NotificationAlert notification) {
+			Notification notification) {
 		
 		jdbcTemplate.update(UPDATE_NOTIFICATION_SQL, new Object[] {
-				notification.isRead(), notification.getReadBy(), notification.getReadOn(),
-				noticeId});
-	}
+				notification.getType(), noticeId});
+	}*/
 
-
-
-	
-
-
-	
 
 
 }

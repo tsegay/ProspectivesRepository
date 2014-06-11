@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Message;
-import com.prospectivestiles.domain.NotificationAlert;
+import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.MessageService;
 import com.prospectivestiles.service.NotificationService;
@@ -57,7 +57,7 @@ public class AdminNotificationsController {
 	@ResponseBody
 	public Map<String, Object> getAllNotifications() {
 
-		List<NotificationAlert> notifications = notificationService.getAllNotificationAlerts();
+		List<Notification> notifications = notificationService.getAllNotifications();
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("notifications", notifications);
@@ -72,47 +72,66 @@ public class AdminNotificationsController {
 			markNoticeRead
 	#############################################
 	 */
+	
 	/*
-	 * When an admission officer click on the notice link, I want to mark that notice as read and hide it from the list
+	 * When an admission officer click on the notice link, I want to mark that notice as read and drop it from the list of notices
+	 * using 2 methods: GET and POST.
+	 * Both are returning same results. success but actually not inserting data to notification table in db.
+	 * I have to try using JDBC to insert to db!!
 	 */
+	
 	@RequestMapping(value = "/accounts/notifications/markRead", method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public Map<String, Object> markNoticeRead(@RequestBody Map<String, Object> dataOrig) {
+	public Map<String, Object> tagNoticeAsRead(@RequestBody Map<String, Object> origdata) {
 
-		System.out.println("############# markNoticeRead called");
+		System.out.println("############# tagNoticeAsRead called");
 		
-		long noticeId = Long.parseLong((String) dataOrig.get("noticeId"));
-//		boolean read = Boolean.parseBoolean((String) dataOrig.get("read"));
+//		long nId = Long.parseLong((String) origdata.get("noticeId"));
+		// Can't cast an Integer as a String. so use String.valueOf
+		long noticeId = Long.parseLong(String.valueOf(origdata.get("noticeId")));
+		long studentId = Long.parseLong(String.valueOf(origdata.get("studentId")));
 
-		System.out.println("noticeId: " + noticeId);
+		System.out.println("noticeId:" + noticeId);
 		
-		/**
-		 * Get the admission staff creating this message from the sercurityContext
-		 */
 		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
-		NotificationAlert notification = notificationService.getNotificationAlert(noticeId);
-		notification.setRead(true);
+		Notification notification = notificationService.getNotification(noticeId);
+//		notificationService.insertIntoNotificationJDBC(noticeId, notification);
+		
+		notification.setVisible(false);
 		notification.setReadOn(new Date());
 		notification.setReadBy(admissionOfficer);
-		notificationService.insertIntoNotificationJDBC(noticeId, notification);
+		notificationService.updateNotification(notification);
 		
-		
-/*//		notification.setNotice();
-//		notification.setDateCreated();
-		notification.setRead(read);
-		notification.setReadOn(new Date());
-		notification.setReadBy(admissionOfficer);
-//		notification.setStudent();
-//		notification.setType();
-//		notification.setDateModified();
-//		notification.setVisible();
-		notificationService.updateNotificationAlert(notification);*/
-		
-
-		// a map that is going to be actual value to return, 
-		// the actual json value that we return to javascript
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("success", true);
+		data.put("noticeId", noticeId);
+		data.put("studentId", studentId);
+		return data;
+	}
+	
+	@RequestMapping(value = "/accounts/notifications/markRead/{noticeId}/{studentId}", method = RequestMethod.GET, produces="application/json")
+	@ResponseBody
+	public Map<String, Object> tagNoticeAsRead(@PathVariable("noticeId") Long noticeId,
+			@PathVariable("studentId") Long studentId) {
+
+		System.out.println("############# tagNoticeAsRead called");
+		
+		System.out.println("noticeId:" + noticeId);
+		System.out.println("studentId:" + studentId);
+		
+		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
+		Notification notification = notificationService.getNotification(noticeId);
+//		notificationService.insertIntoNotificationJDBC(noticeId, notification);
+		
+		notification.setVisible(false);
+		notification.setReadOn(new Date());
+		notification.setReadBy(admissionOfficer);
+		notificationService.updateNotification(notification);
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("success", true);
+		data.put("noticeId", noticeId);
+		data.put("studentId", studentId);
 		return data;
 	}
 	

@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Message;
-import com.prospectivestiles.domain.NotificationAlert;
+import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.MessageService;
 import com.prospectivestiles.service.NotificationService;
@@ -71,13 +71,6 @@ public class AdminMessageController {
 		model.addAttribute("userEntityId", userEntityId);
 
 		return "messages";
-		/*
-		 * IDEA
-		 * pass all the messages to the model 
-		 * display all messages in the view
-		 * use JQ to call this method on a timer
-		 * the timer will update the page automatically
-		 */
 	}
 	
 	
@@ -112,11 +105,6 @@ public class AdminMessageController {
 		data.put("messagesCount", messages.size());
 		return data;
 
-		//
-//		
-//		model.addAttribute("messagesJson", messageService.getMessagesByUserEntityId(userEntityId));
-//		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
-//		return "messages";
 	}
 	/**
 	 * returning a map, test with returning a string of "success" or "error"
@@ -139,7 +127,7 @@ public class AdminMessageController {
 
 		System.out.println(studentId + " , " + subject + " , " + text);
 
-//		verify the studentId and userEntityId macth
+//		verify the studentId and userEntityId match
 		UserEntity student = userEntityService.getUserEntity(studentId);
 		
 		/**
@@ -164,11 +152,11 @@ public class AdminMessageController {
 		messageService.createMessage(message);
 		/*
 		 * after a message is successfuly sent I want to create a notification
-		 * I need to craete an enum NotificationType: message, uploadedDoc, statusChanged, updatedProfile, ...
+		 * I need to create an enum NotificationType: message, uploadedDoc, statusChanged, updatedProfile, ...
 		*/
-//		NotificationAlert notification = new NotificationAlert("message", student.getFullName() + " sent a message", student);
+		Notification notification = new Notification("message", student.getFullName() + " sent a message", student);
 		
-		/*NotificationAlert notification = new NotificationAlert();
+		/*Notification notification = new Notification();
 		notification.setDateCreated(new Date());
 		notification.setDateModified(new Date());
 		notification.setNotice(student.getFullName() + " sent a message");
@@ -180,12 +168,20 @@ public class AdminMessageController {
 		notification.setVisible(true);
 		
 		
-		notificationService.createNotificationAlert(notification);*/
-
-		System.out.println("new Date(): " + new Date());
-		//notificationService.createNotificationJDBC("message", student.getFullName() + " sent a message", new Date(), true, student.getId(), false);
-		notificationService.createNotificationJDBC("message", student.getFullName() + " sent a message", student.getId(), new Date());
+		notificationService.createNotification(notification);*/
 		
+		notificationService.createNotification(notification);
+
+//		System.out.println("new Date(): " + new Date());
+		//notificationService.createNotificationJDBC("message", student.getFullName() + " sent a message", new Date(), true, student.getId(), false);
+		
+		/*
+		 * I tried setting the dateCreated, visible and read fields here. 
+		 * It didn't work. So i set gave them default values at the DB itself.
+		 */
+		/*
+		 * notificationService.createNotificationJDBC("message", student.getFullName() + " sent a message", student.getId(), new Date());
+		*/
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setFrom("daniel2advance@gmail.com");
 		mail.setTo(student.getEmail());

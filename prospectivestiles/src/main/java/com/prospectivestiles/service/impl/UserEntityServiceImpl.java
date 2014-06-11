@@ -7,8 +7,8 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.hibernate.Hibernate;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -23,7 +23,7 @@ import com.prospectivestiles.service.UserEntityService;
 @Transactional(readOnly = true)
 //@PreAuthorize("denyAll")
 public class UserEntityServiceImpl implements UserEntityService {
-//	private static final Logger log = LoggerFactory.getLogger(UserEntityServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(UserEntityServiceImpl.class);
 	
 	@Inject private UserEntityDao userEntityDao;
 	@Inject private RoleDao roleDao;
@@ -48,7 +48,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 	
 	private void validateUsername(String username, Errors errors) {
 		if (userEntityDao.findByUsername(username) != null) {
-//			log.debug("Validation failed: duplicate username");
+			log.debug("Validation failed: duplicate username");
 			errors.rejectValue("username", "error.duplicate", new String[] { username }, null);
 		}
 	}

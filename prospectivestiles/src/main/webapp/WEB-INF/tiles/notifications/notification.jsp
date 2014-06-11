@@ -75,55 +75,73 @@ span.notification {
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 
-<%-- <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script> --%>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="getNotificationsUrl" value="/accounts/notifications" />
-	<%-- <c:url var="markReadUrl" value="/accounts/notifications/markRead" /> --%>
+	<c:url var="markReadcUrl" value="/accounts/notifications/markRead" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 
 </sec:authorize>
 
 <script>	
+
 	var timer;
 	
 	/* 
 	#############################################
-			markNoticeRead
+			
 	#############################################
 	 */
 	
 	function success(data){
 		alert("Successfully markNoticeRead");
-		/* alert(data);
-		updatePage();
-		startTimer();
-		$(".notification").text("Message sent"); */
+		alert("data.studentId: " + data.studentId);
 		
-		var url = "${pageContext.request.contextPath}"+"/accounts/" + studentId;
+		var url = "${pageContext.request.contextPath}"+"/accounts/" + data.studentId;
 		
-		/* to simulate an HTTP redirect, use location.replace */
 		window.location.replace(url);
 	}
 	
 	function error(data){
 		alert("Error. markNoticeRead");
-		/* alert(data); */
 	}
 	
-	function markNoticeRead(noticeId){
-		alert("markNoticeRead noticeId..." + noticeId);
-		var markReadUrl = "${pageContext.request.contextPath}"+"/accounts/notifications/markRead";
-		alert("markNoticeRead markReadUrl..." + markReadUrl);
+	function goToPage(data){
+		alert("goToPage studentId: " + data.studentId);
 		
-		$.ajax({
+		var url = "${pageContext.request.contextPath}"+"/accounts/" + data.studentId;
+		
+		window.location.replace(url);
+	}
+	 
+	/* when user clicks on the notice link 
+		mark the notice as read: 
+		pass the notice id to the fn markNoticeRead
+		rediredt to the student's page */
+	function goToMessage(noticeId, studentId){
+		alert("goToMessage noticeId..." + noticeId);
+		alert("goToMessage studentId..." + studentId);
+		
+		/* 
+		when user click on the notice, assuming user read it, i want to mark the notice as read
+		I used two ways: 
+			$.ajax --- POSTing to --- /accounts/notifications/markRead and 
+			$.getJSON --- GETing from --- "/accounts/notifications/markRead/"+noticeId+"/"+studentId
+			both have the same resut. They are not inserting into the notification table in db. 
+		 */
+		 
+		
+		var rUrl = "${pageContext.request.contextPath}"+"/accounts/notifications/markRead";/*for testing*/
+		alert("markReadcUrl" + "${markReadcUrl}");
+		
+		/* $.ajax({
 			"type": 'POST',
-			"url" : '${markReadUrl}',
-			"data": JSON.stringify({"noticeId": noticeId}),
+			"url" : '${markReadcUrl}',
+			"data": JSON.stringify({"noticeId": noticeId, "studentId": studentId}),
 			"complete": function(response, textStatus){
 				return alert("#### complete called. " + textStatus);
 			},
@@ -131,34 +149,13 @@ span.notification {
 			"error" : error,
 			contentType : "application/json",
 			dataType : "json"
-		});
+		}); */
 		
 		
-	}
-	
-	/* 
-	#############################################
-			End markNoticeRead
-	#############################################
-	 */
-	 
-	/* when user clicks on the email subject link 
-	mark the notice as read: pass the notice id to the fn markNoticeRead
-	rediredt to the student's page */
-	function goToMessage(noticeId, studentId){
-		alert("goToMessage noticeId..." + noticeId);
-		alert("goToMessage studentId..." + studentId);
-		/* 
-		when user click on the notice, assuming user read it, i want to mark the notice as read
-		 */
-		 
-		 markNoticeRead(noticeId);
-		 
-		/* var url = "${pageContext.request.contextPath}"+"/accounts/" + id + "/messages"; */
-		/* var url = "${pageContext.request.contextPath}"+"/accounts/" + studentId; */
+		$.getJSON("${pageContext.request.contextPath}"+
+				"/accounts/notifications/markRead/"+noticeId+"/"+studentId, goToPage);
 		
-		/* to simulate an HTTP redirect, use location.replace */
-		/* window.location.replace(url); */
+		
 	}
 	
 	function fetchAndDisplayNotifications(data){
@@ -187,17 +184,14 @@ span.notification {
 			studentSpan.setAttribute("class", "student");
 			studentSpan.appendChild(document.createTextNode(notification.student.fullName));
 			studentSpan.appendChild(document.createTextNode(" "));
-			/* studentSpan.appendChild(document.createTextNode(notification.student.lastName));
-			studentSpan.appendChild(document.createTextNode(" ")); */
 			
 			var subjectSpan = document.createElement("span");
 			subjectSpan.setAttribute("class", "subject");
 			
 			subjectSpan.appendChild(document.createTextNode("("));
 				var studentLink = document.createElement("a");
-				studentLink.setAttribute("class", "emaillink");
+				studentLink.setAttribute("class", "studentLink");
 				studentLink.setAttribute("href", "#");
-				/* studentLink.setAttribute("onclick", "goToMessage(" + notification.student.id + ")"); */
 				/* pass the notification */
 				studentLink.setAttribute("onclick", "goToMessage(" + notification.id + ", " + notification.student.id + ")");
 				studentLink.appendChild(document.createTextNode(notification.notice));
@@ -205,9 +199,32 @@ span.notification {
 			subjectSpan.appendChild(studentLink);
 			subjectSpan.appendChild(document.createTextNode(")"));
 			
+			/* ####################################################### */
+			
+			/* var goToPageForm = document.createElement("form");
+			goToPageForm.setAttribute("class", "goToPageForm");
+			goToPageForm.setAttribute("id", "goToPageForm");
+			
+			var pageButton = document.createElement("button");
+			pageButton.setAttribute("class", "pageButton btn btn-default");
+			pageButton.setAttribute("type", "submit");
+			pageButton.appendChild(document.createTextNode('Read'));
+			
+				pageButton.onclick = function(noticeId, studentId){
+					return function(){
+						goToMessage(noticeId, studentId);
+					}
+				}(notification.id, notification.student.id);
+			
+			goToPageForm.appendChild(pageButton);
+			 */
+			 
+			/* ####################################################### */
+			
 			notificationDiv.appendChild(dateSpan);
 			notificationDiv.appendChild(studentSpan);
 			notificationDiv.appendChild(subjectSpan);
+			/* notificationDiv.appendChild(goToPageForm); */
 			
 			$("div#notifications").append(notificationDiv);
 			
@@ -227,12 +244,18 @@ span.notification {
 	}
 	
 	function onLoad(){
-		/* Call the dropdowns for the menu bar (Profile, Reports) via JavaScript */
-		$('.dropdown-toggle').dropdown();
 		updatePage();
 		startTimer();
 	}
 	
+	/* 
+	when the page loads, call up updatePage method, 
+	this calls "/accounts/notifications"
+	the controller returns all unread notifications, the updatePage fn passes the results to fetchAndDisplay fn
+	this fn displays all the unread notices
+	startTimer calls the timer at certain interval to reload the page and display new notices
+	 */
+	 
 	$(document).ready(onLoad);
 
 </script>
