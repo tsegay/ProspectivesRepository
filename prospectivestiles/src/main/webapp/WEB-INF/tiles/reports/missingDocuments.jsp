@@ -5,6 +5,14 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+
+	<c:url var="getMissingDocuments" value="/admin/report/${userEntity.id}/missingDocuments" />
+	
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_USER')">
+</sec:authorize>
+
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
@@ -38,7 +46,8 @@
 	</c:when>
 	<c:otherwise>
 	
-		<a href="#" class="btn btn-primary btn-lg">Print</a>
+	
+		<a href="${getMissingDocuments}" class="btn btn-primary btn-lg" target="_blank">Print/Download</a>
 		<a href="#" class="btn btn-primary btn-lg">Email to Student</a>
 		<br />
 		<br />

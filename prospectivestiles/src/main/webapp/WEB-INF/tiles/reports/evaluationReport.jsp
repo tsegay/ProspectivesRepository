@@ -26,13 +26,17 @@
 
 <h1>Evaluation Report</h1>
 
-
-
+<!-- 
+check why I am using this checlist urls
+ -->
+ 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<!-- checklistUrl name is already used. look up -->
 	<%-- <c:url var="checklistUrl"	value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" /> --%>
 	<c:url var="editChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" />
 	<c:url var="deleteChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}/delete" />
+	
+	<c:url var="getEvaluationReport" value="/admin/report/${userEntity.id}/evaluation" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<%-- <c:url var="checklistUrl"	value="/myAccount/checklist/${userEntity.checklist.id}" /> --%>
@@ -46,7 +50,7 @@
 	</c:when>
 	<c:otherwise>
 	
-		<a href="#" class="btn btn-primary btn-lg">Print</a>
+		<a href="${getEvaluationReport}" class="btn btn-primary btn-lg" target="_blank">Print/Download</a>
 		<a href="#" class="btn btn-primary btn-lg">Email to Student</a>
 		<br />
 		<br />

@@ -12,6 +12,7 @@
 
 <div class="well" style="text-align: center;">This well is for
 					special info!</div>
+<a href="<c:url value="/admin/report/createPDF" />" target="_blank">CreatePDF</a>
 
 <div class = "page-header">
     <h3>Main heading <small>Posted on March 2014</small></h3>

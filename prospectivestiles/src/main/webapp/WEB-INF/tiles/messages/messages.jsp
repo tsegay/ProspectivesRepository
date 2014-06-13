@@ -84,9 +84,6 @@ span.notification {
 </div>
 
 
-
-
-
 <!-- ############################################################################################# -->
 <!-- ############################################################################################# -->
 <%-- <c:choose>
@@ -194,23 +191,63 @@ span.notification {
 		$("#messagesCount").text(data.messagesCount);
 		$("div#messages").html("");
 		
-		
+		/* 
+		ceate form
+			<form class="messageform" id="messageform" style="display: block;">
+		*/
 		var messageForm = document.createElement("form");
-		messageForm.setAttribute("class", "messageform");
 		messageForm.setAttribute("id", "messageform");
+		messageForm.setAttribute("class", "messageform");
+		/* 
+		create div for the message input and label
+			<div class="form-group">
+				<label for="subjectfield">Subject</label>
+				<input class="form-control" id="subjectfield">
+			</div>
+		 */
+		var subjectDiv = document.createElement("div");
+		subjectDiv.setAttribute("class", "form-group");
 		
-		var subjectField = document.createElement("input");
-		subjectField.setAttribute("class", "subjectfield");
-		subjectField.setAttribute("id", "subjectfield");
+			var subjectLabel = document.createElement("label");
+			subjectLabel.setAttribute("for", "subjectfield");
+			subjectLabel.appendChild(document.createTextNode("Subject"));
+			
+			var subjectField = document.createElement("input");
+			subjectField.setAttribute("id", "subjectfield");
+			subjectField.setAttribute("class", "form-control");
 		
-		var textareaField = document.createElement("textarea");
-		textareaField.setAttribute("class", "textareafield");
-		textareaField.setAttribute("id", "textareafield");
+		subjectDiv.appendChild(subjectLabel);
+		subjectDiv.appendChild(subjectField);
+		/* 
+		create a div for the textarea field
+			<div class="form-group">
+				<label for="textareafield">Message</label>
+				<textarea class="form-control" rows="4" id="textareafield"></textarea>
+			</div>
+		 */
+		var textareaDiv = document.createElement("div");
+		textareaDiv.setAttribute("class", "form-group");
 		
+			var textareaLabel = document.createElement("label");
+			textareaLabel.setAttribute("for", "textareafield");
+			textareaLabel.appendChild(document.createTextNode("Message"));
+		
+			var textareaField = document.createElement("textarea");
+			textareaField.setAttribute("id", "textareafield");
+			textareaField.setAttribute("class", "form-control");
+			textareaField.setAttribute("rows", "6");
+			
+		textareaDiv.appendChild(textareaLabel);
+		textareaDiv.appendChild(textareaField);
+		
+		/* 	
+		create the send button
+			<button class="sendbutton btn btn-primary" type="submit">Send</button>
+		 */
 		var sendButton = document.createElement("button");
-		sendButton.setAttribute("class", "sendbutton");
+		sendButton.setAttribute("class", "btn");
+		sendButton.setAttribute("class", "btn-primary");
 		sendButton.setAttribute("type", "submit");
-		/* sendButton.setAttribute("value", "Compose"); */
 		sendButton.appendChild(document.createTextNode("Send"));
 		
 			sendButton.onclick = function(id){
@@ -219,8 +256,14 @@ span.notification {
 				}
 			}(studentId);
 		
-		messageForm.appendChild(subjectField);
-		messageForm.appendChild(textareaField);
+		/* messageForm.appendChild(subjectField); 
+		messageForm.appendChild(textareaField); */
+		
+		/* 
+		append all the sections: inputfield, textarea and the button to the form
+		 */
+		messageForm.appendChild(subjectDiv);
+		messageForm.appendChild(textareaDiv);
 		messageForm.appendChild(sendButton);
 		
 		/* notification when message is sent */

@@ -43,16 +43,9 @@
 		<intercept-url pattern="/createPDF" access="permitAll" />
 		<intercept-url pattern="/download/*" access="permitAll" />
 		<intercept-url pattern="/createMemPDF" access="permitAll" />
-		<!-- =========================================================================== -->
-		<!-- ###############  END TESTING PURPOSE ONLY #################### -->
-		<!-- =========================================================================== -->
+		<intercept-url pattern="/admin/report/createPDF" access="permitAll" />
+		<intercept-url pattern="/admin/report/download/*" access="permitAll" />
 		
-		<!-- Get home page -->
-		<intercept-url pattern="/welcome.jsp" method="GET" access="permitAll" />
-		
-		<intercept-url pattern="/registrationform" access="permitAll" />
-		
-		<!-- =========================================================================== -->
 		<!-- For testing JSON -->
 		<intercept-url pattern="/json/accounts/messages" access="permitAll" />
 		<intercept-url pattern="/json/accounts/*/sendmessage" access="permitAll" />
@@ -61,20 +54,29 @@
 		<intercept-url pattern="/json/jsonMessages" access="permitAll" />
 		
 		
+		<intercept-url pattern="/json/accounts/*/addresses" access="permitAll" />
+		<intercept-url pattern="/json/**" access="permitAll" />
+		
+		
 		<!-- FOR TESTING use authorization!!!!! -->
-		<intercept-url pattern="/accounts/*/getmessages" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- <intercept-url pattern="/accounts/*/getmessages" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/messages" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/messages" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/sendmessage" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/sendmessage" access="hasRole('ROLE_ADMIN')" />
 		
 		<intercept-url pattern="/myAccount/getmessages" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/messages" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/sendmessage" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/sendmessage" access="isAuthenticated()" /> -->
 		
+		<!-- =========================================================================== -->
+		<!-- ###############  END TESTING PURPOSE ONLY #################### -->
+		<!-- =========================================================================== -->
 		
-		<intercept-url pattern="/json/accounts/*/addresses" access="permitAll" />
-		<intercept-url pattern="/json/**" access="permitAll" />
+		<!-- Get home page -->
+		<intercept-url pattern="/welcome.jsp" method="GET" access="permitAll" />
+		
+		<intercept-url pattern="/registrationform" access="permitAll" />
 		
 		<!-- =========================================================================== -->
 		<!-- Admin console -->
@@ -87,8 +89,6 @@
 		<intercept-url pattern="/accounts/*/institute/*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/institute" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/institutes" access="hasRole('ROLE_ADMIN')" />
-		
-		
 
 		<!-- Student institute -->
 		<intercept-url pattern="/myAccount/institute/*/delete" access="isAuthenticated()" />
@@ -283,6 +283,15 @@
 		<intercept-url pattern="/accounts/notifications" access="hasRole('ROLE_ADMIN')" />
 		
 		<!-- Student notification -->
+		
+		<!-- =========================================================================== -->
+		
+		<!-- Admin PDF Reports -->
+		<intercept-url pattern="/admin/report/*/evaluation" access="permitAll" />
+		<intercept-url pattern="/admin/report/*/missingDocuments" access="permitAll" />
+		<intercept-url pattern="/admin/report/*/acceptanceLetter" access="permitAll" />
+		
+		<!-- Student PDF Reports -->
 		
 		<!-- =========================================================================== -->
 		

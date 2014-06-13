@@ -10,9 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "evaluation")
 @NamedQueries(
 		@NamedQuery(name = "findEvaluationByUserEntityId", 
 		query = "FROM Evaluation WHERE userEntity.id = :id")

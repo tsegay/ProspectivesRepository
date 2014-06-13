@@ -26,13 +26,18 @@
 
 <h1>Evaluation Report</h1>
 
-
-
+<!-- 
+I don't think i need all these checklist urls
+ -->
+ 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<!-- checklistUrl name is already used. look up -->
 	<%-- <c:url var="checklistUrl"	value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" /> --%>
 	<c:url var="editChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" />
 	<c:url var="deleteChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}/delete" />
+	
+	<c:url var="acceptanceLetterUrl" value="/admin/report/${userEntity.id}/acceptanceLetter" />
+	
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<%-- <c:url var="checklistUrl"	value="/myAccount/checklist/${userEntity.checklist.id}" /> --%>
@@ -46,17 +51,19 @@
 	</c:when>
 	<c:otherwise>
 	
-		<a href="#" class="btn btn-primary btn-lg">Print</a>
-		<a href="#" class="btn btn-primary btn-lg">Email to Student</a>
-		<br />
-		<br />
-		
-		
 		<c:choose>
 			<c:when test="${acceptanceLetterReport.status == 'admitted'}">
+			
+				<a href="${acceptanceLetterUrl}" class="btn btn-primary btn-lg" target="_blank">Print/Download</a>
+				<a href="#" class="btn btn-primary btn-lg">Email to Student</a>
+				<br />
+				<br />
+			
 				<p>Dear <c:out value="${userEntity.fullName}" />:</p>
 				<p>Congratulations!!!</p>
-				<p>The admission officer has approved your application for admission.</p>
+				<p>The admission officer has approved your application for admission.
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam imperdiet varius ligula vel interdum. Donec ut sapien nec eros pellentesque viverra vitae quis sem. Cras odio lorem, commodo mollis consequat nec, tempor vel sapien. Integer odio magna, luctus nec laoreet ut, rutrum vitae diam. Vivamus ullamcorper tortor in lectus accumsan, sed congue mi facilisis. Sed mi arcu, egestas vel turpis sed, feugiat laoreet nibh. Duis sit amet tincidunt urna. Nunc elementum elementum mauris quis feugiat. Phasellus pretium nunc sed ipsum adipiscing rhoncus. Vestibulum nec tortor sed ligula ornare lacinia. Nullam a turpis magna. Vivamus at interdum erat. Vestibulum bibendum lorem in feugiat ultricies. Fusce consequat eu risus sit amet vehicula. Maecenas auctor odio ipsum. Phasellus convallis est eu cursus lacinia.
+				</p>
 				
 				<p><strong>admissionOfficerName</strong></p>
 				
