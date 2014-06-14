@@ -17,7 +17,7 @@
 	<div class="form-group row">
 		<label for="username" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.username" /></label>
 	    <div class="col-sm-5">
-	      <form:input path="username" class="form-control" placeholder = "Your School Username" />
+	      <form:input path="username" class="form-control" placeholder = "Your Username" />
 	    </div>
 	    <div class="col-sm-5">
 	    	<form:errors path="username" htmlEscape="false" />
@@ -35,6 +35,16 @@
 	    <div class="col-sm-5">
 	    	<form:errors path="password" cssClass="error" element="div" />
 	    </div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="confirmPassword" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.confirmPassword" /></label>
+	    <div class="col-sm-5">
+	      <form:password path="confirmPassword" class="form-control" placeholder = "Confirm your password" />
+	    </div>
+	    <%-- <div class="col-sm-5">
+	    	<form:errors path="confirmPassword" cssClass="error" element="div" />
+	    </div> --%>
 	</div>
 	
 	<div class="form-group row">

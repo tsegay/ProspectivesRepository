@@ -186,7 +186,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 			  	, <c:out value="${address.address2}" />
 					<br>
 				</c:if>
-				<c:out value="${address.city}" /> <c:out value="${address.state}" />, <c:out value="${address.zipcode}" />
+				<c:out value="${address.city}" />, <c:out value="${address.state}" /> <c:out value="${address.zipcode}" />
 				<br>
 				<c:out value="${address.country}" />
 				<!-- <br> <abbr title="Phone">P:</abbr> (123) 456-7890<br> <a
@@ -198,11 +198,25 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 						<a href="${editAddressUrl}" class="btn btn-primary btn-sm">Edit</a>
 					</div>
 					<div class="col-md-2">
-						<form id="deleteForm" action="${deleteAddressUrl}" method="post">
+					
+						<!-- Button trigger modal -->
+						<a data-toggle="modal" data-remote="${deleteAddressUrl}" data-target="#deleteModal" 
+							class="btn btn-danger btn-sm">Delete</a><br><br>
+							
+						<!-- delete address Modal -->
+						<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class = "modal-content">
+						    
+							</div>
+						  </div>
+						</div>
+					
+						<%-- <form id="deleteForm" action="${deleteAddressUrl}" method="post">
 							<div>
 								<input class="btn btn-danger btn-sm" type="submit" value="DELETE" />
 							</div>
-						</form>
+						</form> --%>
 					</div>
 				</div>
 			</address>

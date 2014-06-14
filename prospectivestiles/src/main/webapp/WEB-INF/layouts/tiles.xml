@@ -191,6 +191,15 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/address/editAddress.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="deleteAddress" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/address/deleteAddress.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
 	<!-- <definition name="editAddress" template="/WEB-INF/templates/modalTemplate.jsp">
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value=""></put-attribute>

@@ -182,6 +182,18 @@ public class StudentAddressController {
 		return "redirect:/myAccount";
 	}
 	
+	@RequestMapping(value = "/myAccount/address/{addressId}/delete", method = RequestMethod.GET)
+	public String getDeleteAddress(@PathVariable("addressId") Long addressId, Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();	
+		
+		Address address = getAddressValidateUserEntityId(userEntity.getId(), addressId);
+		
+		model.addAttribute("originalAddress", address);
+		model.addAttribute(address);
+		
+		return "deleteAddress";
+	}
+	
 	@RequestMapping(value = "/myAccount/address/{addressId}/delete", method = RequestMethod.POST)
 	public String deleteAddress(@PathVariable("addressId") Long addressId)
 			throws IOException {

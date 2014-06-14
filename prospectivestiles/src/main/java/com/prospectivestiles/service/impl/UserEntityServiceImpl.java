@@ -32,14 +32,18 @@ public class UserEntityServiceImpl implements UserEntityService {
 	@Transactional(readOnly = false)	
 	public boolean createUserEntity(UserEntity userEntity, Errors errors) {
 		validateUsername(userEntity.getUsername(), errors);
+		validatePassword(userEntity.getPassword(), userEntity.getConfirmPassword(), errors);
+		
+		System.out.println("userEntity.getPassword(): " + userEntity.getPassword());
+		System.out.println("userEntity.getConfirmPassword(): " + userEntity.getConfirmPassword());
+		
+		
 		boolean valid = !errors.hasErrors();
 		
 		if (valid) {
 			Set<Role> roles = new HashSet<Role>();
-//			roles.add(roleDao.findByName("user"));
 			roles.add(roleDao.findByName("ROLE_USER"));
 			userEntity.setRoles(roles);
-			//accountDao.create(account);
 			userEntityDao.createUserEntity(userEntity);
 		}
 		
@@ -48,8 +52,15 @@ public class UserEntityServiceImpl implements UserEntityService {
 	
 	private void validateUsername(String username, Errors errors) {
 		if (userEntityDao.findByUsername(username) != null) {
-			log.debug("Validation failed: duplicate username");
+			log.info("Validation failed: duplicate username");
 			errors.rejectValue("username", "error.duplicate", new String[] { username }, null);
+		}
+	}
+	
+	private void validatePassword(String passworrd, String confirmPassword, Errors errors) {
+		if (!passworrd.equals(confirmPassword)) {
+			log.info("Validation failed: password doesn't match confirmPassword");
+			errors.rejectValue("username", "error.mismatch.userEntity.password", new String[] { passworrd }, null);
 		}
 	}
 	
@@ -110,15 +121,6 @@ public class UserEntityServiceImpl implements UserEntityService {
 		userEntityToUpdate.setPassword(userEntity.getPassword());
 		userEntityToUpdate.setMarketingOk(userEntity.isMarketingOk());
 		
-//		userEntityToUpdate.setChecklist(userEntity.getChecklist());
-//		userEntityToUpdate.setDateCreated(userEntity.getDateCreated());
-//		userEntityToUpdate.setDob(userEntity.getDob());
-//		userEntityToUpdate.setListOfAddresses(userEntity.getListOfAddresses());
-//		userEntityToUpdate.setListOfHighSchools(userEntity.getListOfHighSchools());
-//		userEntityToUpdate.setListOfInstitutes(userEntity.getListOfInstitutes());
-//		userEntityToUpdate.setRoles(userEntity.getRoles());
-//		userEntityToUpdate.setTransferee(userEntity.isTransferee());
-		
 		userEntityDao.update(userEntityToUpdate);
 		
 	}
@@ -149,7 +151,6 @@ public class UserEntityServiceImpl implements UserEntityService {
 
 	@Override
 	public List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize) {
-		// TODO Auto-generated method stub
 		return userEntityDao.findAll(page, pageSize);
 	}
 

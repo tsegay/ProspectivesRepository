@@ -60,6 +60,7 @@ public class UserEntity implements UserDetails {
 //	private Long studentId;
 	private String username, firstName, lastName, middleName, email;
 	private String password;
+	private String confirmPassword;
 	private String homePhone;
 	private String cellPhone;
 	private String ssn;
@@ -164,6 +165,15 @@ public class UserEntity implements UserDetails {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	@Transient
+	@Size(min = 6)
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	@Column(name = "marketing_ok")

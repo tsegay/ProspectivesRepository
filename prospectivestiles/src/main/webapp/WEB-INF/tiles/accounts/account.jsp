@@ -84,10 +84,10 @@
 			<c:out value="${userEntity.gender}" />
 		</dd>
 		
-		<dt>transferee</dt>
+		<%-- <dt>transferee</dt>
 		<dd>
 			<c:out value="${userEntity.transferee}" />
-		</dd>
+		</dd> --%>
 		<dt>homePhone</dt>
 		<dd>
 			<c:out value="${userEntity.homePhone}" />
@@ -159,14 +159,12 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 	<c:otherwise>
 		<c:forEach var="address" items="${addresses}">
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<%-- <c:url var="addressUrl"	value="/accounts/${address.userEntity.id}/address/${address.id}" /> --%>
 				<c:url var="editAddressUrl"
 					value="/accounts/${address.userEntity.id}/address/${address.id}/edit" />
 				<c:url var="deleteAddressUrl"
 					value="/accounts/${address.userEntity.id}/address/${address.id}/delete" />
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_USER')">
-				<%-- <c:url var="addressUrl"	value="/myAccount/address/${address.id}" /> --%>
 				<c:url var="editAddressUrl"
 					value="/myAccount/address/${address.id}/edit" />
 				<c:url var="deleteAddressUrl"
@@ -174,7 +172,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 			</sec:authorize>
 
 			<address>
-				<%-- <c:out value="${address.id}" /> --%>
+				address.id: <c:out value="${address.id}" />
 				<span class="addressType"> <em><c:out
 							value="${address.addressType}" /></em>
 				</span>
@@ -184,7 +182,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 			  	, <c:out value="${address.address2}" />
 					<br>
 				</c:if>
-				<c:out value="${address.city}" /> <c:out value="${address.state}" />, <c:out value="${address.zipcode}" />
+				<c:out value="${address.city}" />, <c:out value="${address.state}" /> <c:out value="${address.zipcode}" />
 				<br>
 				<c:out value="${address.country}" />
 				<!-- <br> <abbr title="Phone">P:</abbr> (123) 456-7890<br> <a
@@ -196,11 +194,28 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 						<a href="${editAddressUrl}" class="btn btn-primary btn-sm">Edit</a>
 					</div>
 					<div class="col-md-2">
-						<form id="deleteForm" action="${deleteAddressUrl}" method="post">
+						<!-- Button trigger modal -->
+						<a data-toggle="modal" data-remote="${deleteAddressUrl}" data-target="#deleteModal" 
+							class="btn btn-danger btn-sm">Delete</a><br><br>
+							
+							
+						<!-- delete address Modal -->
+						<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class = "modal-content">
+						    
+							</div>
+						  </div>
+						</div>
+						
+						<%-- <form id="deleteForm" action="${deleteAddressUrl}" method="post">
 							<div>
 								<input class="btn btn-danger btn-sm" type="submit" value="DELETE" />
 							</div>
-						</form>
+						</form> --%>
+						
+						
+
 					</div>
 				</div>
 			</address>
@@ -223,6 +238,9 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 </h3>
 
 
+
+
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -230,6 +248,11 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 		src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script>
 	
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script>
 	<!-- 
 		When I click on EDIT button the Modal is popluated with db datas for the current address. 
 		When I clikc on Cancle and click on edit for another address, the selected value is populated to the modal.

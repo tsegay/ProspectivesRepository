@@ -169,14 +169,14 @@
 		</div>
 		
 
-		<div class="form-group checkbox row">
+		<%-- <div class="form-group checkbox row">
 		    <div class="col-sm-2">
 		    	<form:checkbox class="form-control" id="transferee" path="transferee" />
 		    </div>
 			<label for="transferee" class="col-sm-5 control-label">transferee</label>
 		    <div class="col-sm-5">
 		    </div>
-		</div>
+		</div> --%>
 
 	
 		<div class="form-group">

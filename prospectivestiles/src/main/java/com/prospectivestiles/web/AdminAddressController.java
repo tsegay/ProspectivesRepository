@@ -128,6 +128,7 @@ public class AdminAddressController {
 		return "editAddress";
 	}
 	
+	
 	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}", method = RequestMethod.POST)
 	public String editAddress(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("addressId") Long addressId,
@@ -157,9 +158,21 @@ public class AdminAddressController {
 		return "redirect:/accounts/{userEntityId}";
 	}
 	
+	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}/delete", method = RequestMethod.GET)
+	public String getDeleteAddress(@PathVariable("userEntityId") Long userEntityId,
+			@PathVariable("addressId") Long addressId, Model model) {
+		
+		Address address = getAddressValidateUserEntityId(userEntityId, addressId);
+		
+		model.addAttribute("originalAddress", address);
+		model.addAttribute(address);
+		
+		return "deleteAddress";
+	}
+	
 	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}/delete", method = RequestMethod.POST)
 	public String deleteAddress(@PathVariable("userEntityId") Long userEntityId,
-			@PathVariable("addressId") Long addressId)
+			@PathVariable("addressId") Long addressId, Model model)
 			throws IOException {
 		addressService.delete(getAddressValidateUserEntityId(userEntityId, addressId));
 		// I am no longer using the addresses page!

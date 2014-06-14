@@ -62,11 +62,11 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	}*/
 	
 	public void createUserEntity(UserEntity userEntity) {
-		log.debug("Creating userEntity: {}", userEntity);
+		log.info("Creating userEntity: {}", userEntity);
 		System.out.println("###########Creating userEntity: {}" + userEntity);
-		log.debug("Raw Password is: {}", userEntity.getPassword());
+		System.out.println("Raw Password is: {}" + userEntity.getPassword());
 		
-		log.debug("Updating password");
+		log.info("Updating password");
 //		Object salt = saltSource.getSalt(account);
 //		if (salt != null) {
 //			log.debug("Salting password: {}", salt.toString());
@@ -74,11 +74,11 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 //		String encPassword = passwordEncoder.encodePassword(account.getPassword(), salt);
 		String encPassword = passwordEncoder.encodePassword(userEntity.getPassword(), null);
 		if (encPassword != null) {
-			log.debug("Encrypting password: {}", encPassword);
+			System.out.println("Encrypting password: {}" + encPassword);
 		}
 		userEntity.setPassword(encPassword);
 		create(userEntity);
-		log.debug("Password after userEntity created. Should be encrypted: {}", userEntity.getPassword());
+		System.out.println("Password after userEntity created. Should be encrypted: {}" + userEntity.getPassword());
 //		log.debug("Password after account updated. Should be encrypted: {}", account.getPassword());
 	}
 

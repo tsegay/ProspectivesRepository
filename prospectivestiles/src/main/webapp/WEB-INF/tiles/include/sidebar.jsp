@@ -9,10 +9,10 @@
 
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
-		<div class="panel-heading">Panel heading</div>
-		<div class="panel-body">
-		  <p>Some default panel content here.</p>
-		</div>
+		<div class="panel-heading">Welcome to Summer 2014</div>
+		<!-- <div class="panel-body">
+		  <p>Welcome to Summer 2014</p>
+		</div> -->
 			  
 		<ul class="list-group">
 	
@@ -43,7 +43,7 @@
 		</ul>
 	</div>
 	
-	<div class="list-group">
+	<!-- <div class="list-group">
 		<a href="#" class="list-group-item active">
 			<h4 class="list-group-item-heading">Lorem ipsum</h4>
 			<p class="list-group-item-text">Fusce</p>
@@ -57,6 +57,6 @@
 			<h4 class="list-group-item-heading">Lorem ipsum</h4>
 			<p class="list-group-item-text">Fusce</p>
 		</a>
-	</div>
+	</div> -->
 	
 </div>
