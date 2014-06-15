@@ -40,7 +40,7 @@ public class AdminApplyingForController {
 	/*
 	 * user can't delete term or program of study but they can change it.
 	 * I am using the same method to create and edit the term and program of study to
-	 * insert the term and program of study to the suerEntity uisng jdbc
+	 * insert the term and program of study to the userEntity using jdbc
 	 */
 	
 	

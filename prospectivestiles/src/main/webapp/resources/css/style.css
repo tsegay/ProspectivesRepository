@@ -144,4 +144,17 @@ white-space: nowrap;
 
 
 
+/* 
+##################################################################
+		messages.jsp CSS 
+##################################################################
+*/
 
+/* 
+This form is created by JavaScript.
+When user click on the 'Compomse Message' Link, the form is displayed by #messageform.toggle() fn */
+
+/* form.messageform {
+	padding: 20px;
+	display: none;
+} */

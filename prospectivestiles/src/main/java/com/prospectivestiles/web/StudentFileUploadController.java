@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.EmergencyContact;
+import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.UploadedFiles;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.UploadedFilesService;
@@ -197,6 +198,21 @@ public class StudentFileUploadController {
 //        }
 	}
 	
+	/*
+	 * Using a Modal to delete File.
+	 * The delete form in the Modal calls this method
+	 */
+	@RequestMapping(value = "/myAccount/files/{fileId}/delete", method = RequestMethod.GET)
+	public String getDeleteFile(@PathVariable("fileId") Long fileId, Model model) {
+		
+		UserEntity userEntity = getUserEntityFromSecurityContext();	
+		
+		UploadedFiles uploadedFile = getUploadedFileValidateUserEntityId(userEntity.getId(), fileId);
+		
+		model.addAttribute("file", uploadedFile);
+		
+		return "deleteFile";
+	}
 	
 	@RequestMapping(value = "/myAccount/files/{fileId}/delete", method = RequestMethod.POST)
 	public String deleteFile(@PathVariable("fileId") Long fileId) 

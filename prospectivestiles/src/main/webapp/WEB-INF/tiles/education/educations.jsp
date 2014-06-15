@@ -33,20 +33,20 @@
 	</div>
 </sec:authorize>
 
-<h1>HighSchools page</h1>
+<h1>HighSchool</h1>
 
 <h3>
-	<a href="${newHighSchoolUrl}">Add New HighSchool</a>
+	<a href="${newHighSchoolUrl}">Add New High School</a>
 </h3>
 	
 
 <c:if test="${param.deleted == true}">
-	<div class="info alert">HighSchool/Institute deleted.</div>
+	<div class="info alert">High School/Institute deleted.</div>
 </c:if>
 
 <c:choose>
 	<c:when test="${empty highSchools}">
-		<p>No HighSchool.</p>
+		<p>No High School.</p>
 	</c:when>
 	<c:otherwise>
 
@@ -58,8 +58,16 @@
 					<th>State</th>
 					<th>Country</th>
 					<th>Diplome</th>
+					<th>gED</th>
 					<th>Edit</th>
 					<th>Delete</th>
+					<!-- diplome
+					diplomeAwardedDate
+					gEDAwardedDate
+					zip
+					city
+					attendedFrom
+					attendedTo -->
 				</tr>
 	
 				<c:forEach var="highSchool" items="${highSchools}">
@@ -83,13 +91,27 @@
 					<td><c:out value="${highSchool.state}"></c:out></td>
 					<td><c:out value="${highSchool.country}"></c:out></td>
 					<td><c:out value="${highSchool.diplome}"></c:out></td>
+					<td><c:out value="${highSchool.gED}"></c:out></td>
 					<td>
 						<a href="${editHighSchoolUrl}">Edit</a>
 					</td>
 					<td>
-						<form id="deleteForm" action="${deleteHighSchoolUrl}" method="post">
+						<!-- Button trigger modal -->
+						<a data-toggle="modal" data-remote="${deleteHighSchoolUrl}" data-target="#deleteHighSchoolModal" 
+							class="btn btn-danger btn-sm">Delete</a><br><br>
+							
+						<!-- delete address Modal -->
+						<div class="modal fade" id="deleteHighSchoolModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class = "modal-content">
+						    
+							</div>
+						  </div>
+						</div>
+						
+						<%-- <form id="deleteForm" action="${deleteHighSchoolUrl}" method="post">
 							<div><input type="submit" value="DELETE" /></div>
-						</form>
+						</form> --%>
 					</td>
 				</tr>
 								
@@ -102,7 +124,7 @@
 
 
 
-<h1>Institutes</h1>
+<h1>Institute</h1>
 <h3>
 	<a href="${newInstituteUrl}">Add New Institute</a>
 </h3>
@@ -120,10 +142,20 @@
 				<tr>
 					<th>Id</th>
 					<th>Name</th>
+					<th>programOfStudy</th>
+					<th>levelOfStudy</th>
 					<th>State</th>
 					<th>Country</th>
 					<th>Edit</th>
 					<th>Delete</th>
+					<!-- diplome
+					diplomeAwardedDate
+					gEDAwardedDate
+					zip
+					city
+					attendedFrom
+					attendedTo
+					graduationDate; -->
 				</tr>
 	
 				<c:forEach var="institute" items="${institutes}">
@@ -144,15 +176,30 @@
 						<td>
 							<a href="${instituteUrl}"><c:out value="${institute.name}"></c:out></a>
 						</td>
+						<td><c:out value="${institute.programOfStudy}"></c:out></td>
+						<td><c:out value="${institute.levelOfStudy}"></c:out></td>
 						<td><c:out value="${institute.state}"></c:out></td>
 						<td><c:out value="${institute.country}"></c:out></td>
 						<td>
 							<a href="${editInstituteUrl}">Edit</a>
 						</td>
 						<td>
-							<form id="deleteForm" action="${deleteInstituteUrl}" method="post">
+							<!-- Button trigger modal -->
+							<a data-toggle="modal" data-remote="${deleteInstituteUrl}" data-target="#deleteInstituteModal" 
+								class="btn btn-danger btn-sm">Delete</a><br><br>
+								
+							<!-- delete address Modal -->
+							<div class="modal fade" id="deleteInstituteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class = "modal-content">
+							    
+								</div>
+							  </div>
+							</div>
+							
+							<%-- <form id="deleteForm" action="${deleteInstituteUrl}" method="post">
 								<div><input type="submit" value="DELETE" /></div>
-							</form>
+							</form> --%>
 						</td>
 					</tr>
 				

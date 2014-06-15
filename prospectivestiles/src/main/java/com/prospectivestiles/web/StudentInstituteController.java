@@ -155,7 +155,21 @@ public class StudentInstituteController {
 		return "editInstitute";
 	}
 	
-	
+	/*
+	 * Using a Modal to delete High School.
+	 * The delete form in the Modal calls this method
+	 */
+	@RequestMapping(value = "/myAccount/institute/{instituteId}/delete", method = RequestMethod.GET)
+	public String getDeleteHighSchool(@PathVariable("instituteId") Long instituteId, Model model) {
+		
+		UserEntity userEntity = getUserEntityFromSecurityContext();	
+		Institute institute = getInstituteValidateUserEntityId(userEntity.getId(), instituteId);
+		
+		model.addAttribute("originalInstitute", institute);
+		model.addAttribute(institute);
+		
+		return "deleteInstitute";
+	}
 	
 	@RequestMapping(value = "/myAccount/institute/{instituteId}/delete", method = RequestMethod.POST)
 	public String deleteInstitute(@PathVariable("instituteId") Long instituteId)

@@ -58,17 +58,6 @@
 		<intercept-url pattern="/json/**" access="permitAll" />
 		
 		
-		<!-- FOR TESTING use authorization!!!!! -->
-		
-		<!-- <intercept-url pattern="/accounts/*/getmessages" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/messages" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/messages" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/sendmessage" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/sendmessage" access="hasRole('ROLE_ADMIN')" />
-		
-		<intercept-url pattern="/myAccount/getmessages" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/sendmessage" access="isAuthenticated()" /> -->
-		
 		<!-- =========================================================================== -->
 		<!-- ###############  END TESTING PURPOSE ONLY #################### -->
 		<!-- =========================================================================== -->
@@ -268,7 +257,14 @@
 		<intercept-url pattern="/accounts/*/message" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/messages" access="hasRole('ROLE_ADMIN')" />
 		
+		<intercept-url pattern="/accounts/*/sendmessage" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/getmessages" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/sendmessage" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/messages" access="hasRole('ROLE_ADMIN')" />
+		
 		<!-- Student messages -->
+		<intercept-url pattern="/myAccount/getmessages" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/sendmessage" access="isAuthenticated()" />
 		<intercept-url pattern="/myAccount/message/*/delete" access="isAuthenticated()" />
 		<intercept-url pattern="/myAccount/message/*/edit" access="isAuthenticated()" />
 		<intercept-url pattern="/myAccount/message/new" access="isAuthenticated()" />

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.prospectivestiles.domain.EmergencyContact;
+import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.StandardTest;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.StandardTestService;
@@ -133,8 +134,26 @@ public class StudentStandardTestController {
 		return "redirect:/myAccount/standardTests";
 	}
 
+	/*
+	 * Using a Modal to delete High School.
+	 * The delete form in the Modal calls this method
+	 */
+	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}/delete", method = RequestMethod.GET)
+	public String getDeleteStandardTest(@PathVariable("standardTestId") Long standardTestId, Model model) {
+		
+		UserEntity userEntity = getUserEntityFromSecurityContext();	
+		
+		StandardTest standardTest = getStandardTestsValidateUserEntityId(
+				userEntity.getId(), standardTestId);
+
+		model.addAttribute("originalStandardTest", standardTest);
+		model.addAttribute(standardTest);
+		
+		return "deleteStandardTest";
+	}
+	
 	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}/delete", method = RequestMethod.POST)
-	public String deleteMessage(@PathVariable("standardTestId") Long standardTestId)
+	public String deleteStandardTest(@PathVariable("standardTestId") Long standardTestId)
 			throws IOException {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
 		StandardTest standardTest = getStandardTestsValidateUserEntityId(userEntity.getId(), standardTestId);

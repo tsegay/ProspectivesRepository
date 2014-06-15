@@ -158,6 +158,10 @@ public class AdminAddressController {
 		return "redirect:/accounts/{userEntityId}";
 	}
 	
+	/*
+	 * Using a Modal to delete Address.
+	 * The delete form in the Modal calls this method
+	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}/delete", method = RequestMethod.GET)
 	public String getDeleteAddress(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("addressId") Long addressId, Model model) {

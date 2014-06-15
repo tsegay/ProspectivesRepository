@@ -24,8 +24,11 @@
 	</div>
 </sec:authorize>
 
-<h1>StandardTest page</h1>
+<h1>Standard Test</h1>
 
+<br><br>
+<p>Please enter all standard test (TOEFL, IELTS) you took.</p>
+<br><br>
 
 <c:if test="${param.deleted == true}">
 	<div class="info alert">StandardTest deleted.</div>
@@ -69,12 +72,25 @@
 					<td><c:out value="${standardTest.score}"></c:out></td>
 					<td><c:out value="${standardTest.validTill}"></c:out></td>
 					<td>
-						<a href="${editStandardTestUrl}" class="btn btn-primary btn-lg">Edit</a>
+						<a href="${editStandardTestUrl}" class="btn btn-primary btn-md">Edit</a>
 					</td>
 					<td>
-						<form id="deleteForm" action="${deleteStandardTestUrl}" method="post">
+						<!-- Button trigger modal -->
+						<a data-toggle="modal" data-remote="${deleteStandardTestUrl}" data-target="#deleteStandardTestModal" 
+							class="btn btn-danger btn-sm">Delete</a><br><br>
+							
+						<!-- delete address Modal -->
+						<div class="modal fade" id="deleteStandardTestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class = "modal-content">
+						    
+							</div>
+						  </div>
+						</div>
+						
+						<%-- <form id="deleteForm" action="${deleteStandardTestUrl}" method="post">
 							<div><input type="submit" value="DELETE" /></div>
-						</form>
+						</form> --%>
 					</td>
 				</tr>
 								
@@ -93,7 +109,7 @@
 </sec:authorize>
 			
 <h3>
-	<a href="${newStandardTestUrl}">Add New StandardTest</a>
+	<a href="${newStandardTestUrl}">Add New Standard Test</a>
 </h3>
 
 

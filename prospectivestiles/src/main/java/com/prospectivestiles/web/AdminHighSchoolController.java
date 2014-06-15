@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.HighSchoolService;
@@ -182,8 +183,24 @@ public class AdminHighSchoolController {
 		return "redirect:/accounts/{userEntityId}/educations";
 	}
 	
+	/*
+	 * Using a Modal to delete High School.
+	 * The delete form in the Modal calls this method
+	 */
+	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/{highSchoolId}/delete", method = RequestMethod.GET)
+	public String getDeleteHighSchool(@PathVariable("userEntityId") Long userEntityId,
+			@PathVariable("highSchoolId") Long highSchoolId, Model model) {
+		
+		HighSchool highSchool = getHighSchoolValidateUserEntityId(userEntityId, highSchoolId);
+		
+		model.addAttribute("originalHighSchool", highSchool);
+		model.addAttribute(highSchool);
+		
+		return "deleteHighSchool";
+	}
+	
 	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/{highSchoolId}/delete", method = RequestMethod.POST)
-	public String deleteMessage(@PathVariable("userEntityId") Long userEntityId,
+	public String deleteHighSchool(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("highSchoolId") Long highSchoolId)
 			throws IOException {
 		highSchoolService.delete(getHighSchoolValidateUserEntityId(userEntityId, highSchoolId));
@@ -192,6 +209,10 @@ public class AdminHighSchoolController {
 		return "redirect:/accounts/{userEntityId}/educations";
 	}
 	
+	// ======================================
+	// =                        =
+	// ======================================	
+		
 	
 	private HighSchool getHighSchoolValidateUserEntityId(Long userEntityId, Long highschoolId) {
 		HighSchool highSchool = highSchoolService.getHighSchool(highschoolId);

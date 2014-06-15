@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.Institute;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.HighSchoolService;
@@ -159,7 +160,21 @@ public class AdminInstituteController {
 		return "redirect:/accounts/{userEntityId}/educations";
 	}
 	
-	
+	/*
+	 * Using a Modal to delete High School.
+	 * The delete form in the Modal calls this method
+	 */
+	@RequestMapping(value = "/accounts/{userEntityId}/institute/{instituteId}/delete", method = RequestMethod.GET)
+	public String getDeleteAddress(@PathVariable("userEntityId") Long userEntityId,
+			@PathVariable("instituteId") Long instituteId, Model model) {
+		
+		Institute institute = getInstituteValidateUserEntityId(userEntityId, instituteId);
+		
+		model.addAttribute("originalInstitute", institute);
+		model.addAttribute(institute);
+		
+		return "deleteInstitute";
+	}
 	@RequestMapping(value = "/accounts/{userEntityId}/institute/{instituteId}/delete", method = RequestMethod.POST)
 	public String deleteInstitute(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("instituteId") Long instituteId)

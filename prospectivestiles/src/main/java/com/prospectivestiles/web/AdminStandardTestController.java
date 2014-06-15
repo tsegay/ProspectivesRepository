@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.prospectivestiles.domain.EmergencyContact;
+import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.StandardTest;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.StandardTestService;
@@ -121,6 +122,21 @@ public class AdminStandardTestController {
 		return "redirect:/accounts/{userEntityId}/standardTests";
 	}
 	
+	/*
+	 * Using a Modal to delete High School.
+	 * The delete form in the Modal calls this method
+	 */
+	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/{standardTestId}/delete", method = RequestMethod.GET)
+	public String getDeleteStandardTest(@PathVariable("userEntityId") Long userEntityId,
+			@PathVariable("standardTestId") Long standardTestId, Model model) {
+		
+		StandardTest standardTest = getStandardTestValidateUserEntityId(userEntityId, standardTestId);
+		
+		model.addAttribute("originalStandardTest", standardTest);
+		model.addAttribute(standardTest);
+		
+		return "deleteStandardTest";
+	}
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/{standardTestId}/delete", method = RequestMethod.POST)
 	public String deleteStandardTest(@PathVariable("userEntityId") Long userEntityId,

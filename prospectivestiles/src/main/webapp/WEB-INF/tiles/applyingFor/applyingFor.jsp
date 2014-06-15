@@ -23,28 +23,23 @@
 	</div>
 </sec:authorize>
 
-<h1>ApplyingFor page</h1>
-
-
-
-<c:if test="${param.deleted == true}">
-	<div class="info alert">Address deleted.</div>
-</c:if>
+<h1>Term and Program of Study</h1>
+<br><br>
 
 <!-- if student has selected the term and program of study, show his selection and hide the add button
 if student hasn't selected show the add button 
 user can't delete term or program of study but they can change it.
 I am using the same method to create and edit the term and program of study to 
-insert the term and program of study to the suerEntity uisng jdbc
+insert the term and program of study to the userEntity using jdbc
 -->
 
 <c:choose>
 	<c:when test="${empty userEntity.term}">
-		<p>No term</p>
+		<p>No Term and Program of Study selected.</p>
 		
 		<!-- Button trigger modal -->
-		Select term and program of study you are applying for: <br />
-		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addTermModal">
+		<p>Select term and program of study you are applying for:</p> <br />
+		<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#addTermModal">
 		  Select
 		</button>
 
@@ -65,11 +60,10 @@ insert the term and program of study to the suerEntity uisng jdbc
 			<dt></dt>
 
 		</dl>
+		<br>
 		
 		<div class="row">
 			<div class="col-md-2">
-				<%-- <a data-toggle="modal" data-remote="${editTermUrl}" data-target="#addTermModal" 
-							class="btn btn-primary btn-sm">Edit</a> --%>
 				<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTermModal">
 				  Edit
 				</button>
@@ -87,17 +81,17 @@ insert the term and program of study to the suerEntity uisng jdbc
     <div class = "modal-content">
 	        <form:form action="${applyingForUrl}" modelAttribute="userEntity" role="form" class = "form-horizontal">
 	            <div class = "modal-header">
-	                <h4>Add ApplyingFor Term</h4>
-	                userEntity.id
+	                <h4>Select Term and Program of Study you are applying for</h4>
+	                <%-- userEntity.id
 	                <c:if test="${userEntity.id > 0}">
 	                	<c:out value="${userEntity.id}" />
-	                </c:if>
+	                </c:if> --%>
 	            </div>
 	            <div class = "modal-body">
 	            
 					
 					<div class="form-group row">
-						<label for="term" class="col-sm-2 control-label">term</label>
+						<label for="term" class="col-sm-3 control-label">term</label>
 					    <div class="col-sm-5">
 					      <form:select path="term.id">
 							   <%-- <form:option value="NONE" label="--- Select ---"/> --%>
@@ -107,12 +101,12 @@ insert the term and program of study to the suerEntity uisng jdbc
 							   </c:forEach>
 							</form:select>
 					    </div>
-					    <div class="col-sm-5">
+					    <div class="col-sm-3">
 					    	<form:errors path="term" htmlEscape="false" />
 					    </div>
 					</div>
 					<div class="form-group row">
-						<label for="term" class="col-sm-2 control-label">programOfStudies</label>
+						<label for="term" class="col-sm-3 control-label">programOfStudies</label>
 					    <div class="col-sm-5">
 					      <form:select path="programOfStudy.id">
 							   <%-- <form:option value="NONE" label="--- Select ---"/> --%>
@@ -122,7 +116,7 @@ insert the term and program of study to the suerEntity uisng jdbc
 							   </c:forEach>
 							</form:select>
 					    </div>
-					    <div class="col-sm-5">
+					    <div class="col-sm-3">
 					    	<form:errors path="term" htmlEscape="false" />
 					    </div>
 					</div>

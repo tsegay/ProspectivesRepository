@@ -34,11 +34,13 @@
 
 
 <h1>Documents</h1>
+<br><br>
 
 <form:form method="post" action="${saveFileUrl}"
         modelAttribute="uploadedFile" enctype="multipart/form-data">
  
     <h3>Please select files to upload.</h3>
+    <br>
  
 <!--  	Description: <input name="description" type="text" />
     <input name="file" type="file" />
@@ -57,39 +59,58 @@
     
 </form:form>
 
+<br>
 
-<h3>You have uploaded these files:</h3>
-
-<ol>
-    <c:forEach items="${files}" var="file">
-    
-    
-    <sec:authorize access="hasRole('ROLE_ADMIN')">
-		<c:url var="donwloadFileUrl" value="/accounts/${userEntity.id}/files/${file.id}" />
-    	<c:url var="deleteFileUrl" value="/accounts/${userEntity.id}/files/${file.id}/delete" />
-	</sec:authorize>
-	<sec:authorize access="hasRole('ROLE_USER')">
-		<c:url var="donwloadFileUrl" value="/myAccount/files/${file.id}" />
-    	<c:url var="deleteFileUrl" value="/myAccount/files/${file.id}/delete" />
-	</sec:authorize>
-    
-         <li class="row">
-         	<p class="col-md-8">${file.description} (FileName: ${file.fileName})</p>
-         	
-         	<a href="${donwloadFileUrl}" class="btn btn-primary btn-sm col-md-2 glyphicon glyphicon-download-alt"> Download</a>
-         	
-         	<form id="deleteForm" action="${deleteFileUrl}" method="post" class="col-md-2">
-				<div><input type="submit" value="DELETE" class="btn btn-danger btn-xs" /></div>
-			</form>
-         	
-         	
-         </li>
-         
-    </c:forEach>
-</ol>
-
-
-
+<c:choose>
+	<c:when test="${empty files}">
+		<p>No uploaded files.</p>
+	</c:when>
+	<c:otherwise>
+		<h3>You have uploaded these files:</h3>
+		
+		<ol>
+		    <c:forEach items="${files}" var="file">
+		    
+		    
+		    <sec:authorize access="hasRole('ROLE_ADMIN')">
+				<c:url var="donwloadFileUrl" value="/accounts/${userEntity.id}/files/${file.id}" />
+		    	<c:url var="deleteFileUrl" value="/accounts/${userEntity.id}/files/${file.id}/delete" />
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_USER')">
+				<c:url var="donwloadFileUrl" value="/myAccount/files/${file.id}" />
+		    	<c:url var="deleteFileUrl" value="/myAccount/files/${file.id}/delete" />
+			</sec:authorize>
+		    
+		         <li class="row">
+		         	<p class="col-md-7">${file.description} (FileName: ${file.fileName})</p>
+		         	
+		         	<a href="${donwloadFileUrl}" class="btn btn-primary btn-sm col-md-2 glyphicon glyphicon-download-alt"> Download</a>
+		         	<span class="col-md-1"></span>
+		         	
+		         	<!-- Button trigger modal -->
+					<a data-toggle="modal" data-remote="${deleteFileUrl}" data-target="#deleteFileModal" 
+						class="btn btn-danger btn-sm col-md-1">Delete</a><br><br>
+						
+					<!-- delete address Modal -->
+					<div class="modal fade" id="deleteFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class = "modal-content">
+					    
+						</div>
+					  </div>
+					</div>
+								
+		         	<%-- <form id="deleteForm" action="${deleteFileUrl}" method="post" class="col-md-2">
+						<div><input type="submit" value="DELETE" class="btn btn-danger btn-xs" /></div>
+					</form> --%>
+		         	
+		         	
+		         </li>
+		         
+		    </c:forEach>
+		</ol>
+	</c:otherwise>
+</c:choose>
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

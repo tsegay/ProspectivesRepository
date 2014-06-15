@@ -182,6 +182,10 @@ public class StudentAddressController {
 		return "redirect:/myAccount";
 	}
 	
+	/*
+	 * Using a Modal to delete Address.
+	 * The delete form in the Modal calls this method
+	 */
 	@RequestMapping(value = "/myAccount/address/{addressId}/delete", method = RequestMethod.GET)
 	public String getDeleteAddress(@PathVariable("addressId") Long addressId, Model model) {
 		UserEntity userEntity = getUserEntityFromSecurityContext();	

@@ -7,7 +7,18 @@
 
 <style>
 <!--
-.message {
+
+/* 
+Put all css in style.css file 
+*/
+
+form.messageform {
+	padding: 20px;
+	display: none;
+}
+
+
+/* .message {
 	margin-bottom: 20px;
 	border-bottom: 1px dashed brown;
 }
@@ -24,14 +35,10 @@ div.messagebody {
 
 div.name {
 	font-size: medium;
-}
+} */
 
-form.messageform {
-	padding: 20px;
-	display: none;
-}
 
-textarea.textareafield {
+/* textarea.textareafield {
 	width: 400px;
 	height: 250px;
 }
@@ -50,7 +57,7 @@ span.notification {
 	display: block;
 	font-weight: bold;
 	color: green;
-}
+} */
 -->
 </style>
 

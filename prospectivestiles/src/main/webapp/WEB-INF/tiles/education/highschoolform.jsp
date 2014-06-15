@@ -38,7 +38,7 @@
 	</div>
 </sec:authorize>
 		
-<h1>HighSchool Form page</h1>
+<h1>High School Form</h1>
 
 	<form:form action="${highSchoolFormUrl}" modelAttribute="highSchool" role="form">
 	
@@ -66,7 +66,7 @@
 		</div>
 		
 		<div class="form-group row">
-			<label for="city" class="col-sm-2 control-label">city</label>
+			<label for="city" class="col-sm-2 control-label">City</label>
 			<div class = "col-sm-5">
 				<form:input path="city" class = "form-control" id = "city" placeholder = "Your city"/>
 			</div>

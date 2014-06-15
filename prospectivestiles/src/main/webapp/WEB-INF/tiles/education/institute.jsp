@@ -6,7 +6,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<c:set var="accountsPath" value="/accounts" />
+<%-- <c:set var="accountsPath" value="/accounts" />
 
 <c:set var="user" value="${institute.userEntity}" />
 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -44,6 +44,6 @@
 	<c:out value="${institute.userEntity.username}" />
 </div>
 
-<a class = "btn btn-default" href="${educationUrl}">Back to Educations</a>
+<a class = "btn btn-default" href="${educationUrl}">Back to Educations</a> --%>
 
 

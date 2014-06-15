@@ -8,13 +8,11 @@
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="deleteAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}/delete" />
+	<c:url var="deleteInstituteUrl" value="/accounts/${institute.userEntity.id}/institute/${institute.id}/delete" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="deleteAddressUrl" value="/myAccount/address/${address.id}/delete" />
+	<c:url var="deleteInstituteUrl" value="/myAccount/institute/${institute.id}/delete" />
 </sec:authorize>
-
-
 
 <!-- 
 ########################################################
@@ -22,13 +20,13 @@ This is for Modal use
 ######################################################## 
 -->
 
-<form:form action="${deleteAddressUrl}" modelAttribute="address"
+<form:form action="${deleteInstituteUrl}" modelAttribute="address"
 	role="form" class="form-horizontal">
 	<div class="modal-header">
 		<!-- <h4>Delete Address</h4> -->
 	</div>
 	<div class="modal-body">
-		Are you sure you want to delete this address?
+		Are you sure you want to delete this Institute?
 	</div>
 
 	<div class="modal-footer">

@@ -6,10 +6,9 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<c:set var="accountsPath" value="/accounts" />
+<%-- <c:set var="accountsPath" value="/accounts" />
 
 <c:set var="user" value="${highSchool.userEntity}" />
-<%-- <c:url var="highSchoolFormUrl" value="/accounts/${user.id}/highSchool" /> --%>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="highSchoolFormUrl" value="/accounts/${user.id}/highSchool" />
 	<c:url var="myEducationUrl" value="/accounts/${user.id}/educations" />
@@ -41,6 +40,6 @@
 	<c:out value="${highSchool.userEntity.username}" />
 </div>
 
-<a class = "btn btn-default" href="${myEducationUrl}">Back to Educations</a>
+<a class = "btn btn-default" href="${myEducationUrl}">Back to Educations</a> --%>
 
 

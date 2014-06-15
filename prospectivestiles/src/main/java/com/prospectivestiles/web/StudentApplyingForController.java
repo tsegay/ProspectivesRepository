@@ -59,9 +59,9 @@ public class StudentApplyingForController {
 	}
 	
 	@RequestMapping(value = "/myAccount/applyingFor", method = RequestMethod.POST)
-	public String postApplyingFor(@ModelAttribute UserEntity origUserEntity, BindingResult result) {
+	public String postApplyingFor(@ModelAttribute UserEntity origUserEntity, BindingResult result, Model model) {
 		
-		System.out.println("################### IN StudentApplyingForController.postApplyingFor.");
+		System.out.println("################### In StudentApplyingForController.postApplyingFor.");
 		System.out.println("################### origUserEntity.getId: " + origUserEntity.getId());
 		System.out.println("################### origUserEntity.getFirstName: " + origUserEntity.getFirstName());
 		System.out.println("################### origUserEntity.getTerm().getId(): " + origUserEntity.getTerm().getId());
@@ -78,6 +78,7 @@ public class StudentApplyingForController {
 		}
 
 		UserEntity userEntity = getUserEntityFromSecurityContext();
+		model.addAttribute("userEntity", userEntity);
 		
 		System.out.println("######## StudentApplyingForController.userEntity.getId(): " + userEntity.getId());
 		
@@ -102,8 +103,10 @@ public class StudentApplyingForController {
 		/**
 		 * I need to use JDBC to insert data to tables
 		 */
+		
 		userEntityService.insertTerm(userEntity.getId(), origUserEntity.getTerm().getId());
 		userEntityService.insertProgramOfStudy(userEntity.getId(), origUserEntity.getProgramOfStudy().getId());
+		
 		
 		
 		return "redirect:/myAccount/applyingFor";
@@ -115,7 +118,9 @@ public class StudentApplyingForController {
 	// =                         =
 	// ======================================
 	
-	
+	/**
+	 * Look at AdminController
+	 */
 //	@RequestMapping(value = "/myAccount/applyingFor/edit", method = RequestMethod.GET)
 //	public String editApplyingFor(@PathVariable("programOfStudyId") Long programOfStudyId, 
 //			@PathVariable("termId") Long termId, 

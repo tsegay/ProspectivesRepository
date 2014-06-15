@@ -37,12 +37,12 @@
 	</div>
 </sec:authorize>
 
-<h1>Institute Form page</h1>
+<h1>Institute Form</h1>
 
 
-<div>
+<%-- <div>
 	Institute form for: <c:out value="${institute.userEntity.username}" />
-</div>
+</div> --%>
 		
 	<form:form action="${instituteFormUrl}" modelAttribute="institute" role="form">
 	

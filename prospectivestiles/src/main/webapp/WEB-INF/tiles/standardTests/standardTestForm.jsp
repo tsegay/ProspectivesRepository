@@ -35,13 +35,17 @@
 	</div>
 </sec:authorize>
 
-<h1>Address Form page</h1>
+<h1>Standard Test Form</h1>
+<br>
+<br>
+<h4>Please enter all the standard tests (TOEFL, IELTS) you took</h4>
+<br>
 
 <form:form action="${standardTestsUrl}" id="standardTestForm"
 	modelAttribute="standardTest" role="form" class="form-horizontal">
 
 	<div class="form-group row">
-		<label for="name" class="col-sm-2 control-label">name</label>
+		<label for="name" class="col-sm-2 control-label">Test Name</label>
 	    <div class="col-sm-5">
 	      <form:input path="name" class="form-control" placeholder = "Your test" />
 	    </div>
@@ -51,12 +55,24 @@
 	</div>
 	
 	 <div class="form-group row">
-		<label for="score" class="col-sm-2 control-label">score</label>
+		<label for="score" class="col-sm-2 control-label">Score</label>
 	    <div class="col-sm-5">
 	      <form:input path="score" class="form-control" placeholder = "Your score" />
 	    </div>
 	    <div class="col-sm-5">
 	    	<form:errors path="score" htmlEscape="false" />
+	    </div>
+	</div>
+	
+	
+	<fmt:formatDate value="${standardTest.validTill}" var="validTillString" pattern="dd/MM/yyyy" />
+    <div class="form-group row">
+		<label for="validTill" class="col-sm-2 control-label">validTill</label>
+	    <div class="col-sm-5">
+	      <form:input path="validTill" value="${validTillString}" class="form-control" id="validTill" placeholder="Test valid till ..." />
+		</div>
+	    <div class="col-sm-5">
+	    	<form:errors path="validTill" htmlEscape="false" />
 	    </div>
 	</div>
 	
