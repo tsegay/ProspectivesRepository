@@ -22,6 +22,8 @@ public interface UserEntityService {
 
 	List<UserEntity> getAllUserEntities();
 	
+	List<UserEntity> findByRole(long roleID);
+	
 	void updateUserEntity(UserEntity userEntity);
 	void delete(UserEntity userEntity);
 	void insertTerm(long userEntityId, long termId);
@@ -30,7 +32,14 @@ public interface UserEntityService {
 
 	List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize);
 	List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize, String filter, boolean asc);
-
+	
+	/*
+	 * counts everyone in the system
+	 */
 	long count();
+	/*
+	 * To count all students or admins
+	 */
+	long countByRole(long roleID);
 
 }

@@ -85,10 +85,10 @@
 			<c:out value="${userEntity.gender}" />
 		</dd>
 		
-		<dt>transferee</dt>
+		<%-- <dt>transferee</dt>
 		<dd>
 			<c:out value="${userEntity.transferee}" />
-		</dd>
+		</dd> --%>
 		<dt>homePhone</dt>
 		<dd>
 			<c:out value="${userEntity.homePhone}" />
@@ -112,18 +112,18 @@
 			<c:out value="${userEntity.ethnicity}" />
 		</dd>
 		
-		<dt>Account enabled</dt>
+		<%-- <dt>Account enabled</dt>
 		<dd>
 			<c:out value="${userEntity.enabled}" />
-		</dd>
+		</dd> --%>
 	
-		<dt>Roles</dt>
+		<%-- <dt>Roles</dt>
 		<dd>
 			<c:forEach var="role" items="${userEntity.roles}">
 				<c:out value="${role.name}" />
 				<br />
 			</c:forEach>
-		</dd>
+		</dd> --%>
 
 	</dl>
 </div>

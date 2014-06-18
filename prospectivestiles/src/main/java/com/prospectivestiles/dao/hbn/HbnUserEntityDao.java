@@ -144,7 +144,9 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	@Override
 	public List<UserEntity> findAll(int page, int pageSize) {
 		
-		String hql = "FROM UserEntity u ORDER BY u.lastName ASC";
+//		String hql = "FROM UserEntity u ORDER BY u.lastName ASC";
+		/*I want to get all students only, not admin users*/
+		String hql = "SELECT u FROM UserEntity u INNER JOIN u.roles r WHERE r.id = 1 ORDER BY u.lastName ASC";
 		Query query = getSession().createQuery(hql);
 		// setFirst shoulb be set with the index of the first element in the page, 
 		// something like page * pageSize
@@ -187,8 +189,25 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		
 		return results;
 	}
-	
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserEntity> findByRole(long roleID) {
+		
+		return (List<UserEntity>) getSession()
+				.getNamedQuery("findUserEntitiesByRole")
+				.setParameter("roleID", roleID)
+				.list();
+	}
+	
+	/*I want to count students only, not admin users*/
+	@Override
+	public long countByRole(long roleID) {
+		return (Long) getSession()
+			.createQuery("SELECT count(*) FROM UserEntity u INNER JOIN u.roles r WHERE r.id = :roleID ORDER BY u.lastName ASC")
+			.setParameter("roleID", roleID)
+			.uniqueResult();
+	}
 	
 	
 }

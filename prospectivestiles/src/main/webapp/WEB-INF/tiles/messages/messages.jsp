@@ -7,57 +7,28 @@
 
 <style>
 <!--
-
 /* 
 Put all css in style.css file 
 */
-
 form.messageform {
 	padding: 20px;
 	display: none;
 }
 
-
-/* .message {
+.message {
 	margin-bottom: 20px;
-	border-bottom: 1px dashed brown;
+	border-bottom: 3px groove #CBC7C7;
 }
 
-div.subject {
-	font-size: large;
-	font-weight: bold;
+div.messagetitle {
+	font-size: 14px;
+    font-weight: bold;
+    padding: 5px 20px;
 }
 
-div.messagebody {
-	display: block;
-	font-style: italic;
+div.text {
+    padding: 10px 20px;
 }
-
-div.name {
-	font-size: medium;
-} */
-
-
-/* textarea.textareafield {
-	width: 400px;
-	height: 250px;
-}
-
-input.sendbutton {
-	display: block;
-	font-size: large;
-	border: 1px solid gray;
-}
-
-a.emaillink:link {
-	color: brown;
-}
-
-span.notification {
-	display: block;
-	font-weight: bold;
-	color: green;
-} */
 -->
 </style>
 
@@ -124,11 +95,14 @@ span.notification {
 <!-- 			jQuery Scripts			 -->
 <!-- ############################################################################################# -->
 
+<!-- jQuery (Date JavaScript plugins) -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/date.js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script>
 <!-- deleted modal script -->
+
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="getMessagesUrl" value="/accounts/${userEntity.id}/getmessages" />
@@ -295,31 +269,58 @@ span.notification {
 			var messageDiv = document.createElement("div");
 			messageDiv.setAttribute("class", "message");
 			
-			var subjectDiv = document.createElement("div");
-			subjectDiv.setAttribute("class", "subject");
-			subjectDiv.appendChild(document.createTextNode(message.subject));
+			var messageTitleDiv = document.createElement("div");
+			messageTitleDiv.setAttribute("class", "messagetitle row");
 			
-			var textDiv = document.createElement("div");
-			textDiv.setAttribute("class", "text");
-			textDiv.appendChild(document.createTextNode(message.text));
+			 /* 
+			 older versions of IE have serious bugs in their setAttribute implementation - 
+			 Use the className property instead	
+			 element.className = "class1 class2"; */
 			
-			var studentDiv = document.createElement("div");
-			studentDiv.setAttribute("class", "student");
-			studentDiv.appendChild(document.createTextNode(message.student.firstName));
+				var senderSpan = document.createElement("span");
+				senderSpan.setAttribute("class", "sender col-md-3");
+				
+				/* find the message sender: admission officer or student */
+				if (message.admissionOfficer != null) {
+					senderSpan.appendChild(document.createTextNode(message.admissionOfficer.fullName));
+				} else {
+					senderSpan.appendChild(document.createTextNode(message.student.fullName));
+				}
+				
+				/* senderSpan.appendChild(document.createTextNode("("));
+					var emailLink = document.createElement("a");
+					emailLink.setAttribute("class", "emaillink");
+					emailLink.setAttribute("href", "#");
+					emailLink.appendChild(document.createTextNode(message.student.email));
+				
+				senderSpan.appendChild(emailLink);
+				senderSpan.appendChild(document.createTextNode(")")); */	
+				
+				var subjectSpan = document.createElement("span");
+				subjectSpan.setAttribute("class", "subject col-md-6");
+				subjectSpan.appendChild(document.createTextNode(message.subject));
 			
-			studentDiv.appendChild(document.createTextNode("("));
-				var emailLink = document.createElement("a");
-				emailLink.setAttribute("class", "emaillink");
-				emailLink.setAttribute("href", "#");
-				/* emailLink.setAttribute("onclick", "displayMessageForm(" + i + ")"); */
-				emailLink.appendChild(document.createTextNode(message.student.email));
+				var dateSpan = document.createElement("span");
+				dateSpan.setAttribute("class", "date col-md-3");
 			
-			studentDiv.appendChild(emailLink);
-			studentDiv.appendChild(document.createTextNode(")"));
+				var date = new Date(message.dateCreated);
+				
+				dateSpan.appendChild(document.createTextNode(date.toString('MM-dd-yyyy')));
+				dateSpan.appendChild(document.createTextNode(" "));
+				dateSpan.appendChild(document.createTextNode(date.toString('HH:mm')));
+				
+				
+			messageTitleDiv.appendChild(senderSpan);
+			messageTitleDiv.appendChild(subjectSpan);
+			messageTitleDiv.appendChild(dateSpan);
 			
-			messageDiv.appendChild(subjectDiv);
-			messageDiv.appendChild(textDiv);
-			messageDiv.appendChild(studentDiv);
+			var messageContentDiv = document.createElement("div");
+			messageContentDiv.setAttribute("class", "text");
+			messageContentDiv.appendChild(document.createTextNode(message.text));
+			
+			messageDiv.appendChild(messageTitleDiv);
+			messageDiv.appendChild(messageContentDiv);
+			/* messageDiv.appendChild(studentDiv); */
 			
 			$("div#messages").append(messageDiv);
 			
@@ -355,13 +356,9 @@ span.notification {
 
 
 
-
-
 <!-- Call the dropdowns via JavaScript  -->
 <!-- <script>
 	$(document).ready(function () {
         $('.dropdown-toggle').dropdown();
     });
 </script> -->
-
-

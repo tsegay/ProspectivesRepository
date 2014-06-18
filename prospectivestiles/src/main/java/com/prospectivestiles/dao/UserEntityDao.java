@@ -13,6 +13,7 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	void createUserEntity(UserEntity userEntity);
 	
 	UserEntity findByUsername(String username);
+	
 
 	String getPasswordByUsername(String username);
 	
@@ -28,10 +29,18 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	 */
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
 	
+	List<UserEntity> findByRole(long roleID);
+	
 	// used for pagination
 	// put it in dao.java
 	List<UserEntity> findAll(int page, int pageSize);
 
 	List<UserEntity> findAll(int page, int pageSize, String filter, boolean asc);
+
+	/*
+	 * To count all students or admins
+	 */
+	long countByRole(long roleID);
+
 	
 }

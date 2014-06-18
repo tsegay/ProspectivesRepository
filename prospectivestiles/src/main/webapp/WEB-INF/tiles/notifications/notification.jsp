@@ -68,13 +68,12 @@ span.notification {
 <!-- 			jQuery Scripts			 -->
 <!-- ############################################################################################# -->
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
-<!-- <script type="text/javascript" src="http://www.datejs.com/build/date.js"></script> -->
+<!-- jQuery (Date JavaScript plugins) -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/date.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
-
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 
 

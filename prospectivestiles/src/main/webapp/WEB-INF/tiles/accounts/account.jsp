@@ -172,7 +172,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 			</sec:authorize>
 
 			<address>
-				address.id: <c:out value="${address.id}" />
+				<%-- address.id: <c:out value="${address.id}" /> --%>
 				<span class="addressType"> <em><c:out
 							value="${address.addressType}" /></em>
 				</span>

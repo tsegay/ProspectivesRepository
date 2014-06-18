@@ -25,6 +25,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -41,10 +42,14 @@ import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-
-@NamedQuery(
-	name = "findUserEntityByUsername",
-	query = "from UserEntity where username = :username")
+@NamedQueries({
+	@NamedQuery(
+    		name = "findUserEntityByUsername",
+    		query = "from UserEntity where username = :username"),
+	@NamedQuery(
+    		name = "findUserEntitiesByRole",
+    		query = "select u from UserEntity u inner join u.roles r where r.id = :roleID"),
+}) 
 @Entity
 @Table(name = "userEntity")
 @SuppressWarnings("serial")

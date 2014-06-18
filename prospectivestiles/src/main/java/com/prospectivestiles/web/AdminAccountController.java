@@ -42,7 +42,9 @@ public class AdminAccountController {
 	
 	@RequestMapping(value="/accounts/accounts", method = RequestMethod.GET)
 	public String getAllAccounts(Model model) {
-		List<UserEntity> users = userEntityService.getAllUserEntities();
+//		List<UserEntity> users = userEntityService.getAllUserEntities();
+		/*I want to get all students only, not admin users*/
+		List<UserEntity> users = userEntityService.findByRole(1);
 		model.addAttribute("users", users);
 		return "accounts/accounts";
 	}
@@ -109,7 +111,10 @@ public class AdminAccountController {
 		
 		System.out.println("page: " + page);
 		System.out.println("pageSize: " + pageSize);
-		long usersCount = userEntityService.count();
+//		long usersCount = userEntityService.count();
+		/*I want to count all students only, not admin users*/
+		long usersCount = userEntityService.countByRole(1);
+		
 		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
 		// getAllUserEntitiesForPage -- TO BE CHANGED
 		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(page, pageSize);

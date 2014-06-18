@@ -154,6 +154,9 @@ public class UserEntityServiceImpl implements UserEntityService {
 		return userEntityDao.findAll(page, pageSize);
 	}
 
+	/*
+	 * counts everyone in the system
+	 */
 	@Override
 	public long count() {
 		
@@ -164,6 +167,18 @@ public class UserEntityServiceImpl implements UserEntityService {
 	public List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize,
 			String filter, boolean asc) {
 		return userEntityDao.findAll(page, pageSize, filter, asc);
+	}
+
+	@Override
+	public List<UserEntity> findByRole(long roleID) {
+		return userEntityDao.findByRole(roleID);
+	}
+	/*
+	 * To count all students or admins
+	 */
+	@Override
+	public long countByRole(long roleID) {
+		return userEntityDao.countByRole(roleID);
 	}
 	
 }

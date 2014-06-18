@@ -74,15 +74,15 @@
 			<li id="reports-li" class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Reports<span class="caret"></span></a>
 			  <ul class="dropdown-menu">
-			    <li id="reports-reports-li"><a href="${reportsUrl}">Reports</a></li>
+			    <%-- <li id="reports-reports-li"><a href="${reportsUrl}">Reports</a></li> --%>
 			    <li id="reports-missing-li"><a href="${missingDocumentsUrl}">MissingDocuments</a></li>
 			    <li id="reports-evaluation-li"><a href="${evaluationReportUrl}">evaluationReport</a></li>
 			    <li id="reports-acceptance-li"><a href="${acceptanceLetterUrl}">acceptanceLetter</a></li>
-			    <li><a href="#">Link</a></li>
+			    <!-- <li><a href="#">Link</a></li>
 			    <li class="divider"></li>
 			    <li><a href="#">Link</a></li>
 			    <li class="divider"></li>
-			    <li><a href="#">Link</a></li>
+			    <li><a href="#">Link</a></li> -->
 			  </ul>
 			</li>
 		</sec:authorize>
