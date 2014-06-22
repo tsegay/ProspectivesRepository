@@ -7,23 +7,16 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 
-
-<h1>Address editAddress.jsp</h1>
-
 <c:set var="user" value="${address.userEntity}" />
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
+	<c:url var="accountsUrl" value="/accounts/${userEntity.id}" />
 	<c:url var="addressesUrl" value="/accounts/${user.id}/addresses" />
-	<%-- <c:url var="addressUrl"	value="/accounts/${address.userEntity.id}/address/${address.id}" /> --%>
 	<c:url var="editAddressUrl" value="/accounts/${user.id}/address/${address.id}" />
 	<c:url var="deleteAddressUrl" value="/accounts/${user.id}/address/${address.id}/delete" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="addressesUrl" value="/myAccount/addresses" />
-	<%-- <c:url var="addressUrl"	value="/myAccount/address/${address.id}" /> --%>
-	<c:url var="editAddressUrl" value="/myAccount/address/${address.id}" />
-	<c:url var="deleteAddressUrl" value="/myAccount/address/${address.id}/delete" />
 </sec:authorize>
 
 			
@@ -46,7 +39,7 @@
 	</div>
 </sec:authorize>
 
-<h1>Edit HighSchool page</h1>
+<h1>Edit Address page</h1>
 
 <%-- <c:if test="${param.saved == true}">
 	<div class="info alert">
@@ -59,7 +52,7 @@
 
 		<div class="form-group row">
 			<label for="addressType" class="col-sm-2 control-label">AddressType</label>
-			<div class="col-sm-10">
+			<div class="col-sm-5">
 				<form:select path="addressType" class="form-control">
 					<form:option value="HOME_ADDRESS" label="HOME_ADDRESS" />
 					<form:option value="WORK_ADDRESS" label="WORK_ADDRESS" />
@@ -68,29 +61,41 @@
 						label="FOREIGN_COUNTRY_ADDRESS" />
 				</form:select>
 			</div>
+			<div class="col-sm-5">
+				<form:errors path="addressType" htmlEscape="false" />
+			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="address1" class="col-sm-2 control-label">address1</label>
-			<div class="col-sm-10">
+			<div class="col-sm-5">
 				<form:input class="form-control" path="address1"
 					placeholder="Your address1" />
+			</div>
+			<div class="col-sm-5">
+				<form:errors path="address1" htmlEscape="false" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="address2" class="col-sm-2 control-label">address2</label>
-			<div class="col-sm-10">
+			<div class="col-sm-5">
 				<form:input class="form-control" path="address2"
 					placeholder="Your address2" />
+			</div>
+			<div class="col-sm-5">
+				<form:errors path="address2" htmlEscape="false" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="city" class="col-sm-2 control-label">city</label>
-			<div class="col-sm-10">
+			<div class="col-sm-5">
 				<form:input path="city" class="form-control" id="city"
 					placeholder="Your city" />
+			</div>
+			<div class="col-sm-5">
+				<form:errors path="city" htmlEscape="false" />
 			</div>
 		</div>
 
@@ -131,9 +136,9 @@
 		
         <div class = "form-group">
         	<label for="diplome" class="col-sm-2 control-label">&nbsp;</label>
-        	<div class = "col-sm-10">
+        	<div class = "col-sm-5">
         		<input class="btn btn-primary" type="submit" value="Update"></input>
-        		<a class = "btn btn-default" href="${addressesUrl}">Cancel</a>
+        		<a class = "btn btn-default" href="${accountsUrl}">Cancel</a>
         	</div>
         </div>
         

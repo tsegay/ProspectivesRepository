@@ -62,7 +62,7 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/account.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="accounts/accounts" extends="prospectivestiles.base">
+	<definition name="accounts" extends="prospectivestiles.base">
 		<put-attribute name="title" value="accounts page"></put-attribute>
 		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/accounts.jsp"></put-attribute>

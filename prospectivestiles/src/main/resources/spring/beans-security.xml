@@ -311,6 +311,7 @@
 		<intercept-url pattern="/accounts/accounts" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*" method="GET" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts" access="hasRole('ROLE_ADMIN')" />
 		
 		<!-- =========================================================================== -->
 		<intercept-url pattern="/**" access="denyAll" />

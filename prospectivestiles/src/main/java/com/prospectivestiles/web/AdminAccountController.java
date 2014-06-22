@@ -40,13 +40,13 @@ public class AdminAccountController {
 	// =             accounts             =
 	// ======================================
 	
-	@RequestMapping(value="/accounts/accounts", method = RequestMethod.GET)
+	@RequestMapping(value="/accounts", method = RequestMethod.GET)
 	public String getAllAccounts(Model model) {
 //		List<UserEntity> users = userEntityService.getAllUserEntities();
 		/*I want to get all students only, not admin users*/
 		List<UserEntity> users = userEntityService.findByRole(1);
 		model.addAttribute("users", users);
-		return "accounts/accounts";
+		return "accounts";
 	}
 	
 	/*@RequestMapping(value="/accounts/accounts", method = RequestMethod.GET, produces="text/html")

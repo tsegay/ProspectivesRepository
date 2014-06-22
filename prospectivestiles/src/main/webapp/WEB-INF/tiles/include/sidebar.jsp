@@ -30,7 +30,8 @@
 				<li class="list-group-item"><a href="<c:url value='/adminpage'/>">Admin</a></li>
 			</sec:authorize>
  			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li class="list-group-item"><a href="<c:url value='/accounts/accounts'/>">All Accounts</a></li>
+				<%-- <li class="list-group-item"><a href="<c:url value='/accounts/accounts'/>">All Accounts</a></li> --%>
+				<li class="list-group-item"><a href="<c:url value='/accounts'/>">All Accounts</a></li>
 			</sec:authorize>
 			<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="list-group-item"><a href="<c:url value='/accounts/accounts/1'/>">All Accounts</a></li>
