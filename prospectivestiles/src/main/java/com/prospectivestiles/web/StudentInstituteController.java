@@ -118,7 +118,11 @@ public class StudentInstituteController {
 
 		if (result.hasErrors()) {
 //			log.debug("Validation Error in Institute form");
-			model.addAttribute("originalInstitute", origInstitute);
+			origInstitute.setId(instituteId);
+			origInstitute.setUserEntity(userEntity);
+			model.addAttribute(userEntity);
+			model.addAttribute("institute", origInstitute);
+//			model.addAttribute("originalInstitute", origInstitute);
 			return "editInstitute";
 //			return "accounts/editHighSchoolFail";
 		}

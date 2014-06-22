@@ -79,9 +79,11 @@ public class AdminInstituteController {
 	@RequestMapping(value = "/accounts/{userEntityId}/institute/new", method = RequestMethod.GET)
 	public String getNewInstituteForm(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Institute institute = new Institute();
 		institute.setUserEntity(userEntityService.getUserEntity(userEntityId));
 		model.addAttribute(institute);
+		model.addAttribute(userEntity);
 		
 		return "newInstituteForm";
 	}
@@ -93,7 +95,7 @@ public class AdminInstituteController {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 				
 		if (result.hasErrors()) {
-//			model.addAttribute(userEntity);
+			model.addAttribute(userEntity);
 			model.addAttribute(institute);
 			return "newInstituteForm";
 		}
@@ -116,10 +118,12 @@ public class AdminInstituteController {
 	@RequestMapping(value = "/accounts/{userEntityId}/institute/{instituteId}/edit", method = RequestMethod.GET)
 	public String editInstitute(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("instituteId") Long instituteId, Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Institute institute = getInstituteValidateUserEntityId(userEntityId, instituteId);
 		
 		model.addAttribute("originalInstitute", institute);
 		model.addAttribute(institute);
+		model.addAttribute(userEntity);
 		
 		return "editInstitute";
 	}
@@ -130,12 +134,16 @@ public class AdminInstituteController {
 			@ModelAttribute @Valid Institute origInstitute, 
 			BindingResult result,
 			Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Institute institute = getInstituteValidateUserEntityId(userEntityId, instituteId);
 
 		if (result.hasErrors()) {
 //			log.debug("Validation Error in Institute form");
-			model.addAttribute("originalInstitute", origInstitute);
+			origInstitute.setId(instituteId);
+			origInstitute.setUserEntity(userEntityService.getUserEntity(userEntityId));
+			model.addAttribute("institute", origInstitute);
+			model.addAttribute(userEntity);
+//			model.addAttribute("originalInstitute", origInstitute);
 			return "editInstitute";
 //			return "accounts/editInstituteFail";
 		}

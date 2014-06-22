@@ -114,7 +114,10 @@ public class StudentHighSchoolController {
 
 		if (result.hasErrors()) {
 //			log.debug("Validation Error in HighSchool form");
-			model.addAttribute("originalHighSchool", origHighSchool);
+			origHighSchool.setId(highSchoolId);
+			origHighSchool.setUserEntity(userEntity);
+			model.addAttribute("highSchool", origHighSchool);
+//			model.addAttribute("originalHighSchool", origHighSchool);
 			model.addAttribute(userEntity);
 			return "editHighSchool";
 //			return "accounts/editHighSchoolFail";

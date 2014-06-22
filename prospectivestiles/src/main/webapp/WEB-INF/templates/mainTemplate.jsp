@@ -13,7 +13,9 @@
 	
 	<%-- <link rel="shortcut icon"
 		href="${pageContext.request.contextPath}/resources/css/images/favicon-spring.ico" /> --%>
-	<link rel="shortcut icon"
+	<%-- <link rel="shortcut icon"
+		href="${pageContext.request.contextPath}/resources/images/LOGO_for_Online_Reg._Form_Small_7.png" /> --%>
+ 	<link rel="shortcut icon"
 		href="${pageContext.request.contextPath}/resources/images/favicon-spring.ico" />
 	
 	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script> --%>

@@ -67,7 +67,9 @@ public class AdminFileUploadController {
 		 * Do I really need to add the userEntity? 
 		 * Maybe, I just need the Full Name of the user or userId
 		 */
-		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		model.addAttribute(userEntity);
+//		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
 		
 		return "uploadFiles";
 	}
@@ -207,8 +209,9 @@ public class AdminFileUploadController {
 			@PathVariable("fileId") Long fileId, Model model) {
 		
 		UploadedFiles uploadedFile = getUploadedFileValidateUserEntityId(userEntityId, fileId);
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		model.addAttribute("file", uploadedFile);
+		model.addAttribute(userEntity);
 		
 		return "deleteFile";
 	}

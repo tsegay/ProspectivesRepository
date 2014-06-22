@@ -256,6 +256,10 @@ public class AdminAccountController {
 		data.put("success", true);
 		return data;
 	}
+
+	// ======================================
+	// =                         =
+	// ======================================
 	
 	/*
 	 * I am going to merge the personal info and addresses page together.
@@ -307,7 +311,8 @@ public class AdminAccountController {
 		
 		if (result.hasErrors()) {
 			System.out.println("######## result.hasErrors(): true" );
-			model.addAttribute("originalUserEntity", userEntity);
+//			model.addAttribute("originalUserEntity", userEntity);
+			model.addAttribute("userEntity", userEntity);
 			return "accounts/account";
 		} else {
 			System.out.println("######## result.hasErrors(): false" );
@@ -315,7 +320,8 @@ public class AdminAccountController {
 		
 		userEntityService.insertIntoUserEntity(userEntity.getId(), origUserEntity);
 		
-		return "redirect:/accounts/{userEntityId}";
+//		return "redirect:/accounts/{userEntityId}";
+		return "accounts/account";
 	}
 	
 	/**

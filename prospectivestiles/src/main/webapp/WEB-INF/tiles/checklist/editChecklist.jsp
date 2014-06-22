@@ -7,8 +7,158 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<c:url var="checklistsUrl" value="/accounts/${checklist.userEntity.id}/checklists" />
+	<c:url var="editChecklistUrl" value="/accounts/${checklist.userEntity.id}/checklist/${checklist.id}" />
+</sec:authorize>
+<%-- <sec:authorize access="hasRole('ROLE_USER')">
+	<c:url var="evaluationsUrl" value="/myAccount/evaluations" />
+	<c:url var="editChecklistUrl" value="/myAccount/evaluation/${userEntity.id}" />
+</sec:authorize> --%>
 
-<h1>editChecklist.jsp</h1>
+<h1>Edit Checklist</h1>
+
+<form:form action="${editChecklistUrl}" modelAttribute="checklist"
+	role="form" class="form-horizontal">
+
+
+	<div class="form-group row">
+		<label for="f1Visa" class="col-sm-2 control-label">f1Visa</label>
+		<div class="col-sm-5">
+			<form:select path="f1Visa" class="form-control">
+				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="f1Visa" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="bankStmt" class="col-sm-2 control-label">bankStmt</label>
+		<div class="col-sm-5">
+			<form:select path="bankStmt" class="form-control">
+				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="bankStmt" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="i20" class="col-sm-2 control-label">i20</label>
+		<div class="col-sm-5">
+			<form:select path="i20" class="form-control">
+				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="i20" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="passport" class="col-sm-2 control-label">passport</label>
+		<div class="col-sm-5">
+			<form:select path="passport" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="passport" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="financialAffidavit" class="col-sm-2 control-label">financialAffidavit</label>
+		<div class="col-sm-5">
+			<form:select path="financialAffidavit" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="financialAffidavit" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="applicationFee" class="col-sm-2 control-label">applicationFee</label>
+		<div class="col-sm-5">
+			<form:select path="applicationFee" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="applicationFee" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="transcript" class="col-sm-2 control-label">transcript</label>
+		<div class="col-sm-5">
+			<form:select path="transcript" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="transcript" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="diplome" class="col-sm-2 control-label">diplome</label>
+		<div class="col-sm-5">
+			<form:select path="diplome" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="diplome" htmlEscape="false" />
+		</div>
+	</div>
+
+
+	<div class="form-group row">
+		<label for="notes" class="col-sm-2 control-label">Remarks/notes</label>
+		<div class="col-sm-5">
+			<form:textarea path="notes" class="form-control" rows="5" cols="30" />
+		</div>
+		<div class="col-sm-5">
+			<form:errors path="notes" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="" class="col-sm-2 control-label">&nbsp;</label>
+		<div class="col-sm-10">
+			<input class="btn btn-primary" type="submit" value="Save"></input> <a
+				class="btn btn-default" href="${checklistsUrl}">Cancel</a>
+		</div>
+	</div>
+
+</form:form>
+
+<%-- <h1>editChecklist.jsp</h1>
 <form:form action="${editChecklistUrl}"
 	modelAttribute="checklist" role="form" class="form-horizontal">
 	<div class="modal-header">
@@ -119,4 +269,4 @@
 		<a class="btn btn-default" data-dismiss="modal">Cancel</a> <input
 			class="btn btn-primary" type="submit" value="Submit"></input>
 	</div>
-</form:form>
+</form:form> --%>

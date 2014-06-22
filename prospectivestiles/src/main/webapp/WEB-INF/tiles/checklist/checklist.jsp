@@ -34,33 +34,204 @@
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<!-- checklistUrl name is already used. look up -->
 	<%-- <c:url var="checklistUrl"	value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" /> --%>
+	<c:url var="newChecklistUrl" value="/accounts/${userEntity.id}/checklist/new" />
 	<c:url var="editChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" />
-	<c:url var="deleteChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}/delete" />
+	<%-- <c:url var="deleteChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}/delete" /> --%>
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<%-- <c:url var="checklistUrl"	value="/myAccount/checklist/${userEntity.checklist.id}" /> --%>
+	<c:url var="newChecklistUrl" value="/myAccount/checklist/new" />
 	<c:url var="editChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}" />
-	<c:url var="deleteChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}/delete" />
+	<%-- <c:url var="deleteChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}/delete" /> --%>
 </sec:authorize>
 		
 <c:choose>
 	<c:when test="${empty checklists}">
 		<p>No Checklist.</p>
 		<!-- Button trigger modal -->
-		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addChecklistModal">
+		<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addChecklistModal">
 		  Create Checklist
-		</button>
+		</button> -->
+		<h3>
+			<a href="${newChecklistUrl}">Create Checklist</a>
+		</h3>
 	</c:when>
 	<c:otherwise>
 				
 		<dl class="dl-horizontal">
+		  <dt>Id</dt>
+		  <dd><c:out value="${userEntity.checklist.id}"></c:out></dd>
+		  
+		  <dt>f1Visa</dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.f1Visa == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.f1Visa == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.f1Visa == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt>bankStmt</dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.bankStmt == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.bankStmt == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.bankStmt == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt>i20</dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.i20 == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.i20 == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.i20 == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt>passport</dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.passport == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.passport == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.passport == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt>financialAffidavit</dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.financialAffidavit == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.financialAffidavit == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.financialAffidavit == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt>applicationFee</dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.applicationFee == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.applicationFee == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.applicationFee == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt>transcript</dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.transcript == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.transcript == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.transcript == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt>diplome</dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.diplome == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.diplome == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.diplome == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt>Remarks/notes</dt>
+		  <dd><c:out value="${userEntity.checklist.notes}"></c:out></dd>
+		  
+		  <%-- <dt>dateCreated</dt>
+		  <dd><c:out value="${userEntity.checklist.dateCreated}"></c:out></dd>
+		  
+		  <dt>dateLastModified</dt>
+		  <dd><c:out value="${userEntity.checklist.dateLastModified}"></c:out></dd> --%>
+		  
+		</dl>
+		
+		<%-- <dl class="dl-horizontal">
 		  <dt>Id</dt>
 		  <dd>
 		  	<c:out value="${userEntity.checklist.id}"></c:out>
 		  </dd>
 		  
 		  <dt>f1Visa</dt>
-		  <%-- <dd><c:out value="${userEntity.checklist.f1Visa}"></c:out></dd> --%>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.f1Visa == true}">
 		  		<span class="green glyphicon glyphicon-ok"> 
@@ -75,7 +246,6 @@
 		  </dd>
 		  
 		  <dt>bankStmt</dt>
-		  <%-- <dd><c:out value="${userEntity.checklist.bankStmt}"></c:out></dd> --%>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.bankStmt == true}">
 		  		<span class="green glyphicon glyphicon-ok"> 
@@ -90,7 +260,6 @@
 		  </dd>
 		  
 		  <dt>i20</dt>
-		  <%-- <dd><c:out value="${userEntity.checklist.i20}"></c:out></dd> --%>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.i20 == true}">
 		  		<span class="green glyphicon glyphicon-ok"> 
@@ -177,19 +346,21 @@
 		  <dt>notes</dt>
 		  <dd><c:out value="${userEntity.checklist.notes}"></c:out></dd>
 		  
-		</dl>
+		</dl> --%>
 		
 		<br />
 		<br />
 		
 		<!-- Checklist can't be deleted by any user.  -->
-		<a data-toggle="modal" href="${editChecklistUrl}" data-target="#editChecklistModal" 
-			class="btn btn-primary btn-lg">Edit</a>
+		<a href="${editChecklistUrl}" class="btn btn-primary btn-lg">Edit</a>
+		<br />
+		<%-- <a data-toggle="modal" href="${editChecklistUrl}" data-target="#editChecklistModal" 
+			class="btn btn-primary btn-lg">Edit</a> --%>
 		<br />
 		<br />	
-		<form id="deleteForm" action="${deleteChecklistUrl}" method="post">
+		<%-- <form id="deleteForm" action="${deleteChecklistUrl}" method="post">
 			<div><input type="submit" value="DELETE" /></div>
-		</form>
+		</form> --%>
 		
 	</c:otherwise>
 </c:choose>
@@ -197,7 +368,7 @@
 <br />
 
 <!-- checklist Modal -->
-<div class="modal fade" id="addChecklistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<%-- <div class="modal fade" id="addChecklistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	        <form:form action="${checklistUrl}" modelAttribute="checklist" role="form" class = "form-horizontal">
@@ -313,16 +484,16 @@
 	        </form:form>
 	  </div>
   </div>
-</div>
+</div> --%>
 
 
 <!-- edit checklist Modal -->
-<div class="modal fade" id="editChecklistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editChecklistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
 	  </div>
   </div>
-</div>
+</div> -->
 
 
 

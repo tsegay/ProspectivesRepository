@@ -119,7 +119,10 @@ public class StudentStandardTestController {
 
 		if (result.hasErrors()) {
 			// log.debug("Validation Error in Institute form");
-			model.addAttribute("originalStandardTest", origStandardTest);
+			origStandardTest.setId(standardTestId);
+			origStandardTest.setUserEntity(userEntity);
+			model.addAttribute("standardTest", origStandardTest);
+//			model.addAttribute("originalStandardTest", origStandardTest);
 			model.addAttribute(userEntity);
 			return "editStandardTest";
 		}

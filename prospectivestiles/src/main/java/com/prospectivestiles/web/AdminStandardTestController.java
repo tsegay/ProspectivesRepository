@@ -89,11 +89,12 @@ public class AdminStandardTestController {
 	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/{standardTestId}/edit", method = RequestMethod.GET)
 	public String editStandardTest(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("standardTestId") Long standardTestId, Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		StandardTest standardTest = getStandardTestValidateUserEntityId(userEntityId, standardTestId);
 		
 		model.addAttribute("originalStandardTest", standardTest);
 		model.addAttribute(standardTest);
+		model.addAttribute(userEntity);
 		
 		return "editStandardTest";
 	}
@@ -105,11 +106,14 @@ public class AdminStandardTestController {
 			@ModelAttribute @Valid StandardTest origStandardTest, 
 			BindingResult result,
 			Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		StandardTest standardTest = getStandardTestValidateUserEntityId(userEntityId, standardTestId);
 
 		if (result.hasErrors()) {
-			model.addAttribute("originalStandardTest", origStandardTest);
+			origStandardTest.setId(standardTestId);
+			origStandardTest.setUserEntity(userEntityService.getUserEntity(userEntityId));
+			model.addAttribute("standardTest", origStandardTest);
+			model.addAttribute(userEntity);
 			return "editStandardTest";
 		}
 		

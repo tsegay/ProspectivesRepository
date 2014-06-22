@@ -6,7 +6,7 @@
 
 
  
-<a class="title" href="<c:url value='/'/>">Home</a>
+<%-- <a class="title" href="<c:url value='/'/>">Home</a>
 
 <sec:authorize access="!isAuthenticated()">
 <a class="login" href="<c:url value='/login'/>">Log in</a>
@@ -14,7 +14,7 @@
 
 <sec:authorize access="isAuthenticated()">
 <a class="login" href="<c:url value='/j_spring_security_logout'/>">Log out</a>
-</sec:authorize>
+</sec:authorize> --%>
 
 
 
@@ -22,12 +22,12 @@
 <div>
    	
 
-	<div>
+	<!-- <div>
 		<span class="label label-info">.NET</span> <span
 			class="label label-default">JavaScript</span> <span
 			class="label label-danger">Python</span> <span
 			class="label label-success">MongoDB</span>
-	</div>
+	</div> -->
 	
 	
 	

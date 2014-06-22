@@ -43,14 +43,14 @@ public class ChecklistServiceImpl implements ChecklistService {
 		Checklist checklistToUpdate = checklistDao.find(checklist.getId());
 
 		checklistToUpdate.setNotes(checklist.getNotes());
-		checklistToUpdate.setBankStmt(checklist.isBankStmt());
-		checklistToUpdate.setF1Visa(checklist.isF1Visa());
-		checklistToUpdate.setI20(checklist.isI20());
-		checklistToUpdate.setApplicationFee(checklist.isApplicationFee());
-		checklistToUpdate.setDiplome(checklist.isDiplome());
-		checklistToUpdate.setFinancialAffidavit(checklist.isFinancialAffidavit());
-		checklistToUpdate.setPassport(checklist.isPassport());
-		checklistToUpdate.setTranscript(checklist.isTranscript());
+		checklistToUpdate.setBankStmt(checklist.getBankStmt());
+		checklistToUpdate.setF1Visa(checklist.getF1Visa());
+		checklistToUpdate.setI20(checklist.getI20());
+		checklistToUpdate.setApplicationFee(checklist.getApplicationFee());
+		checklistToUpdate.setDiplome(checklist.getDiplome());
+		checklistToUpdate.setFinancialAffidavit(checklist.getFinancialAffidavit());
+		checklistToUpdate.setPassport(checklist.getPassport());
+		checklistToUpdate.setTranscript(checklist.getTranscript());
 		
 		checklistDao.update(checklistToUpdate);
 	}

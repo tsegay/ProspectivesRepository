@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.prospectivestiles.domain.Checklist;
+import com.prospectivestiles.domain.Evaluation;
+import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.ChecklistService;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -39,6 +41,7 @@ public class AdminChecklistController {
 	 * Check if user has checklist
 	 * If user has checklist return it
 	 * Else create new checklist for user
+	 * [When a user registers, create an empty checklist at that instance]
 	 * 
 	 * in the view page, check if user has a checklist created
 	 * If no checklist exist for user, display create checklist button
@@ -49,6 +52,7 @@ public class AdminChecklistController {
 	@RequestMapping(value = "/accounts/{userEntityId}/checklists", method = RequestMethod.GET)
 	public String getChecklists(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		/**
 		 * load checklist for a user, if exist
@@ -61,20 +65,40 @@ public class AdminChecklistController {
 		Checklist checklist = new Checklist();
 		model.addAttribute("checklist", checklist);
 		
-		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
+		model.addAttribute("userEntity", userEntity);
 		
 		return "checklists";
 	}
 	
+	@RequestMapping(value = "/accounts/{userEntityId}/checklist/new", method = RequestMethod.GET)
+	public String getNewEvaluationForm(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		
+		// get the admission officer and set the evaluation.admofficer
+		
+		Checklist checklist = new Checklist();
+		checklist.setUserEntity(userEntity);
+		
+		model.addAttribute("checklist", checklist);
+		model.addAttribute(userEntity);
+		
+		return "newChecklistForm";
+	}
+	
 	@RequestMapping(value = "/accounts/{userEntityId}/checklists", method = RequestMethod.POST)
 	public String postNewChecklistForm(@PathVariable("userEntityId") Long userEntityId,
-			@ModelAttribute @Valid Checklist checklist, BindingResult result) {
+			@ModelAttribute @Valid Checklist checklist, BindingResult result, Model model) {
+		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		if (result.hasErrors()) {
+			model.addAttribute(userEntity);
 			return "newChecklistForm";
 		}
 
-		checklist.setUserEntity(userEntityService.getUserEntity(userEntityId));
+		checklist.setUserEntity(userEntity);
+		/*evaluation.setStatus("pending");*/
 		checklistService.createChecklist(checklist);
 		
 		return "redirect:/accounts/{userEntityId}/checklists";
@@ -83,11 +107,12 @@ public class AdminChecklistController {
 	@RequestMapping(value = "/accounts/{userEntityId}/checklist/{checklistId}", method = RequestMethod.GET)
 	public String editChecklist(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("checklistId") Long checklistId, Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Checklist checklist = getChecklistValidateUserEntityId(userEntityId, checklistId);
 		
 		model.addAttribute("originalChecklist", checklist);
 		model.addAttribute(checklist);
+		model.addAttribute(userEntity);
 		
 		return "editChecklist";
 	}
@@ -98,23 +123,26 @@ public class AdminChecklistController {
 			@ModelAttribute @Valid Checklist origChecklist, 
 			BindingResult result,
 			Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Checklist checklist = getChecklistValidateUserEntityId(userEntityId, checklistId);
 
 		if (result.hasErrors()) {
-			model.addAttribute("originalChecklist", origChecklist);
+			origChecklist.setId(checklistId);
+			origChecklist.setUserEntity(userEntityService.getUserEntity(userEntityId));
+			model.addAttribute("checklist", origChecklist);
+			model.addAttribute(userEntity);
 			return "editChecklist";
 		}
 		
 		checklist.setNotes(origChecklist.getNotes());
-		checklist.setBankStmt(origChecklist.isBankStmt());
-		checklist.setF1Visa(origChecklist.isF1Visa());
-		checklist.setI20(origChecklist.isI20());
-		checklist.setApplicationFee(origChecklist.isApplicationFee());
-		checklist.setDiplome(origChecklist.isDiplome());
-		checklist.setFinancialAffidavit(origChecklist.isFinancialAffidavit());
-		checklist.setPassport(origChecklist.isPassport());
-		checklist.setTranscript(origChecklist.isTranscript());
+		checklist.setBankStmt(origChecklist.getBankStmt());
+		checklist.setF1Visa(origChecklist.getF1Visa());
+		checklist.setI20(origChecklist.getI20());
+		checklist.setApplicationFee(origChecklist.getApplicationFee());
+		checklist.setDiplome(origChecklist.getDiplome());
+		checklist.setFinancialAffidavit(origChecklist.getFinancialAffidavit());
+		checklist.setPassport(origChecklist.getPassport());
+		checklist.setTranscript(origChecklist.getTranscript());
 		
 		checklistService.updateChecklist(checklist);
 		

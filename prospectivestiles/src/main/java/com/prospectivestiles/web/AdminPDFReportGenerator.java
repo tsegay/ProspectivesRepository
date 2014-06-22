@@ -148,7 +148,7 @@ public class AdminPDFReportGenerator {
 		 */
 		if (checklist != null) {
 		
-			if (checklist.isF1Visa() != true) {
+			/*if (checklist.isF1Visa() != true) {
 				missingDocuments.add("F1Visa");
 			}
 			if (checklist.isBankStmt() != true) {
@@ -170,6 +170,32 @@ public class AdminPDFReportGenerator {
 				missingDocuments.add("Transcript");
 			}
 			if (checklist.isDiplome() != true) {
+				missingDocuments.add("Diplome");
+			}*/
+			
+			
+			if (checklist.getF1Visa().equalsIgnoreCase("valid")) {
+				missingDocuments.add("F1Visa");
+			}
+			if (checklist.getBankStmt().equalsIgnoreCase("valid")) {
+				missingDocuments.add("BankStmt");
+			}
+			if (checklist.getI20().equalsIgnoreCase("valid")) {
+				missingDocuments.add("I20");
+			}
+			if (checklist.getPassport().equalsIgnoreCase("valid")) {
+				missingDocuments.add("Passport");
+			}
+			if (checklist.getFinancialAffidavit().equalsIgnoreCase("valid")) {
+				missingDocuments.add("FinancialAffidavit");
+			}
+			if (checklist.getApplicationFee().equalsIgnoreCase("valid")) {
+				missingDocuments.add("ApplicationFee");
+			}
+			if (checklist.getTranscript().equalsIgnoreCase("valid")) {
+				missingDocuments.add("Transcript");
+			}
+			if (checklist.getDiplome().equalsIgnoreCase("valid")) {
 				missingDocuments.add("Diplome");
 			}
 		

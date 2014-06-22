@@ -26,7 +26,7 @@
 	modelAttribute="standardTest" role="form" class="form-horizontal">
 
 		<div class="form-group row">
-			<label for="name" class="col-sm-2 control-label">name</label>
+			<label for="name" class="col-sm-2 control-label">Test Name</label>
 		    <div class="col-sm-5">
 		      <form:input path="name" class="form-control" placeholder = "Your test" />
 		    </div>
@@ -36,7 +36,7 @@
 		</div>
 		
 		 <div class="form-group row">
-			<label for="score" class="col-sm-2 control-label">score</label>
+			<label for="score" class="col-sm-2 control-label">Score</label>
 		    <div class="col-sm-5">
 		      <form:input path="score" class="form-control" placeholder = "Your score" />
 		    </div>
@@ -45,6 +45,16 @@
 		    </div>
 		</div>
 		
+		<fmt:formatDate value="${standardTest.validTill}" var="validTillString" pattern="dd/MM/yyyy" />
+	    <div class="form-group row">
+			<label for="validTill" class="col-sm-2 control-label">Valid Till</label>
+		    <div class="col-sm-5">
+		      <form:input path="validTill" value="${validTillString}" class="form-control" id="validTill" placeholder="Test valid till ..." />
+			</div>
+		    <div class="col-sm-5">
+		    	<form:errors path="validTill" htmlEscape="false" />
+		    </div>
+		</div>
 	
 	
 	<div class="form-group">

@@ -67,7 +67,7 @@
 	
 	<fmt:formatDate value="${standardTest.validTill}" var="validTillString" pattern="dd/MM/yyyy" />
     <div class="form-group row">
-		<label for="validTill" class="col-sm-2 control-label">validTill</label>
+		<label for="validTill" class="col-sm-2 control-label">Valid Till</label>
 	    <div class="col-sm-5">
 	      <form:input path="validTill" value="${validTillString}" class="form-control" id="validTill" placeholder="Test valid till ..." />
 		</div>

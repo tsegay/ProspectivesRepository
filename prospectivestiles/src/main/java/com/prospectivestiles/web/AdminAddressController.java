@@ -119,11 +119,12 @@ public class AdminAddressController {
 	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}/edit", method = RequestMethod.GET)
 	public String editAddress(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("addressId") Long addressId, Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Address address = getAddressValidateUserEntityId(userEntityId, addressId);
 		
 		model.addAttribute("originalAddress", address);
 		model.addAttribute(address);
+		model.addAttribute(userEntity);
 		
 		return "editAddress";
 	}
@@ -135,11 +136,16 @@ public class AdminAddressController {
 			@ModelAttribute @Valid Address origAddress, 
 			BindingResult result,
 			Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Address address = getAddressValidateUserEntityId(userEntityId, addressId);
 
 		if (result.hasErrors()) {
-			model.addAttribute("originalAddress", origAddress);
+			origAddress.setId(addressId);
+			origAddress.setUserEntity(userEntityService.getUserEntity(userEntityId));
+//			model.addAttribute("originalAddress", origAddress);
+			model.addAttribute("address", origAddress);
+			model.addAttribute(userEntity);
+//			model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
 			return "editAddress";
 		}
 

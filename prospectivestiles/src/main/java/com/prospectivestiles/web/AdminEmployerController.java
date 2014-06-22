@@ -71,9 +71,10 @@ public class AdminEmployerController {
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/employers", method = RequestMethod.POST)
 	public String postNewEmployerForm(@PathVariable("userEntityId") Long userEntityId,
-			@ModelAttribute @Valid Employer employer, BindingResult result) {
-		
+			@ModelAttribute @Valid Employer employer, BindingResult result, Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		if (result.hasErrors()) {
+			model.addAttribute(userEntity);
 			return "employers";
 		}
 
@@ -88,9 +89,10 @@ public class AdminEmployerController {
 			@PathVariable("employerId") Long employerId, Model model) {
 		
 		Employer employer = getEmployerValidateUserEntityId(userEntityId, employerId);
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		model.addAttribute("originalEmployer", employer);
 		model.addAttribute(employer);
+		model.addAttribute(userEntity);
 		
 		return "editEmployer";
 	}
@@ -101,11 +103,15 @@ public class AdminEmployerController {
 			@ModelAttribute @Valid Employer origEmployer, 
 			BindingResult result,
 			Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Employer employer = getEmployerValidateUserEntityId(userEntityId, employerId);
-
+		
 		if (result.hasErrors()) {
-			model.addAttribute("originalEmployer", origEmployer);
+			origEmployer.setId(employerId);
+			origEmployer.setUserEntity(userEntityService.getUserEntity(userEntityId));
+			model.addAttribute("employer", origEmployer);
+			model.addAttribute(userEntity);
+//			model.addAttribute("originalEmployer", origEmployer);
 			return "editEmployer";
 		}
 		

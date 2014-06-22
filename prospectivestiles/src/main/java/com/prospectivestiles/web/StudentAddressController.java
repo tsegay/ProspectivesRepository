@@ -160,8 +160,11 @@ public class StudentAddressController {
 
 		if (result.hasErrors()) {
 //			log.debug("Validation Error in Institute form");
-			model.addAttribute("originalAddress", origAddress);
+			origAddress.setId(addressId);
+			origAddress.setUserEntity(userEntity);
+			model.addAttribute("address", origAddress);
 			model.addAttribute(userEntity);
+//			model.addAttribute("originalAddress", origAddress);
 			return "editAddress";
 		}
 

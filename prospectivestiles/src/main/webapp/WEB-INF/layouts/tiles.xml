@@ -373,14 +373,24 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/checklist/checklist.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="editChecklist" template="/WEB-INF/templates/modalTemplate.jsp">
+	<definition name="newChecklistForm" extends="prospectivestiles.base">
+		<put-attribute name="title" value="checklists page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/checklist/checklistForm.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editChecklist" extends="prospectivestiles.base">
+		<put-attribute name="title" value="checklists page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/checklist/editChecklist.jsp"></put-attribute>
+	</definition>
+	
+	<!-- <definition name="editChecklist" template="/WEB-INF/templates/modalTemplate.jsp">
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value=""></put-attribute>
 		<put-attribute name="header" value=""></put-attribute>
 		<put-attribute name="sidebar" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/checklist/editChecklist.jsp"></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
-	</definition>
+	</definition> -->
 	
 	<!-- ====================== Evaluation ====================================== -->
 	

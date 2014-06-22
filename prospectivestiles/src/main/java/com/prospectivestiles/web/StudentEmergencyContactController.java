@@ -118,7 +118,10 @@ public class StudentEmergencyContactController {
 
 		if (result.hasErrors()) {
 			// log.debug("Validation Error in Institute form");
-			model.addAttribute("originalEmergencyContact", origEmergencyContact);
+			origEmergencyContact.setId(emergencyContactId);
+			origEmergencyContact.setUserEntity(userEntity);
+			model.addAttribute("emergencyContact", origEmergencyContact);
+//			model.addAttribute("originalEmergencyContact", origEmergencyContact);
 			model.addAttribute(userEntity);
 			return "editEmergencyContact";
 		}

@@ -131,6 +131,8 @@ public class AdminEvaluationController {
 		model.addAttribute("originalEvaluation", evaluation);
 		model.addAttribute(evaluation);
 		
+		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
+		
 		return "editEvaluation";
 	}
 
@@ -143,11 +145,27 @@ public class AdminEvaluationController {
 		
 		Evaluation evaluation = getEvaluationValidateUserEntityId(userEntityId, evaluationId);
 		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
-
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		if (result.hasErrors()) {
-			model.addAttribute("originalEvaluation", origEvaluation);
+			origEvaluation.setId(evaluationId);
+			origEvaluation.setUserEntity(userEntityService.getUserEntity(userEntityId));
+//			model.addAttribute("originalEvaluation", origEvaluation);
+			model.addAttribute("evaluation", origEvaluation);
+			model.addAttribute(userEntity);
+			/*
+			when I used this model.addAttribute("evaluation", origEvaluation);
+			I got java.lang.NullPointerException: .../accounts/10/evaluation/0
+			origEvaluation has no userEntity set
+			And when I use model.addAttribute("evaluation", evaluation)
+			page doesn't crash; but form is rediplayed and I lose all data I typed
+			When I use a return "/accounts/{userEntityId}/evaluation/{evaluationId}/edit" 
+				I get view can't be resolved err
+			When I use a return "redirect:/accounts/" + userEntityId + "/evaluation/" + evaluationId + "/edit"
+				I get redirected to the edit form page,  the page is refreshed and I lose all the data typed, no err msg displayed on page
+			*/
 			return "editEvaluation";
 		}
+		
 		
 		evaluation.setBankStmt(origEvaluation.getBankStmt());
 		evaluation.setF1Visa(origEvaluation.getF1Visa());
@@ -193,12 +211,14 @@ public class AdminEvaluationController {
 			
 		Evaluation evaluation = getEvaluationValidateUserEntityId(userEntityId, evaluationId);
 		UserEntity admittedBy = getUserEntityFromSecurityContext();
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 //		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		System.out.println("#### admittedBy: " + admittedBy);
 //		System.out.println("#### admissionOfficer: " + admissionOfficer);
 
 		if (result.hasErrors()) {
 			model.addAttribute("originalEvaluation", origEvaluation);
+			model.addAttribute(userEntity);
 			return "editEvaluation";
 		}
 		

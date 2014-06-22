@@ -36,16 +36,16 @@
 	<%-- <c:url var="evaluationUrl"	value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}" /> --%>
 	<c:url var="newEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/new" />
 	<c:url var="editEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/edit" />
-	<c:url var="deleteEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/delete" />
+	<%-- <c:url var="deleteEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/delete" /> --%>
 	<c:url var="grantAdmisionUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/grantAdmision" />
 </sec:authorize>
 <!-- Delete this student doesn't have the evaluations page -->
-<sec:authorize access="hasRole('ROLE_USER')">
-	<%-- <c:url var="evaluationUrl"	value="/myAccount/evaluation/${userEntity.evaluation.id}" /> --%>
+<%-- <sec:authorize access="hasRole('ROLE_USER')">
+	<c:url var="evaluationUrl"	value="/myAccount/evaluation/${userEntity.evaluation.id}" />
 	<c:url var="newEvaluationUrl" value="/myAccount/evaluation/new" />
 	<c:url var="editEvaluationUrl" value="/myAccount/evaluation/${userEntity.evaluation.id}/edit" />
 	<c:url var="deleteEvaluationUrl" value="/myAccount/evaluation/${userEntity.evaluation.id}/delete" />
-</sec:authorize>
+</sec:authorize> --%>
 		
 <c:choose>
 	<c:when test="${empty evaluations}">
@@ -288,9 +288,9 @@
 		<a href="${editEvaluationUrl}" class="btn btn-primary btn-lg">Edit</a>
 		<br />
 		<br />	
-		<form id="deleteForm" action="${deleteEvaluationUrl}" method="post">
+		<%-- <form id="deleteForm" action="${deleteEvaluationUrl}" method="post">
 			<div><input type="submit" value="DELETE" /></div>
-		</form>
+		</form> --%>
 		
 		<br />	
 		<c:choose>

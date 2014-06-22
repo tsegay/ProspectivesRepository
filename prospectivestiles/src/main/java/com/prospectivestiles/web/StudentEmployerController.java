@@ -125,7 +125,10 @@ public class StudentEmployerController {
 
 		if (result.hasErrors()) {
 			// log.debug("Validation Error in Institute form");
-			model.addAttribute("originalEmployer", origEmployer);
+			origEmployer.setId(employerId);
+			origEmployer.setUserEntity(userEntity);
+			model.addAttribute("employer", origEmployer);
+//			model.addAttribute("originalEmployer", origEmployer);
 			model.addAttribute(userEntity);
 			return "editEmployer";
 		}

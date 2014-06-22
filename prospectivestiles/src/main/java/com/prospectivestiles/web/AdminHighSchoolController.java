@@ -130,7 +130,9 @@ public class AdminHighSchoolController {
 	public String getHighSchool(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("highSchoolId") Long highSchoolId, Model model) {
 		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		model.addAttribute(getHighSchoolValidateUserEntityId(userEntityId, highSchoolId));
+		model.addAttribute(userEntity);
 
 		return "highSchool";
 	}
@@ -138,10 +140,12 @@ public class AdminHighSchoolController {
 	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/{highSchoolId}/edit", method = RequestMethod.GET)
 	public String editHighSchool(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("highSchoolId") Long highSchoolId, Model model) {
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		HighSchool highSchool = getHighSchoolValidateUserEntityId(userEntityId, highSchoolId);
 		
 		model.addAttribute("originalHighSchool", highSchool);
 		model.addAttribute(highSchool);
+		model.addAttribute(userEntity);
 		
 		return "editHighSchool";
 	}
@@ -152,12 +156,16 @@ public class AdminHighSchoolController {
 			@ModelAttribute @Valid HighSchool origHighSchool, 
 			BindingResult result,
 			Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		HighSchool highSchool = getHighSchoolValidateUserEntityId(userEntityId, highSchoolId);
 
 		if (result.hasErrors()) {
 //			log.debug("Validation Error in HighSchool form");
-			model.addAttribute("originalHighSchool", origHighSchool);
+			origHighSchool.setId(highSchoolId);
+			origHighSchool.setUserEntity(userEntityService.getUserEntity(userEntityId));
+			model.addAttribute("highSchool", origHighSchool);
+//			model.addAttribute("originalHighSchool", origHighSchool);
+			model.addAttribute(userEntity);
 			return "editHighSchool";
 //			return "accounts/editHighSchoolFail";
 		}

@@ -9,6 +9,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "checklist")
@@ -27,16 +28,16 @@ public class Checklist implements Serializable {
     // ======================================
 
 	private long id;
-	private boolean f1Visa;
-	private boolean i20;
-	private boolean bankStmt;
-	private boolean passport;
-	private boolean financialAffidavit;
+	private String f1Visa;
+	private String i20;
+	private String bankStmt;
+	private String passport;
+	private String financialAffidavit;
 	// Don't need application form!!
-//	private boolean applicationForm;
-	private boolean applicationFee;
-	private boolean transcript;
-	private boolean diplome;
+//	private String applicationForm;
+	private String applicationFee;
+	private String transcript;
+	private String diplome;
 	private String notes;
 //	@OneToOne
 	private UserEntity userEntity;
@@ -48,8 +49,8 @@ public class Checklist implements Serializable {
 
 	public Checklist() {
 	}
-	public Checklist(boolean f1Visa, 
-			boolean bankStmt, boolean i20,
+	public Checklist(String f1Visa, 
+			String bankStmt, String i20,
 			String notes) {
 		this.f1Visa = f1Visa;
 		this.bankStmt = bankStmt;
@@ -68,56 +69,57 @@ public class Checklist implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public boolean isF1Visa() {
+	public String getF1Visa() {
 		return f1Visa;
 	}
-	public void setF1Visa(boolean f1Visa) {
+	public void setF1Visa(String f1Visa) {
 		this.f1Visa = f1Visa;
 	}
-	public boolean isBankStmt() {
-		return bankStmt;
-	}
-	public void setBankStmt(boolean bankStmt) {
-		this.bankStmt = bankStmt;
-	}
-	public boolean isI20() {
+	public String getI20() {
 		return i20;
 	}
-	public void setI20(boolean i20) {
+	public void setI20(String i20) {
 		this.i20 = i20;
 	}
-	public String getNotes() {
-		return notes;
+	public String getBankStmt() {
+		return bankStmt;
 	}
-	public boolean isPassport() {
+	public void setBankStmt(String bankStmt) {
+		this.bankStmt = bankStmt;
+	}
+	public String getPassport() {
 		return passport;
 	}
-	public void setPassport(boolean passport) {
+	public void setPassport(String passport) {
 		this.passport = passport;
 	}
-	public boolean isFinancialAffidavit() {
+	public String getFinancialAffidavit() {
 		return financialAffidavit;
 	}
-	public void setFinancialAffidavit(boolean financialAffidavit) {
+	public void setFinancialAffidavit(String financialAffidavit) {
 		this.financialAffidavit = financialAffidavit;
 	}
-	public boolean isApplicationFee() {
+	public String getApplicationFee() {
 		return applicationFee;
 	}
-	public void setApplicationFee(boolean applicationFee) {
+	public void setApplicationFee(String applicationFee) {
 		this.applicationFee = applicationFee;
 	}
-	public boolean isTranscript() {
+	public String getTranscript() {
 		return transcript;
 	}
-	public void setTranscript(boolean transcript) {
+	public void setTranscript(String transcript) {
 		this.transcript = transcript;
 	}
-	public boolean isDiplome() {
+	public String getDiplome() {
 		return diplome;
 	}
-	public void setDiplome(boolean diplome) {
+	public void setDiplome(String diplome) {
 		this.diplome = diplome;
+	}
+	@Size(max=200)
+	public String getNotes() {
+		return notes;
 	}
 	public void setNotes(String notes) {
 		this.notes = notes;

@@ -85,9 +85,10 @@
 				
 				<tr>
 					<td><c:out value="${highSchool.id}"></c:out></td>
-					<td>
+					<%-- <td>
 						<a href="${highSchoolUrl}"><c:out value="${highSchool.name}"></c:out></a>
-					</td>
+					</td> --%>
+					<td><c:out value="${highSchool.name}"></c:out></td>
 					<td><c:out value="${highSchool.state}"></c:out></td>
 					<td><c:out value="${highSchool.country}"></c:out></td>
 					<td><c:out value="${highSchool.diplome}"></c:out></td>
@@ -173,9 +174,10 @@
 				
 				<tr>
 						<td><c:out value="${institute.id}"></c:out></td>
-						<td>
+						<%-- <td>
 							<a href="${instituteUrl}"><c:out value="${institute.name}"></c:out></a>
-						</td>
+						</td> --%>
+						<td><c:out value="${institute.name}"></c:out></td>
 						<td><c:out value="${institute.programOfStudy}"></c:out></td>
 						<td><c:out value="${institute.levelOfStudy}"></c:out></td>
 						<td><c:out value="${institute.state}"></c:out></td>

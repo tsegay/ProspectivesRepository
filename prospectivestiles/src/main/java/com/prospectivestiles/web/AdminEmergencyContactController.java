@@ -102,11 +102,12 @@ public class AdminEmergencyContactController {
 	@RequestMapping(value = "/accounts/{userEntityId}/emergencyContact/{emergencyContactId}/edit", method = RequestMethod.GET)
 	public String editEmergencyContact(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("emergencyContactId") Long emergencyContactId, Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		EmergencyContact emergencyContact = getEmergencyContactValidateUserEntityId(userEntityId, emergencyContactId);
 		
 		model.addAttribute("originalEmergencyContact", emergencyContact);
 		model.addAttribute(emergencyContact);
+		model.addAttribute(userEntity);
 		
 		return "editEmergencyContact";
 	}
@@ -117,11 +118,15 @@ public class AdminEmergencyContactController {
 			@ModelAttribute @Valid EmergencyContact origEmergencyContact, 
 			BindingResult result,
 			Model model) {
-		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		EmergencyContact emergencyContact = getEmergencyContactValidateUserEntityId(userEntityId, emergencyContactId);
 
 		if (result.hasErrors()) {
-			model.addAttribute("originalEmergencyContact", origEmergencyContact);
+			origEmergencyContact.setId(emergencyContactId);
+			origEmergencyContact.setUserEntity(userEntityService.getUserEntity(userEntityId));
+			model.addAttribute("emergencyContact", origEmergencyContact);
+			model.addAttribute(userEntity);
+//			model.addAttribute("originalEmergencyContact", origEmergencyContact);
 			return "editEmergencyContact";
 		}
 		
