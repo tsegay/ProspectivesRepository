@@ -80,8 +80,10 @@ public class AdminInstituteController {
 	public String getNewInstituteForm(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		
 		Institute institute = new Institute();
-		institute.setUserEntity(userEntityService.getUserEntity(userEntityId));
+		institute.setUserEntity(userEntity);
+		
 		model.addAttribute(institute);
 		model.addAttribute(userEntity);
 		
@@ -96,11 +98,11 @@ public class AdminInstituteController {
 				
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
-			model.addAttribute(institute);
+//			model.addAttribute(institute);
 			return "newInstituteForm";
 		}
 
-		institute.setUserEntity(userEntityService.getUserEntity(userEntityId));
+		institute.setUserEntity(userEntity);
 		instituteService.createInstitute(institute);
 
 		return "redirect:/accounts/{userEntityId}/educations";

@@ -31,9 +31,10 @@
 		      <form:input path="name" class="form-control" placeholder = "Your test" />
 		    </div>
 		    <div class="col-sm-5">
-		    	<form:errors path="name" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="name" htmlEscape="false" />
 		    </div>
 		</div>
+		
 		
 		 <div class="form-group row">
 			<label for="score" class="col-sm-2 control-label">Score</label>
@@ -41,7 +42,7 @@
 		      <form:input path="score" class="form-control" placeholder = "Your score" />
 		    </div>
 		    <div class="col-sm-5">
-		    	<form:errors path="score" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="score" htmlEscape="false" />
 		    </div>
 		</div>
 		
@@ -52,7 +53,7 @@
 		      <form:input path="validTill" value="${validTillString}" class="form-control" id="validTill" placeholder="Test valid till ..." />
 			</div>
 		    <div class="col-sm-5">
-		    	<form:errors path="validTill" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="validTill" htmlEscape="false" />
 		    </div>
 		</div>
 	
@@ -89,7 +90,7 @@
 		      <form:input path="name" class="form-control" placeholder = "Your name" />
 		    </div>
 		    <div class="col-sm-5">
-		    	<form:errors path="name" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="name" htmlEscape="false" />
 		    </div>
 		</div>
         <div class="form-group row">
@@ -98,7 +99,7 @@
 		      <form:input path="score" class="form-control" placeholder = "Your score" />
 		    </div>
 		    <div class="col-sm-5">
-		    	<form:errors path="score" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="score" htmlEscape="false" />
 		    </div>
 		</div>
         

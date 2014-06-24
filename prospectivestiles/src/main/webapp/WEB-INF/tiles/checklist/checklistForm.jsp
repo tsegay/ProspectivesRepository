@@ -35,7 +35,7 @@
 	</div>
 </sec:authorize>
 
-<h1>Checklist</h1>
+<h1>Checklist Form</h1>
 
 <form:form action="${checklistsUrl}" modelAttribute="checklist"
 	role="form" class="form-horizontal">
@@ -51,7 +51,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="f1Visa" htmlEscape="false" />
+			<form:errors class="errormsg" path="f1Visa" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -65,7 +65,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="bankStmt" htmlEscape="false" />
+			<form:errors class="errormsg" path="bankStmt" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -79,7 +79,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="i20" htmlEscape="false" />
+			<form:errors class="errormsg" path="i20" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -93,7 +93,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="passport" htmlEscape="false" />
+			<form:errors class="errormsg" path="passport" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -107,7 +107,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="financialAffidavit" htmlEscape="false" />
+			<form:errors class="errormsg" path="financialAffidavit" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -121,7 +121,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="applicationFee" htmlEscape="false" />
+			<form:errors class="errormsg" path="applicationFee" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -135,7 +135,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="transcript" htmlEscape="false" />
+			<form:errors class="errormsg" path="transcript" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -149,7 +149,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="diplome" htmlEscape="false" />
+			<form:errors class="errormsg" path="diplome" htmlEscape="false" />
 		</div>
 	</div>
 	
@@ -161,7 +161,7 @@
 			<form:textarea path="notes" class="form-control" rows="5" cols="30" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="notes" htmlEscape="false" />
+			<form:errors class="errormsg" path="notes" htmlEscape="false" />
 		</div>
 	</div>
 

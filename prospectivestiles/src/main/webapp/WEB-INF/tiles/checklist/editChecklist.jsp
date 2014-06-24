@@ -33,7 +33,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="f1Visa" htmlEscape="false" />
+			<form:errors class="errormsg" path="f1Visa" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -48,7 +48,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="bankStmt" htmlEscape="false" />
+			<form:errors class="errormsg" path="bankStmt" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -63,7 +63,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="i20" htmlEscape="false" />
+			<form:errors class="errormsg" path="i20" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -77,7 +77,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="passport" htmlEscape="false" />
+			<form:errors class="errormsg" path="passport" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -91,7 +91,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="financialAffidavit" htmlEscape="false" />
+			<form:errors class="errormsg" path="financialAffidavit" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -105,7 +105,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="applicationFee" htmlEscape="false" />
+			<form:errors class="errormsg" path="applicationFee" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -119,7 +119,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="transcript" htmlEscape="false" />
+			<form:errors class="errormsg" path="transcript" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -133,7 +133,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="diplome" htmlEscape="false" />
+			<form:errors class="errormsg" path="diplome" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -144,7 +144,7 @@
 			<form:textarea path="notes" class="form-control" rows="5" cols="30" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="notes" htmlEscape="false" />
+			<form:errors class="errormsg" path="notes" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -180,7 +180,7 @@
 		    </div>
 			<label for="f1Visa" class="col-sm-5 control-label">f1Visa</label>
 		    <div class="col-sm-5">
-		      	<form:errors path="f1Visa" htmlEscape="false" />
+		      	<form:errors class="errormsg" path="f1Visa" htmlEscape="false" />
 		    </div>
 		</div>
           	
@@ -190,7 +190,7 @@
 		    </div>
 			<label for="bankStmt" class="col-sm-5 control-label">bankStmt</label>
 		    <div class="col-sm-5">
-		      	<form:errors path="bankStmt" htmlEscape="false" />
+		      	<form:errors class="errormsg" path="bankStmt" htmlEscape="false" />
 		    </div>
 		</div>
           	
@@ -200,7 +200,7 @@
 		    </div>
 			<label for="i20" class="col-sm-5 control-label">i20</label>
 		    <div class="col-sm-5">
-		      	<form:errors path="i20" htmlEscape="false" />
+		      	<form:errors class="errormsg" path="i20" htmlEscape="false" />
 		    </div>
 		</div>
 		
@@ -210,7 +210,7 @@
 		    </div>
 			<label for="passport" class="col-sm-5 control-label">passport</label>
 		    <div class="col-sm-5">
-		      	<form:errors path="passport" htmlEscape="false" />
+		      	<form:errors class="errormsg" path="passport" htmlEscape="false" />
 		    </div>
 		</div>
           	
@@ -220,7 +220,7 @@
 		    </div>
 			<label for="financialAffidavit" class="col-sm-5 control-label">financialAffidavit</label>
 		    <div class="col-sm-5">
-		      	<form:errors path="financialAffidavit" htmlEscape="false" />
+		      	<form:errors class="errormsg" path="financialAffidavit" htmlEscape="false" />
 		    </div>
 		</div>
           	
@@ -230,7 +230,7 @@
 		    </div>
 			<label for="applicationFee" class="col-sm-5 control-label">applicationFee</label>
 		    <div class="col-sm-5">
-		      	<form:errors path="applicationFee" htmlEscape="false" />
+		      	<form:errors class="errormsg" path="applicationFee" htmlEscape="false" />
 		    </div>
 		</div>
           	
@@ -240,7 +240,7 @@
 		    </div>
 			<label for="transcript" class="col-sm-5 control-label">transcript</label>
 		    <div class="col-sm-5">
-		      	<form:errors path="transcript" htmlEscape="false" />
+		      	<form:errors class="errormsg" path="transcript" htmlEscape="false" />
 		    </div>
 		</div>
           	
@@ -250,7 +250,7 @@
 		    </div>
 			<label for="diplome" class="col-sm-5 control-label">diplome</label>
 		    <div class="col-sm-5">
-		      	<form:errors path="diplome" htmlEscape="false" />
+		      	<form:errors class="errormsg" path="diplome" htmlEscape="false" />
 		    </div>
 		</div>
           	
@@ -260,7 +260,7 @@
 		    	<form:textarea path="notes" class="form-control" rows="5" cols="30" />
 		    </div>
 		    <div class="col-sm-5">
-		    	<form:errors path="notes" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="notes" htmlEscape="false" />
 		    </div>
 		</div>
 					

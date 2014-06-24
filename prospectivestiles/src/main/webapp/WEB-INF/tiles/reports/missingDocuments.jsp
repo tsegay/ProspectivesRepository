@@ -32,7 +32,7 @@
 	</div>
 </sec:authorize>
 
-<h1>Missing Documents page</h1>
+<h1>Missing Documents</h1>
 
 
 <c:if test="${param.deleted == true}">

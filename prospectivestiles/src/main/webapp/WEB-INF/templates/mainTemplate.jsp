@@ -21,9 +21,7 @@
 	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script> --%>
 	
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet"
-		href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
 	
 	<link rel="stylesheet" type="text/css"
 		href="${pageContext.request.contextPath}/resources/css/style.css" />
@@ -162,6 +160,7 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+		
 		
 	<!-- Twitter Bootstrap to add 'active' class to li in Master page 
 	http://stackoverflow.com/questions/20117985/twitter-bootstrap-add-active-class-to-li-in-master-page-->	

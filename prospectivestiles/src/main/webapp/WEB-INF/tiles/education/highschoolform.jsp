@@ -51,7 +51,7 @@
 		      <form:input class="form-control" path="name" placeholder = "Your School Name" />
 		    </div>
 		    <div class="col-sm-5">
-		    	<form:errors path="name" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="name" htmlEscape="false" />
 		    </div>
 		</div>
 		
@@ -61,7 +61,7 @@
 				<form:input class="form-control" path="state" placeholder = "Your State" />
 			</div>
 			<div class="col-sm-5">
-		    	<form:errors path="state" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="state" htmlEscape="false" />
 		    </div>
 		</div>
 		
@@ -71,7 +71,7 @@
 				<form:input path="city" class = "form-control" id = "city" placeholder = "Your city"/>
 			</div>
 			<div class="col-sm-5">
-		    	<form:errors path="city" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="city" htmlEscape="false" />
 		    </div>
         </div>
         
@@ -81,7 +81,7 @@
 				<form:input path="country" class = "form-control" id = "country" placeholder = "Your Country"/>
 			</div>
 			<div class="col-sm-5">
-		    	<form:errors path="country" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="country" htmlEscape="false" />
 		    </div>
         </div>
         
@@ -91,7 +91,7 @@
 				<form:input path="zip" class = "form-control" id = "zip" placeholder = "Your zip"/>
 			</div>
 			<div class="col-sm-5">
-		    	<form:errors path="zip" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="zip" htmlEscape="false" />
 		    </div>
         </div>
         
@@ -103,7 +103,7 @@
 		      <form:input path="attendedFrom" value="${attendedFromString}" class="form-control" id="attendedFrom" placeholder="Your attendedFrom" />
 			</div>
 		    <div class="col-sm-5">
-		    	<form:errors path="attendedFrom" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="attendedFrom" htmlEscape="false" />
 		    </div>
 		</div>
         
@@ -114,7 +114,7 @@
 		      <form:input path="attendedTo" value="${attendedToString}" class="form-control" id="attendedTo" placeholder="Your attendedTo" />
 			</div>
 		    <div class="col-sm-5">
-		    	<form:errors path="attendedTo" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="attendedTo" htmlEscape="false" />
 		    </div>
 		</div>
 		
@@ -139,7 +139,7 @@
 		      <form:input path="diplomeAwardedDate" value="${diplomeAwardedDateString}" class="form-control" id="diplomeAwardedDate" placeholder="Your diplomeAwardedDate" />
 			</div>
 		    <div class="col-sm-5">
-		    	<form:errors path="diplomeAwardedDate" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="diplomeAwardedDate" htmlEscape="false" />
 		    </div>
 		</div>
         
@@ -150,7 +150,7 @@
 		      <form:input path="gEDAwardedDate" value="${gEDAwardedDateString}" class="form-control" id="gEDAwardedDate" placeholder="Your gEDAwardedDate" />
 			</div>
 		    <div class="col-sm-5">
-		    	<form:errors path="gEDAwardedDate" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="gEDAwardedDate" htmlEscape="false" />
 		    </div>
 		</div>
 

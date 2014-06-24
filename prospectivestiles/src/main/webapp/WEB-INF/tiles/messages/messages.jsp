@@ -97,6 +97,7 @@ div.text {
 
 <!-- jQuery (Date JavaScript plugins) -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/date.js"></script>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>

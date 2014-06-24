@@ -46,7 +46,7 @@
 		</div>
 		<label for="employed" class="col-sm-5 control-label">employed</label>
 		<div class="col-sm-5">
-			<form:errors path="employed" htmlEscape="false" />
+			<form:errors class="errormsg" path="employed" htmlEscape="false" />
 		</div>
 	</div> --%>
 
@@ -57,7 +57,7 @@
 				placeholder="Your position" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="position" htmlEscape="false" />
+			<form:errors class="errormsg" path="position" htmlEscape="false" />
 		</div>
 	</div>
 	
@@ -71,7 +71,7 @@
 				placeholder="Your employedFrom" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="employedFrom" htmlEscape="false" />
+			<form:errors class="errormsg" path="employedFrom" htmlEscape="false" />
 		</div>
 	</div>
 	
@@ -85,7 +85,7 @@
 				placeholder="Your employedTo" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="employedTo" htmlEscape="false" />
+			<form:errors class="errormsg" path="employedTo" htmlEscape="false" />
 		</div>
 	</div>
 	
@@ -96,7 +96,7 @@
 				placeholder="Your companyName" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="companyName" htmlEscape="false" />
+			<form:errors class="errormsg" path="companyName" htmlEscape="false" />
 		</div>
 	</div>
 	
@@ -107,7 +107,7 @@
 				placeholder="Your employerName" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="employerName" htmlEscape="false" />
+			<form:errors class="errormsg" path="employerName" htmlEscape="false" />
 		</div>
 	</div>
 	

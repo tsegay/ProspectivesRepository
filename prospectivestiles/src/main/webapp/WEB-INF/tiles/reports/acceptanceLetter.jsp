@@ -24,7 +24,7 @@
 	</div>
 </sec:authorize>
 
-<h1>Evaluation Report</h1>
+<h1>Acceptance Letter</h1>
 
 <!-- 
 I don't think i need all these checklist urls

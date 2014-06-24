@@ -36,7 +36,7 @@
 	</div>
 </sec:authorize>
 
-<h1>Evaluation Form page</h1>
+<h1>Evaluation Form</h1>
 
 <form:form action="${evaluationsUrl}" modelAttribute="evaluation"
 	role="form" class="form-horizontal">
@@ -48,12 +48,13 @@
 				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
 				<form:option value="notreviewed" label="Not Reviewed" />
 				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
 				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="f1Visa" htmlEscape="false" />
+			<form:errors class="errormsg" path="f1Visa" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -64,12 +65,13 @@
 				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
 				<form:option value="notreviewed" label="Not Reviewed" />
 				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
 				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="bankStmt" htmlEscape="false" />
+			<form:errors class="errormsg" path="bankStmt" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -79,12 +81,13 @@
 			<form:select path="i20" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
 				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
 				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="i20" htmlEscape="false" />
+			<form:errors class="errormsg" path="i20" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -94,12 +97,13 @@
 			<form:select path="passport" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
 				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
 				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="passport" htmlEscape="false" />
+			<form:errors class="errormsg" path="passport" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -109,12 +113,13 @@
 			<form:select path="financialAffidavit" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
 				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
 				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="financialAffidavit" htmlEscape="false" />
+			<form:errors class="errormsg" path="financialAffidavit" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -124,12 +129,13 @@
 			<form:select path="applicationFee" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
 				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
 				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="applicationFee" htmlEscape="false" />
+			<form:errors class="errormsg" path="applicationFee" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -139,12 +145,13 @@
 			<form:select path="transcript" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
 				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
 				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="transcript" htmlEscape="false" />
+			<form:errors class="errormsg" path="transcript" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -154,12 +161,13 @@
 			<form:select path="diplome" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
 				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
 				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="diplome" htmlEscape="false" />
+			<form:errors class="errormsg" path="diplome" htmlEscape="false" />
 		</div>
 	</div>
 	
@@ -169,7 +177,7 @@
 			<form:textarea path="studentQualification" class="form-control" rows="5" cols="30" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="studentQualification" htmlEscape="false" />
+			<form:errors class="errormsg" path="studentQualification" htmlEscape="false" />
 		</div>
 	</div>
 	
@@ -179,7 +187,7 @@
 			<form:textarea path="admnOfficerReport" class="form-control" rows="5" cols="30" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="admnOfficerReport" htmlEscape="false" />
+			<form:errors class="errormsg" path="admnOfficerReport" htmlEscape="false" />
 		</div>
 	</div>
 	
@@ -189,7 +197,7 @@
 			<form:textarea path="notes" class="form-control" rows="5" cols="30" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="notes" htmlEscape="false" />
+			<form:errors class="errormsg" path="notes" htmlEscape="false" />
 		</div>
 	</div>
 

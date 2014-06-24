@@ -32,7 +32,7 @@ public class StandardTest implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private long id;
 	private String name;
-	private double score;
+	private Integer score;
 	private Date validTill;
 	
 	private UserEntity userEntity;
@@ -43,7 +43,7 @@ public class StandardTest implements Serializable {
 
 	public StandardTest() {
 	}
-	public StandardTest(String name, double score, Date validTill) {
+	public StandardTest(String name, Integer score, Date validTill) {
 		this.name = name;
 		this.score = score;
 		this.validTill = validTill;
@@ -69,12 +69,13 @@ public class StandardTest implements Serializable {
 		this.name = name;
 	}
 	@NotNull
-	public double getScore() {
+	public Integer getScore() {
 		return score;
 	}
-	public void setScore(double score) {
+	public void setScore(Integer score) {
 		this.score = score;
 	}
+//	@NotNull
 	public Date getValidTill() {
 		return validTill;
 	}

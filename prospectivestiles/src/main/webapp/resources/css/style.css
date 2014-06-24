@@ -137,6 +137,13 @@ white-space: nowrap;
 	font-size: 25px;
 }
 
+.errormsg {
+	color: #ff0000;
+}
+
+.error {
+	color: #ff0000;
+}
 /* 
 ##################################################################
 		JSON Test CSS 

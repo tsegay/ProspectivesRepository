@@ -24,7 +24,7 @@
 	</div>
 </sec:authorize>
 
-<h1>Evaluation page</h1>
+<h1>Evaluation</h1>
 
 
 <c:if test="${param.deleted == true}">
@@ -81,6 +81,11 @@
 		  			Invalid
 		  		</span>
 		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.f1Visa == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.f1Visa == \"valid\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
 		  			Valid
@@ -104,6 +109,11 @@
 		  	<c:if test="${userEntity.evaluation.bankStmt == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
 		  			Invalid
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.bankStmt == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.bankStmt == \"valid\"}">
@@ -131,6 +141,11 @@
 		  			Invalid
 		  		</span>
 		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.i20 == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.i20 == \"valid\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
 		  			Valid
@@ -153,6 +168,11 @@
 		  	<c:if test="${userEntity.evaluation.passport == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
 		  			Invalid
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.passport == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.passport == \"valid\"}">
@@ -179,6 +199,11 @@
 		  			Invalid
 		  		</span>
 		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.financialAffidavit == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.financialAffidavit == \"valid\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
 		  			Valid
@@ -201,6 +226,11 @@
 		  	<c:if test="${userEntity.evaluation.applicationFee == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
 		  			Invalid
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.applicationFee == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.applicationFee == \"valid\"}">
@@ -227,6 +257,11 @@
 		  			Invalid
 		  		</span>
 		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.transcript == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.transcript == \"valid\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
 		  			Valid
@@ -249,6 +284,11 @@
 		  	<c:if test="${userEntity.evaluation.diplome == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
 		  			Invalid
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.diplome == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.diplome == \"valid\"}">

@@ -20,10 +20,7 @@
 	      <form:input path="username" class="form-control" placeholder = "Your Username" />
 	    </div>
 	    <div class="col-sm-5">
-	    	<form:errors path="username" htmlEscape="false" />
-	      	<%-- <form:errors path="username">
-				<div class="errorMessage"><form:errors path="username" htmlEscape="false" /></div>
-			</form:errors> --%>
+	    	<form:errors class="errormsg" path="username" htmlEscape="false" />
 	    </div>
 	</div>
 	
@@ -33,7 +30,7 @@
 	      <form:password path="password" class="form-control" placeholder = "Your password" />
 	    </div>
 	    <div class="col-sm-5">
-	    	<form:errors path="password" cssClass="error" element="div" />
+	    	<form:errors class="errormsg" path="password" cssClass="error" element="div" />
 	    </div>
 	</div>
 	
@@ -42,9 +39,6 @@
 	    <div class="col-sm-5">
 	      <form:password path="confirmPassword" class="form-control" placeholder = "Confirm your password" />
 	    </div>
-	    <%-- <div class="col-sm-5">
-	    	<form:errors path="confirmPassword" cssClass="error" element="div" />
-	    </div> --%>
 	</div>
 	
 	<div class="form-group row">
@@ -53,7 +47,7 @@
 	      <form:input path="firstName" class="form-control" placeholder = "Your First Name" />
 	    </div>
 	    <div class="col-sm-5">
-	    	<form:errors path="firstName" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="firstName" htmlEscape="false" />
 	    </div>
 	</div>
 	
@@ -63,7 +57,7 @@
 	      <form:input path="lastName" class="form-control" placeholder = "Your Last Name" />
 	    </div>
 	    <div class="col-sm-5">
-	      	<form:errors path="lastName" htmlEscape="false" />
+	      	<form:errors class="errormsg" path="lastName" htmlEscape="false" />
 	    </div>
 	</div>
 	
@@ -73,7 +67,7 @@
 	      <form:input path="email" class="form-control" placeholder = "Your Email" />
 	    </div>
 	    <div class="col-sm-5">
-	      	<form:errors path="email" htmlEscape="false" />
+	      	<form:errors class="errormsg" path="email" htmlEscape="false" />
 	    </div>
 	</div>
 	
@@ -93,7 +87,7 @@
 	    </div>
 		<label for="acceptTerms" class="col-sm-5 control-label"><spring:message code="newUserRegistration.label.acceptTerms" /></label>
 	    <div class="col-sm-5">
-	      	<form:errors path="acceptTerms" htmlEscape="false" />
+	      	<form:errors class="errormsg" path="acceptTerms" htmlEscape="false" />
 	    </div>
 	</div>
 	

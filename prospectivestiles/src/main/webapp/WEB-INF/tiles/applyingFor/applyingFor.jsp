@@ -102,7 +102,7 @@ insert the term and program of study to the userEntity using jdbc
 							</form:select>
 					    </div>
 					    <div class="col-sm-3">
-					    	<form:errors path="term" htmlEscape="false" />
+					    	<form:errors class="errormsg" path="term" htmlEscape="false" />
 					    </div>
 					</div>
 					<div class="form-group row">
@@ -117,7 +117,7 @@ insert the term and program of study to the userEntity using jdbc
 							</form:select>
 					    </div>
 					    <div class="col-sm-3">
-					    	<form:errors path="term" htmlEscape="false" />
+					    	<form:errors class="errormsg" path="term" htmlEscape="false" />
 					    </div>
 					</div>
 					

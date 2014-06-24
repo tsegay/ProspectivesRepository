@@ -73,7 +73,7 @@ public class Address implements Serializable  {
 	}
 
 	@NotNull
-	@Size(min = 1, max = 50)
+	@Size(min = 2, max = 50)
 	public String getAddress1() {
 		return address1;
 	}
@@ -91,7 +91,7 @@ public class Address implements Serializable  {
 	}
 
 	@NotNull
-	@Size(min = 1, max = 50)
+	@Size(min = 2, max = 50)
 	public String getCity() {
 		return city;
 	}
@@ -115,7 +115,8 @@ public class Address implements Serializable  {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
-
+	
+	@Size(min = 2, max = 50)
 	public String getCountry() {
 		return country;
 	}

@@ -56,6 +56,12 @@ public class AdminHighSchoolController {
 	@Autowired
 	private UserEntityService userEntityService;
 	
+	/*
+	 * Use @InitBinder to fix the following error
+	 * Failed to convert property value of type java.lang.String to required type java.util.Date 
+	 * for property attendedFrom;
+	 * Failed to convert from type java.lang.String to type @javax.validation.constraints.NotNull java.util.Date 
+	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");

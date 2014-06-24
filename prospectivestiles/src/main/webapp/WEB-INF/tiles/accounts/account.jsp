@@ -171,7 +171,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 					value="/myAccount/address/${address.id}/delete" />
 			</sec:authorize>
 
-			<address>
+			<address class="col-md-6">
 				<%-- address.id: <c:out value="${address.id}" /> --%>
 				<span class="addressType"> <em><c:out
 							value="${address.addressType}" /></em>
@@ -190,10 +190,10 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 				<br><br>
 					
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<a href="${editAddressUrl}" class="btn btn-primary btn-sm">Edit</a>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<!-- Button trigger modal -->
 						<a data-toggle="modal" data-remote="${deleteAddressUrl}" data-target="#deleteModal" 
 							class="btn btn-danger btn-sm">Delete</a><br><br>
@@ -224,6 +224,9 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 	</c:otherwise>
 </c:choose>
 
+<!-- I am displaying the addresses in 2 columns,
+I need this to push down the h3 below from mixing with the addresses -->
+<div class="row"></div>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="newAddressUrl"

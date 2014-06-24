@@ -48,7 +48,7 @@
 				placeholder="Your Emergency Contact firstName" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="firstName" htmlEscape="false" />
+			<form:errors class="errormsg" path="firstName" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -59,7 +59,7 @@
 				placeholder="Your lastName" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="lastName" htmlEscape="false" />
+			<form:errors class="errormsg" path="lastName" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -70,7 +70,7 @@
 				placeholder="Your phone" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="phone" htmlEscape="false" />
+			<form:errors class="errormsg" path="phone" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -81,7 +81,7 @@
 				placeholder="Your email" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="email" htmlEscape="false" />
+			<form:errors class="errormsg" path="email" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -92,7 +92,7 @@
 				id="relationship" placeholder="Your relationship" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="relationship" htmlEscape="false" />
+			<form:errors class="errormsg" path="relationship" htmlEscape="false" />
 		</div>
 	</div>
 	

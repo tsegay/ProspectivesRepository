@@ -8,6 +8,7 @@
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
+	<c:url var="accountsUrl" value="/accounts/${userEntity.id}" />
 	<c:url var="addressFormUrl"
 		value="/accounts/${userEntity.id}/addresses" />
 	<c:url var="addressUrl"
@@ -57,7 +58,7 @@
 			</form:select>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="addressType" htmlEscape="false" />
+			<form:errors class="errormsg" path="addressType" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -70,7 +71,7 @@
 			<div id="address1Error"></div>
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="address1" htmlEscape="false" />
+			<form:errors class="errormsg" path="address1" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -81,7 +82,7 @@
 				placeholder="Your address2" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="address2" htmlEscape="false" />
+			<form:errors class="errormsg" path="address2" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -91,7 +92,7 @@
 			<form:input path="city" class="form-control" placeholder="Your city" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="city" htmlEscape="false" />
+			<form:errors class="errormsg" path="city" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -102,7 +103,7 @@
 				placeholder="Your state" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="state" htmlEscape="false" />
+			<form:errors class="errormsg" path="state" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -113,7 +114,7 @@
 				placeholder="Your zipcode" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="zipcode" htmlEscape="false" />
+			<form:errors class="errormsg" path="zipcode" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -124,7 +125,7 @@
 				placeholder="Your country" />
 		</div>
 		<div class="col-sm-5">
-			<form:errors path="country" htmlEscape="false" />
+			<form:errors class="errormsg" path="country" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -134,7 +135,7 @@
 		<label for="" class="col-sm-2 control-label">&nbsp;</label>
 		<div class="col-sm-10">
 			<input class="btn btn-primary" type="submit" value="Save"></input> <a
-				class="btn btn-default" href="${addressUrl}">Cancel</a>
+				class="btn btn-default" href="${accountsUrl}">Cancel</a>
 		</div>
 	</div>
 

@@ -13,8 +13,8 @@
 	<c:url var="deleteAccountUrl" value="" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="accountsUrl" value="/myAccount/accounts" />
-	<c:url var="editAccountUrl" value="/myAccount/account/${userEntity.id}" />
+	<%-- <c:url var="accountsUrl" value="/myAccount/accounts" /> --%>
+	<%-- <c:url var="editAccountUrl" value="/myAccount/account/${userEntity.id}" /> --%>
 	<c:url var="deleteAccountUrl" value="" />
 </sec:authorize>
 
@@ -30,7 +30,7 @@
 					placeholder="Your username" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="username" htmlEscape="false" />
+				<form:errors class="errormsg" path="username" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -41,7 +41,7 @@
 					placeholder="Your email" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="email" htmlEscape="false" />
+				<form:errors class="errormsg" path="email" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -52,7 +52,7 @@
 					placeholder="Your firstName" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="firstName" htmlEscape="false" />
+				<form:errors class="errormsg" path="firstName" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -63,7 +63,7 @@
 					placeholder="Your middleName" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="middleName" htmlEscape="false" />
+				<form:errors class="errormsg" path="middleName" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -74,7 +74,7 @@
 					placeholder="Your lastName" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="lastName" htmlEscape="false" />
+				<form:errors class="errormsg" path="lastName" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -85,7 +85,7 @@
 					placeholder="Your homePhone" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="homePhone" htmlEscape="false" />
+				<form:errors class="errormsg" path="homePhone" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -96,7 +96,7 @@
 					placeholder="Your cellPhone" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="cellPhone" htmlEscape="false" />
+				<form:errors class="errormsg" path="cellPhone" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -107,7 +107,7 @@
 					placeholder="Your gender" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="gender" htmlEscape="false" />
+				<form:errors class="errormsg" path="gender" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -118,7 +118,7 @@
 					placeholder="Your ssn" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="ssn" htmlEscape="false" />
+				<form:errors class="errormsg" path="ssn" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -129,7 +129,7 @@
 					placeholder="Your citizenship" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="citizenship" htmlEscape="false" />
+				<form:errors class="errormsg" path="citizenship" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -141,7 +141,7 @@
 					placeholder="Your ethnicity" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="ethnicity" htmlEscape="false" />
+				<form:errors class="errormsg" path="ethnicity" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -152,7 +152,7 @@
 					placeholder="Your sevisNumber" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="sevisNumber" htmlEscape="false" />
+				<form:errors class="errormsg" path="sevisNumber" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -164,7 +164,7 @@
 				<form:input path="dob" value="${dateString}" class="form-control" id="dob" placeholder="Your dob" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="sevisNumber" htmlEscape="false" />
+				<form:errors class="errormsg" path="sevisNumber" htmlEscape="false" />
 			</div>
 		</div>
 		

@@ -17,9 +17,12 @@
 	<c:url var="deleteAddressUrl" value="/accounts/${user.id}/address/${address.id}/delete" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
+	<c:url var="accountsUrl" value="/myAccount" />
+	<c:url var="addressesUrl" value="/myAccount/addresses" />
+	<c:url var="editAddressUrl" value="/myAccount/address/${address.id}" />
+	<c:url var="deleteAddressUrl" value="/myAccount/address/${address.id}/delete" />
 </sec:authorize>
 
-			
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
@@ -62,7 +65,7 @@
 				</form:select>
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="addressType" htmlEscape="false" />
+				<form:errors class="errormsg" path="addressType" htmlEscape="false" />
 			</div>
 		</div>
 
@@ -73,7 +76,7 @@
 					placeholder="Your address1" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="address1" htmlEscape="false" />
+				<form:errors class="errormsg" path="address1" htmlEscape="false" />
 			</div>
 		</div>
 
@@ -84,7 +87,7 @@
 					placeholder="Your address2" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="address2" htmlEscape="false" />
+				<form:errors class="errormsg" path="address2" htmlEscape="false" />
 			</div>
 		</div>
 
@@ -95,7 +98,7 @@
 					placeholder="Your city" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="city" htmlEscape="false" />
+				<form:errors class="errormsg" path="city" htmlEscape="false" />
 			</div>
 		</div>
 
@@ -106,7 +109,7 @@
 					placeholder="Your state" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="state" htmlEscape="false" />
+				<form:errors class="errormsg" path="state" htmlEscape="false" />
 			</div>
 		</div>
 		
@@ -117,7 +120,7 @@
 					placeholder="Your zipcode" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="zipcode" htmlEscape="false" />
+				<form:errors class="errormsg" path="zipcode" htmlEscape="false" />
 			</div>
 		</div>
 		
@@ -128,7 +131,7 @@
 					placeholder="Your country" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors path="country" htmlEscape="false" />
+				<form:errors class="errormsg" path="country" htmlEscape="false" />
 			</div>
 		</div>
 

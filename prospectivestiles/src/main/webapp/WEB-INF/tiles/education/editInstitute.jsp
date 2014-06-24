@@ -39,7 +39,7 @@
 	</div>
 </sec:authorize>
 
-<h1>Edit Institute page</h1>
+<h1>Edit Institute</h1>
 
 
 <c:if test="${param.saved == true}">
@@ -60,7 +60,7 @@
 	      <form:input class="form-control" path="name" placeholder = "Your Institute Name" />
 	    </div>
 	    <div class="col-sm-5">
-	    	<form:errors path="name" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="name" htmlEscape="false" />
 	    </div>
 	</div>
 	
@@ -70,7 +70,7 @@
 			<form:input class="form-control" path="state" placeholder = "Your State" />
 		</div>
 		<div class="col-sm-5">
-	    	<form:errors path="state" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="state" htmlEscape="false" />
 	    </div>
 	</div>
 	
@@ -80,7 +80,7 @@
 			<form:input path="city" class = "form-control" id = "city" placeholder = "Your city"/>
 		</div>
 		<div class="col-sm-5">
-	    	<form:errors path="city" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="city" htmlEscape="false" />
 	    </div>
        </div>
        
@@ -90,7 +90,7 @@
 			<form:input path="country" class = "form-control" id = "country" placeholder = "Your Country"/>
 		</div>
 		<div class="col-sm-5">
-	    	<form:errors path="country" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="country" htmlEscape="false" />
 	    </div>
        </div>
        
@@ -100,7 +100,7 @@
 			<form:input path="zip" class = "form-control" id = "zip" placeholder = "Your zip"/>
 		</div>
 		<div class="col-sm-5">
-	    	<form:errors path="zip" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="zip" htmlEscape="false" />
 	    </div>
        </div>
        
@@ -110,7 +110,7 @@
 			<form:input path="programOfStudy" class = "form-control" id = "programOfStudy" placeholder = "Your programOfStudy"/>
 		</div>
 		<div class="col-sm-5">
-	    	<form:errors path="programOfStudy" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="programOfStudy" htmlEscape="false" />
 	    </div>
        </div>
        
@@ -120,7 +120,7 @@
 			<form:input path="levelOfStudy" class = "form-control" id = "levelOfStudy" placeholder = "Your levelOfStudy"/>
 		</div>
 		<div class="col-sm-5">
-	    	<form:errors path="levelOfStudy" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="levelOfStudy" htmlEscape="false" />
 	    </div>
        </div>
        
@@ -132,7 +132,7 @@
 	      <form:input path="attendedFrom" value="${attendedFromString}" class="form-control" id="attendedFrom" placeholder="Your attendedFrom" />
 		</div>
 	    <div class="col-sm-5">
-	    	<form:errors path="attendedFrom" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="attendedFrom" htmlEscape="false" />
 	    </div>
 	</div>
        
@@ -143,7 +143,7 @@
 	      <form:input path="attendedTo" value="${attendedToString}" class="form-control" id="attendedTo" placeholder="Your attendedTo" />
 		</div>
 	    <div class="col-sm-5">
-	    	<form:errors path="attendedTo" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="attendedTo" htmlEscape="false" />
 	    </div>
 	</div>
 	
@@ -154,7 +154,7 @@
 	      <form:input path="graduationDate" value="${graduationDateString}" class="form-control" id="graduationDate" placeholder="Your graduationDate" />
 		</div>
 	    <div class="col-sm-5">
-	    	<form:errors path="graduationDate" htmlEscape="false" />
+	    	<form:errors class="errormsg" path="graduationDate" htmlEscape="false" />
 	    </div>
 	</div>
 
