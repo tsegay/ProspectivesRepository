@@ -144,6 +144,33 @@ white-space: nowrap;
 .error {
 	color: #ff0000;
 }
+
+/* notification.jsp */
+.notification {
+	margin-bottom: 20px;
+	border-bottom: 1px dashed brown;
+}
+
+/* messages.jsp */
+form.messageform {
+	padding: 20px;
+	display: none;
+}
+
+.message {
+	margin-bottom: 20px;
+	border-bottom: 3px groove #CBC7C7;
+}
+
+div.messagetitle {
+	font-size: 14px;
+    font-weight: bold;
+    padding: 5px 20px;
+}
+
+div.text {
+    padding: 10px 20px;
+}
 /* 
 ##################################################################
 		JSON Test CSS 

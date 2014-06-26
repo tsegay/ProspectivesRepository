@@ -15,8 +15,10 @@ import org.springframework.validation.Errors;
 
 import com.prospectivestiles.dao.RoleDao;
 import com.prospectivestiles.dao.UserEntityDao;
+import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.Role;
 import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.service.NotificationService;
 import com.prospectivestiles.service.UserEntityService;
 
 @Service
@@ -27,7 +29,8 @@ public class UserEntityServiceImpl implements UserEntityService {
 	
 	@Inject private UserEntityDao userEntityDao;
 	@Inject private RoleDao roleDao;
-	
+	@Inject
+	private NotificationService notificationService;
 		
 	@Transactional(readOnly = false)	
 	public boolean createUserEntity(UserEntity userEntity, Errors errors) {
@@ -45,6 +48,12 @@ public class UserEntityServiceImpl implements UserEntityService {
 			roles.add(roleDao.findByName("ROLE_USER"));
 			userEntity.setRoles(roles);
 			userEntityDao.createUserEntity(userEntity);
+			/*
+			 * After a user account is successfully created I want to create a notification
+			 * I need to create an enum NotificationType: message, uploadedDoc, statusChanged, updatedProfile, ...
+			*/
+			Notification notification = new Notification("accountCreated", userEntity.getFullName() + " created an account", userEntity);
+			notificationService.createNotification(notification);
 		}
 		
 		return valid;

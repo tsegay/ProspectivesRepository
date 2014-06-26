@@ -32,8 +32,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.HighSchool;
+import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.UploadedFiles;
 import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.service.NotificationService;
 import com.prospectivestiles.service.UploadedFilesService;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -45,6 +47,9 @@ public class StudentFileUploadController {
 	
 	@Inject
 	private UploadedFilesService uploadedFilesService;
+	
+	@Inject
+	private NotificationService notificationService;
 	
 	// ======================================
 	// =                          =
@@ -126,6 +131,13 @@ public class StudentFileUploadController {
                 uploadedFile.setUserEntity(userEntity);
                 
                 uploadedFilesService.createUploadedFiles(uploadedFile);
+                
+                /*
+        		 * after a file is successfuly uploaded I want to create a notification
+        		 * I need to create an enum NotificationType: message, uploadedDoc, statusChanged, updatedProfile, ...
+        		*/
+        		Notification notification = new Notification("fileuploaded", userEntity.getFullName() + " uploaded a file", userEntity);
+        		notificationService.createNotification(notification);
                 
                 System.out.println("After uploadedFilesService.createUploadedFiles: " + uploadedFilesService.getAllUploadedFiles().toString());
  

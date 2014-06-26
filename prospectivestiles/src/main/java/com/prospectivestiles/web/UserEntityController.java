@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.service.NotificationService;
 import com.prospectivestiles.service.UserEntityService;
 
 
@@ -29,6 +31,8 @@ public class UserEntityController {
 //	private static final String VN_REG_OK = "redirect:/users/registration_ok.xhtml";
 	
 	@Inject private UserEntityService userEntityService;
+	
+	
 	
 	@Inject
 	@Qualifier("authenticationManager")
@@ -79,6 +83,8 @@ public class UserEntityController {
 //		convertPasswordError(result);
 		String password = form.getPassword();
 		userEntityService.createUserEntity(form, result);
+		
+		
 		
 		/*if(usersService.exists(user.getUsername())) {
 			result.rejectValue("username", "DuplicateKey.user.username");

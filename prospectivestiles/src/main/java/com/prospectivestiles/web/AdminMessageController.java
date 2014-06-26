@@ -154,7 +154,7 @@ public class AdminMessageController {
 		 * after a message is successfuly sent I want to create a notification
 		 * I need to create an enum NotificationType: message, uploadedDoc, statusChanged, updatedProfile, ...
 		*/
-		Notification notification = new Notification("message", student.getFullName() + " sent a message", student);
+		Notification notification = new Notification("message", admissionOfficer.getFullName() + " sent a message to " + student.getFullName(), student);
 		
 		/*Notification notification = new Notification();
 		notification.setDateCreated(new Date());

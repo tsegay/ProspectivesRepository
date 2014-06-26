@@ -5,32 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<style>
-<!--
-/* 
-Put all css in style.css file 
-*/
-form.messageform {
-	padding: 20px;
-	display: none;
-}
-
-.message {
-	margin-bottom: 20px;
-	border-bottom: 3px groove #CBC7C7;
-}
-
-div.messagetitle {
-	font-size: 14px;
-    font-weight: bold;
-    padding: 5px 20px;
-}
-
-div.text {
-    padding: 10px 20px;
-}
--->
-</style>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
@@ -123,14 +97,14 @@ div.text {
 	first stop the timer, so the page won't refresh while user is composing an email
 	*/
 	function displayMessageForm(studentId){
-		alert("displayMessageForm called " + studentId);
+		/* alert("displayMessageForm called " + studentId); */
 		stopTimer();
 		$("#messageform").toggle();
 	}
 	
 	function success(data){
-		alert("Successfully sent email");
-		alert(data.stId);
+		/* alert("Successfully sent email"); */
+		/* alert(data.stId); */
 		$("#messageform").toggle();
 		/* update the page first to load the new message to the page
 		and start the timer */
@@ -140,12 +114,12 @@ div.text {
 	}
 	
 	function error(data){
-		alert("Error. Send message failed. within JS");
-		alert(data.stId);
+		/* alert("Error. Send message failed. within JS");
+		alert(data.stId); */
 	}
 	
 	function sendMessage(studentId){
-		alert("sending message..." + studentId);
+		/* alert("sending message..." + studentId); */
 		
 		var subject = $("#subjectfield").val();
 		var text = $("#textareafield").val();
@@ -155,7 +129,8 @@ div.text {
 			"url" : '${postMessageUrl}',
 			"data": JSON.stringify({"studentId": studentId, "subject": subject, "text": text}),
 			"complete": function(response, textStatus){
-				return alert("#### complete called. " + textStatus);
+				/* return alert("#### complete called. " + textStatus); */
+				return;
 			},
 			"success": success,
 			"error" : error,

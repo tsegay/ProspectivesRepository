@@ -5,54 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<style>
-<!--
-.notification {
-	margin-bottom: 20px;
-	border-bottom: 1px dashed brown;
-}
-
-div.subject {
-	font-size: large;
-	font-weight: bold;
-}
-
-div.notificationbody {
-	display: block;
-	font-style: italic;
-}
-
-div.name {
-	font-size: medium;
-}
-
-form.notificationform {
-	padding: 20px;
-	display: none;
-}
-
-textarea.textareafield {
-	width: 400px;
-	height: 250px;
-}
-
-input.sendbutton {
-	display: block;
-	font-size: large;
-	border: 1px solid gray;
-}
-
-a.emaillink:link {
-	color: brown;
-}
-
-span.notification {
-	display: block;
-	font-weight: bold;
-	color: green;
-}
--->
-</style>
 
 <h1>Notifications page</h1>
 
@@ -97,8 +49,8 @@ span.notification {
 	 */
 	
 	function success(data){
-		alert("Successfully markNoticeRead");
-		alert("data.studentId: " + data.studentId);
+		/* alert("Successfully markNoticeRead");
+		alert("data.studentId: " + data.studentId); */
 		
 		var url = "${pageContext.request.contextPath}"+"/accounts/" + data.studentId;
 		
@@ -110,7 +62,7 @@ span.notification {
 	}
 	
 	function goToPage(data){
-		alert("goToPage studentId: " + data.studentId);
+		/* alert("goToPage studentId: " + data.studentId); */
 		
 		var url = "${pageContext.request.contextPath}"+"/accounts/" + data.studentId;
 		
@@ -121,9 +73,9 @@ span.notification {
 		mark the notice as read: 
 		pass the notice id to the fn markNoticeRead
 		rediredt to the student's page */
-	function goToMessage(noticeId, studentId){
-		alert("goToMessage noticeId..." + noticeId);
-		alert("goToMessage studentId..." + studentId);
+	function followNotice(noticeId, studentId){
+		/* alert("followNotice noticeId..." + noticeId);
+		alert("followNotice studentId..." + studentId); */
 		
 		/* 
 		when user click on the notice, assuming user read it, i want to mark the notice as read
@@ -134,8 +86,11 @@ span.notification {
 		 */
 		 
 		
-		var rUrl = "${pageContext.request.contextPath}"+"/accounts/notifications/markRead";/*for testing*/
-		alert("markReadcUrl" + "${markReadcUrl}");
+		/*for testing*/
+		/* 
+		var rUrl = "${pageContext.request.contextPath}"+"/accounts/notifications/markRead";
+		alert("markReadcUrl" + "${markReadcUrl}"); 
+		*/
 		
 		/* $.ajax({
 			"type": 'POST',
@@ -192,38 +147,15 @@ span.notification {
 				studentLink.setAttribute("class", "studentLink");
 				studentLink.setAttribute("href", "#");
 				/* pass the notification */
-				studentLink.setAttribute("onclick", "goToMessage(" + notification.id + ", " + notification.student.id + ")");
+				studentLink.setAttribute("onclick", "followNotice(" + notification.id + ", " + notification.student.id + ")");
 				studentLink.appendChild(document.createTextNode(notification.notice));
 			
 			subjectSpan.appendChild(studentLink);
 			subjectSpan.appendChild(document.createTextNode(")"));
 			
-			/* ####################################################### */
-			
-			/* var goToPageForm = document.createElement("form");
-			goToPageForm.setAttribute("class", "goToPageForm");
-			goToPageForm.setAttribute("id", "goToPageForm");
-			
-			var pageButton = document.createElement("button");
-			pageButton.setAttribute("class", "pageButton btn btn-default");
-			pageButton.setAttribute("type", "submit");
-			pageButton.appendChild(document.createTextNode('Read'));
-			
-				pageButton.onclick = function(noticeId, studentId){
-					return function(){
-						goToMessage(noticeId, studentId);
-					}
-				}(notification.id, notification.student.id);
-			
-			goToPageForm.appendChild(pageButton);
-			 */
-			 
-			/* ####################################################### */
-			
 			notificationDiv.appendChild(dateSpan);
 			notificationDiv.appendChild(studentSpan);
 			notificationDiv.appendChild(subjectSpan);
-			/* notificationDiv.appendChild(goToPageForm); */
 			
 			$("div#notifications").append(notificationDiv);
 			

@@ -19,13 +19,15 @@ import com.prospectivestiles.domain.UserEntity;
 @Repository
 public class HbnNotificationDao extends AbstractHbnDao<Notification> implements
 		NotificationDao {
-//	@Inject private JdbcTemplate jdbcTemplate;
-//	
+	@Inject private JdbcTemplate jdbcTemplate;
+	
+	
 //	private static final String INSERT_NOTIFICATION_SQL =
 //			"insert into notificationAlert (type, notice, studentId, dateCreated) VALUES(?,?,?,?)";
 	
-//	private static final String UPDATE_NOTIFICATION_SQL = 
-//			"update notificationAlert set read = ?, readOn = ?, readBy = ? where id = ?";
+	private static final String UPDATE_NOTIFICATION_SQL = 
+			"update notification set visible = ?, readOn = ?, readById = ? where id = ?";
+	
 //	private static final String UPDATE_NOTIFICATION_SQL = 
 //			"update notificationAlert set type = ? where id = ?";
 	
@@ -103,6 +105,14 @@ public class HbnNotificationDao extends AbstractHbnDao<Notification> implements
 		
 	}
 
+	@Override
+	public void insertIntoNotificationJDBC(long noticeId,
+			Notification notification) {
+		jdbcTemplate.update(UPDATE_NOTIFICATION_SQL, new Object[] {
+				notification.isVisible(), notification.getReadOn(), notification.getReadBy().getId(), 
+				noticeId});
+	}
+	
 
 
 	/*@Override

@@ -80,11 +80,11 @@ public class AdminNotificationsController {
 	 * I have to try using JDBC to insert to db!!
 	 */
 	
-	@RequestMapping(value = "/accounts/notifications/markRead", method = RequestMethod.POST, produces="application/json")
+	/*@RequestMapping(value = "/accounts/notifications/markRead", method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
 	public Map<String, Object> tagNoticeAsRead(@RequestBody Map<String, Object> origdata) {
 
-		System.out.println("############# tagNoticeAsRead called");
+		System.out.println("############# tagNoticeAsRead markRead called");
 		
 //		long nId = Long.parseLong((String) origdata.get("noticeId"));
 		// Can't cast an Integer as a String. so use String.valueOf
@@ -107,26 +107,36 @@ public class AdminNotificationsController {
 		data.put("noticeId", noticeId);
 		data.put("studentId", studentId);
 		return data;
-	}
+	}*/
 	
 	@RequestMapping(value = "/accounts/notifications/markRead/{noticeId}/{studentId}", method = RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	public Map<String, Object> tagNoticeAsRead(@PathVariable("noticeId") Long noticeId,
 			@PathVariable("studentId") Long studentId) {
 
-		System.out.println("############# tagNoticeAsRead called");
+		System.out.println("############# tagNoticeAsRead {noticeId}/{studentId} called");
 		
 		System.out.println("noticeId:" + noticeId);
 		System.out.println("studentId:" + studentId);
 		
 		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		Notification notification = notificationService.getNotification(noticeId);
-//		notificationService.insertIntoNotificationJDBC(noticeId, notification);
+		
+		/*System.out.println("############# 1 getId: " + notification.getId());
+		System.out.println("############# 1 isVisible: " + notification.isVisible());
+		System.out.println("############# 1 getReadBy: " + notification.getReadBy());
+		System.out.println("############# 1 getReadOn: " + notification.getReadOn());*/
 		
 		notification.setVisible(false);
 		notification.setReadOn(new Date());
 		notification.setReadBy(admissionOfficer);
-		notificationService.updateNotification(notification);
+		notificationService.insertIntoNotificationJDBC(noticeId, notification);
+//		notificationService.updateNotification(notification);
+		
+		/*System.out.println("############# 2 getId: " + notification.getId());
+		System.out.println("############# 2 isVisible: " + notification.isVisible());
+		System.out.println("############# 2 getReadBy: " + notification.getReadBy());
+		System.out.println("############# 2 getReadOn: " + notification.getReadOn());*/
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("success", true);

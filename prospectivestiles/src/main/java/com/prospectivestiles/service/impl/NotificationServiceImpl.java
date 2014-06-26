@@ -69,7 +69,7 @@ public class NotificationServiceImpl implements NotificationService {
 		
 		notificationDao.createNotificationJDBC(type, notice, studentId, dateCreated);
 		
-	}
+	}*/
 
 	@Override
 	@Transactional(readOnly = false)
@@ -77,7 +77,7 @@ public class NotificationServiceImpl implements NotificationService {
 		
 		notificationDao.insertIntoNotificationJDBC(noticeId, notification);
 		
-	}*/
+	}
 
 
 }

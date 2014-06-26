@@ -49,6 +49,11 @@ public class Notification {
 	public Notification() {
 	}
 	
+	public Notification(String type, String notice) {
+		this.type = type;
+		this.notice = notice;
+	}
+	
 	public Notification(String type, String notice, UserEntity student) {
 		this.type = type;
 		this.notice = notice;

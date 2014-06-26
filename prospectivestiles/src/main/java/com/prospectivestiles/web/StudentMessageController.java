@@ -28,8 +28,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Message;
+import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.MessageService;
+import com.prospectivestiles.service.NotificationService;
 import com.prospectivestiles.service.UserEntityService;
 
 @Controller
@@ -44,6 +46,9 @@ public class StudentMessageController {
 	
 	@Inject
 	private MailSender mailSender;
+	
+	@Inject
+	private NotificationService notificationService;
 	
 	// ======================================
 	// =                JSON        =
@@ -141,6 +146,13 @@ public class StudentMessageController {
 		message.setVisible(true);
 		
 		messageService.createMessage(message);
+		
+		/*
+		 * after a message is successfuly sent I want to create a notification
+		 * I need to create an enum NotificationType: message, uploadedDoc, statusChanged, updatedProfile, ...
+		*/
+		Notification notification = new Notification("message", student.getFullName() + " sent a message", student);
+		notificationService.createNotification(notification);
 
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setFrom("daniel2advance@gmail.com");

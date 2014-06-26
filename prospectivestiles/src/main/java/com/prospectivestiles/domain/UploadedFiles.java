@@ -1,5 +1,6 @@
 package com.prospectivestiles.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,9 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 		@NamedQuery(name = "findUploadedFilesByUserEntityId", 
 		query = "FROM UploadedFiles WHERE userEntity.id = :id")
 		)
-public class UploadedFiles {
+public class UploadedFiles implements Serializable {
 	
-    // ======================================
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// ======================================
     // =             Attributes             =
     // ======================================
 	
