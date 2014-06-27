@@ -2,6 +2,8 @@ package com.prospectivestiles.web;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -19,7 +21,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.prospectivestiles.domain.Checklist;
 import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.Evaluation;
 import com.prospectivestiles.domain.UserEntity;
@@ -250,6 +254,69 @@ public class AdminEvaluationController {
 		return "redirect:/accounts/{userEntityId}/evaluations";
 	}
 	
+	// ======================================
+	// =                        =
+	// ======================================
+	
+	/**
+	 * accounts.jsp page has a list of all the accounts.
+	 * Next to every account, display num of completed evaluations.
+	 * eg 4/8. 4 items have complete or notrequired value out of the total 8 items
+	 * 
+	 * @param userEntityId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/accounts/{userEntityId}/evaluationState", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getChecklistStatus(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+
+		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
+		
+		int evaluationCount = 0;
+		String evaluationStatus = "pending";
+		
+		if (evaluation != null) {
+			
+			if (evaluation.getApplicationFee().equalsIgnoreCase("valid") || evaluation.getApplicationFee().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			if (evaluation.getBankStmt().equalsIgnoreCase("valid") || evaluation.getBankStmt().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			if (evaluation.getDiplome().equalsIgnoreCase("valid") || evaluation.getDiplome().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			if (evaluation.getFinancialAffidavit().equalsIgnoreCase("valid") || evaluation.getFinancialAffidavit().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			if (evaluation.getF1Visa().equalsIgnoreCase("valid") || evaluation.getF1Visa().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			if (evaluation.getI20().equalsIgnoreCase("valid") || evaluation.getI20().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			if (evaluation.getPassport().equalsIgnoreCase("valid") || evaluation.getPassport().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			if (evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			evaluationStatus = evaluation.getStatus();
+		
+		}
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("evaluationCount", evaluationCount);
+		data.put("evaluationTotal", 8);
+		data.put("evaluationStatus", evaluationStatus);
+		
+		System.out.println("################## evaluationCount: " + evaluationCount );
+		
+		return data;
+	}
+		
 	// ======================================
 	// =                        =
 	// ======================================

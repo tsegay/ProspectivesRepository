@@ -1,6 +1,9 @@
 package com.prospectivestiles.web;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Checklist;
 import com.prospectivestiles.domain.Evaluation;
@@ -157,6 +161,68 @@ public class AdminChecklistController {
 		return "redirect:/accounts/{userEntityId}/checklists";
 	}
 	
+	// ======================================
+	// =                        =
+	// ======================================
+	
+	/**
+	 * accounts.jsp page has a list of all the accounts.
+	 * Next to every account, display num of completed checklist.
+	 * eg 4/8. 4 items complete or notrequired value out of the total 8 items
+	 * 
+	 * @param userEntityId
+	 * @param model
+	 * @return 
+	 */
+	@RequestMapping(value = "/accounts/{userEntityId}/checklistState", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getChecklistStatus(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
+//		ArrayList<String> evaluationReportSummary = new ArrayList<String>();
+//		Map<String, Object> checklistStatus = new HashMap<String, Object>();
+		
+		int checklistCount = 0;
+		
+		if (checklist != null) {
+			
+			if (checklist.getF1Visa().equalsIgnoreCase("complete") || checklist.getF1Visa().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			if (checklist.getBankStmt().equalsIgnoreCase("complete") || checklist.getBankStmt().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			if (checklist.getI20().equalsIgnoreCase("complete") || checklist.getI20().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			if (checklist.getPassport().equalsIgnoreCase("complete") || checklist.getPassport().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			if (checklist.getFinancialAffidavit().equalsIgnoreCase("complete") || checklist.getFinancialAffidavit().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			if (checklist.getApplicationFee().equalsIgnoreCase("complete") || checklist.getApplicationFee().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			if (checklist.getTranscript().equalsIgnoreCase("complete") || checklist.getTranscript().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			if (checklist.getDiplome().equalsIgnoreCase("complete") || checklist.getDiplome().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+		
+		}
+		
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("checklistCount", checklistCount);
+		data.put("checklistTotal", 8);
+		
+		System.out.println("################## checklistCount: " + checklistCount );
+		
+		return data;
+	}
+
 	// ======================================
 	// =                        =
 	// ======================================

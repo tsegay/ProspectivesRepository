@@ -30,9 +30,14 @@
 		 <thead>
 			<tr>
 				<th data-toggle="true">Username</th>
-				<th data-sort-initial="true">firstName</th>
+				<th data-sort-initial="true">First Name</th>
 				<!-- <th data-hide="phone,tablet" data-name="Email address">Email</th> -->
-				<th>lastName</th>
+				<th>Last Name</th>
+				<th>Date of Birth</th>
+				<th>Email</th>
+				<th>Checklist</th>
+				<th>Evaluation</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody id="tbody-content">
@@ -85,6 +90,38 @@
 	the controller will return x accounts, the updatePage fn will pass the results to fetchAndDisplayAccounts fn
 	this fn displays all the accounts in the table and calls the pagination fn.
 	When I use this: $.getJSON("<c:url value="/accounts/accounts/'+i+'/3"/>"... the var i is not passed to the url
+			
+	GETTING THE CHECKLIST NUMS USING JSON	
+	$.getJSON("${pageContext.request.contextPath}"+"/accounts/"+ user.id + "/checklistStatus", 
+			function checklistStatus(chkl) {
+		return checklistTd.appendChild(document.createTextNode(chkl.checklistCount));
+	});
+	The problem with this one is:
+	The function you pass to getJSON is run when the response to the HTTP request arrives which is not immediately.
+	The return statement executes before the response, so the variable hasn't yet been set.
+	Source: http://stackoverflow.com/questions/4200641/how-to-return-a-value-from-a-function-that-calls-getjson
+	callback function (function(data) {...}) runs later when the response comes back...because it's an asynchronous function. 
+	Instead use the value once you have it set. 
+	This is the way all asynchronous behavior should be, kick off whatever needs the value once you have it...which is when the server responds with data.
+	So use something like this:
+	
+	function lookupRemote(searchTerm)
+	{
+	    var defaultReturnValue = 1010;
+	    var returnValue = defaultReturnValue;
+	    $.getJSON(remote, function(data) {           
+	        if (data != null) {
+	              $.each(data.items, function(i, item) {                 
+	                    returnValue = item.libraryOfCongressNumber;
+	              });
+	        }
+	        OtherFunctionThatUsesTheValue(returnValue);
+	     });
+	}
+	
+	
+			
+	
 	 */
 	 
 	 
@@ -94,6 +131,8 @@
 			searchAccount
 	#############################################
 	 */
+	 
+	 var chklNum;
 	 
 	function success(data){
 		alert("Successfully ...");
@@ -183,6 +222,50 @@
 		window.location.replace(url);
 	}
 	
+	/* appends the checklist count and total checklist eg. 5/8 to the td tag */
+	function insertChklCountToTD(id, chkCount, chkTot) {
+		$("#checklist-td" + id).text(chkCount + "/" + chkTot);
+	}
+	
+	/* Uses JSON to get the checklist count for a user from the controller by passing userId
+	then, pass the count to the insertChklCountToTD fn to append it to the TD tag
+	*/
+	function checklistState(id){
+		$.getJSON("${pageContext.request.contextPath}"+"/accounts/"+ id + "/checklistState", function checklistNums(data) {
+			if (data != null) {
+				chkCount = data.checklistCount;
+				chkTot = data.checklistTotal;
+			}
+			/* OtherFunctionThatUsesTheValue(returnValue) */
+			insertChklCountToTD(id, chkCount, chkTot);
+		});
+		
+	}
+	
+	/* appends the evaluation count and total evaluation eg. 5/8 to the td tag */
+	function insertEvalCountToTD(id, evalCount, evalTot, evaluationStatus) {
+		$("#evaluation-td" + id).text(evalCount + "/" + evalTot);
+		$("#status-td" + id).text(evaluationStatus);
+	}
+	
+	/* Uses JSON to get the evaluation count for a user from the controller by passing userId
+	then, pass the count to the insertEvalCountToTD fn to append it to the TD tag
+	*/
+	function evaluationState(id){
+		var evalCount=0;
+		var evalTot=0;
+		$.getJSON("${pageContext.request.contextPath}"+"/accounts/"+ id + "/evaluationState", function evaluationNums(data) {
+			if (data != null) {
+				evalCount = data.evaluationCount;
+				evalTot = data.evaluationTotal;
+				evaluationStatus = data.evaluationStatus;
+			}
+			/* OtherFunctionThatUsesTheValue(returnValue) */
+			insertEvalCountToTD(id, evalCount, evalTot, evaluationStatus);
+		});
+		
+	}
+	
 	function fetchAndDisplayAccounts(data){
 		
 		$("#usersCount").text(data.usersCount);
@@ -195,29 +278,65 @@
 			
 			var user = data.users[i];
 			
+			/* Create <tr> */
 			var userTr = document.createElement("tr");
 			userTr.setAttribute("class", "user");
 			
+				/* Create <td> */
+				var usernameTd = document.createElement("td");
+				
+					var accountLink = document.createElement("a");
+					accountLink.setAttribute("class", "accountLink");
+					accountLink.setAttribute("href", "#");
+					accountLink.setAttribute("onclick", "goToAccount(" + user.id + ")");
+					accountLink.appendChild(document.createTextNode(user.username));
+				
+				usernameTd.appendChild(accountLink);
+				
+				/* Create <td> */
+				var firstnameTd = document.createElement("td");
+				firstnameTd.appendChild(document.createTextNode(user.firstName));
+				
+				/* Create <td> */
+				var lastnameTd = document.createElement("td");
+				lastnameTd.appendChild(document.createTextNode(user.lastName));
 			
-			var usernameTd = document.createElement("td");
+				/* Create <td> */
+				var dobTd = document.createElement("td");
+					var date = new Date(user.dob);
+				
+				dobTd.appendChild(document.createTextNode(date.toString('MM-dd-yyyy')));
+				/* dobTd.appendChild(document.createTextNode(" "));
+				dobTd.appendChild(document.createTextNode(date.toString('HH:mm'))); */
 			
-			var accountLink = document.createElement("a");
-			accountLink.setAttribute("class", "accountLink");
-			accountLink.setAttribute("href", "#");
-			accountLink.setAttribute("onclick", "goToAccount(" + user.id + ")");
-			accountLink.appendChild(document.createTextNode(user.username));
+				/* Create <td> */
+				var emailTd = document.createElement("td");
+				emailTd.appendChild(document.createTextNode(user.email));
+				
+				/* Create <td> */
+				var checklistTd = document.createElement("td");
+				checklistTd.setAttribute("id", "checklist-td" + user.id);
+				checklistState(user.id);
+				
+				
+				/* Create <td> */
+				var evaluationTd = document.createElement("td");
+				evaluationTd.setAttribute("id", "evaluation-td" + user.id);
+				evaluationState(user.id);
+				
+				/* Create <td> */
+				var statusTd = document.createElement("td");
+				statusTd.setAttribute("id", "status-td" + user.id);
 			
-			usernameTd.appendChild(accountLink);
-			
-			
-			var firstnameTd = document.createElement("td");
-			firstnameTd.appendChild(document.createTextNode(user.firstName));
-			var lastnameTd = document.createElement("td");
-			lastnameTd.appendChild(document.createTextNode(user.lastName));
-			
+			/* Append all <TD>s to the <TR> */
 			userTr.appendChild(usernameTd);
 			userTr.appendChild(firstnameTd);
 			userTr.appendChild(lastnameTd);
+			userTr.appendChild(dobTd);
+			userTr.appendChild(emailTd);
+			userTr.appendChild(checklistTd);
+			userTr.appendChild(evaluationTd);
+			userTr.appendChild(statusTd);
 			
 			$("#tbody-content").append(userTr);
 			

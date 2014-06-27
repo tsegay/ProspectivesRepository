@@ -217,6 +217,7 @@
 		<intercept-url pattern="/myAccount/files" access="isAuthenticated()" />
 		
 		<!-- Admin checklists -->
+		<intercept-url pattern="/accounts/*/checklistState" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/checklist/*/delete" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/checklist/*/edit" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/checklist/new" access="hasRole('ROLE_ADMIN')" />
@@ -227,6 +228,7 @@
 		<!-- Student checklists -->
 		
 		<!-- Admin evaluations -->
+		<intercept-url pattern="/accounts/*/evaluationState" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/evaluation/*/grantAdmision" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/evaluation/*/delete" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/evaluation/*/edit" access="hasRole('ROLE_ADMIN')" />
