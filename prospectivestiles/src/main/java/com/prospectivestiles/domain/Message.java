@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "findMessagesByUserEntityId", 
 		query = "FROM Message WHERE student.id = :id")
 		)
-public class Message implements Serializable {
+public class Message extends BaseEntity implements Serializable {
 	
     /**
 	 * 
@@ -30,12 +30,12 @@ public class Message implements Serializable {
     // =             Attributes             =
     // ======================================
 	
-	private Long id;
+//	private Long id;
 	private String subject;
 	private String text;
 	// use this one to block messages
 	private boolean visible = true;
-	private Date dateCreated;
+	/*private Date dateCreated;*/
 	private Date dateModified;
 	
 	private UserEntity student;
@@ -50,20 +50,32 @@ public class Message implements Serializable {
 	
 	public Message() { }
 	
-	public Message(Long id) { this.id = id; }
 	
+	
+	public Message(String subject,
+		String text, boolean visible, UserEntity student,
+		UserEntity admissionOfficer) {
+	this.subject = subject;
+	this.text = text;
+	this.visible = visible;
+	this.student = student;
+	this.admissionOfficer = admissionOfficer;
+}
+
+
+
 	// ======================================
     // =          Getters & Setters         =
     // ======================================
 	
-	@Id
+	/*@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
+	}*/
 	@Size(max=100)
 	public String getSubject() {
 		return subject;
@@ -88,13 +100,13 @@ public class Message implements Serializable {
 		this.visible = visible;
 	}
 
-	public Date getDateCreated() {
+	/*public Date getDateCreated() {
 		return dateCreated;
 	}
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-
+	 */
 	public Date getDateModified() {
 		return dateModified;
 	}

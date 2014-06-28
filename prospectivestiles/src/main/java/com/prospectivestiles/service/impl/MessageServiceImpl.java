@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,6 +51,9 @@ public class MessageServiceImpl implements MessageService {
 		messageToUpdate.setSubject(message.getSubject());
 		messageToUpdate.setText(message.getText());
 		messageToUpdate.setVisible(message.isVisible());
+		Date now = new Date();
+		messageToUpdate.setDateLastModified(now);
+		messageToUpdate.setLastModifiedBy(message.getLastModifiedBy());
 		
 		messageDao.update(messageToUpdate);
 	}

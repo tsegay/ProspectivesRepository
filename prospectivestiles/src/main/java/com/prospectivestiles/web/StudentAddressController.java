@@ -115,6 +115,7 @@ public class StudentAddressController {
 //		 * get userEntity from Session >>>>>>> if logged in as student
 //		 */
 		address.setUserEntity(userEntity);
+		address.setCreatedBy(userEntity);
 		addressService.createAddress(address);
 		
 		// Would normally set Location header and HTTP status 201, but we're
@@ -177,6 +178,7 @@ public class StudentAddressController {
 		address.setState(origAddress.getState());
 		address.setZipcode(origAddress.getZipcode());
 		address.setCountry(origAddress.getCountry());
+		address.setLastModifiedBy(userEntity);
 		
 		addressService.updateAddress(address);
 		

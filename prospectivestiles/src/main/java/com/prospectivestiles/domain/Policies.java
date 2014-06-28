@@ -18,14 +18,14 @@ import javax.persistence.OneToMany;
 //		@NamedQuery(name = "findPoliciesByUserEntityId", 
 //		query = "FROM Policies WHERE userEntity.id = :id")
 //		)
-public class Policies {
+public class Policies extends BaseEntity {
 
 	// ======================================
     // =             Attributes             =
     // ======================================	
 	
 	
-	private long id;
+//	private long id;
 	private boolean agree;
 	private Date entryDate;
 	
@@ -37,9 +37,8 @@ public class Policies {
 
 	public Policies() {
 	}
-	public Policies(long id, boolean agree, Date entryDate
+	public Policies(boolean agree, Date entryDate
 			) {
-		this.id = id;
 		this.agree = agree;
 		this.entryDate = entryDate;
 	}
@@ -47,13 +46,13 @@ public class Policies {
 	// ======================================
     // =          Getters & Setters         =
     // ======================================
-	@Id @GeneratedValue
+	/*@Id @GeneratedValue
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 	public boolean isAgree() {
 		return agree;
 	}

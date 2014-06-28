@@ -12,13 +12,13 @@ import javax.validation.constraints.Size;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Education {
+public class Education extends BaseEntity {
 	
 	// ======================================
     // =             Attributes             =
     // ======================================
 	
-	private long id;
+//	private long id;
 	private String name;
 	private String country;
 	private String state;
@@ -50,13 +50,13 @@ public class Education {
     // =          Getters & Setters         =
     // ======================================
 
-	@Id @GeneratedValue
+	/*@Id @GeneratedValue
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 	@NotNull
 	@Size(min = 1, max = 50)
 	public String getName() {

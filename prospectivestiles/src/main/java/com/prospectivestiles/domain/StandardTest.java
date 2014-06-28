@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "findStandardTestsByUserEntityId", 
 		query = "FROM StandardTest WHERE userEntity.id = :id")
 		)
-public class StandardTest implements Serializable {
+public class StandardTest extends BaseEntity implements Serializable {
 	
     // ======================================
     // =             Attributes             =
@@ -30,7 +30,7 @@ public class StandardTest implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private long id;
+//	private long id;
 	private String name;
 	private Integer score;
 	private Date validTill;
@@ -53,13 +53,13 @@ public class StandardTest implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 
-	@Id @GeneratedValue
+	/*@Id @GeneratedValue
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 	
 	@Size(min = 2, max = 25)
 	public String getName() {

@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,6 +46,9 @@ public class StandardTestServiceImpl implements StandardTestService {
 		standardTestToUpdate.setName(standardTest.getName());
 		standardTestToUpdate.setScore(standardTest.getScore());
 		standardTestToUpdate.setValidTill(standardTest.getValidTill());
+		Date now = new Date();
+		standardTestToUpdate.setDateLastModified(now);
+		standardTestToUpdate.setLastModifiedBy(standardTest.getLastModifiedBy());
 		
 		standardTestDao.update(standardTestToUpdate);
 	}

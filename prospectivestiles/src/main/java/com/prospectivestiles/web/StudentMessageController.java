@@ -144,6 +144,7 @@ public class StudentMessageController {
 		message.setSubject(subject);
 		message.setText(text);
 		message.setVisible(true);
+		message.setCreatedBy(student);
 		
 		messageService.createMessage(message);
 		

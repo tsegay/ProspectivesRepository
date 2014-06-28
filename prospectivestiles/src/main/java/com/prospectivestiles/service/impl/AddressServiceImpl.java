@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -44,6 +45,9 @@ public class AddressServiceImpl implements AddressService {
 		addressToUpdate.setState(address.getState());
 		addressToUpdate.setZipcode(address.getZipcode());
 		addressToUpdate.setCountry(address.getCountry());
+		Date now = new Date();
+		addressToUpdate.setDateLastModified(now);
+		addressToUpdate.setLastModifiedBy(address.getLastModifiedBy());
 		
 		addressDao.update(addressToUpdate);
 	}

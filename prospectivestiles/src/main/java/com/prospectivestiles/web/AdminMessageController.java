@@ -129,6 +129,7 @@ public class AdminMessageController {
 
 //		verify the studentId and userEntityId match
 		UserEntity student = userEntityService.getUserEntity(studentId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
 		/**
 		 * Get the admission staff creating this message from the sercurityContext
@@ -148,6 +149,7 @@ public class AdminMessageController {
 		message.setSubject(subject);
 		message.setText(text);
 		message.setVisible(true);
+		message.setCreatedBy(currentAdmissionUser);
 		
 		messageService.createMessage(message);
 		/*

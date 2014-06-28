@@ -129,6 +129,7 @@ public class StudentFileUploadController {
                 uploadedFile.setContentType(uFile.getContentType());
                 uploadedFile.setSize(uFile.getSize());
                 uploadedFile.setUserEntity(userEntity);
+                uploadedFile.setCreatedBy(userEntity);
                 
                 uploadedFilesService.createUploadedFiles(uploadedFile);
                 

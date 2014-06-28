@@ -76,7 +76,19 @@ public class UserEntity implements UserDetails {
 	private Date dateCreated;
 	private Date dob;
 	private String gender;
+	/*
+	if true - student is transferee
+	if false - student is new entrant
+	*/
 	private boolean transferee;
+	/*
+	if true - student is international
+	if false - student is domestic
+	*/
+	private boolean international;
+	private Date dateLastModified;
+	/*private UserEntity createdBy;
+	private UserEntity lastModifiedBy;*/
 	
 	private Set<Role> roles = new HashSet<Role>();
 	
@@ -238,6 +250,22 @@ public class UserEntity implements UserDetails {
 		this.transferee = transferee;
 	}
 	
+
+	public boolean isInternational() {
+		return international;
+	}
+
+	public void setInternational(boolean international) {
+		this.international = international;
+	}
+
+	public Date getDateLastModified() {
+		return dateLastModified;
+	}
+
+	public void setDateLastModified(Date dateLastModified) {
+		this.dateLastModified = dateLastModified;
+	}
 
 	public String getHomePhone() {
 		return homePhone;

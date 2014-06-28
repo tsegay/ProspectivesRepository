@@ -19,19 +19,19 @@ import javax.validation.constraints.Size;
 @NamedQuery(name = "findNotificationsByUserEntityId", 
 query = "FROM Notification WHERE student.id = :id")
 )
-public class Notification {
+public class Notification extends BaseEntity {
 	
 	// ======================================
     // =             Attributes             =
     // ======================================	
 	
 	
-	private long id;
+//	private long id;
 	// type of notice: message, status of application, change in personal info, uploaded file etc
 	private String type;
 	// Eg. John Smith sent a message, John Smith uploaded a file
 	private String notice;
-	private Date dateCreated;
+	/*private Date dateCreated;*/
 	private Date dateModified;
 	// use this one to hide the visible from view
 	private boolean visible = true;
@@ -65,14 +65,14 @@ public class Notification {
 
 
 
-	@Id 
+	/*@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 	@Size(max=100)
 	public String getNotice() {
 		return notice;
@@ -86,12 +86,12 @@ public class Notification {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public Date getDateCreated() {
+	/*public Date getDateCreated() {
 		return dateCreated;
 	}
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
-	}
+	}*/
 	public Date getDateModified() {
 		return dateModified;
 	}

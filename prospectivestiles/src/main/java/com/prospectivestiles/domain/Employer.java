@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 		@NamedQuery(name = "findEmployersByUserEntityId", 
 		query = "FROM Employer WHERE userEntity.id = :id")
 		)
-public class Employer implements Serializable {
+public class Employer extends BaseEntity implements Serializable {
 	
 	/**
 	 * 
@@ -31,7 +31,7 @@ public class Employer implements Serializable {
     // ======================================
 	
 	
-	private long id;
+//	private long id;
 //	private boolean employed;
 	private String employerName;
 	private String companyName;
@@ -60,13 +60,13 @@ public class Employer implements Serializable {
 	// =          Getters & Setters         =
 	// ======================================
 	
-	@Id @GeneratedValue
+	/*@Id @GeneratedValue
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 //	public boolean isEmployed() {
 //		return employed;
 //	}

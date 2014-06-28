@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,6 +52,9 @@ public class InstituteServiceImpl implements InstituteService {
 		instituteToUpdate.setLevelOfStudy(institute.getLevelOfStudy());
 		instituteToUpdate.setProgramOfStudy(institute.getProgramOfStudy());
 		instituteToUpdate.setZip(institute.getZip());
+		Date now = new Date();
+		instituteToUpdate.setDateLastModified(now);
+		instituteToUpdate.setLastModifiedBy(institute.getLastModifiedBy());
 		
 		instituteDao.update(instituteToUpdate);
 		

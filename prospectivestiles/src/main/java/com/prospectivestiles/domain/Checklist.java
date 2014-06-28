@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "findChecklistByUserEntityId", 
 		query = "FROM Checklist WHERE userEntity.id = :id")
 		)
-public class Checklist implements Serializable {
+public class Checklist extends BaseEntity implements Serializable {
 
     /**
 	 * 
@@ -27,7 +27,7 @@ public class Checklist implements Serializable {
     // =             Attributes             =
     // ======================================
 
-	private long id;
+//	private long id;
 	private String f1Visa;
 	private String i20;
 	private String bankStmt;
@@ -62,13 +62,13 @@ public class Checklist implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 	
-	@Id @GeneratedValue
+	/*@Id @GeneratedValue
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 	public String getF1Visa() {
 		return f1Visa;
 	}

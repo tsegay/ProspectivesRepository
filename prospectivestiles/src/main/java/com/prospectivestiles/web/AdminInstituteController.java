@@ -9,6 +9,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -95,6 +98,7 @@ public class AdminInstituteController {
 			@ModelAttribute @Valid Institute institute, BindingResult result, Model model) {
 
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 				
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
@@ -103,6 +107,7 @@ public class AdminInstituteController {
 		}
 
 		institute.setUserEntity(userEntity);
+		institute.setCreatedBy(currentAdmissionUser);
 		instituteService.createInstitute(institute);
 
 		return "redirect:/accounts/{userEntityId}/educations";
@@ -138,6 +143,7 @@ public class AdminInstituteController {
 			Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Institute institute = getInstituteValidateUserEntityId(userEntityId, instituteId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 
 		if (result.hasErrors()) {
 //			log.debug("Validation Error in Institute form");
@@ -161,6 +167,7 @@ public class AdminInstituteController {
 		institute.setLevelOfStudy(origInstitute.getLevelOfStudy());
 		institute.setProgramOfStudy(origInstitute.getProgramOfStudy());
 		institute.setZip(origInstitute.getZip());
+		institute.setLastModifiedBy(currentAdmissionUser);
 		
 		instituteService.updateInstitute(institute);
 		
@@ -209,5 +216,10 @@ public class AdminInstituteController {
 		Assert.isTrue(userEntity.getId().equals(institute.getUserEntity().getId()), "Institute Id mismatch");
 		return institute;
 	}
-
+	private UserEntity getUserEntityFromSecurityContext() {
+		SecurityContext securityCtx = SecurityContextHolder.getContext();
+		Authentication auth = securityCtx.getAuthentication();
+		UserEntity userEntity = (UserEntity) auth.getPrincipal();
+		return userEntity;
+	}
 }

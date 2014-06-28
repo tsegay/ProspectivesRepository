@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,6 +51,9 @@ public class EmployerServiceImpl implements EmployerService {
 		employerToUpdate.setPosition(employer.getPosition());
 		employerToUpdate.setEmployerName(employer.getEmployerName());
 		employerToUpdate.setCompanyName(employer.getCompanyName());
+		Date now = new Date();
+		employerToUpdate.setDateLastModified(now);
+		employerToUpdate.setLastModifiedBy(employer.getLastModifiedBy());
 		
 		employerDao.update(employerToUpdate);
 	}

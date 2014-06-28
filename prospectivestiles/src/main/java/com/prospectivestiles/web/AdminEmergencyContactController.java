@@ -6,6 +6,9 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -87,6 +90,7 @@ public class AdminEmergencyContactController {
 			@ModelAttribute @Valid EmergencyContact emergencyContact, BindingResult result, Model model) {
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
@@ -94,6 +98,7 @@ public class AdminEmergencyContactController {
 		}
 
 		emergencyContact.setUserEntity(userEntityService.getUserEntity(userEntityId));
+		emergencyContact.setCreatedBy(currentAdmissionUser);
 		emergencyContactService.createEmergencyContact(emergencyContact);
 		
 		return "redirect:/accounts/{userEntityId}/emergencyContacts";
@@ -120,6 +125,7 @@ public class AdminEmergencyContactController {
 			Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		EmergencyContact emergencyContact = getEmergencyContactValidateUserEntityId(userEntityId, emergencyContactId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 
 		if (result.hasErrors()) {
 			origEmergencyContact.setId(emergencyContactId);
@@ -135,6 +141,7 @@ public class AdminEmergencyContactController {
 		emergencyContact.setLastName(origEmergencyContact.getLastName());
 		emergencyContact.setPhone(origEmergencyContact.getPhone());
 		emergencyContact.setRelationship(origEmergencyContact.getRelationship());
+		emergencyContact.setLastModifiedBy(currentAdmissionUser);
 		
 		emergencyContactService.updateEmergencyContact(emergencyContact);
 		
@@ -158,5 +165,12 @@ public class AdminEmergencyContactController {
 		
 		Assert.isTrue(userEntityId.equals(emergencyContact.getUserEntity().getId()), "EmergencyContact Id mismatch");
 		return emergencyContact;
+	}
+	
+	private UserEntity getUserEntityFromSecurityContext() {
+		SecurityContext securityCtx = SecurityContextHolder.getContext();
+		Authentication auth = securityCtx.getAuthentication();
+		UserEntity userEntity = (UserEntity) auth.getPrincipal();
+		return userEntity;
 	}
 }

@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 		@NamedQuery(name = "findUploadedFilesByUserEntityId", 
 		query = "FROM UploadedFiles WHERE userEntity.id = :id")
 		)
-public class UploadedFiles implements Serializable {
+public class UploadedFiles extends BaseEntity implements Serializable {
 	
     /**
 	 * 
@@ -33,7 +33,7 @@ public class UploadedFiles implements Serializable {
     // =             Attributes             =
     // ======================================
 	
-	private Long id;
+//	private Long id;
 	// file name, actual name of the file
 	private String fileName;
 	// file size
@@ -50,7 +50,7 @@ public class UploadedFiles implements Serializable {
 	
 	private UserEntity userEntity;
 	
-	private Date dateCreated;
+//	private Date dateCreated;
 	
 	// ======================================
     // =            Constructors            =
@@ -63,7 +63,7 @@ public class UploadedFiles implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 	
-	@Id
+	/*@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	public Long getId() {
@@ -71,7 +71,7 @@ public class UploadedFiles implements Serializable {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
+	}*/
 
 	public String getFileName() {
 		return fileName;
@@ -125,13 +125,13 @@ public class UploadedFiles implements Serializable {
 	}
 
 
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-
-
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
+//	public Date getDateCreated() {
+//		return dateCreated;
+//	}
+//
+//
+//	public void setDateCreated(Date dateCreated) {
+//		this.dateCreated = dateCreated;
+//	}
 	
 }

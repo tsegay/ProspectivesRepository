@@ -98,7 +98,9 @@ public class StudentHighSchoolController {
 		}
 
 		highSchool.setUserEntity(userEntity);
+		highSchool.setCreatedBy(userEntity);
 		highSchoolService.createHighSchool(highSchool);
+		
 		return "redirect:/myAccount/educations";
 	}
 	
@@ -154,6 +156,7 @@ public class StudentHighSchoolController {
 		highSchool.setZip(origHighSchool.getZip());
 		highSchool.setDiplomeAwardedDate(origHighSchool.getDiplomeAwardedDate());
 		highSchool.setgEDAwardedDate(origHighSchool.getgEDAwardedDate());
+		highSchool.setLastModifiedBy(userEntity);
 		
 		highSchoolService.updateHighSchool(highSchool);
 		

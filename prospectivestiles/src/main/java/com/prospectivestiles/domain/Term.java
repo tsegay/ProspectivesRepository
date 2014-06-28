@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 		@NamedQuery(name = "findTermsByUserEntityId", 
 		query = "FROM Term WHERE userEntity.id = :id")
 		)*/
-public class Term implements Serializable {
+public class Term extends BaseEntity implements Serializable {
 	
 	// ======================================
     // =             Attributes             =
@@ -32,7 +32,7 @@ public class Term implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4261787246010488602L;
-	private long id;
+//	private long id;
 	private String name;
 	private Date startDate;
 	private Date endDate;
@@ -63,13 +63,13 @@ public class Term implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 
-	@Id @GeneratedValue
+	/*@Id @GeneratedValue
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 	public String getName() {
 		return name;
 	}

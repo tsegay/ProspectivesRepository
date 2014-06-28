@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,6 +52,9 @@ public class ChecklistServiceImpl implements ChecklistService {
 		checklistToUpdate.setFinancialAffidavit(checklist.getFinancialAffidavit());
 		checklistToUpdate.setPassport(checklist.getPassport());
 		checklistToUpdate.setTranscript(checklist.getTranscript());
+		Date now = new Date();
+		checklistToUpdate.setDateLastModified(now);
+		checklistToUpdate.setLastModifiedBy(checklist.getLastModifiedBy());
 		
 		checklistDao.update(checklistToUpdate);
 	}

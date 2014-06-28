@@ -12,6 +12,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -88,6 +91,8 @@ public class AdminAddressController {
 	}
 	
 	/**
+	 * CreatedBy is set to the currently logged in Admission User
+	 * dateCreated is set in the abstractHbn Class
 	 * @param userEntityId
 	 * @param address
 	 * @param result
@@ -98,6 +103,7 @@ public class AdminAddressController {
 			@ModelAttribute @Valid Address address, BindingResult result, Model model) {
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
@@ -106,6 +112,8 @@ public class AdminAddressController {
 		}
 
 		address.setUserEntity(userEntity);
+		address.setCreatedBy(currentAdmissionUser);
+		
 		addressService.createAddress(address);
 		
 		// I am no longer using the addresses page!
@@ -129,7 +137,16 @@ public class AdminAddressController {
 		return "editAddress";
 	}
 	
-	
+	/**
+	 * lastModifiedBy - currentAdmissionUser is the Admission Office who is creating the address
+	 * dateLastModified is set in the serviceImp class to the current time
+	 * @param userEntityId
+	 * @param addressId
+	 * @param origAddress
+	 * @param result
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}", method = RequestMethod.POST)
 	public String editAddress(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("addressId") Long addressId,
@@ -137,6 +154,7 @@ public class AdminAddressController {
 			BindingResult result,
 			Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		Address address = getAddressValidateUserEntityId(userEntityId, addressId);
 
 		if (result.hasErrors()) {
@@ -156,6 +174,7 @@ public class AdminAddressController {
 		address.setState(origAddress.getState());
 		address.setZipcode(origAddress.getZipcode());
 		address.setCountry(origAddress.getCountry());
+		address.setLastModifiedBy(currentAdmissionUser);
 		
 		addressService.updateAddress(address);
 		
@@ -204,7 +223,6 @@ public class AdminAddressController {
 			addresses = new ArrayList<Address>();
 		} else {
 			addresses = addressService.getAddressesByUserEntityId(userEntityId);
-					//messageService.getMessagesByUserEntityId(userEntityId);
 		}
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("addresses", addresses);
@@ -222,11 +240,6 @@ public class AdminAddressController {
 	public Map<String, Object> sendAddressJSON(@PathVariable("userEntityId") Long userEntityId,
 			@RequestBody Map<String, Object> data) {
 		System.out.println("############## sendAddressJSON called....");
-//		@ModelAttribute @Valid Address address, BindingResult result) {
-//			
-//	if (result.hasErrors()) {
-//		return "addresses";
-//	}
 		
 //		AddressType addressType = (AddressType) data.get("addressType");
 		String address1 = (String) data.get("address1");
@@ -273,5 +286,12 @@ public class AdminAddressController {
 		
 		Assert.isTrue(userEntityId.equals(address.getUserEntity().getId()), "Address Id mismatch");
 		return address;
+	}
+	
+	private UserEntity getUserEntityFromSecurityContext() {
+		SecurityContext securityCtx = SecurityContextHolder.getContext();
+		Authentication auth = securityCtx.getAuthentication();
+		UserEntity userEntity = (UserEntity) auth.getPrincipal();
+		return userEntity;
 	}
 }

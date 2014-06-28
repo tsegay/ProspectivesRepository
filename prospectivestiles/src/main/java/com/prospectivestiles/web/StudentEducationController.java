@@ -75,6 +75,7 @@ public class StudentEducationController {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
 		
 		institute.setUserEntity(userEntity);
+		institute.setCreatedBy(userEntity);
 		instituteService.createInstitute(institute);
 
 		// Would normally set Location header and HTTP status 201, but we're
@@ -98,6 +99,7 @@ public class StudentEducationController {
 
 		UserEntity userEntity = getUserEntityFromSecurityContext();
 		highSchool.setUserEntity(userEntity);
+		highSchool.setCreatedBy(userEntity);
 		highSchoolService.createHighSchool(highSchool);
 
 		return "redirect:/myAccount/educations";

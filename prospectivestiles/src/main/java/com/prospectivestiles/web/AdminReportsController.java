@@ -52,7 +52,6 @@ public class AdminReportsController {
 		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
 		ArrayList<String> missingDocuments = new ArrayList<String>();
 		
-		UserEntity currentAdmissionOfficer = getUserEntityFromSecurityContext();
 		
 		/**
 		 * if user has no checklist created, you can't generate missing documents report

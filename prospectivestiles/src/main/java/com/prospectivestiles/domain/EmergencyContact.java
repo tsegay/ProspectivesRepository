@@ -14,7 +14,7 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = "findEmergencyContactsByUserEntityId", 
 		query = "FROM EmergencyContact WHERE userEntity.id = :id")
 		)
-public class EmergencyContact implements Serializable  {
+public class EmergencyContact extends BaseEntity implements Serializable  {
 	
 	/**
 	 * 
@@ -24,7 +24,7 @@ public class EmergencyContact implements Serializable  {
     // =             Attributes             =
     // ======================================
 	
-	private long id;
+//	private long id;
 	private String firstName;
 	private String lastName;
 	private String middleName;
@@ -55,13 +55,13 @@ public class EmergencyContact implements Serializable  {
 	// =          Getters & Setters         =
 	// ======================================
 
-	@Id @GeneratedValue
+	/*@Id @GeneratedValue
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 	public String getFirstName() {
 		return firstName;
 	}

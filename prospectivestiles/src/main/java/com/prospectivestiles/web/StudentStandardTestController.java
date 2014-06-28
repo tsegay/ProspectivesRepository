@@ -86,6 +86,7 @@ public class StudentStandardTestController {
 		 * from Session >>>>>>> if logged in as student
 		 */
 		standardTest.setUserEntity(userEntity);
+		standardTest.setCreatedBy(userEntity);
 		standardTestService.createStandardTest(standardTest);
 
 		return "redirect:/myAccount/standardTests";
@@ -131,6 +132,7 @@ public class StudentStandardTestController {
 		standardTest.setName(origStandardTest.getName());
 		standardTest.setScore(origStandardTest.getScore());
 		standardTest.setValidTill(origStandardTest.getValidTill());
+		standardTest.setLastModifiedBy(userEntity);
 
 		standardTestService.updateStandardTest(standardTest);
 

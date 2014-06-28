@@ -96,6 +96,7 @@ public class StudentInstituteController {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
 		
 		institute.setUserEntity(userEntity);
+		institute.setCreatedBy(userEntity);
 		instituteService.createInstitute(institute);
 
 		return "redirect:/myAccount/educations";
@@ -155,6 +156,7 @@ public class StudentInstituteController {
 		institute.setLevelOfStudy(origInstitute.getLevelOfStudy());
 		institute.setProgramOfStudy(origInstitute.getProgramOfStudy());
 		institute.setZip(origInstitute.getZip());
+		institute.setLastModifiedBy(userEntity);
 		
 		instituteService.updateInstitute(institute);
 		

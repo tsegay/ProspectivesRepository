@@ -110,6 +110,7 @@ public class AdminEvaluationController {
 		
 		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
@@ -119,6 +120,7 @@ public class AdminEvaluationController {
 		evaluation.setUserEntity(userEntity);
 		evaluation.setAdmissionOfficer(admissionOfficer);
 		evaluation.setStatus("inprocess");
+		evaluation.setCreatedBy(currentAdmissionUser);
 		evaluationService.createEvaluation(evaluation);
 		
 		return "redirect:/accounts/{userEntityId}/evaluations";
@@ -150,6 +152,8 @@ public class AdminEvaluationController {
 		Evaluation evaluation = getEvaluationValidateUserEntityId(userEntityId, evaluationId);
 		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
+
 		if (result.hasErrors()) {
 			origEvaluation.setId(evaluationId);
 			origEvaluation.setUserEntity(userEntityService.getUserEntity(userEntityId));
@@ -183,6 +187,7 @@ public class AdminEvaluationController {
 		evaluation.setAdmissionOfficer(admissionOfficer);
 		evaluation.setAdmnOfficerReport(origEvaluation.getAdmnOfficerReport());
 		evaluation.setStudentQualification(origEvaluation.getStudentQualification());
+		evaluation.setLastModifiedBy(currentAdmissionUser);
 //		evaluation.setDateLastModified(dateLastModified);
 //		evaluation.setDateCreated(dateCreated);
 		
@@ -216,6 +221,8 @@ public class AdminEvaluationController {
 		Evaluation evaluation = getEvaluationValidateUserEntityId(userEntityId, evaluationId);
 		UserEntity admittedBy = getUserEntityFromSecurityContext();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
+		
 //		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		System.out.println("#### admittedBy: " + admittedBy);
 //		System.out.println("#### admissionOfficer: " + admissionOfficer);
@@ -231,6 +238,7 @@ public class AdminEvaluationController {
 //		evaluation.setAdmissionOfficer(admissionOfficer);
 		Date dateAdmitted = new Date();
 		evaluation.setDateAdmitted(dateAdmitted);
+		evaluation.setLastModifiedBy(currentAdmissionUser);
 		
 		System.out.println("### evaluation.getAdmittedBy: " + evaluation.getAdmittedBy());
 //		System.out.println("### evaluation.getAdmissionOfficer: " + evaluation.getAdmissionOfficer());

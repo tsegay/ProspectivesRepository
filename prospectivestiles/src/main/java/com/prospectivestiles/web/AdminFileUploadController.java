@@ -80,6 +80,7 @@ public class AdminFileUploadController {
 			BindingResult result, Model model) {
 
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
 		InputStream inputStream = null;
 		OutputStream outputStream = null;
@@ -127,6 +128,7 @@ public class AdminFileUploadController {
                 uploadedFile.setContentType(uFile.getContentType());
                 uploadedFile.setSize(uFile.getSize());
                 uploadedFile.setUserEntity(userEntity);
+        		uploadedFile.setCreatedBy(currentAdmissionUser);
                 
                 uploadedFilesService.createUploadedFiles(uploadedFile);
                 

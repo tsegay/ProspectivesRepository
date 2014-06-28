@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -129,6 +130,8 @@ public class UserEntityServiceImpl implements UserEntityService {
 		userEntityToUpdate.setAcceptTerms(userEntity.getAcceptTerms());
 		userEntityToUpdate.setPassword(userEntity.getPassword());
 		userEntityToUpdate.setMarketingOk(userEntity.isMarketingOk());
+		Date now = new Date();
+		userEntityToUpdate.setDateLastModified(now);
 		
 		userEntityDao.update(userEntityToUpdate);
 		

@@ -10,6 +10,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -96,12 +99,15 @@ public class AdminStandardTestController {
 	public String postNewStandardTestForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid StandardTest standardTest, BindingResult result, Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
+		
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
 			return "newStandardTestForm";
 		}
 
 		standardTest.setUserEntity(userEntityService.getUserEntity(userEntityId));
+		standardTest.setCreatedBy(currentAdmissionUser);
 		standardTestService.createStandardTest(standardTest);
 		
 		return "redirect:/accounts/{userEntityId}/standardTests";
@@ -130,6 +136,7 @@ public class AdminStandardTestController {
 			Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		StandardTest standardTest = getStandardTestValidateUserEntityId(userEntityId, standardTestId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 
 		if (result.hasErrors()) {
 			origStandardTest.setId(standardTestId);
@@ -142,6 +149,7 @@ public class AdminStandardTestController {
 		standardTest.setName(origStandardTest.getName());
 		standardTest.setScore(origStandardTest.getScore());
 		standardTest.setValidTill(origStandardTest.getValidTill());
+		standardTest.setLastModifiedBy(currentAdmissionUser);
 		
 		standardTestService.updateStandardTest(standardTest);
 		
@@ -182,5 +190,11 @@ public class AdminStandardTestController {
 		
 		Assert.isTrue(userEntityId.equals(standardTest.getUserEntity().getId()), "StandardTest Id mismatch");
 		return standardTest;
+	}
+	private UserEntity getUserEntityFromSecurityContext() {
+		SecurityContext securityCtx = SecurityContextHolder.getContext();
+		Authentication auth = securityCtx.getAuthentication();
+		UserEntity userEntity = (UserEntity) auth.getPrincipal();
+		return userEntity;
 	}
 }

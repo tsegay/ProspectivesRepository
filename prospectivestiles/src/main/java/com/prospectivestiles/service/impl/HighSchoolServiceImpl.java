@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -48,6 +49,9 @@ public class HighSchoolServiceImpl implements HighSchoolService {
 		highSchoolToUpdate.setZip(highSchool.getZip());
 		highSchoolToUpdate.setDiplomeAwardedDate(highSchool.getDiplomeAwardedDate());
 		highSchoolToUpdate.setgEDAwardedDate(highSchool.getgEDAwardedDate());
+		Date now = new Date();
+		highSchoolToUpdate.setDateLastModified(now);
+		highSchoolToUpdate.setLastModifiedBy(highSchool.getLastModifiedBy());
 		
 		highSchoolDao.update(highSchoolToUpdate);
 	}

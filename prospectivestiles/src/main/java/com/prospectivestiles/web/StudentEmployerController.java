@@ -89,6 +89,7 @@ public class StudentEmployerController {
 		 * from Session >>>>>>> if logged in as student
 		 */
 		employer.setUserEntity(userEntity);
+		employer.setCreatedBy(userEntity);
 		employerService.createEmployer(employer);
 
 		return "redirect:/myAccount/employers";
@@ -141,6 +142,7 @@ public class StudentEmployerController {
 		employer.setPosition(origEmployer.getPosition());
 		employer.setEmployerName(origEmployer.getEmployerName());
 		employer.setCompanyName(origEmployer.getCompanyName());
+		employer.setLastModifiedBy(userEntity);
 		
 //		employer.setUserEntity(origEmployer.getUserEntity());
 		

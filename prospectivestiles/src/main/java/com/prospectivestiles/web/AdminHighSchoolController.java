@@ -10,6 +10,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -121,13 +124,15 @@ public class AdminHighSchoolController {
 			@ModelAttribute @Valid HighSchool highSchool, BindingResult result, Model model) {
 
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
-		
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
+
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
 			return "newHighSchoolForm";
 		}
 		
 		highSchool.setUserEntity(userEntity);
+		highSchool.setCreatedBy(currentAdmissionUser);
 		highSchoolService.createHighSchool(highSchool);
 		return "redirect:/accounts/{userEntityId}/educations";
 	}
@@ -164,6 +169,7 @@ public class AdminHighSchoolController {
 			Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		HighSchool highSchool = getHighSchoolValidateUserEntityId(userEntityId, highSchoolId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 
 		if (result.hasErrors()) {
 //			log.debug("Validation Error in HighSchool form");
@@ -188,6 +194,7 @@ public class AdminHighSchoolController {
 		highSchool.setZip(origHighSchool.getZip());
 		highSchool.setDiplomeAwardedDate(origHighSchool.getDiplomeAwardedDate());
 		highSchool.setgEDAwardedDate(origHighSchool.getgEDAwardedDate());
+		highSchool.setLastModifiedBy(currentAdmissionUser);
 		
 		highSchoolService.updateHighSchool(highSchool);
 		
@@ -238,4 +245,10 @@ public class AdminHighSchoolController {
 		return highSchool;
 	}
 
+	private UserEntity getUserEntityFromSecurityContext() {
+		SecurityContext securityCtx = SecurityContextHolder.getContext();
+		Authentication auth = securityCtx.getAuthentication();
+		UserEntity userEntity = (UserEntity) auth.getPrincipal();
+		return userEntity;
+	}
 }

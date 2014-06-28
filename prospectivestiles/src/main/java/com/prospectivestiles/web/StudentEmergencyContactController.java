@@ -82,6 +82,7 @@ public class StudentEmergencyContactController {
 		}
 		
 		emergencyContact.setUserEntity(userEntity);
+		emergencyContact.setCreatedBy(userEntity);
 		emergencyContactService.createEmergencyContact(emergencyContact);
 
 		return "redirect:/myAccount/emergencyContacts";
@@ -132,6 +133,7 @@ public class StudentEmergencyContactController {
 		emergencyContact.setLastName(origEmergencyContact.getLastName());
 		emergencyContact.setPhone(origEmergencyContact.getPhone());
 		emergencyContact.setRelationship(origEmergencyContact.getRelationship());
+		emergencyContact.setLastModifiedBy(userEntity);
 //		emergencyContact.setUserEntity(origEmergencyContact.getUserEntity());
 		
 		emergencyContactService.updateEmergencyContact(emergencyContact);

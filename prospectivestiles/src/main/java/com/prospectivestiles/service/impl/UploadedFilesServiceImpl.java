@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -43,6 +44,10 @@ public class UploadedFilesServiceImpl implements UploadedFilesService {
 		UploadedFiles uploadedFilesToUpdate = fileUploadDao.find(uploadedFiles.getId());
 		uploadedFilesToUpdate.setFile(uploadedFiles.getFile());
 //		uploadedFilesToUpdate.setUserEntity(uploadedFiles.getUserEntity());
+		Date now = new Date();
+		uploadedFilesToUpdate.setDateLastModified(now);
+		uploadedFilesToUpdate.setLastModifiedBy(uploadedFiles.getLastModifiedBy());
+		
 		fileUploadDao.update(uploadedFilesToUpdate);
 	}
 

@@ -6,6 +6,9 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -73,12 +76,15 @@ public class AdminEmployerController {
 	public String postNewEmployerForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Employer employer, BindingResult result, Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
+		
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
 			return "employers";
 		}
 
 		employer.setUserEntity(userEntityService.getUserEntity(userEntityId));
+		employer.setCreatedBy(currentAdmissionUser);
 		employerService.createEmployer(employer);
 		
 		return "redirect:/accounts/{userEntityId}/employers";
@@ -105,6 +111,7 @@ public class AdminEmployerController {
 			Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Employer employer = getEmployerValidateUserEntityId(userEntityId, employerId);
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
 		if (result.hasErrors()) {
 			origEmployer.setId(employerId);
@@ -122,6 +129,7 @@ public class AdminEmployerController {
 		employer.setPosition(origEmployer.getPosition());
 		employer.setEmployerName(origEmployer.getEmployerName());
 		employer.setCompanyName(origEmployer.getCompanyName());
+		employer.setLastModifiedBy(currentAdmissionUser);
 		
 		employerService.updateEmployer(employer);
 		
@@ -145,5 +153,11 @@ public class AdminEmployerController {
 		
 		Assert.isTrue(userEntityId.equals(employer.getUserEntity().getId()), "Employer Id mismatch");
 		return employer;
+	}
+	private UserEntity getUserEntityFromSecurityContext() {
+		SecurityContext securityCtx = SecurityContextHolder.getContext();
+		Authentication auth = securityCtx.getAuthentication();
+		UserEntity userEntity = (UserEntity) auth.getPrincipal();
+		return userEntity;
 	}
 }

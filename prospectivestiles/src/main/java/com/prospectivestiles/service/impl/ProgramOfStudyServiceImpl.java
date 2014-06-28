@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,6 +51,9 @@ public class ProgramOfStudyServiceImpl implements ProgramOfStudyService {
 		programOfStudyToUpdate.setShortName(programOfStudy.getShortName());
 		programOfStudyToUpdate.setDescription(programOfStudy.getDescription());
 //		programOfStudyToUpdate.setListOfUserEntity(programOfStudy.getListOfUserEntity());
+		Date now = new Date();
+		programOfStudyToUpdate.setDateLastModified(now);
+		programOfStudyToUpdate.setLastModifiedBy(programOfStudy.getLastModifiedBy());
 		
 		programOfStudyDao.update(programOfStudyToUpdate);
 	}

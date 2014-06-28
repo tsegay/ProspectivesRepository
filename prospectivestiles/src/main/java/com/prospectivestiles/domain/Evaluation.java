@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "findEvaluationByUserEntityId", 
 		query = "FROM Evaluation WHERE userEntity.id = :id")
 		)
-public class Evaluation implements Serializable {
+public class Evaluation extends BaseEntity implements Serializable {
 
     /**
 	 * 
@@ -29,7 +29,7 @@ public class Evaluation implements Serializable {
     // =             Attributes             =
     // ======================================
 
-	private long id;
+//	private long id;
 	/**
 	 * Values for the ff are: valid, invalid, incomplete, not reviewed
 	 */
@@ -55,8 +55,8 @@ public class Evaluation implements Serializable {
 	/**
 	 * Date the evaluation was started
 	 */
-	private Date dateCreated;
-	private Date dateLastModified;
+	/*private Date dateCreated;
+	private Date dateLastModified;*/
 	
 	/**
 	 * what are the qualifications the student has that enable him to get admission
@@ -102,13 +102,13 @@ public class Evaluation implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 	
-	@Id @GeneratedValue
+	/*@Id @GeneratedValue
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 	public String getF1Visa() {
 		return f1Visa;
 	}
@@ -172,7 +172,7 @@ public class Evaluation implements Serializable {
 		this.userEntity = userEntity;
 	}
 	
-	public Date getDateCreated() {
+	/*public Date getDateCreated() {
 		return dateCreated;
 	}
 	public void setDateCreated(Date dateCreated) {
@@ -183,7 +183,7 @@ public class Evaluation implements Serializable {
 	}
 	public void setDateLastModified(Date dateLastModified) {
 		this.dateLastModified = dateLastModified;
-	}
+	}*/
 	@Size(max=1000)
 	public String getStudentQualification() {
 		return studentQualification;

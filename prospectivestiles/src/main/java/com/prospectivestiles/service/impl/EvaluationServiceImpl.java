@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -62,9 +63,9 @@ public class EvaluationServiceImpl implements EvaluationService {
 		evaluationToUpdate.setStatus(evaluation.getStatus());
 		evaluationToUpdate.setAdmittedBy(evaluation.getAdmittedBy());
 		evaluationToUpdate.setDateAdmitted(evaluation.getDateAdmitted());
-		
-//		evaluationToUpdate.setDateLastModified(dateLastModified);
-//		evaluationToUpdate.setDateCreated(dateCreated);
+		Date now = new Date();
+		evaluationToUpdate.setDateLastModified(now);
+		evaluationToUpdate.setLastModifiedBy(evaluation.getLastModifiedBy());
 		
 		evaluationDao.update(evaluationToUpdate);
 	}

@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,6 +46,9 @@ public class TermServiceImpl implements TermService {
 		termToUpdate.setEndDate(term.getEndDate());
 		termToUpdate.setDuration(term.getDuration());
 //		termToUpdate.setListOfUserEntity(term.getListOfUserEntity());
+		Date now = new Date();
+		termToUpdate.setDateLastModified(now);
+		termToUpdate.setLastModifiedBy(term.getLastModifiedBy());
 		
 		termDao.update(termToUpdate);
 	}

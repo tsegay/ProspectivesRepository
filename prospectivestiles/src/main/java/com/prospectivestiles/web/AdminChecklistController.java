@@ -9,6 +9,9 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -95,13 +98,14 @@ public class AdminChecklistController {
 			@ModelAttribute @Valid Checklist checklist, BindingResult result, Model model) {
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
-		
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
 			return "newChecklistForm";
 		}
 
 		checklist.setUserEntity(userEntity);
+		checklist.setCreatedBy(currentAdmissionUser);
 		/*evaluation.setStatus("pending");*/
 		checklistService.createChecklist(checklist);
 		
@@ -129,7 +133,8 @@ public class AdminChecklistController {
 			Model model) {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Checklist checklist = getChecklistValidateUserEntityId(userEntityId, checklistId);
-
+		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
+		
 		if (result.hasErrors()) {
 			origChecklist.setId(checklistId);
 			origChecklist.setUserEntity(userEntityService.getUserEntity(userEntityId));
@@ -147,6 +152,7 @@ public class AdminChecklistController {
 		checklist.setFinancialAffidavit(origChecklist.getFinancialAffidavit());
 		checklist.setPassport(origChecklist.getPassport());
 		checklist.setTranscript(origChecklist.getTranscript());
+		checklist.setLastModifiedBy(currentAdmissionUser);
 		
 		checklistService.updateChecklist(checklist);
 		
@@ -232,5 +238,12 @@ public class AdminChecklistController {
 		
 		Assert.isTrue(userEntityId.equals(checklist.getUserEntity().getId()), "Checklist Id mismatch");
 		return checklist;
+	}
+	
+	private UserEntity getUserEntityFromSecurityContext() {
+		SecurityContext securityCtx = SecurityContextHolder.getContext();
+		Authentication auth = securityCtx.getAuthentication();
+		UserEntity userEntity = (UserEntity) auth.getPrincipal();
+		return userEntity;
 	}
 }

@@ -1,5 +1,6 @@
 package com.prospectivestiles.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -49,6 +50,9 @@ public class EmergencyContactServiceImpl implements EmergencyContactService {
 		emergencyContactToUpdate.setPhone(emergencyContact.getPhone());
 		emergencyContactToUpdate.setRelationship(emergencyContact.getRelationship());
 //		emergencyContactToUpdate.setUserEntity(emergencyContact.getUserEntity());
+		Date now = new Date();
+		emergencyContactToUpdate.setDateLastModified(now);
+		emergencyContactToUpdate.setLastModifiedBy(emergencyContact.getLastModifiedBy());
 		
 		emergencyContactDao.update(emergencyContactToUpdate);
 	}

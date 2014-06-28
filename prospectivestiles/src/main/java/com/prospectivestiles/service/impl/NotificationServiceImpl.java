@@ -53,6 +53,9 @@ public class NotificationServiceImpl implements NotificationService {
 		notificationToUpdate.setType(notification.getType());
 		notificationToUpdate.setDateModified(notification.getDateModified());
 		notificationToUpdate.setVisible(notification.isVisible());
+		Date now = new Date();
+		notificationToUpdate.setDateLastModified(now);
+		notificationToUpdate.setLastModifiedBy(notification.getLastModifiedBy());
 		
 		notificationDao.update(notificationToUpdate);
 	}
