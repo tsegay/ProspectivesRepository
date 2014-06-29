@@ -175,7 +175,6 @@ public class UserEntity implements UserDetails {
 	public void setEmail(String email) { this.email = email; }
 	
 	@NotNull
-//	@Size(min = 6)
 	@Size(min = 6, max = 70)
 	@Column(name = "password")
 	public String getPassword() {
@@ -186,7 +185,6 @@ public class UserEntity implements UserDetails {
 	}
 	
 	@Transient
-//	@Size(min = 6)
 	@Size(min = 6, max = 70)
 	public String getConfirmPassword() {
 		return confirmPassword;
@@ -415,6 +413,7 @@ public class UserEntity implements UserDetails {
 	// ======================================
     // =              UserDetails methods     =
     // ======================================
+
 
 
 	@Transient

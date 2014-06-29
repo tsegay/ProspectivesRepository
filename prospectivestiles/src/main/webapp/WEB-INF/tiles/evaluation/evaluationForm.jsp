@@ -8,8 +8,7 @@
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="evaluationsUrl"
-		value="/accounts/${userEntity.id}/evaluations" />
+	<c:url var="evaluationsUrl" value="/accounts/${userEntity.id}/evaluations" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<c:url var="evaluationsUrl" value="/myAccount/evaluations" />

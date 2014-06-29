@@ -3,6 +3,7 @@ package com.prospectivestiles.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -21,15 +23,11 @@ import javax.validation.constraints.Size;
 		)
 public class AssociatedUser extends BaseEntity implements Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	// ======================================
     // =             Attributes             =
     // ======================================
 
-	/*private long id;*/
 	/**
 	 * The student
 	 * @OneToOne
@@ -40,10 +38,13 @@ public class AssociatedUser extends BaseEntity implements Serializable {
 	 * @OneToOne
 	 */
 	private UserEntity admissionOfficer; 
+	/**
+	 * object references an unsaved transient instance - 
+	 * save the transient instance before flushing: com.prospectivestiles.domain.UserEntity
+	 */
+	private long aoId;
 	private String referrer;
 	private String agent;
-	/*private Date dateCreated;
-	private Date dateLastModified;*/
 	
 	// ======================================
     // =            Constructors            =
@@ -52,29 +53,17 @@ public class AssociatedUser extends BaseEntity implements Serializable {
 	public AssociatedUser() {
 	}
 	
-	
-	public AssociatedUser(String referrer, String agent, UserEntity student,
-			UserEntity admissionOfficer) {
+	public AssociatedUser(String referrer, String agent) {
 		this.referrer = referrer;
 		this.agent = agent;
-		this.student = student;
-		this.admissionOfficer = admissionOfficer;
 	}
-
 
 	// ======================================
     // =          Getters & Setters         =
     // ======================================
 	
-	/*@Id @GeneratedValue
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}*/
-
 	@OneToOne
+	@JoinColumn(name="student")
 	public UserEntity getStudent() {
 		return student;
 	}
@@ -82,12 +71,23 @@ public class AssociatedUser extends BaseEntity implements Serializable {
 		this.student = student;
 	}
 
+//	@OneToOne(cascade = CascadeType.ALL)
 	@OneToOne
+	@JoinColumn(name="admissionOfficer")
+//	@JoinColumn(name="admissionOfficer", unique=false, nullable=true, insertable=true, updatable=true)
 	public UserEntity getAdmissionOfficer() {
 		return admissionOfficer;
 	}
 	public void setAdmissionOfficer(UserEntity admissionOfficer) {
 		this.admissionOfficer = admissionOfficer;
+	}
+	
+	@Transient
+	public long getAoId() {
+		return aoId;
+	}
+	public void setAoId(long aoId) {
+		this.aoId = aoId;
 	}
 
 	public String getReferrer() {
@@ -103,19 +103,6 @@ public class AssociatedUser extends BaseEntity implements Serializable {
 	public void setAgent(String agent) {
 		this.agent = agent;
 	}
-
-	/*public Date getDateCreated() {
-		return dateCreated;
-	}
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public Date getDateLastModified() {
-		return dateLastModified;
-	}
-	public void setDateLastModified(Date dateLastModified) {
-		this.dateLastModified = dateLastModified;
-	}*/
+	
 		
 }

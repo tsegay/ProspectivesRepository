@@ -127,17 +127,59 @@
 	</dl>
 </div>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="accountUrl"	value="/accounts/${userEntity.id}" />
 	<c:url var="editAccountUrl" value="/accounts/${userEntity.id}/edit" />
-	<c:url var="deleteAccountUrl" value="/accounts/${userEntity.id}/delete" />
+	<%-- <c:url var="accountUrl"	value="/accounts/${userEntity.id}" /> --%>
+	<%-- <c:url var="deleteAccountUrl" value="/accounts/${userEntity.id}/delete" /> --%>
+	
+	<c:url var="createAssociatedUser" value="/accounts/${userEntity.id}/associatedUser/new" />
+	<c:url var="editAssociatedUser" value="/accounts/${userEntity.id}/associatedUser/edit" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	
 </sec:authorize>
 
-<h3>
-	<a href="${editAccountUrl}" class="btn btn-primary btn-sm">Update Personal Information</a>
-</h3>
+<a href="${editAccountUrl}" class="btn btn-primary btn-sm">Update Personal Information</a>
+
+<hr>
+
+<h2>Administrative Use</h2>
+
+<c:choose>
+	<c:when test="${empty associatedUsers}">
+			<a href="${createAssociatedUser}" class="btn btn-primary btn-sm">Register associated users</a>
+	</c:when>
+	<c:otherwise>
+		
+		<div class="row">
+			<dl class="dl-horizontal col-md-6">
+				<dt>Admission Counselor</dt>
+				<dd>
+					<c:out value="${associatedUsers.admissionOfficer.fullName}"></c:out>
+				</dd>
+			
+				<dt>Agent</dt>
+				<dd>
+					<c:out value="${associatedUsers.agent}"></c:out>
+				</dd>
+				
+				<dt>Referrer</dt>
+				<dd>
+					<c:out value="${associatedUsers.referrer}"></c:out>
+				</dd>
+				
+				<dt></dt>
+			</dl>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-2">
+					<a href="${editAssociatedUser}" class="btn btn-primary btn-sm">Edit associated users</a>
+			</div>
+		</div>
+		
+		
+	</c:otherwise>
+</c:choose>
 
 
 <h1>Addresses</h1>

@@ -23,21 +23,21 @@
 			<sec:authorize access="isAuthenticated()">
 				<li class="list-group-item"><a href="<c:url value='/myAccount'/>">MyAccount</a></li>
 			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li class="list-group-item"><a href="<c:url value='/registrationform'/>">Register</a></li>
-			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li class="list-group-item"><a href="<c:url value='/adminpage'/>">Admin</a></li>
-			</sec:authorize>
- 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<%-- <li class="list-group-item"><a href="<c:url value='/accounts/accounts'/>">All Accounts</a></li> --%>
-				<li class="list-group-item"><a href="<c:url value='/accounts'/>">All Accounts</a></li>
-			</sec:authorize>
-			<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li class="list-group-item"><a href="<c:url value='/accounts/accounts/1'/>">All Accounts</a></li>
-			</sec:authorize> --%>
+			
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="list-group-item"><a href="<c:url value='/accounts/notification'/>">Notifications</a></li>
+				<li class="list-group-item"><a href="<c:url value='/registrationform'/>">Register New Applicant</a></li>
+				<li class="list-group-item"><a href="<c:url value='/accounts'/>">All Accounts</a></li>
+				<li class="list-group-item"><a href="<c:url value='/adminpage'/>">Admin</a></li>
+				<%-- <li class="list-group-item"><a href="<c:url value='/accounts/accounts/1'/>">All Accounts</a></li> --%>
+				<li class="list-group-item"><a href="<c:url value='#'/>">Agents</a></li>
+				<li class="list-group-item"><a href="<c:url value='#'/>">Referrers</a></li>
+				<li class="list-group-item"><a href="<c:url value='#'/>">Admission Counselors</a></li>
+				<li class="list-group-item"><a href="<c:url value='#'/>">In process</a></li>
+				<li class="list-group-item"><a href="<c:url value='#'/>">Complete</a></li>
+				<li class="list-group-item"><a href="<c:url value='#'/>">Admitted</a></li>
+				
+				
 			</sec:authorize>
 			
 			

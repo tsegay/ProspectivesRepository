@@ -121,6 +121,7 @@ public class AdminEvaluationController {
 		evaluation.setAdmissionOfficer(admissionOfficer);
 		evaluation.setStatus("inprocess");
 		evaluation.setCreatedBy(currentAdmissionUser);
+		
 		evaluationService.createEvaluation(evaluation);
 		
 		return "redirect:/accounts/{userEntityId}/evaluations";
@@ -188,9 +189,6 @@ public class AdminEvaluationController {
 		evaluation.setAdmnOfficerReport(origEvaluation.getAdmnOfficerReport());
 		evaluation.setStudentQualification(origEvaluation.getStudentQualification());
 		evaluation.setLastModifiedBy(currentAdmissionUser);
-//		evaluation.setDateLastModified(dateLastModified);
-//		evaluation.setDateCreated(dateCreated);
-		
 		
 		if (evaluation.getF1Visa().equalsIgnoreCase("valid") &&
 				evaluation.getApplicationFee().equalsIgnoreCase("valid") &&  

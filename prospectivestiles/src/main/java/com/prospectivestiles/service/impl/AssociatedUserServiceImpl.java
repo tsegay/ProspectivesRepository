@@ -50,7 +50,7 @@ public class AssociatedUserServiceImpl implements AssociatedUserService {
 		associatedUserToUpdate.setReferrer(associatedUser.getReferrer());
 		Date now = new Date();
 		associatedUserToUpdate.setDateLastModified(now);
-		associatedUserToUpdate.setLastModifiedBy(associatedUserToUpdate.getLastModifiedBy());
+		associatedUserToUpdate.setLastModifiedBy(associatedUser.getLastModifiedBy());
 		
 		associatedUserDao.update(associatedUserToUpdate);
 	}

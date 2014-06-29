@@ -69,6 +69,9 @@ public class Evaluation extends BaseEntity implements Serializable {
 //	@Size(max=1000)
 	private String admnOfficerReport;
 	/**
+	 * NO LONGER NEEDED
+	 * Using this.createdBy and associatedUser.admissionOfficer
+	 * 
 	 * The admission officer evaluating the student's records
 	 */
 	private UserEntity admissionOfficer; 

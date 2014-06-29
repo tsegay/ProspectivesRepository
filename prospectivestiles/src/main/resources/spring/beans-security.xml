@@ -300,6 +300,12 @@
 		<!-- account -->
 		<!-- JUST FOR TESTING PURPOSE; REMOVE  /accounts/** -->
 		<!-- <intercept-url pattern="/accounts/**" method="GET" access="isAuthenticated()" /> -->
+		
+		
+		<intercept-url pattern="/accounts/*/associatedUser/new" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/associatedUsers" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/associatedUser/edit" access="hasRole('ROLE_ADMIN')" />
+		
 		<intercept-url pattern="/accounts/*/edit" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/accounts/*/*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/accounts/*" access="hasRole('ROLE_ADMIN')" />
