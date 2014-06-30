@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.prospectivestiles.domain.AssociatedUser;
 import com.prospectivestiles.domain.Checklist;
 import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.Evaluation;
 import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.service.AssociatedUserService;
 import com.prospectivestiles.service.EvaluationService;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -46,6 +48,8 @@ public class AdminEvaluationController {
 	
 	@Inject
 	private EvaluationService evaluationService;
+	@Inject
+	private AssociatedUserService associatedUserService;
 	
 	// ======================================
 	// =             evaluations             =
@@ -75,6 +79,13 @@ public class AdminEvaluationController {
 		 * load evaluation for a user, if exist
 		 */
 		model.addAttribute("evaluations", evaluationService.getEvaluationByUserEntityId(userEntityId));
+		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
+		String admissionOfficerName;
+		if (associatedUser.getAdmissionOfficer() != null) {
+			admissionOfficerName = associatedUser.getAdmissionOfficer().getFullName();
+		} else {
+			admissionOfficerName = "None";
+		}
 		
 		/**
 		 * The modelAttribute "evaluation" for the form to add new evaluation
@@ -83,6 +94,7 @@ public class AdminEvaluationController {
 		model.addAttribute("evaluation", evaluation);
 		
 		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
+		model.addAttribute("admissionOfficerName", admissionOfficerName);
 		
 		return "evaluations";
 	}
@@ -108,7 +120,7 @@ public class AdminEvaluationController {
 	public String postNewEvaluationForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Evaluation evaluation, BindingResult result, Model model) {
 		
-		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
+//		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
@@ -118,7 +130,7 @@ public class AdminEvaluationController {
 		}
 
 		evaluation.setUserEntity(userEntity);
-		evaluation.setAdmissionOfficer(admissionOfficer);
+//		evaluation.setAdmissionOfficer(admissionOfficer);
 		evaluation.setStatus("inprocess");
 		evaluation.setCreatedBy(currentAdmissionUser);
 		
@@ -151,7 +163,7 @@ public class AdminEvaluationController {
 			Model model) {
 		
 		Evaluation evaluation = getEvaluationValidateUserEntityId(userEntityId, evaluationId);
-		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
+//		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 
@@ -185,7 +197,7 @@ public class AdminEvaluationController {
 		evaluation.setApplicationFee(origEvaluation.getApplicationFee());
 		evaluation.setTranscript(origEvaluation.getTranscript());
 		evaluation.setDiplome(origEvaluation.getDiplome());
-		evaluation.setAdmissionOfficer(admissionOfficer);
+//		evaluation.setAdmissionOfficer(admissionOfficer);
 		evaluation.setAdmnOfficerReport(origEvaluation.getAdmnOfficerReport());
 		evaluation.setStudentQualification(origEvaluation.getStudentQualification());
 		evaluation.setLastModifiedBy(currentAdmissionUser);

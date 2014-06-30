@@ -65,6 +65,10 @@
 				<li><c:out value="${missingDocument}" /></li>			
 			</c:forEach>
 		</ul>
+		<p><strong>admissionOfficerName</strong></p>
+		<p>
+			<c:out value="${admissionOfficerName}" />
+		</p>
 						
 	</c:otherwise>
 </c:choose>

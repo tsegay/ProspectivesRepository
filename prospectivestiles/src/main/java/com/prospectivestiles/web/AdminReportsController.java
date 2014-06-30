@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prospectivestiles.domain.AssociatedUser;
 import com.prospectivestiles.domain.Checklist;
 import com.prospectivestiles.domain.Evaluation;
 import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.service.AssociatedUserService;
 import com.prospectivestiles.service.ChecklistService;
 import com.prospectivestiles.service.EvaluationService;
 import com.prospectivestiles.service.UserEntityService;
@@ -41,6 +43,9 @@ public class AdminReportsController {
 	@Inject
 	private ChecklistService checklistService;
 	
+	@Inject
+	private AssociatedUserService associatedUserService;
+	
 	// ======================================
 	// =             reports             =
 	// ======================================
@@ -51,7 +56,13 @@ public class AdminReportsController {
 		
 		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
 		ArrayList<String> missingDocuments = new ArrayList<String>();
-		
+		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
+		String admissionOfficerName;
+		if (associatedUser.getAdmissionOfficer() != null) {
+			admissionOfficerName = associatedUser.getAdmissionOfficer().getFullName();
+		} else {
+			admissionOfficerName = "None";
+		}
 		
 		/**
 		 * if user has no checklist created, you can't generate missing documents report
@@ -86,6 +97,7 @@ public class AdminReportsController {
 		}
 		
 		model.addAttribute("missingDocuments", missingDocuments);
+		model.addAttribute("admissionOfficerName", admissionOfficerName);
 		/**
 		 * pass userEntity to the page. Else if you try to navigate to other pages from missingDocuments for eg to evaluation
 		 * the url will not find the userEntity id --> accounts//evaluations instead of accounts/4/evaluations for eg.
@@ -100,6 +112,7 @@ public class AdminReportsController {
 			Model model) {
 		
 		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
+		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
 //		ArrayList<String> evaluationReportSummary = new ArrayList<String>();
 		Map<String, Object> evaluationReportSummary = new HashMap<String, Object>();
 		
@@ -119,7 +132,12 @@ public class AdminReportsController {
 			(evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired"))) {
 				evaluationReportSummary.put("admnOfficerReport",evaluation.getAdmnOfficerReport());
 				evaluationReportSummary.put("studentQualification",evaluation.getStudentQualification());
-				evaluationReportSummary.put("admissionOfficerName",evaluation.getAdmissionOfficer().getFullName());
+//				evaluationReportSummary.put("admissionOfficerName",evaluation.getAdmissionOfficer().getFullName());
+				if (associatedUser.getAdmissionOfficer() != null) {
+					evaluationReportSummary.put("admissionOfficerName",associatedUser.getAdmissionOfficer().getFullName());
+				} else {
+					evaluationReportSummary.put("admissionOfficerName","None");
+				}
 				
 			}
 		}
@@ -145,6 +163,7 @@ public class AdminReportsController {
 			Model model) {
 		
 		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
+		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
 		Map<String, Object> acceptanceLetterReport = new HashMap<String, Object>();
 		
 		/**
@@ -153,9 +172,14 @@ public class AdminReportsController {
 		if ((evaluation != null) && (evaluation.getStatus() != null)) {
 			if(evaluation.getStatus().equalsIgnoreCase("admitted")){
 				acceptanceLetterReport.put("status", "admitted");
-				acceptanceLetterReport.put("admissionOfficerName",evaluation.getAdmissionOfficer().getFullName());
+//				acceptanceLetterReport.put("admissionOfficerName",evaluation.getAdmissionOfficer().getFullName());
 				acceptanceLetterReport.put("admittedBy",evaluation.getAdmittedBy().getFullName());
 				acceptanceLetterReport.put("dateAdmitted",evaluation.getDateAdmitted());
+				if (associatedUser.getAdmissionOfficer() != null) {
+					acceptanceLetterReport.put("admissionOfficerName",associatedUser.getAdmissionOfficer().getFullName());
+				} else {
+					acceptanceLetterReport.put("admissionOfficerName","None");
+				}
 			}
 		}
 		

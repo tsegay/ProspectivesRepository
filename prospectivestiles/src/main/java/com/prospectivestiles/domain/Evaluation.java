@@ -53,12 +53,6 @@ public class Evaluation extends BaseEntity implements Serializable {
 	private UserEntity userEntity;
 	
 	/**
-	 * Date the evaluation was started
-	 */
-	/*private Date dateCreated;
-	private Date dateLastModified;*/
-	
-	/**
 	 * what are the qualifications the student has that enable him to get admission
 	 */
 //	@Size(max=1000)
@@ -74,7 +68,7 @@ public class Evaluation extends BaseEntity implements Serializable {
 	 * 
 	 * The admission officer evaluating the student's records
 	 */
-	private UserEntity admissionOfficer; 
+//	private UserEntity admissionOfficer; 
 	
 	/**
 	 * Status values are pending, in process, complete, admitted, (transfered to enrolled students portal)
@@ -175,18 +169,6 @@ public class Evaluation extends BaseEntity implements Serializable {
 		this.userEntity = userEntity;
 	}
 	
-	/*public Date getDateCreated() {
-		return dateCreated;
-	}
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-	public Date getDateLastModified() {
-		return dateLastModified;
-	}
-	public void setDateLastModified(Date dateLastModified) {
-		this.dateLastModified = dateLastModified;
-	}*/
 	@Size(max=1000)
 	public String getStudentQualification() {
 		return studentQualification;
@@ -201,14 +183,14 @@ public class Evaluation extends BaseEntity implements Serializable {
 	public void setAdmnOfficerReport(String admnOfficerReport) {
 		this.admnOfficerReport = admnOfficerReport;
 	}
-	@OneToOne
-	@JoinColumn(name="admissionOfficer")
-	public UserEntity getAdmissionOfficer() {
-		return admissionOfficer;
-	}
-	public void setAdmissionOfficer(UserEntity admissionOfficer) {
-		this.admissionOfficer = admissionOfficer;
-	}
+//	@OneToOne
+//	@JoinColumn(name="admissionOfficer")
+//	public UserEntity getAdmissionOfficer() {
+//		return admissionOfficer;
+//	}
+//	public void setAdmissionOfficer(UserEntity admissionOfficer) {
+//		this.admissionOfficer = admissionOfficer;
+//	}
 	public String getStatus() {
 		return status;
 	}

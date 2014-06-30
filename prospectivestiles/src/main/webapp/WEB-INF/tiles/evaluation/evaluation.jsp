@@ -305,7 +305,7 @@
 		  <dd><c:out value="${userEntity.evaluation.admnOfficerReport}"></c:out></dd>
 		  
 		  <dt>admissionOfficer</dt>
-		  <dd><c:out value="${userEntity.evaluation.admissionOfficer}"></c:out></dd>
+		  <dd><c:out value="${admissionOfficerName}"></c:out></dd>
 		  
 		  <dt>dateCreated</dt>
 		  <dd><c:out value="${userEntity.evaluation.dateCreated}"></c:out></dd>
