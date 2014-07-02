@@ -59,6 +59,16 @@ public class HomeController {
 		return "denied";
 	}
 	
+	@RequestMapping("/termsOfService")
+	public String showTermsOfService() {
+		return "termsOfService";
+	}
+	
+	@RequestMapping("/privacyPolicy")
+	public String showPrivacyPolicy() {
+		return "privacyPolicy";
+	}
+	
 	@RequestMapping(value="/adminpage", method = RequestMethod.GET)
 	public String showAdmin(Model model) {
 		List<UserEntity> users = userEntityService.getAllUserEntities();

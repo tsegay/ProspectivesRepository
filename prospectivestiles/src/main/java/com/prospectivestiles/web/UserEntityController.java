@@ -42,7 +42,7 @@ public class UserEntityController {
 	public void initBinder(WebDataBinder binder) {
 		binder.setAllowedFields(new String[] { 
 			"username", "password", "confirmPassword", "firstName", "lastName",
-			"email", "marketingOk", "acceptTerms"
+			"email", "marketingOk", "acceptTerms", "international", "transferee"
 		});
 	}
 	

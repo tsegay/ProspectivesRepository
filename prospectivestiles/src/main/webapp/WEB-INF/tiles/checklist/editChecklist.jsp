@@ -23,7 +23,10 @@
 
 
 	<div class="form-group row">
-		<label for="f1Visa" class="col-sm-2 control-label">f1Visa</label>
+		<!-- <label for="f1Visa" class="col-sm-2 control-label">f1Visa</label> -->
+		<label for="f1Visa" class="col-sm-2 control-label">
+			<spring:message code="checklist.label.f1Visa" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="f1Visa" class="form-control">
 				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
@@ -38,7 +41,10 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="bankStmt" class="col-sm-2 control-label">bankStmt</label>
+		<!-- <label for="bankStmt" class="col-sm-2 control-label">bankStmt</label> -->
+		<label for="bankStmt" class="col-sm-2 control-label">
+			<spring:message code="checklist.label.bankStmt" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="bankStmt" class="form-control">
 				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
@@ -53,7 +59,10 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="i20" class="col-sm-2 control-label">i20</label>
+		<!-- <label for="i20" class="col-sm-2 control-label">i20</label> -->
+		<label for="i20" class="col-sm-2 control-label">
+			<spring:message code="checklist.label.i20" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="i20" class="form-control">
 				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
@@ -68,7 +77,10 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="passport" class="col-sm-2 control-label">passport</label>
+		<!-- <label for="passport" class="col-sm-2 control-label">passport</label> -->
+		<label for="passport" class="col-sm-2 control-label">
+			<spring:message code="checklist.label.passport" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="passport" class="form-control">
 				<form:option value="incomplete" label="Incomplete" />
@@ -82,7 +94,10 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="financialAffidavit" class="col-sm-2 control-label">financialAffidavit</label>
+		<!-- <label for="financialAffidavit" class="col-sm-2 control-label">financialAffidavit</label> -->
+		<label for="financialAffidavit" class="col-sm-2 control-label">
+			<spring:message code="checklist.label.financialAffidavit" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="financialAffidavit" class="form-control">
 				<form:option value="incomplete" label="Incomplete" />
@@ -96,7 +111,10 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="applicationFee" class="col-sm-2 control-label">applicationFee</label>
+		<!-- <label for="applicationFee" class="col-sm-2 control-label">applicationFee</label> -->
+		<label for="applicationFee" class="col-sm-2 control-label">
+			<spring:message code="checklist.label.applicationFee" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="applicationFee" class="form-control">
 				<form:option value="incomplete" label="Incomplete" />
@@ -110,7 +128,10 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="transcript" class="col-sm-2 control-label">transcript</label>
+		<!-- <label for="transcript" class="col-sm-2 control-label">transcript</label> -->
+		<label for="transcript" class="col-sm-2 control-label">
+			<spring:message code="checklist.label.transcript" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="transcript" class="form-control">
 				<form:option value="incomplete" label="Incomplete" />
@@ -124,7 +145,10 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="diplome" class="col-sm-2 control-label">diplome</label>
+		<!-- <label for="diplome" class="col-sm-2 control-label">diplome</label> -->
+		<label for="diplome" class="col-sm-2 control-label">
+			<spring:message code="checklist.label.diplome" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="diplome" class="form-control">
 				<form:option value="incomplete" label="Incomplete" />
@@ -139,7 +163,10 @@
 
 
 	<div class="form-group row">
-		<label for="notes" class="col-sm-2 control-label">Remarks/notes</label>
+		<!-- <label for="notes" class="col-sm-2 control-label">Remarks/notes</label> -->
+		<label for="notes" class="col-sm-2 control-label">
+			<spring:message code="checklist.label.notes" />
+		</label>
 		<div class="col-sm-5">
 			<form:textarea path="notes" class="form-control" rows="5" cols="30" />
 		</div>

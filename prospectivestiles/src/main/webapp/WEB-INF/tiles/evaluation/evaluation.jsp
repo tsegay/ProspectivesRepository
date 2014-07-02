@@ -64,7 +64,7 @@
 		  <dt>Id</dt>
 		  <dd><c:out value="${userEntity.evaluation.id}"></c:out></dd>
 		  
-		  <dt>f1Visa</dt>
+		  <dt><spring:message code="evaluationForm.label.f1Visa" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.evaluation.f1Visa == \"notreviewed\"}">
 		  		<span class="gray"> 
@@ -93,7 +93,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>bankStmt</dt>
+		  <dt><spring:message code="evaluationForm.label.f1Visa" /></dt>
 		  <%-- <dd><c:out value="${userEntity.evaluation.bankStmt}"></c:out></dd> --%>
 		  <dd>
 		  	<c:if test="${userEntity.evaluation.bankStmt == \"notreviewed\"}">
@@ -123,8 +123,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>i20</dt>
-		  <%-- <dd><c:out value="${userEntity.evaluation.i20}"></c:out></dd> --%>
+		  <dt><spring:message code="evaluationForm.label.i20" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.evaluation.i20 == \"notreviewed\"}">
 		  		<span class="gray"> 
@@ -153,7 +152,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>passport</dt>
+		  <dt><spring:message code="evaluationForm.label.passport" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.evaluation.passport == \"notreviewed\"}">
 		  		<span class="gray"> 
@@ -182,7 +181,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>financialAffidavit</dt>
+		  <dt><spring:message code="evaluationForm.label.financialAffidavit" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.evaluation.financialAffidavit == \"notreviewed\"}">
 		  		<span class="gray"> 
@@ -211,7 +210,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>applicationFee</dt>
+		  <dt><spring:message code="evaluationForm.label.applicationFee" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.evaluation.applicationFee == \"notreviewed\"}">
 		  		<span class="gray"> 
@@ -240,7 +239,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>transcript</dt>
+		  <dt><spring:message code="evaluationForm.label.transcript" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.evaluation.transcript == \"notreviewed\"}">
 		  		<span class="gray"> 
@@ -269,7 +268,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>diplome</dt>
+		  <dt><spring:message code="evaluationForm.label.diplome" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.evaluation.diplome == \"notreviewed\"}">
 		  		<span class="gray"> 
@@ -298,22 +297,28 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>studentQualification</dt>
+		  <dt><spring:message code="evaluationForm.label.studentQualification" /></dt>
 		  <dd><c:out value="${userEntity.evaluation.studentQualification}"></c:out></dd>
 		  
-		  <dt>admnOfficerReport</dt>
+		  <dt><spring:message code="evaluationForm.label.admnOfficerReport" /></dt>
 		  <dd><c:out value="${userEntity.evaluation.admnOfficerReport}"></c:out></dd>
 		  
-		  <dt>admissionOfficer</dt>
+		  <dt><spring:message code="evaluationForm.label.admissionOfficer" /></dt>
 		  <dd><c:out value="${admissionOfficerName}"></c:out></dd>
 		  
-		  <dt>dateCreated</dt>
+		  <dt><spring:message code="evaluationForm.label.dateCreated" /></dt>
 		  <dd><c:out value="${userEntity.evaluation.dateCreated}"></c:out></dd>
 		  
-		  <dt>dateLastModified</dt>
+		  <dt><spring:message code="evaluationForm.label.createdBy" /></dt>
+		  <dd><c:out value="${userEntity.evaluation.createdBy}"></c:out></dd>
+		  
+		  <dt><spring:message code="evaluationForm.label.dateLastModified" /></dt>
 		  <dd><c:out value="${userEntity.evaluation.dateLastModified}"></c:out></dd>
 		  
-		  <dt>Remarks/notes</dt>
+		  <dt><spring:message code="evaluationForm.label.lastModifiedBy" /></dt>
+		  <dd><c:out value="${userEntity.evaluation.lastModifiedBy}"></c:out></dd>
+		  
+		  <dt><spring:message code="evaluationForm.label.notes" /></dt>
 		  <dd><c:out value="${userEntity.evaluation.notes}"></c:out></dd>
 		  
 		  

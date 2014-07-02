@@ -39,7 +39,10 @@
 <form:form action="${associatedUserFormUrl}" modelAttribute="associatedUser" role="form" class="form-horizontal">
 
 	<div class="form-group row">
-		<label for="aoId" class="col-sm-2 control-label">admissionOfficer</label>
+		<!-- <label for="aoId" class="col-sm-2 control-label">admissionOfficer</label> -->
+		<label for="aoId" class="col-sm-2 control-label">
+			<spring:message code="associatedUserForm.label.aoId" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="aoId">
 			    <c:forEach var="admissionCounselor" items="${admissionCounselors}">
@@ -60,7 +63,10 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="agent" class="col-sm-2 control-label">Agent</label>
+		<!-- <label for="agent" class="col-sm-2 control-label">Agent</label> -->
+		<label for="agent" class="col-sm-2 control-label">
+			<spring:message code="associatedUserForm.label.agent" />
+		</label>
 		<div class="col-sm-5">
 			<form:input path="agent" class="form-control" placeholder="agent" />
 		</div>
@@ -70,7 +76,10 @@
 	</div>
 	
 	<div class="form-group row">
-		<label for="referrer" class="col-sm-2 control-label">referrer</label>
+		<!-- <label for="referrer" class="col-sm-2 control-label">referrer</label> -->
+		<label for="referrer" class="col-sm-2 control-label">
+			<spring:message code="associatedUserForm.label.referrer" />
+		</label>
 		<div class="col-sm-5">
 			<form:input path="referrer" class="form-control" placeholder="referrer" />
 		</div>

@@ -29,6 +29,8 @@
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/logout" access="permitAll" />
 		<intercept-url pattern="/denied" access="permitAll" />
+		<intercept-url pattern="/privacyPolicy" access="permitAll" />
+		<intercept-url pattern="/termsOfService" access="permitAll" />
 		
 		<intercept-url pattern="/styles/**" access="permitAll" />
 		<intercept-url pattern="/scripts/**" access="permitAll" />

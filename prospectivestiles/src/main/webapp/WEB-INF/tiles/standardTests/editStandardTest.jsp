@@ -26,7 +26,11 @@
 	modelAttribute="standardTest" role="form" class="form-horizontal">
 
 		<div class="form-group row">
-			<label for="name" class="col-sm-2 control-label">Test Name</label>
+			<!-- <label for="name" class="col-sm-2 control-label">Test Name</label> -->
+			<label for="name" class="col-sm-2 control-label">
+				<spring:message code="standardTestsForm.label.name" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 		    <div class="col-sm-5">
 		      <form:input path="name" class="form-control" placeholder = "Your test" />
 		    </div>
@@ -37,7 +41,10 @@
 		
 		
 		 <div class="form-group row">
-			<label for="score" class="col-sm-2 control-label">Score</label>
+			<label for="score" class="col-sm-2 control-label">
+				<spring:message code="standardTestsForm.label.score" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 		    <div class="col-sm-5">
 		      <form:input path="score" class="form-control" placeholder = "Your score" />
 		    </div>
@@ -48,7 +55,10 @@
 		
 		<fmt:formatDate value="${standardTest.validTill}" var="validTillString" pattern="dd/MM/yyyy" />
 	    <div class="form-group row">
-			<label for="validTill" class="col-sm-2 control-label">Valid Till</label>
+			<label for="validTill" class="col-sm-2 control-label">
+				<spring:message code="standardTestsForm.label.validTill" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 		    <div class="col-sm-5">
 		      <form:input path="validTill" value="${validTillString}" class="form-control" id="validTill" placeholder="Test valid till ..." />
 			</div>

@@ -46,11 +46,15 @@
 		
 	<form:form action="${instituteFormUrl}" modelAttribute="institute" role="form">
 	
-		<p><spring:message code="newUserRegistration.message.allFieldsRequired" /></p>
+		<%-- <p><spring:message code="newUserRegistration.message.allFieldsRequired" /></p> --%>
 		
 	
 		<div class="form-group row">
-			<label for="name" class="col-sm-2 control-label">Institute Name</label>
+			<!-- <label for="name" class="col-sm-2 control-label">Institute Name</label> -->
+			<label for="name" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.name" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 		    <div class="col-sm-5">
 		      <form:input class="form-control" path="name" placeholder = "Your Institute Name" />
 		    </div>
@@ -60,7 +64,10 @@
 		</div>
 		
 		<div class="form-group row">
-			<label for="state" class="col-sm-2 control-label">State</label>
+			<!-- <label for="state" class="col-sm-2 control-label">State</label> -->
+			<label for="state" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.state" />
+			</label>
 			<div class = "col-sm-5">
 				<form:input class="form-control" path="state" placeholder = "Your State" />
 			</div>
@@ -70,7 +77,10 @@
 		</div>
 		
 		<div class="form-group row">
-			<label for="city" class="col-sm-2 control-label">city</label>
+			<!-- <label for="city" class="col-sm-2 control-label">city</label> -->
+			<label for="city" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.city" />
+			</label>
 			<div class = "col-sm-5">
 				<form:input path="city" class = "form-control" id = "city" placeholder = "Your city"/>
 			</div>
@@ -80,7 +90,11 @@
         </div>
         
 		<div class="form-group row">
-			<label for="country" class="col-sm-2 control-label">Country</label>
+			<!-- <label for="country" class="col-sm-2 control-label">Country</label> -->
+			<label for="country" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.country" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 			<div class = "col-sm-5">
 				<form:input path="country" class = "form-control" id = "country" placeholder = "Your Country"/>
 			</div>
@@ -90,7 +104,10 @@
         </div>
         
 		<div class="form-group row">
-			<label for="zip" class="col-sm-2 control-label">zip</label>
+			<!-- <label for="zip" class="col-sm-2 control-label">zip</label> -->
+			<label for="zip" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.zip" />
+			</label>
 			<div class = "col-sm-5">
 				<form:input path="zip" class = "form-control" id = "zip" placeholder = "Your zip"/>
 			</div>
@@ -100,7 +117,10 @@
         </div>
         
 		<div class="form-group row">
-			<label for="programOfStudy" class="col-sm-2 control-label">programOfStudy</label>
+			<!-- <label for="programOfStudy" class="col-sm-2 control-label">programOfStudy</label> -->
+			<label for="programOfStudy" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.programOfStudy" />
+			</label>
 			<div class = "col-sm-5">
 				<form:input path="programOfStudy" class = "form-control" id = "programOfStudy" placeholder = "Your programOfStudy"/>
 			</div>
@@ -110,7 +130,10 @@
         </div>
         
 		<div class="form-group row">
-			<label for="levelOfStudy" class="col-sm-2 control-label">levelOfStudy</label>
+			<!-- <label for="levelOfStudy" class="col-sm-2 control-label">levelOfStudy</label> -->
+			<label for="levelOfStudy" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.levelOfStudy" />
+			</label>
 			<div class = "col-sm-5">
 				<form:input path="levelOfStudy" class = "form-control" id = "levelOfStudy" placeholder = "Your levelOfStudy"/>
 			</div>
@@ -122,7 +145,11 @@
 	
         <fmt:formatDate value="${institute.attendedFrom}" var="attendedFromString" pattern="dd/MM/yyyy" />
         <div class="form-group row">
-			<label for="attendedFrom" class="col-sm-2 control-label">attendedFrom</label>
+			<!-- <label for="attendedFrom" class="col-sm-2 control-label">attendedFrom</label> -->
+			<label for="attendedFrom" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.attendedFrom" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 		    <div class="col-sm-5">
 		      <form:input path="attendedFrom" value="${attendedFromString}" class="form-control" id="attendedFrom" placeholder="Your attendedFrom" />
 			</div>
@@ -133,7 +160,11 @@
         
         <fmt:formatDate value="${institute.attendedTo}" var="attendedToString" pattern="dd/MM/yyyy" />
         <div class="form-group row">
-			<label for="attendedTo" class="col-sm-2 control-label">attendedTo</label>
+			<!-- <label for="attendedTo" class="col-sm-2 control-label">attendedTo</label> -->
+			<label for="attendedTo" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.attendedTo" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 		    <div class="col-sm-5">
 		      <form:input path="attendedTo" value="${attendedToString}" class="form-control" id="attendedTo" placeholder="Your attendedTo" />
 			</div>
@@ -144,7 +175,10 @@
 		
         <fmt:formatDate value="${institute.graduationDate}" var="graduationDateString" pattern="dd/MM/yyyy" />
         <div class="form-group row">
-			<label for="graduationDate" class="col-sm-2 control-label">graduationDate</label>
+			<!-- <label for="graduationDate" class="col-sm-2 control-label">graduationDate</label> -->
+			<label for="graduationDate" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.graduationDate" />
+			</label>
 		    <div class="col-sm-5">
 		      <form:input path="graduationDate" value="${graduationDateString}" class="form-control" id="graduationDate" placeholder="Your graduationDate" />
 			</div>
@@ -162,38 +196,6 @@
         	</div>
         </div>
 	
-		<%-- <p><spring:message code="newUserRegistration.message.allFieldsRequired" /></p>
-		
-		<div class="form-group">
-			<label for="name" class="col-sm-2 control-label">School Name</label>
-		    <div class="col-sm-10">
-		      <form:input class="form-control" path="name" placeholder = "Your School Name" />
-		    </div>
-		</div>
-		
-		<div class="form-group">
-			<label for="state" class="col-sm-2 control-label">State</label>
-			<div class = "col-sm-10">
-				<form:input class="form-control" path="state" placeholder = "Your State" />
-			</div>
-		</div>
-		
-		<div class = "form-group">
-			<label for="country" class="col-sm-2 control-label">Country</label>
-			<div class = "col-sm-10">
-				<form:input path="country" class = "form-control" id = "country" placeholder = "Your Country"/>
-			</div>
-        </div>
-        
-		
-        <div class = "form-group">
-        	<label for="diplome" class="col-sm-2 control-label">&nbsp;</label>
-        	<div class = "col-sm-10">
-        		<input class="btn btn-primary" type="submit" value="Save"></input>
-        		<a class = "btn btn-default" href="${myEducationUrl}">Cancel</a>
-        	</div>
-        </div> --%>
-        
 	</form:form>
 		
 		

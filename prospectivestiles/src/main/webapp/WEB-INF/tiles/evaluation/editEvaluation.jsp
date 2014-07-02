@@ -28,7 +28,10 @@
 
 
 	<div class="form-group row">
-		<label for="f1Visa" class="col-sm-2 control-label">f1Visa</label>
+		<!-- <label for="f1Visa" class="col-sm-2 control-label">f1Visa</label> -->
+		<label for="f1Visa" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.f1Visa" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="f1Visa" class="form-control">
 				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
@@ -45,7 +48,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="bankStmt" class="col-sm-2 control-label">bankStmt</label>
+		<label for="bankStmt" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.bankStmt" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="bankStmt" class="form-control">
 				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
@@ -62,7 +67,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="i20" class="col-sm-2 control-label">i20</label>
+		<label for="i20" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.i20" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="i20" class="form-control">
 				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
@@ -79,7 +86,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="passport" class="col-sm-2 control-label">passport</label>
+		<label for="passport" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.passport" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="passport" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
@@ -95,7 +104,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="financialAffidavit" class="col-sm-2 control-label">financialAffidavit</label>
+		<label for="financialAffidavit" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.financialAffidavit" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="financialAffidavit" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
@@ -111,7 +122,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="applicationFee" class="col-sm-2 control-label">applicationFee</label>
+		<label for="applicationFee" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.applicationFee" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="applicationFee" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
@@ -127,7 +140,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="transcript" class="col-sm-2 control-label">transcript</label>
+		<label for="transcript" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.transcript" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="transcript" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
@@ -143,7 +158,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="diplome" class="col-sm-2 control-label">diplome</label>
+		<label for="diplome" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.diplome" />
+		</label>
 		<div class="col-sm-5">
 			<form:select path="diplome" class="form-control">
 				<form:option value="notreviewed" label="Not Reviewed" />
@@ -159,7 +176,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="studentQualification" class="col-sm-2 control-label">studentQualification</label>
+		<label for="studentQualification" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.studentQualification" />
+		</label>
 		<div class="col-sm-5">
 			<form:textarea path="studentQualification" class="form-control"
 				rows="5" cols="30" />
@@ -170,7 +189,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="admnOfficerReport" class="col-sm-2 control-label">admnOfficerReport</label>
+		<label for="admnOfficerReport" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.admnOfficerReport" />
+		</label>
 		<div class="col-sm-5">
 			<form:textarea path="admnOfficerReport" class="form-control" rows="5"
 				cols="30" />
@@ -181,7 +202,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="notes" class="col-sm-2 control-label">Remarks/notes</label>
+		<label for="notes" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.notes" />
+		</label>
 		<div class="col-sm-5">
 			<form:textarea path="notes" class="form-control" rows="5" cols="30" />
 		</div>

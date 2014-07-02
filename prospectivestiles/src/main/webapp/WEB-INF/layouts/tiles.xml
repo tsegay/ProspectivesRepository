@@ -47,6 +47,16 @@
 		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/registrationok.jsp"></put-attribute>
 	</definition>
+	<definition name="privacyPolicy" extends="prospectivestiles.base">
+		<put-attribute name="title" value="privacyPolicy page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/privacyPolicy.jsp"></put-attribute>
+	</definition>
+	<definition name="termsOfService" extends="prospectivestiles.base">
+		<put-attribute name="title" value="termsOfService page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/termsOfService.jsp"></put-attribute>
+	</definition>
 	
 	
 	<!-- ====================== Admin ====================================== -->

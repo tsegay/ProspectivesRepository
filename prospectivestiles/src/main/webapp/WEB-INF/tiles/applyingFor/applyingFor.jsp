@@ -91,7 +91,11 @@ insert the term and program of study to the userEntity using jdbc
 	            
 					
 					<div class="form-group row">
-						<label for="term" class="col-sm-3 control-label">term</label>
+						<!-- <label for="term" class="col-sm-3 control-label">term</label> -->
+						<label for="term" class="col-sm-2 control-label">
+							<spring:message code="applyingFor.label.term" />
+							<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+						</label>
 					    <div class="col-sm-5">
 					      <form:select path="term.id">
 							   <%-- <form:option value="NONE" label="--- Select ---"/> --%>
@@ -106,7 +110,11 @@ insert the term and program of study to the userEntity using jdbc
 					    </div>
 					</div>
 					<div class="form-group row">
-						<label for="term" class="col-sm-3 control-label">programOfStudies</label>
+						<!-- <label for="term" class="col-sm-3 control-label">programOfStudies</label> -->
+						<label for="programOfStudies" class="col-sm-2 control-label">
+							<spring:message code="applyingFor.label.programOfStudies" />
+							<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+						</label>
 					    <div class="col-sm-5">
 					      <form:select path="programOfStudy.id">
 							   <%-- <form:option value="NONE" label="--- Select ---"/> --%>

@@ -74,17 +74,17 @@ check why I am using this checlist urls
 			admission.
 		</p>
 		
-		<p><strong>admnOfficerReport</strong></p>
+		<p><strong>Admission Officer Report</strong></p>
 		<p>
 			<c:out value="${evaluationReportSummary.admnOfficerReport}" />
 		</p>
 		
-		<p><strong>studentQualification</strong></p>
+		<p><strong>Student Qualification</strong></p>
 		<p>
 			<c:out value="${evaluationReportSummary.studentQualification}" />
 		</p>
 		
-		<p><strong>admissionOfficerName</strong></p>
+		<p><strong>Admission Officer Name</strong></p>
 		<p>
 			<c:out value="${evaluationReportSummary.admissionOfficerName}" />
 		</p>

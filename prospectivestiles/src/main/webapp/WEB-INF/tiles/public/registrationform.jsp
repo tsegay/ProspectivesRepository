@@ -12,10 +12,13 @@
 
 <form:form action="registrationform" modelAttribute="userEntity" role="form">
 
-	<p><spring:message code="newUserRegistration.message.allFieldsRequired" /></p>
+	<%-- <p><spring:message code="newUserRegistration.message.allFieldsRequired" /></p> --%>
 	
 	<div class="form-group row">
-		<label for="username" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.username" /></label>
+		<label for="username" class="col-sm-2 control-label">
+			<spring:message code="newUserRegistration.label.username" />
+			<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+		</label>
 	    <div class="col-sm-5">
 	      <form:input path="username" class="form-control" placeholder = "Your Username" />
 	    </div>
@@ -25,7 +28,8 @@
 	</div>
 	
 	<div class="form-group row">
-		<label for="password" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.password" /></label>
+		<label for="password" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.password" />
+		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">
 	      <form:password path="password" class="form-control" placeholder = "Your password" />
 	    </div>
@@ -35,14 +39,16 @@
 	</div>
 	
 	<div class="form-group row">
-		<label for="confirmPassword" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.confirmPassword" /></label>
+		<label for="confirmPassword" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.confirmPassword" />
+		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">
 	      <form:password path="confirmPassword" class="form-control" placeholder = "Confirm your password" />
 	    </div>
 	</div>
 	
 	<div class="form-group row">
-		<label for="firstName" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.firstName" /></label>
+		<label for="firstName" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.firstName" />
+		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">
 	      <form:input path="firstName" class="form-control" placeholder = "Your First Name" />
 	    </div>
@@ -52,7 +58,8 @@
 	</div>
 	
 	<div class="form-group row">
-		<label for="lastName" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.lastName" /></label>
+		<label for="lastName" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.lastName" />
+		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">
 	      <form:input path="lastName" class="form-control" placeholder = "Your Last Name" />
 	    </div>
@@ -62,7 +69,8 @@
 	</div>
 	
 	<div class="form-group row">
-		<label for="email" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.email" /></label>
+		<label for="email" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.email" />
+		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">
 	      <form:input path="email" class="form-control" placeholder = "Your Email" />
 	    </div>
@@ -70,118 +78,66 @@
 	      	<form:errors class="errormsg" path="email" htmlEscape="false" />
 	    </div>
 	</div>
+	<hr style="border-bottom: groove;"/>
 	
 	<div class="form-group checkbox row">
+		<label for="international" class="col-sm-5 control-label label-pad">Check if you are an international student</label>
+	    <div class="col-sm-2">
+	    	<form:checkbox class="form-control" id="international" path="international" />
+	    </div>
+	    <div class="col-sm-5">
+	      	<form:errors class="errormsg" path="international" htmlEscape="false" />
+	    </div>
+	</div>
+	
+	<div class="form-group checkbox row">
+		<label for="transferee" class="col-sm-5 control-label label-pad">Check if you are transferring in from another college</label>
+	    <div class="col-sm-2">
+	    	<form:checkbox class="form-control" id="transferee" path="transferee" />
+	    </div>
+	    <div class="col-sm-5">
+	      	<form:errors class="errormsg" path="transferee" htmlEscape="false" />
+	    </div>
+	</div>
+	<hr style="border-bottom: groove;"/>
+	
+	<div class="form-group checkbox row">
+		<label for="marketingOk" class="col-sm-5 control-label label-pad"><spring:message code="newUserRegistration.label.marketingOk" /></label>
 	    <div class="col-sm-2">
 	    	<form:checkbox class="form-control" id="marketingOk" path="marketingOk" />
 	    </div>
-		<label for="marketingOk" class="col-sm-5 control-label"><spring:message code="newUserRegistration.label.marketingOk" /></label>
 	    <div class="col-sm-5">
 	      	<%-- <form:errors path="marketingOk" htmlEscape="false" /> --%>
 	    </div>
 	</div>
 	
 	<div class="form-group checkbox row">
+		<label for="acceptTerms" class="col-sm-5 control-label label-pad"><spring:message code="newUserRegistration.label.acceptTerms" />
+		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-2">
 	    	<form:checkbox class="form-control" id="acceptTerms" path="acceptTerms" />
 	    </div>
-		<label for="acceptTerms" class="col-sm-5 control-label"><spring:message code="newUserRegistration.label.acceptTerms" /></label>
 	    <div class="col-sm-5">
 	      	<form:errors class="errormsg" path="acceptTerms" htmlEscape="false" />
 	    </div>
 	</div>
 	
 	
-       <div class = "form-group row">
-	       	<label for="privacyPolicy" class="col-sm-2 control-label">&nbsp;</label>
-	       	<div class = "col-sm-10" id="privacyPolicy">
-	       		<spring:message code="newUserRegistration.label.privacyPolicy" />
-	       	</div>
-       </div>
-       
-       <div class = "form-group row">
-	       	<label class="col-sm-2 control-label">&nbsp;</label>
-	       	<div class = "col-sm-10">
-	       		<input class="btn btn-default" type="submit" value="${registerLabel}"></input>
-	       	</div>
-       </div>
-       
+    <div class = "form-group row">
+     	<div class = "col-sm-10 label-pad" id="privacyPolicy">
+     		<spring:message code="newUserRegistration.label.privacyPolicy" />
+     	</div>
+     	<label for="privacyPolicy" class="col-sm-2 control-label">&nbsp;</label>
+    </div>
+    
+    <div class = "form-group row">
+     	<label class="col-sm-2 control-label">&nbsp;</label>
+     	<div class = "col-sm-10">
+     		<input class="btn btn-default" type="submit" value="${registerLabel}"></input>
+     		<a class="btn btn-default" href="${accountsUrl}">Cancel</a>
+     	</div>
+    </div>
+    
        
 </form:form>
 
-
-<!-- ################### PREVIOUS FORM ####################### -->
-
-		
-<%-- <form:form cssClass="main" action="registrationform" modelAttribute="userEntity">
-	
-	<p><spring:message code="newUserRegistration.message.allFieldsRequired" /></p>
-	
-	<div class="panel grid">
-			
-			<div class="fieldLabel yui-u first"><spring:message code="newUserRegistration.label.username" /></div>
-			<div class="yui-u">
-				<form:input path="username" cssClass="short" cssErrorClass="short error" />
-				<form:errors path="username">
-					<div class="errorMessage"><form:errors path="username" htmlEscape="false" /></div>
-				</form:errors>
-			</div>
-			
-			<div class="fieldLabel yui-u first"><spring:message code="newUserRegistration.label.password" /></div>
-			<div class="yui-u">
-				<form:password path="password" showPassword="false" cssClass="short" cssErrorClass="short error" />
-				<form:errors path="password">
-					<div class="errorMessage"><form:errors path="password" htmlEscape="false" /></div>
-				</form:errors>
-			</div>
-			
-			<div class="fieldLabel yui-u first"><spring:message code="newUserRegistration.label.firstName" /></div>
-			<div class="yui-u">
-				<form:input path="firstName" cssClass="short" cssErrorClass="short error" />
-				<form:errors path="firstName">
-					<div class="errorMessage"><form:errors path="firstName" htmlEscape="false" /></div>
-				</form:errors>
-			</div>
-			
-			<div class="fieldLabel yui-u first"><spring:message code="newUserRegistration.label.lastName" /></div>
-			<div class="yui-u">
-				<form:input path="lastName" cssClass="short" cssErrorClass="short error" />
-				<form:errors path="lastName">
-					<div class="errorMessage"><form:errors path="lastName" htmlEscape="false" /></div>
-				</form:errors>
-			</div>
-			
-			<div class="fieldLabel yui-u first"><spring:message code="newUserRegistration.label.email" /></div>
-			<div class="yui-u">
-				<form:input path="email" cssClass="medium" cssErrorClass="medium error" />
-				<form:errors path="email">
-					<div class="errorMessage"><form:errors path="email" htmlEscape="false" /></div>
-				</form:errors>
-			</div>
-			
-			<div class="yui-u first"></div>
-			<div class="yui-u">
-				<form:checkbox id="marketingOk" path="marketingOk" />
-				<label for="marketingOk"><spring:message code="newUserRegistration.label.marketingOk" /></label>
-			</div>
-			
-			<div class="yui-u first"></div>
-			<div class="yui-u">
-				<div>
-					<form:checkbox id="acceptTerms" path="acceptTerms" cssErrorClass="error" />
-					<label for="acceptTerms"><spring:message code="newUserRegistration.label.acceptTerms" /></label>
-				</div>
-				<form:errors path="acceptTerms">
-					<div class="errorMessage"><form:errors path="acceptTerms" htmlEscape="false" /></div>
-				</form:errors>
-			</div>
-			
-			<div class="yui-u first"></div>
-			<div class="yui-u">
-				<spring:message code="newUserRegistration.label.privacyPolicy" />
-			</div>
-			
-			<div class="yui-u first"></div>
-			<div class="yui-u"><input type="submit" value="${registerLabel}"></input></div>
-	</div>
-</form:form> --%>

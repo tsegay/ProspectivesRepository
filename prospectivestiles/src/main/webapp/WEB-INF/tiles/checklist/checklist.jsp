@@ -62,7 +62,7 @@
 		  <dt>Id</dt>
 		  <dd><c:out value="${userEntity.checklist.id}"></c:out></dd>
 		  
-		  <dt>f1Visa</dt>
+		  <dt><spring:message code="checklist.label.f1Visa" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.f1Visa == \"notrequired\"}">
 		  		<span class="gray"> 
@@ -81,7 +81,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>bankStmt</dt>
+		  <dt><spring:message code="checklist.label.bankStmt" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.bankStmt == \"notrequired\"}">
 		  		<span class="gray"> 
@@ -100,7 +100,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>i20</dt>
+		  <dt><spring:message code="checklist.label.i20" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.i20 == \"notrequired\"}">
 		  		<span class="gray"> 
@@ -119,7 +119,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>passport</dt>
+		  <dt><spring:message code="checklist.label.passport" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.passport == \"notrequired\"}">
 		  		<span class="gray"> 
@@ -138,7 +138,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>financialAffidavit</dt>
+		  <dt><spring:message code="checklist.label.financialAffidavit" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.financialAffidavit == \"notrequired\"}">
 		  		<span class="gray"> 
@@ -157,7 +157,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>applicationFee</dt>
+		  <dt><spring:message code="checklist.label.applicationFee" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.applicationFee == \"notrequired\"}">
 		  		<span class="gray"> 
@@ -176,7 +176,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>transcript</dt>
+		  <dt><spring:message code="checklist.label.transcript" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.transcript == \"notrequired\"}">
 		  		<span class="gray"> 
@@ -195,7 +195,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>diplome</dt>
+		  <dt><spring:message code="checklist.label.diplome" /></dt>
 		  <dd>
 		  	<c:if test="${userEntity.checklist.diplome == \"notrequired\"}">
 		  		<span class="gray"> 
@@ -214,139 +214,22 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt>Remarks/notes</dt>
+		  <dt><spring:message code="checklist.label.notes" /></dt>
 		  <dd><c:out value="${userEntity.checklist.notes}"></c:out></dd>
 		  
-		  <%-- <dt>dateCreated</dt>
+		  <dt><spring:message code="checklist.label.dateCreated" /></dt>
 		  <dd><c:out value="${userEntity.checklist.dateCreated}"></c:out></dd>
 		  
-		  <dt>dateLastModified</dt>
-		  <dd><c:out value="${userEntity.checklist.dateLastModified}"></c:out></dd> --%>
+		  <dt><spring:message code="checklist.label.createdBy" /></dt>
+		  <dd><c:out value="${userEntity.checklist.createdBy}"></c:out></dd>
+		  
+		  <dt><spring:message code="checklist.label.dateLastModified" /></dt>
+		  <dd><c:out value="${userEntity.checklist.dateLastModified}"></c:out></dd>
+		  
+		  <dt><spring:message code="checklist.label.lastModifiedBy" /></dt>
+		  <dd><c:out value="${userEntity.checklist.lastModifiedBy}"></c:out></dd>
 		  
 		</dl>
-		
-		<%-- <dl class="dl-horizontal">
-		  <dt>Id</dt>
-		  <dd>
-		  	<c:out value="${userEntity.checklist.id}"></c:out>
-		  </dd>
-		  
-		  <dt>f1Visa</dt>
-		  <dd>
-		  	<c:if test="${userEntity.checklist.f1Visa == true}">
-		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Complete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.checklist.f1Visa == false}">
-		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  </dd>
-		  
-		  <dt>bankStmt</dt>
-		  <dd>
-		  	<c:if test="${userEntity.checklist.bankStmt == true}">
-		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Complete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.checklist.bankStmt == false}">
-		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  </dd>
-		  
-		  <dt>i20</dt>
-		  <dd>
-		  	<c:if test="${userEntity.checklist.i20 == true}">
-		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Complete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.checklist.i20 == false}">
-		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  </dd>
-		  
-		  <dt>passport</dt>
-		  <dd>
-		  	<c:if test="${userEntity.checklist.passport == true}">
-		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Complete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.checklist.passport == false}">
-		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  </dd>
-		  
-		  <dt>financialAffidavit</dt>
-		  <dd>
-		  	<c:if test="${userEntity.checklist.financialAffidavit == true}">
-		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Complete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.checklist.financialAffidavit == false}">
-		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  </dd>
-		  
-		  <dt>applicationFee</dt>
-		  <dd>
-		  	<c:if test="${userEntity.checklist.applicationFee == true}">
-		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Complete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.checklist.applicationFee == false}">
-		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  </dd>
-		  
-		  <dt>transcript</dt>
-		  <dd>
-		  	<c:if test="${userEntity.checklist.transcript == true}">
-		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Complete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.checklist.transcript == false}">
-		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  </dd>
-		  
-		  <dt>diplome</dt>
-		  <dd>
-		  	<c:if test="${userEntity.checklist.diplome == true}">
-		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Complete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.checklist.diplome == false}">
-		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  </dd>
-		  
-		  <dt>notes</dt>
-		  <dd><c:out value="${userEntity.checklist.notes}"></c:out></dd>
-		  
-		</dl> --%>
 		
 		<br />
 		<br />

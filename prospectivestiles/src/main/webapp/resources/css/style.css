@@ -171,6 +171,16 @@ div.messagetitle {
 div.text {
     padding: 10px 20px;
 }
+
+.label-pad {
+	padding-top: 12px;
+}
+
+.red-asterisk {
+    color: red;
+    font-size: 7px;
+}
+
 /* 
 ##################################################################
 		JSON Test CSS 
