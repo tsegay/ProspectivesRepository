@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -44,6 +46,8 @@ public class AdminAddressController {
 	@Inject
 	private AddressService addressService;
 	
+	private static final Logger log = LoggerFactory.getLogger(AdminAddressController.class);
+	
 	// ======================================
 	// =             addresses             =
 	// ======================================
@@ -55,6 +59,8 @@ public class AdminAddressController {
 	@RequestMapping(value = "/accounts/{userEntityId}/addresses", method = RequestMethod.GET)
 	public String getAddresses(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
+		
+		log.debug(" viewing /accounts/userEntityId/addresses on ");
 		
 		/**
 		 * load all addresses for a user
@@ -79,6 +85,8 @@ public class AdminAddressController {
 	@RequestMapping(value = "/accounts/{userEntityId}/address/new", method = RequestMethod.GET)
 	public String getNewAddressForm(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
+		log.debug("################# debug address 1");
+		System.out.println("################# address 1");
 		Address address = new Address();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
@@ -101,6 +109,9 @@ public class AdminAddressController {
 	@RequestMapping(value = "/accounts/{userEntityId}/addresses", method = RequestMethod.POST)
 	public String postNewAddressForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Address address, BindingResult result, Model model) {
+		
+		log.debug("################# debug address 2");
+		System.out.println("################# address 2");
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
@@ -127,6 +138,9 @@ public class AdminAddressController {
 	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}/edit", method = RequestMethod.GET)
 	public String editAddress(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("addressId") Long addressId, Model model) {
+		
+		log.debug("################# debug address 3");
+		System.out.println("################# address 3");
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Address address = getAddressValidateUserEntityId(userEntityId, addressId);
 		
@@ -153,6 +167,9 @@ public class AdminAddressController {
 			@ModelAttribute @Valid Address origAddress, 
 			BindingResult result,
 			Model model) {
+		log.debug("################# debug address 4");
+		System.out.println("################# address 4");
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		Address address = getAddressValidateUserEntityId(userEntityId, addressId);
@@ -190,6 +207,8 @@ public class AdminAddressController {
 	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}/delete", method = RequestMethod.GET)
 	public String getDeleteAddress(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("addressId") Long addressId, Model model) {
+		log.debug("################# debug address 5");
+		System.out.println("################# address 5");
 		
 		Address address = getAddressValidateUserEntityId(userEntityId, addressId);
 		
@@ -203,6 +222,9 @@ public class AdminAddressController {
 	public String deleteAddress(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("addressId") Long addressId, Model model)
 			throws IOException {
+		log.debug("################# debug address 6");
+		System.out.println("################# address 6");
+		
 		addressService.delete(getAddressValidateUserEntityId(userEntityId, addressId));
 		// I am no longer using the addresses page!
 //		return "redirect:/accounts/{userEntityId}/addresses";

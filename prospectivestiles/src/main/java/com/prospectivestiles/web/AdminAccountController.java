@@ -1,5 +1,6 @@
 package com.prospectivestiles.web;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 /*import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;*/
@@ -42,12 +45,21 @@ public class AdminAccountController {
 	@Inject
 	private AssociatedUserService associatedUserService;
 	
+	private static final Logger log = LoggerFactory.getLogger(AdminAccountController.class);
+	
+	
 	// ======================================
 	// =             accounts             =
 	// ======================================
 	
 	@RequestMapping(value="/accounts", method = RequestMethod.GET)
 	public String getAllAccounts(Model model) {
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		
+		log.debug(currentUserFullName + " viewing /accounts on " + now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts on " + now);
+		
 //		List<UserEntity> users = userEntityService.getAllUserEntities();
 		/*I want to get all students only, not admin users*/
 		List<UserEntity> users = userEntityService.findByRole(1);
@@ -242,6 +254,11 @@ public class AdminAccountController {
 	 */
 	@RequestMapping(value = "/accounts/{userEntityId}", method = RequestMethod.GET)
 	public String getAccountInfo(@PathVariable("userEntityId") long userEntityId, Model model) {
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		
+		log.debug(currentUserFullName + " viewing /accounts/"+userEntityId+" on " + now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts on " + now);
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		

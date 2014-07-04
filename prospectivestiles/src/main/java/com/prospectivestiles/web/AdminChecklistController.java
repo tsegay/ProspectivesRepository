@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -37,6 +39,8 @@ public class AdminChecklistController {
 	
 	@Inject
 	private ChecklistService checklistService;
+	
+	private static final Logger log = LoggerFactory.getLogger(AdminChecklistController.class);
 	
 	// ======================================
 	// =             checklists             =
@@ -225,6 +229,8 @@ public class AdminChecklistController {
 		data.put("checklistTotal", 8);
 		
 		System.out.println("################## checklistCount: " + checklistCount );
+		log.debug("# # # # # # # # # # # # getChecklistStatus... [log.debug]");
+		log.info("# # # # # # # # # # # # getChecklistStatus... [log.info]");
 		
 		return data;
 	}

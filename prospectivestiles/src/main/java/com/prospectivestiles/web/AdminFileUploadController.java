@@ -108,6 +108,7 @@ public class AdminFileUploadController {
                 byte[] bytes = uFile.getBytes();
  
                 // Creating the directory to store file
+                // rootPath: "/Library/apache-tomcat-7.0.53"
                 String rootPath = System.getProperty("catalina.home");
                 System.out.println("rootPath:" + rootPath);
                 File dir = new File(rootPath + File.separator + "tmpFiles");
@@ -116,6 +117,7 @@ public class AdminFileUploadController {
  
                 // Create the file on server
                 File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+                // serverFile.toString(): Eg. "/Library/apache-tomcat-7.0.53/tmpFiles/favicon-2.jpg"
                 System.out.println("serverFile.toString(): " + serverFile.toString());
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);

@@ -24,7 +24,6 @@ public class HomeController {
 	private static final Logger log = LoggerFactory.getLogger(UserEntityServiceImpl.class);
 //	private static Logger logger = Logger.getLogger(HomeController.class);
 	
-	
 	private UserEntityService userEntityService;
 	
 	public UserEntityService getUserEntityService() {

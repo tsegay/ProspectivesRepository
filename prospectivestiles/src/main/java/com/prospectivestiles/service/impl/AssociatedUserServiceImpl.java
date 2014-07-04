@@ -48,6 +48,7 @@ public class AssociatedUserServiceImpl implements AssociatedUserService {
 		associatedUserToUpdate.setAdmissionOfficer(associatedUser.getAdmissionOfficer());
 		associatedUserToUpdate.setAgent(associatedUser.getAgent());
 		associatedUserToUpdate.setReferrer(associatedUser.getReferrer());
+		associatedUserToUpdate.setHeardAboutAcctThru(associatedUser.getHeardAboutAcctThru());
 		Date now = new Date();
 		associatedUserToUpdate.setDateLastModified(now);
 		associatedUserToUpdate.setLastModifiedBy(associatedUser.getLastModifiedBy());

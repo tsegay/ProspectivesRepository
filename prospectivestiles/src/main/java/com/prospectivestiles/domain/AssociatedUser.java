@@ -45,6 +45,10 @@ public class AssociatedUser extends BaseEntity implements Serializable {
 	private long aoId;
 	private String referrer;
 	private String agent;
+	/**
+	 * How did you hear about ACCT?
+	 */
+	private String heardAboutAcctThru;
 	
 	// ======================================
     // =            Constructors            =
@@ -103,6 +107,11 @@ public class AssociatedUser extends BaseEntity implements Serializable {
 	public void setAgent(String agent) {
 		this.agent = agent;
 	}
-	
+	public String getHeardAboutAcctThru() {
+		return heardAboutAcctThru;
+	}
+	public void setHeardAboutAcctThru(String heardAboutAcctThru) {
+		this.heardAboutAcctThru = heardAboutAcctThru;
+	}
 		
 }
