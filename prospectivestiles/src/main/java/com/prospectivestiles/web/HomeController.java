@@ -75,9 +75,6 @@ public class HomeController {
 		return "adminpage";
 	}
 	
-	
-	
-	
 	/*@RequestMapping("/loggedout")
 	public String showLoggedOut() {
 		return "loggedout";

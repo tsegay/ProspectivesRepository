@@ -192,5 +192,13 @@ public class UserEntityServiceImpl implements UserEntityService {
 	public long countByRole(long roleID) {
 		return userEntityDao.countByRole(roleID);
 	}
+
+	/**
+	 * To find if a user is an admin
+	 */
+	@Override
+	public boolean hasRoleAdmin(long userEntityId) {
+		return userEntityDao.hasRoleAdmin(userEntityId);
+	}
 	
 }

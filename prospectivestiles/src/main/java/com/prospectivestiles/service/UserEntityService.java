@@ -41,5 +41,6 @@ public interface UserEntityService {
 	 * To count all students or admins
 	 */
 	long countByRole(long roleID);
+	boolean hasRoleAdmin(long userEntityId);
 
 }

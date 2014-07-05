@@ -3,10 +3,14 @@ package com.prospectivestiles.web;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +29,11 @@ import com.prospectivestiles.service.UserEntityService;
 
 
 @Controller
-//@RequestMapping("/users")
 public class UserEntityController {
-//	private static final String VN_REG_FORM = "users/registrationForm";
-//	private static final String VN_REG_OK = "redirect:/users/registration_ok.xhtml";
 	
 	@Inject private UserEntityService userEntityService;
 	
+	private static final Logger log = LoggerFactory.getLogger(UserEntityController.class);
 	
 	
 	@Inject
@@ -46,12 +48,6 @@ public class UserEntityController {
 		});
 	}
 	
-	/*
-	 * Defined in HomeController.java
-	 */
-	/*@RequestMapping(value = "/accounts/{username}", method = RequestMethod.GET)
-	public String getAccountInfo(@PathVariable("username") String username, Model model)*/ 
-	
 	@RequestMapping(value = "/registrationform", method = RequestMethod.GET)
 	public String getRegistrationForm(Model model) {
 		System.out.println("####### registrationform displayed");
@@ -64,60 +60,102 @@ public class UserEntityController {
 			@ModelAttribute("userEntity") @Valid UserEntity form,
 			BindingResult result) {
 		
-		System.out.println("######## postRegistrationForm() Called #####");
-		System.out.println("######## getFirstName: " + form.getFirstName());
-		System.out.println("######## getLastName: " + form.getLastName());
-		System.out.println("######## getEmail: " + form.getEmail());
-		System.out.println("######## getUsername: " + form.getUsername());
-		System.out.println("######## getPassword: " + form.getPassword());
-		System.out.println("######## isMarketingOk: " + form.isMarketingOk());
-		System.out.println("######## getAcceptTerms: " + form.getAcceptTerms());
+//		System.out.println("######## postRegistrationForm() Called #####");
+		log.debug("####### debug creating an account");
+		log.info("######## info creating an account");
 		
-		if (result.hasErrors()) {
-			System.out.println("######## result.hasErrors(): true" );
-			System.out.println("######## Error in: " + result.toString());
-		} else {
-			System.out.println("######## result.hasErrors(): false" );
-		}
+//		System.out.println("######## getFirstName: " + form.getFirstName());
+//		System.out.println("######## getLastName: " + form.getLastName());
+//		System.out.println("######## getEmail: " + form.getEmail());
+//		System.out.println("######## getUsername: " + form.getUsername());
+//		System.out.println("######## getPassword: " + form.getPassword());
+//		System.out.println("######## isMarketingOk: " + form.isMarketingOk());
+//		System.out.println("######## getAcceptTerms: " + form.getAcceptTerms());
+//		
+//		if (result.hasErrors()) {
+//			System.out.println("######## result.hasErrors(): true" );
+//			System.out.println("######## Error in: " + result.toString());
+//		} else {
+//			System.out.println("######## result.hasErrors(): false" );
+//		}
 		
-//		convertPasswordError(result);
 		String password = form.getPassword();
 		userEntityService.createUserEntity(form, result);
 		
-		
-		
-		/*if(usersService.exists(user.getUsername())) {
-			result.rejectValue("username", "DuplicateKey.user.username");
-			return "newaccount";
-		}
-		try {
-			usersService.create(user);
-		} catch (DuplicateKeyException e) {
-			result.rejectValue("username", "DuplicateKey.user.username");
-			return "newaccount";
-		}*/
-		
-		
-		if (!result.hasErrors()) {
-			
-			Authentication authRequest =
-					new UsernamePasswordAuthenticationToken(form.getUsername(), password);
-			if (authRequest != null) {
-				System.out.println("######## authREquest: " + authRequest.toString());
-			}
-			
-			Authentication authResult = authMgr.authenticate(authRequest);
-			
-			if (authResult == null) {
-				System.out.println("######## authResult is null");
+		/**
+		 * Find who is creating the account? An applicant or an admission worker.
+		 * If an applicant is creating the account, log in the user after the account is created.
+		 * If an admissionOfficer is creating the account, 
+		 * do not log in the admissionOfficer with the currently created account
+		 * but redirect user to the profile page of the newly registered student
+		 * 
+		 * getUserEntityFromSecurityContext retrns null when user not authenticated
+		 */
+			UserEntity currentUser = getUserEntityFromSecurityContext();
+			if (currentUser == null) {
+//				System.out.println("######## currentUser: " + currentUser);
+				log.debug("####### debug: " + form.getUsername() + " creating an account");
+				log.info("####### info: " + form.getUsername() + " creating an account");
+				
+				if (!result.hasErrors()) {
+					
+					Authentication authRequest =
+							new UsernamePasswordAuthenticationToken(form.getUsername(), password);
+//					if (authRequest != null) {
+//						System.out.println("######## authREquest: " + authRequest.toString());
+//					}
+					
+					Authentication authResult = authMgr.authenticate(authRequest);
+					
+//					if (authResult == null) {
+//						System.out.println("######## authResult is null");
+//					} else {
+//						System.out.println("######## authResult is: " + authRequest.toString());
+//					}
+					
+					SecurityContextHolder.getContext().setAuthentication(authResult);
+				}
+				
 			} else {
-				System.out.println("######## authResult is: " + authRequest.toString());
+				// When admission officer created a user account, redirect to profile page of the new user
+				if (userEntityService.hasRoleAdmin(currentUser.getId())) {
+//					System.out.println("######## currentUser: " + currentUser.getFullName());
+					log.debug("####### debug: " + currentUser.getFullName() + " creating an account ");
+					log.info("####### info: " + currentUser.getFullName() + " creating an account ");
+					
+					UserEntity createdAccount = userEntityService.getUserEntityByUsername(form.getUsername());
+					return "redirect:/accounts/" + createdAccount.getId();
+				}
 			}
-			SecurityContextHolder.getContext().setAuthentication(authResult);
-		}
-		
 		
 		return (result.hasErrors() ? "registrationform" : "welcome");
+	}
+	
+	// ======================================
+	// =                         =
+	// ======================================
+	
+	private UserEntity getUserEntityFromSecurityContext() {
+		SecurityContext securityCtx = SecurityContextHolder.getContext();
+		Authentication auth = securityCtx.getAuthentication();
+		UserEntity userEntity = null;
+		/**
+		 * If user is not authenticated, principal is String
+		 * Else it is an object of type UserEntity
+		 * 
+		 * When a user is not authenticated, 
+		 * the userEntity variable returns a String value instead of an object,
+		 * Then if you simply return this string, 
+		 * you get exception: "java.lang.String cannot be cast to com.prospectivestiles.domain.UserEntity"
+		 * 
+		 * Hence, return the userEntity only when principal is not instanceof AnonymousAuthenticationToken
+		 * If user is not authenticated return null
+		 */
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			userEntity =  (UserEntity) auth.getPrincipal();
+		}
+		
+		return userEntity;
 	}
 
 }

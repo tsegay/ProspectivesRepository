@@ -208,6 +208,26 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 			.setParameter("roleID", roleID)
 			.uniqueResult();
 	}
+
+	/**
+	 * To find if a user is an admin
+	 */
+	@Override
+	public boolean hasRoleAdmin(long userEntityId) {
+		boolean isAdmin = false;
+		UserEntity userEntity = find(userEntityId);
+		Set<Role> roles = userEntity.getRoles();
+		
+		for (Role role : roles) {
+			// if role is admin return true else false
+			if (role.getId() == 2) {
+				System.out.println("############## role: " + role.getName());
+				isAdmin = true;
+			}
+		}
+		
+		return isAdmin;
+	}
 	
 	
 }

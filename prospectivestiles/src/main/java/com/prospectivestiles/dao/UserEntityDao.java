@@ -9,18 +9,14 @@ import com.prospectivestiles.domain.UserEntity;
 
 public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	
-//	void create(Account account, String password);
 	void createUserEntity(UserEntity userEntity);
 	
 	UserEntity findByUsername(String username);
-	
 
 	String getPasswordByUsername(String username);
 	
-	// I SHOULD USE THIS METHOD INSTEAD
-	/*Account getByUsername(String username);*/
-	
 	void insertTerm(long userEntityId, long termId);
+	
 	void insertProgramOfStudy(long userEntityId, long programOfStudyId);
 	/**
 	 * Using JDBC to update userEntity
@@ -30,6 +26,9 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
 	
 	List<UserEntity> findByRole(long roleID);
+	
+	// is the user an admin?
+	boolean hasRoleAdmin(long userEntityId);
 	
 	// used for pagination
 	// put it in dao.java
