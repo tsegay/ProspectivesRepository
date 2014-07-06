@@ -23,7 +23,12 @@
 
 	<bean id="multipartResolver"
   		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-  
+  	<!-- <bean id="multipartResolver"
+  		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+  			<property name="maxUploadSize" value="200000"/> 
+	    	<property name="restrictFileTypes" value="pdf,jpg"/> 
+  	</bean> -->
+  		
 	<bean id="tilesViewResolver"
 	    class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 	    <property name="viewClass">

@@ -47,12 +47,6 @@
     <h3>Please select files to upload.</h3>
     <br>
  
-<!--  	Description: <input name="description" type="text" />
-    <input name="file" type="file" />
-
-    <br/><br/>
-    <input type="submit" value="Upload" /> -->
-    
     <div class="input-group col-md-8">
    		<span class="input-group-addon">Description</span>
 	  	<input type="text" name="description" class="form-control" placeholder="Enter File Description">
@@ -61,6 +55,12 @@
     <br/>
 	<input name="file" type="file" /><br/>
     <input type="submit" value="Upload" class="btn btn-primary btn-sm" />
+    <span class="error">${fileErrMsg}</span>
+    
+	<!-- There is the accept attribute for the input tag. 
+	However, it is not reliable in any way. Browsers most likely treat it as a "suggestion" -->
+	<!-- <input name="file" type="file" accept="image/gif, image/jpeg" /><br/> -->
+    
     
 </form:form>
 
@@ -72,6 +72,7 @@
 	</c:when>
 	<c:otherwise>
 		<h3>You have uploaded these files:</h3>
+		<br/>
 		
 		<ol>
 		    <c:forEach items="${files}" var="file">
@@ -87,14 +88,14 @@
 			</sec:authorize>
 		    
 		         <li class="row">
-		         	<p class="col-md-7">${file.description} (FileName: ${file.fileName})</p>
+		         	<p class="col-md-7 neg-12-margin-top">${file.description} (FileName: ${file.fileName})</p>
 		         	
-		         	<a href="${donwloadFileUrl}" class="btn btn-primary btn-sm col-md-2 glyphicon glyphicon-download-alt"> Download</a>
+		         	<a href="${donwloadFileUrl}" class="btn btn-primary btn-sm col-md-2 glyphicon glyphicon-download-alt neg-12-margin-top"> Download</a>
 		         	<span class="col-md-1"></span>
 		         	
 		         	<!-- Button trigger modal -->
 					<a data-toggle="modal" data-remote="${deleteFileUrl}" data-target="#deleteFileModal" 
-						class="btn btn-danger btn-sm col-md-1">Delete</a><br><br>
+						class="btn btn-danger btn-sm col-md-1 neg-12-margin-top">Delete</a><br><br>
 						
 					<!-- delete address Modal -->
 					<div class="modal fade" id="deleteFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -105,11 +106,6 @@
 					  </div>
 					</div>
 								
-		         	<%-- <form id="deleteForm" action="${deleteFileUrl}" method="post" class="col-md-2">
-						<div><input type="submit" value="DELETE" class="btn btn-danger btn-xs" /></div>
-					</form> --%>
-		         	
-		         	
 		         </li>
 		         
 		    </c:forEach>

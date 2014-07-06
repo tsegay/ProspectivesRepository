@@ -181,6 +181,10 @@ div.text {
     font-size: 7px;
 }
 
+.neg-12-margin-top {
+	margin-top: -12px;
+}
+
 /* 
 ##################################################################
 		JSON Test CSS 

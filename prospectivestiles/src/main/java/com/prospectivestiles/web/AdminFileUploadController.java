@@ -81,6 +81,15 @@ public class AdminFileUploadController {
 
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
+		String fileName = null;
+//		String fileErrMsg = null;
+		
+		if (result.hasErrors()) {
+			model.addAttribute(userEntity);
+			String fileErrMsg = "##1 Valid files are pdf, jpeg, jpg, png and max file size is 5MB.";
+            model.addAttribute("fileErrMsg",fileErrMsg);
+			return "uploadFiles";
+		}
 		
 		InputStream inputStream = null;
 		OutputStream outputStream = null;
@@ -91,68 +100,86 @@ public class AdminFileUploadController {
 		System.out.println("##############: getOriginalFilename: " + uFile.getOriginalFilename());
 		System.out.println("##############: getName: " + uFile.getName());
 		
-		
-		String fileName = null;
 		if (uFile != null) {
+			
 			fileName = uFile.getOriginalFilename();
-		}
-		if (result.hasErrors()) {
-			model.addAttribute(userEntity);
-			return "uploadFiles";
+			
+			if (uFile.getContentType().equals("image/jpeg") || 
+					uFile.getContentType().equals("image/jpg") ||
+					uFile.getContentType().equals("image/png") ||
+					uFile.getContentType().equals("image/gif") ||
+					uFile.getContentType().equals("application/pdf")
+					) {
+//	          throw new RuntimeException("Only JPG images are accepted");
+				System.out.println("Is accepted type.");
+				
+				if (!uFile.isEmpty()) {
+					
+					// 500 000 = 5MB
+					if (uFile.getSize() > 500000) {
+		                System.out.println("File Size:::" +uFile.getSize());
+		                model.addAttribute(userEntity);
+		                // to display error messages on page
+		                String fileErrMsg = "###2 [> 5MB] Valid files are pdf, jpeg, jpg, png and max file size is 5MB.";
+		                model.addAttribute(userEntity);
+		                model.addAttribute("fileErrMsg",fileErrMsg);
+		                return "uploadFiles";
+					}
+					
+		            try {
+		                byte[] bytes = uFile.getBytes();
+		 
+		                // Creating the directory to store file
+		                // rootPath: "/Library/apache-tomcat-7.0.53"
+		                String rootPath = System.getProperty("catalina.home");
+		                System.out.println("rootPath:" + rootPath);
+		                File dir = new File(rootPath + File.separator + "tmpFiles");
+		                if (!dir.exists())
+		                    dir.mkdirs();
+		 
+		                // Create the file on server
+		                File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+		                // serverFile.toString(): Eg. "/Library/apache-tomcat-7.0.53/tmpFiles/favicon-2.jpg"
+		                System.out.println("serverFile.toString(): " + serverFile.toString());
+		                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+		                stream.write(bytes);
+		                stream.close();
+		                
+		                //  TO SAVE IN DB
+		                uploadedFile.setFileUploaded(bytes);
+		                uploadedFile.setFileName(fileName);
+		                uploadedFile.setContentType(uFile.getContentType());
+		                uploadedFile.setSize(uFile.getSize());
+		                uploadedFile.setUserEntity(userEntity);
+		        		uploadedFile.setCreatedBy(currentAdmissionUser);
+		                
+		                uploadedFilesService.createUploadedFiles(uploadedFile);
+		                
+		                System.out.println("After uploadedFilesService.createUploadedFiles: " + uploadedFilesService.getAllUploadedFiles().toString());
+		 
+		               /* logger.info("Server File Location=" + serverFile.getAbsolutePath());*/
+		 
+		                System.out.println("You successfully uploaded file=" + fileName);
+		            } catch (Exception e) {
+		            	System.out.println("You failed to upload " + fileName + " => " + e.getMessage());
+		            }
+		        } else {
+		        	String fileErrMsg = "###3 [empty file] Valid files are pdf, jpeg, jpg, png and max file size is 5MB.";
+		        	model.addAttribute(userEntity);
+		        	model.addAttribute("fileErrMsg",fileErrMsg);
+		        	System.out.println("You failed to upload " + fileName + " because the file was empty.");
+		        	return "uploadFiles";
+		        }
+			} else {
+				String fileErrMsg = "###4 [not pdf, jpeg, jpg, png] Valid files are pdf, jpeg, jpg, png and max file size is 5MB.";
+				model.addAttribute("fileErrMsg",fileErrMsg);
+				model.addAttribute(userEntity);
+				System.out.println("Is not accepted type.");
+				return "uploadFiles";
+			}
+			
 		}
 		
-		///////
-		
-		if (!uFile.isEmpty()) {
-            try {
-                byte[] bytes = uFile.getBytes();
- 
-                // Creating the directory to store file
-                // rootPath: "/Library/apache-tomcat-7.0.53"
-                String rootPath = System.getProperty("catalina.home");
-                System.out.println("rootPath:" + rootPath);
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-                if (!dir.exists())
-                    dir.mkdirs();
- 
-                // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
-                // serverFile.toString(): Eg. "/Library/apache-tomcat-7.0.53/tmpFiles/favicon-2.jpg"
-                System.out.println("serverFile.toString(): " + serverFile.toString());
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
-                
-                
-                //  TO SAVE IN DB
-                uploadedFile.setFileUploaded(bytes);
-                uploadedFile.setFileName(fileName);
-                uploadedFile.setContentType(uFile.getContentType());
-                uploadedFile.setSize(uFile.getSize());
-                uploadedFile.setUserEntity(userEntity);
-        		uploadedFile.setCreatedBy(currentAdmissionUser);
-                
-                uploadedFilesService.createUploadedFiles(uploadedFile);
-                
-                System.out.println("After uploadedFilesService.createUploadedFiles: " + uploadedFilesService.getAllUploadedFiles().toString());
- 
-               /* logger.info("Server File Location=" + serverFile.getAbsolutePath());*/
- 
-                System.out.println("You successfully uploaded file=" + fileName);
-            } catch (Exception e) {
-            	System.out.println("You failed to upload " + fileName + " => " + e.getMessage());
-            }
-        } else {
-        	System.out.println("You failed to upload " + fileName + " because the file was empty.");
-        }
-		/**
-		 * When file uploaded successfully user will be redirected to success page and
-		 * that page will be loaded with whatever the model has here. 
-		 * so success page can say 'fileName is uploaded...'
-		 * I may not need it now, as i am reiecting to the getFiles, that will get all files from db and display it.
-		 */
-//		model.addAttribute("fileUploaded", fileName);
-//		return "file_upload_success";
 		return "redirect:/accounts/{userEntityId}/files";
 	}
 	
@@ -248,3 +275,4 @@ public class AdminFileUploadController {
 	}
 
 }
+
