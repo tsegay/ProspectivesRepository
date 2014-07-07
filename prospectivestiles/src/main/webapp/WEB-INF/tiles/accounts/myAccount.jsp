@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%-- <sec:authentication var="userEntity" property="principal" /> --%>
 
@@ -28,103 +28,86 @@
 <div class="row">
 	<dl class="dl-horizontal col-md-6">
 	
-		<dt>id</dt>
+		<dt><spring:message code="account.label.id" /></dt>
 		<dd>
 			<c:out value="${userEntity.id}" />
 		</dd>
 		
-		<dt>firstName</dt>
+		<dt><spring:message code="account.label.firstName" /></dt>
 		<dd>
 			<c:out value="${userEntity.firstName}" />
 		</dd>
 	
-		<dt>middleName</dt>
+		<dt><spring:message code="account.label.middleName" /></dt>
 		<dd>
 			<c:out value="${userEntity.middleName}" />
 		</dd>
 	
-		<dt>lastName</dt>
+		<dt><spring:message code="account.label.lastName" /></dt>
 		<dd>
 			<c:out value="${userEntity.lastName}" />
 		</dd>
 	
-		<dt>Username</dt>
+		<dt><spring:message code="account.label.username" /></dt>
 		<dd>
 			<c:out value="${userEntity.username}" />
 		</dd>
 	
-		<dt>E-mail</dt>
+		<dt><spring:message code="account.label.email" /></dt>
 		<dd>
 			<a href="mailto:${userEntity.email}">${userEntity.email}</a>
 		</dd>
 		
-		<dt>marketingOk</dt>
+		<dt><spring:message code="account.label.marketingOk" /></dt>
 		<dd>
 			<c:out value="${userEntity.marketingOk}" />
 		</dd>
 		
-		<dt>acceptTerms</dt>
+		<dt><spring:message code="account.label.acceptTerms" /></dt>
 		<dd>
 			<c:out value="${userEntity.acceptTerms}" />
 		</dd>
 		
-		<dt>dateCreated</dt>
+		<dt><spring:message code="account.label.dateCreated" /></dt>
 		<dd>
 			<c:out value="${userEntity.dateCreated}" />
 		</dd>
 	</dl>
 	<dl class="dl-horizontal col-md-6">
 	
-		<dt>dob</dt>
+		<dt><spring:message code="account.label.dob" /></dt>
 		<dd>
 			<c:out value="${userEntity.dob}" />
 		</dd>
 		
-		<dt>gender</dt>
+		<dt><spring:message code="account.label.gender" /></dt>
 		<dd>
 			<c:out value="${userEntity.gender}" />
 		</dd>
 		
-		<%-- <dt>transferee</dt>
-		<dd>
-			<c:out value="${userEntity.transferee}" />
-		</dd> --%>
-		<dt>homePhone</dt>
+		<dt><spring:message code="account.label.homePhone" /></dt>
 		<dd>
 			<c:out value="${userEntity.homePhone}" />
 		</dd>
-		<dt>cellPhone</dt>
+		<dt><spring:message code="account.label.cellPhone" /></dt>
 		<dd>
 			<c:out value="${userEntity.cellPhone}" />
 		</dd>
-		<dt>ssn</dt>
+		<dt><spring:message code="account.label.ssn" /></dt>
 		<dd>
 			<c:out value="${userEntity.ssn}" />
 		</dd>
 		
-		<dt>citizenship</dt>
+		<dt><spring:message code="account.label.citizenship" /></dt>
 		<dd>
 			<c:out value="${userEntity.citizenship}" />
 		</dd>
 		
-		<dt>ethnicity</dt>
+		<dt><spring:message code="account.label.ethnicity" /></dt>
 		<dd>
 			<c:out value="${userEntity.ethnicity}" />
 		</dd>
 		
-		<%-- <dt>Account enabled</dt>
-		<dd>
-			<c:out value="${userEntity.enabled}" />
-		</dd> --%>
-	
-		<%-- <dt>Roles</dt>
-		<dd>
-			<c:forEach var="role" items="${userEntity.roles}">
-				<c:out value="${role.name}" />
-				<br />
-			</c:forEach>
-		</dd> --%>
-
 	</dl>
 </div>
 

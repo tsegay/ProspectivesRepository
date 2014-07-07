@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<spring:message var="registerLabel" code="newUserRegistration.label.register" />
+<spring:message var="registerLabel" code="account.label.register" />
 
 <h1>Registration form</h1>
 
@@ -12,11 +12,11 @@
 
 <form:form action="registrationform" modelAttribute="userEntity" role="form">
 
-	<%-- <p><spring:message code="newUserRegistration.message.allFieldsRequired" /></p> --%>
+	<%-- <p><spring:message code="account.message.allFieldsRequired" /></p> --%>
 	
 	<div class="form-group row">
 		<label for="username" class="col-sm-2 control-label">
-			<spring:message code="newUserRegistration.label.username" />
+			<spring:message code="account.label.username" />
 			<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
 		</label>
 	    <div class="col-sm-5">
@@ -28,7 +28,7 @@
 	</div>
 	
 	<div class="form-group row">
-		<label for="password" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.password" />
+		<label for="password" class="col-sm-2 control-label"><spring:message code="account.label.password" />
 		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">
 	      <form:password path="password" class="form-control" placeholder = "Your password" />
@@ -39,7 +39,7 @@
 	</div>
 	
 	<div class="form-group row">
-		<label for="confirmPassword" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.confirmPassword" />
+		<label for="confirmPassword" class="col-sm-2 control-label"><spring:message code="account.label.confirmPassword" />
 		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">
 	      <form:password path="confirmPassword" class="form-control" placeholder = "Confirm your password" />
@@ -47,7 +47,7 @@
 	</div>
 	
 	<div class="form-group row">
-		<label for="firstName" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.firstName" />
+		<label for="firstName" class="col-sm-2 control-label"><spring:message code="account.label.firstName" />
 		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">
 	      <form:input path="firstName" class="form-control" placeholder = "Your First Name" />
@@ -58,7 +58,7 @@
 	</div>
 	
 	<div class="form-group row">
-		<label for="lastName" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.lastName" />
+		<label for="lastName" class="col-sm-2 control-label"><spring:message code="account.label.lastName" />
 		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">
 	      <form:input path="lastName" class="form-control" placeholder = "Your Last Name" />
@@ -69,7 +69,7 @@
 	</div>
 	
 	<div class="form-group row">
-		<label for="email" class="col-sm-2 control-label"><spring:message code="newUserRegistration.label.email" />
+		<label for="email" class="col-sm-2 control-label"><spring:message code="account.label.email" />
 		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">
 	      <form:input path="email" class="form-control" placeholder = "Your Email" />
@@ -102,7 +102,9 @@
 	<hr style="border-bottom: groove;"/>
 	
 	<div class="form-group checkbox row">
-		<label for="marketingOk" class="col-sm-5 control-label label-pad"><spring:message code="newUserRegistration.label.marketingOk" /></label>
+		<label for="marketingOk" class="col-sm-5 control-label label-pad">
+			<spring:message code="account.label.marketingOk" />
+		</label>
 	    <div class="col-sm-2">
 	    	<form:checkbox class="form-control" id="marketingOk" path="marketingOk" />
 	    </div>
@@ -112,7 +114,7 @@
 	</div>
 	
 	<div class="form-group checkbox row">
-		<label for="acceptTerms" class="col-sm-5 control-label label-pad"><spring:message code="newUserRegistration.label.acceptTerms" />
+		<label for="acceptTerms" class="col-sm-5 control-label label-pad"><spring:message code="account.label.acceptTerms" />
 		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-2">
 	    	<form:checkbox class="form-control" id="acceptTerms" path="acceptTerms" />
@@ -125,7 +127,7 @@
 	
     <div class = "form-group row">
      	<div class = "col-sm-10 label-pad" id="privacyPolicy">
-     		<spring:message code="newUserRegistration.label.privacyPolicy" />
+     		<spring:message code="account.label.privacyPolicy" />
      	</div>
      	<label for="privacyPolicy" class="col-sm-2 control-label">&nbsp;</label>
     </div>

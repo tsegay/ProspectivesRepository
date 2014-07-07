@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
@@ -26,97 +27,107 @@
 
 <div class="row">
 	<dl class="dl-horizontal col-md-6">
-		<dt>id</dt>
+		<dt><spring:message code="account.label.id" /></dt>
 		<dd>
 			<c:out value="${userEntity.id}" />
 		</dd>
 		
-		<dt>firstName</dt>
+		<dt><spring:message code="account.label.firstName" /></dt>
 		<dd>
 			<c:out value="${userEntity.firstName}" />
 		</dd>
 	
-		<dt>middleName</dt>
+		<dt><spring:message code="account.label.middleName" /></dt>
 		<dd>
 			<c:out value="${userEntity.middleName}" />
 		</dd>
 	
-		<dt>lastName</dt>
+		<dt><spring:message code="account.label.lastName" /></dt>
 		<dd>
 			<c:out value="${userEntity.lastName}" />
 		</dd>
 	
-		<dt>Username</dt>
+		<dt><spring:message code="account.label.username" /></dt>
 		<dd>
 			<c:out value="${userEntity.username}" />
 		</dd>
 	
-		<dt>E-mail</dt>
+		<dt><spring:message code="account.label.email" /></dt>
 		<dd>
 			<a href="mailto:${userEntity.email}">${userEntity.email}</a>
 		</dd>
 		
-		<dt>marketingOk</dt>
+		<dt><spring:message code="account.label.marketingOk" /></dt>
 		<dd>
 			<c:out value="${userEntity.marketingOk}" />
 		</dd>
 		
-		<dt>acceptTerms</dt>
+		<dt><spring:message code="account.label.acceptTerms" /></dt>
 		<dd>
 			<c:out value="${userEntity.acceptTerms}" />
 		</dd>
 		
-		<dt>dateCreated</dt>
+		<dt><spring:message code="account.label.dateCreated" /></dt>
 		<dd>
 			<fmt:formatDate var="dateCreatedString" value="${userEntity.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" />
 			<c:out value="${dateCreatedString}" />
 		</dd>
 		
-		<dt>dob</dt>
+		<dt><spring:message code="account.label.dob" /></dt>
 		<dd>
 			<fmt:formatDate var="dobString" value="${userEntity.dob}" pattern="yyyy-MM-dd" />
 			<c:out value="${dobString}" />
 		</dd>
 	</dl>
 	<dl class="dl-horizontal col-md-6">
-		<dt>gender</dt>
+		<dt><spring:message code="account.label.gender" /></dt>
 		<dd>
 			<c:out value="${userEntity.gender}" />
 		</dd>
 		
-		<%-- <dt>transferee</dt>
+		<%-- <dt><spring:message code="account.label." />transferee</dt>
 		<dd>
 			<c:out value="${userEntity.transferee}" />
 		</dd> --%>
-		<dt>homePhone</dt>
+		<dt><spring:message code="account.label.homePhone" /></dt>
 		<dd>
 			<c:out value="${userEntity.homePhone}" />
 		</dd>
-		<dt>cellPhone</dt>
+		<dt><spring:message code="account.label.cellPhone" /></dt>
 		<dd>
 			<c:out value="${userEntity.cellPhone}" />
 		</dd>
-		<dt>ssn</dt>
+		<dt><spring:message code="account.label.ssn" /></dt>
 		<dd>
 			<c:out value="${userEntity.ssn}" />
 		</dd>
 		
-		<dt>citizenship</dt>
+		<dt><spring:message code="account.label.citizenship" /></dt>
 		<dd>
 			<c:out value="${userEntity.citizenship}" />
 		</dd>
 		
-		<dt>ethnicity</dt>
+		<dt><spring:message code="account.label.ethnicity" /></dt>
 		<dd>
 			<c:out value="${userEntity.ethnicity}" />
 		</dd>
 		
-		<dt>Account enabled</dt>
+		<dt><spring:message code="account.label.international" /></dt>
+		<dd>
+			<c:out value="${userEntity.international}" />
+		</dd>
+		
+		<dt><spring:message code="account.label.transferee" /></dt>
+		<dd>
+			<c:out value="${userEntity.transferee}" />
+		</dd>
+		
+		<dt><spring:message code="account.label.enabled" /></dt>
 		<dd>
 			<c:out value="${userEntity.enabled}" />
 		</dd>
 	
-		<dt>Roles</dt>
+		<dt><spring:message code="account.label.roles" /></dt>
 		<dd>
 			<c:forEach var="role" items="${userEntity.roles}">
 				<c:out value="${role.name}" />
@@ -152,17 +163,17 @@
 		
 		<div class="row">
 			<dl class="dl-horizontal col-md-6">
-				<dt>Admission Counselor</dt>
+				<dt><spring:message code="account.label.admissionCounselor" /></dt>
 				<dd>
 					<c:out value="${associatedUsers.admissionOfficer.fullName}"></c:out>
 				</dd>
 			
-				<dt>Agent</dt>
+				<dt><spring:message code="account.label.agent" /></dt>
 				<dd>
 					<c:out value="${associatedUsers.agent}"></c:out>
 				</dd>
 				
-				<dt>Referrer</dt>
+				<dt><spring:message code="account.label.referrer" /></dt>
 				<dd>
 					<c:out value="${associatedUsers.referrer}"></c:out>
 				</dd>

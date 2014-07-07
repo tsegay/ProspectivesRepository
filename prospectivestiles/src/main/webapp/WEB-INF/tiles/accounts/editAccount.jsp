@@ -24,7 +24,10 @@
 	modelAttribute="userEntity" role="form" class="form-horizontal">
 
 		<div class="form-group row">
-			<label for="username" class="col-sm-2 control-label">username</label>
+			<label for="username" class="col-sm-2 control-label">
+				<spring:message code="account.label.username" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="username"
 					placeholder="Your username" />
@@ -35,7 +38,10 @@
 		</div>
 	
 		<div class="form-group row">
-			<label for="email" class="col-sm-2 control-label">email</label>
+			<label for="email" class="col-sm-2 control-label">
+				<spring:message code="account.label.email" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="email"
 					placeholder="Your email" />
@@ -46,7 +52,10 @@
 		</div>
 	
 		<div class="form-group row">
-			<label for="firstName" class="col-sm-2 control-label">firstName</label>
+			<label for="firstName" class="col-sm-2 control-label">
+				<spring:message code="account.label.firstName" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="firstName"
 					placeholder="Your firstName" />
@@ -57,7 +66,9 @@
 		</div>
 	
 		<div class="form-group row">
-			<label for="middleName" class="col-sm-2 control-label">middleName</label>
+			<label for="middleName" class="col-sm-2 control-label">
+				<spring:message code="account.label.middleName" />
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="middleName"
 					placeholder="Your middleName" />
@@ -68,7 +79,10 @@
 		</div>
 	
 		<div class="form-group row">
-			<label for="lastName" class="col-sm-2 control-label">lastName</label>
+			<label for="lastName" class="col-sm-2 control-label">
+				<spring:message code="account.label.lastName" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="lastName"
 					placeholder="Your lastName" />
@@ -79,7 +93,9 @@
 		</div>
 	
 		<div class="form-group row">
-			<label for="homePhone" class="col-sm-2 control-label">homePhone</label>
+			<label for="homePhone" class="col-sm-2 control-label">
+				<spring:message code="account.label.homePhone" />
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="homePhone"
 					placeholder="Your homePhone" />
@@ -90,7 +106,9 @@
 		</div>
 	
 		<div class="form-group row">
-			<label for="cellPhone" class="col-sm-2 control-label">cellPhone</label>
+			<label for="cellPhone" class="col-sm-2 control-label">
+				<spring:message code="account.label.cellPhone" />
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="cellPhone"
 					placeholder="Your cellPhone" />
@@ -101,7 +119,9 @@
 		</div>
 	
 		<div class="form-group row">
-			<label for="gender" class="col-sm-2 control-label">gender</label>
+			<label for="gender" class="col-sm-2 control-label">
+				<spring:message code="account.label.gender" />
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="gender"
 					placeholder="Your gender" />
@@ -112,7 +132,9 @@
 		</div>
 	
 		<div class="form-group row">
-			<label for="ssn" class="col-sm-2 control-label">ssn</label>
+			<label for="ssn" class="col-sm-2 control-label">
+				<spring:message code="account.label.ssn" />
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="ssn"
 					placeholder="Your ssn" />
@@ -123,7 +145,9 @@
 		</div>
 	
 		<div class="form-group row">
-			<label for="citizenship" class="col-sm-2 control-label">citizenship</label>
+			<label for="citizenship" class="col-sm-2 control-label">
+				<spring:message code="account.label.citizenship" />
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="citizenship"
 					placeholder="Your citizenship" />
@@ -135,7 +159,9 @@
 	
 	
 		<div class="form-group row">
-			<label for="ethnicity" class="col-sm-2 control-label">ethnicity</label>
+			<label for="ethnicity" class="col-sm-2 control-label">
+				<spring:message code="account.label.ethnicity" />
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="ethnicity"
 					placeholder="Your ethnicity" />
@@ -146,7 +172,9 @@
 		</div>
 	
 		<div class="form-group row">
-			<label for="sevisNumber" class="col-sm-2 control-label">sevisNumber</label>
+			<label for="sevisNumber" class="col-sm-2 control-label">
+				<spring:message code="account.label.sevisNumber" />
+			</label>
 			<div class="col-sm-5">
 				<form:input class="form-control" path="sevisNumber"
 					placeholder="Your sevisNumber" />
@@ -159,7 +187,9 @@
 		<%-- Use timeStyle="short" so jquery.tablesorter can parse column as date --%>
 		<fmt:formatDate value="${userEntity.dob}" var="dateString" pattern="dd/MM/yyyy" />
 		<div class="form-group row">
-			<label for="dob" class="col-sm-2 control-label">dob</label>
+			<label for="dob" class="col-sm-2 control-label">
+				<spring:message code="account.label.dob" />
+			</label>
 			<div class="col-sm-5">
 				<form:input path="dob" value="${dateString}" class="form-control" id="dob" placeholder="Your dob" />
 			</div>
@@ -168,17 +198,42 @@
 			</div>
 		</div>
 		
-
-		<%-- <div class="form-group checkbox row">
+		<div class="form-group checkbox row">
+			<label for="international" class="col-sm-5 control-label label-pad">
+				<spring:message code="account.label.international" />
+			</label>
+		    <div class="col-sm-2">
+		    	<form:checkbox class="form-control" id="international" path="international" />
+		    </div>
+		    <div class="col-sm-5">
+		      	<form:errors class="errormsg" path="international" htmlEscape="false" />
+		    </div>
+		</div>
+		
+		<div class="form-group checkbox row">
+			<label for="transferee" class="col-sm-5 control-label label-pad">
+				<spring:message code="account.label.transferee" />
+			</label>
 		    <div class="col-sm-2">
 		    	<form:checkbox class="form-control" id="transferee" path="transferee" />
 		    </div>
-			<label for="transferee" class="col-sm-5 control-label">transferee</label>
 		    <div class="col-sm-5">
+		      	<form:errors class="errormsg" path="transferee" htmlEscape="false" />
 		    </div>
-		</div> --%>
-
-	
+		</div>
+		
+		<div class="form-group checkbox row">
+			<label for="marketingOk" class="col-sm-5 control-label label-pad">
+				<spring:message code="account.label.marketingOk" />
+			</label>
+		    <div class="col-sm-2">
+		    	<form:checkbox class="form-control" id="marketingOk" path="marketingOk" />
+		    </div>
+		    <div class="col-sm-5">
+		      	<form:errors class="errormsg" path="marketingOk" htmlEscape="false" />
+		    </div>
+		</div>
+		
 		<div class="form-group">
 			<label for="" class="col-sm-2 control-label">&nbsp;</label>
 			<div class="col-sm-10">
