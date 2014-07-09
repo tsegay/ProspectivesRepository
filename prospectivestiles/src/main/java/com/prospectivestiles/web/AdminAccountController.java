@@ -280,7 +280,7 @@ public class AdminAccountController {
 		 */
 		model.addAttribute("userEntity", userEntity);
 		
-		return "accounts/account";
+		return "account";
 	}
 	
 	@RequestMapping(value="/accounts/{userEntityId}/edit", method = RequestMethod.GET)
@@ -306,15 +306,16 @@ public class AdminAccountController {
 			System.out.println("######## result.hasErrors(): true" );
 //			model.addAttribute("originalUserEntity", userEntity);
 			model.addAttribute("userEntity", userEntity);
-			return "accounts/account";
+//			return "accounts/account";
+			return "account";
 		} else {
 			System.out.println("######## result.hasErrors(): false" );
 		}
 		
 		userEntityService.insertIntoUserEntity(userEntity.getId(), origUserEntity);
 		
-//		return "redirect:/accounts/{userEntityId}";
-		return "accounts/account";
+		return "redirect:/accounts/{userEntityId}";
+//		return "redirect:/account";
 	}
 	
 	/**
