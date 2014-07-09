@@ -78,6 +78,7 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/accounts.jsp"></put-attribute>
 	</definition>
 	
+	
 	<definition name="editAccount" extends="prospectivestiles.base">
 		<put-attribute name="title" value="accounts page"></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/editAccount.jsp"></put-attribute>
@@ -91,6 +92,24 @@
 	<definition name="editAssociatedUser" extends="prospectivestiles.base">
 		<put-attribute name="title" value="accounts page"></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/editAssociatedUser.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="admittedStudents" extends="prospectivestiles.base">
+		<put-attribute name="title" value="admittedStudents page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/admittedStudents.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="completeStudents" extends="prospectivestiles.base">
+		<put-attribute name="title" value="completeStudents page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/completeStudents.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="inprocessStudents" extends="prospectivestiles.base">
+		<put-attribute name="title" value="inprocessStudents page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/inprocessStudents.jsp"></put-attribute>
 	</definition>
 	
 	<!-- <definition name="editAccount" template="/WEB-INF/templates/modalTemplate.jsp">

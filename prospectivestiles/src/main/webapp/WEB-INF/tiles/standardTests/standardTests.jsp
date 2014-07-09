@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
@@ -70,7 +70,11 @@
 					</td>
 					<td><c:out value="${standardTest.name}"></c:out></td>
 					<td><c:out value="${standardTest.score}"></c:out></td>
-					<td><c:out value="${standardTest.validTill}"></c:out></td>
+					<td>
+					<fmt:formatDate var="validTillString" value="${standardTest.validTill}" pattern="MM-dd-yyyy" />
+					<c:out value="${validTillString}" />
+					<%-- <c:out value="${standardTest.validTill}"></c:out> --%>
+					</td>
 					<td>
 						<a href="${editStandardTestUrl}" class="btn btn-primary btn-md">Edit</a>
 					</td>

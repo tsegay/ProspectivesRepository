@@ -32,10 +32,10 @@
 				<%-- <li class="list-group-item"><a href="<c:url value='/accounts/accounts/1'/>">All Accounts</a></li> --%>
 				<li class="list-group-item"><a href="<c:url value='#'/>">Agents</a></li>
 				<li class="list-group-item"><a href="<c:url value='#'/>">Referrers</a></li>
-				<li class="list-group-item"><a href="<c:url value='#'/>">Admission Counselors</a></li>
-				<li class="list-group-item"><a href="<c:url value='#'/>">In process</a></li>
-				<li class="list-group-item"><a href="<c:url value='#'/>">Complete</a></li>
-				<li class="list-group-item"><a href="<c:url value='#'/>">Admitted</a></li>
+				<%-- <li class="list-group-item"><a href="<c:url value='#'/>">Admission Counselors</a></li> --%>
+				<li class="list-group-item"><a href="<c:url value='/accounts/inprocessEvaluations'/>">In process</a></li>
+				<li class="list-group-item"><a href="<c:url value='/accounts/completeEvaluations'/>">Complete</a></li>
+				<li class="list-group-item"><a href="<c:url value='/accounts/admittedEvaluations'/>">Admitted</a></li>
 				
 				
 			</sec:authorize>

@@ -13,4 +13,6 @@ public interface EvaluationService {
 	void updateEvaluation(Evaluation evaluation);
 	void deleteEvaluation(Evaluation evaluation);
 
+	List<Evaluation> findEvaluationsByStatus(String status);
+	long countByStatus(String status);
 }

@@ -69,13 +69,13 @@
 		
 		<dt><spring:message code="account.label.dateCreated" /></dt>
 		<dd>
-			<fmt:formatDate var="dateCreatedString" value="${userEntity.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" />
+			<fmt:formatDate var="dateCreatedString" value="${userEntity.dateCreated}" pattern="MM-dd-yyyy" />
 			<c:out value="${dateCreatedString}" />
 		</dd>
 		
 		<dt><spring:message code="account.label.dob" /></dt>
 		<dd>
-			<fmt:formatDate var="dobString" value="${userEntity.dob}" pattern="yyyy-MM-dd" />
+			<fmt:formatDate var="dobString" value="${userEntity.dob}" pattern="MM-dd-yyyy" />
 			<c:out value="${dobString}" />
 		</dd>
 	</dl>

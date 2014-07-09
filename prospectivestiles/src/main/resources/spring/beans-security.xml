@@ -230,6 +230,9 @@
 		<!-- Student checklists -->
 		
 		<!-- Admin evaluations -->
+		<intercept-url pattern="/accounts/admittedEvaluations" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/completeEvaluations" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/inprocessEvaluations" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/evaluationState" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/evaluation/*/grantAdmision" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/evaluation/*/delete" access="hasRole('ROLE_ADMIN')" />

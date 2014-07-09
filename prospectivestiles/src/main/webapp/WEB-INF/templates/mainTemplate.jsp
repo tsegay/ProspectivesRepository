@@ -39,8 +39,7 @@
 			<div>
 				<sec:authorize access="isAnonymous()">
 					<div>
-						Welcome, guest. | <a class="label label-warning"
-							href="<c:url value='/login'/>">Log in</a>
+						Welcome, guest. | <a href="<c:url value='/login'/>">Log in</a>
 					</div>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">

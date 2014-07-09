@@ -15,12 +15,20 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "evaluation")
-@NamedQueries(
-		@NamedQuery(name = "findEvaluationByUserEntityId", 
-		query = "FROM Evaluation WHERE userEntity.id = :id")
-		)
+//@NamedQueries(
+//		@NamedQuery(name = "findEvaluationByUserEntityId", 
+//		query = "FROM Evaluation WHERE userEntity.id = :id")
+//		)
+@NamedQueries({
+	@NamedQuery(
+    		name = "findEvaluationByUserEntityId",
+    		query = "FROM Evaluation WHERE userEntity.id = :id"),
+	@NamedQuery(
+    		name = "findEvaluationsByStatus",
+    		query = "FROM Evaluation WHERE status = :status"),
+}) 
 public class Evaluation extends BaseEntity implements Serializable {
-
+	
     /**
 	 * 
 	 */

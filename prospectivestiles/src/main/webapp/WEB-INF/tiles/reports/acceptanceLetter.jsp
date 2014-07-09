@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
@@ -79,7 +79,9 @@ I don't think i need all these checklist urls
 				
 				<p><strong>Date Admitted</strong></p>
 				<p>
-					<c:out value="${acceptanceLetterReport.dateAdmitted}" />
+					<fmt:formatDate var="dateAdmittedString" value="${acceptanceLetterReport.dateAdmitted}" pattern="MM-dd-yyyy" />
+					<c:out value="${dateAdmittedString}" />
+					<%-- <c:out value="${acceptanceLetterReport.dateAdmitted}" /> --%>
 				</p>
 				
 			</c:when>

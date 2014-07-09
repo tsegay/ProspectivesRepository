@@ -3,6 +3,7 @@ package com.prospectivestiles.web;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -62,7 +63,7 @@ public class AdminEvaluationController {
 	 * If user has evaluation return it
 	 * Else create new evaluation for user
 	 * 
-	 * in the view page, check if user has a evaluation created
+	 * in the view page, check if user has an evaluation created
 	 * If no evaluation exist for user, display create evaluation button
 	 * Else display Edit evaluation button
 	 * 
@@ -80,11 +81,15 @@ public class AdminEvaluationController {
 		 */
 		model.addAttribute("evaluations", evaluationService.getEvaluationByUserEntityId(userEntityId));
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
-		String admissionOfficerName;
-		if (associatedUser.getAdmissionOfficer() != null) {
-			admissionOfficerName = associatedUser.getAdmissionOfficer().getFullName();
-		} else {
-			admissionOfficerName = "None";
+		String admissionOfficerName = null;
+		if (associatedUser != null) {
+			
+			if (associatedUser.getAdmissionOfficer() != null) {
+				admissionOfficerName = associatedUser.getAdmissionOfficer().getFullName();
+			} else {
+				admissionOfficerName = "None";
+			}
+			
 		}
 		
 		/**
@@ -116,6 +121,15 @@ public class AdminEvaluationController {
 		return "newEvaluationForm";
 	}
 	
+	/**
+	 * When creating a new evaluation set status = 'inprocess'
+	 * 
+	 * @param userEntityId
+	 * @param evaluation
+	 * @param result
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/evaluations", method = RequestMethod.POST)
 	public String postNewEvaluationForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Evaluation evaluation, BindingResult result, Model model) {
@@ -271,6 +285,44 @@ public class AdminEvaluationController {
 		evaluationService.deleteEvaluation(getEvaluationValidateUserEntityId(userEntityId, evaluationId));
 		return "redirect:/accounts/{userEntityId}/evaluations";
 	}
+	
+	// ======================================
+	// =                        =
+	// ======================================
+	
+	@RequestMapping(value = "/accounts/admittedEvaluations", method = RequestMethod.GET)
+	public String getAdmittedEvaluations(Model model) {
+		
+		List<Evaluation> admittedEvaluations = evaluationService.findEvaluationsByStatus("admitted");
+		long admittedCount = evaluationService.countByStatus("admitted");
+		model.addAttribute("admittedEvaluations", admittedEvaluations);
+		model.addAttribute("admittedCount", admittedCount);
+		
+		return "admittedStudents";
+	}
+	
+	@RequestMapping(value = "/accounts/completeEvaluations", method = RequestMethod.GET)
+	public String getCompleteEvaluations(Model model) {
+		
+		List<Evaluation> completeEvaluations = evaluationService.findEvaluationsByStatus("complete");
+		long completeCount = evaluationService.countByStatus("complete");
+		model.addAttribute("completeEvaluations", completeEvaluations);
+		model.addAttribute("completeCount", completeCount);
+		
+		return "completeStudents";
+	}
+	
+	@RequestMapping(value = "/accounts/inprocessEvaluations", method = RequestMethod.GET)
+	public String getInProcessEvaluations(Model model) {
+		
+		List<Evaluation> inprocessEvaluations = evaluationService.findEvaluationsByStatus("inprocess");
+		long inprocessCount = evaluationService.countByStatus("inprocess");
+		model.addAttribute("inprocessEvaluations", inprocessEvaluations);
+		model.addAttribute("inprocessCount", inprocessCount);
+		
+		return "inprocessStudents";
+	}
+	
 	
 	// ======================================
 	// =                        =

@@ -74,6 +74,16 @@ public class EvaluationServiceImpl implements EvaluationService {
 	public void deleteEvaluation(Evaluation evaluation) {
 		evaluationDao.delete(evaluation);
 	}
+
+	@Override
+	public List<Evaluation> findEvaluationsByStatus(String status) {
+		return evaluationDao.findEvaluationsByStatus(status);
+	}
+
+	@Override
+	public long countByStatus(String status) {
+		return evaluationDao.countByStatus(status);
+	}
 	
 
 

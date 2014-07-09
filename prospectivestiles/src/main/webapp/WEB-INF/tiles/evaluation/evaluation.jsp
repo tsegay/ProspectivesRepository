@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
@@ -307,13 +307,21 @@
 		  <dd><c:out value="${admissionOfficerName}"></c:out></dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.dateCreated" /></dt>
-		  <dd><c:out value="${userEntity.evaluation.dateCreated}"></c:out></dd>
+		  <dd>
+		  	<fmt:formatDate var="dateCreatedString" value="${userEntity.evaluation.dateCreated}" pattern="MM-dd-yyyy" />
+			<c:out value="${dateCreatedString}" />
+		  	<%-- <c:out value="${userEntity.evaluation.dateCreated}"></c:out> --%>
+		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.createdBy" /></dt>
 		  <dd><c:out value="${userEntity.evaluation.createdBy}"></c:out></dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.dateLastModified" /></dt>
-		  <dd><c:out value="${userEntity.evaluation.dateLastModified}"></c:out></dd>
+		  <dd>
+		  	<fmt:formatDate var="dateLastModifiedString" value="${userEntity.evaluation.dateLastModified}" pattern="MM-dd-yyyy" />
+			<c:out value="${dateLastModifiedString}" />
+		  	<%-- <c:out value="${userEntity.evaluation.dateLastModified}"></c:out> --%>
+		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.lastModifiedBy" /></dt>
 		  <dd><c:out value="${userEntity.evaluation.lastModifiedBy}"></c:out></dd>
@@ -330,7 +338,7 @@
 		<!-- Evaluation can't be deleted by any user.  -->
 		<%-- <a data-toggle="modal" href="${editEvaluationUrl}" data-target="#editEvaluationModal" 
 			class="btn btn-primary btn-lg">Edit</a> --%>
-		<a href="${editEvaluationUrl}" class="btn btn-primary btn-lg">Edit</a>
+		<a href="${editEvaluationUrl}" class="btn btn-primary btn-sm">Edit</a>
 		<br />
 		<br />	
 		<%-- <form id="deleteForm" action="${deleteEvaluationUrl}" method="post">
@@ -341,10 +349,13 @@
 		<c:choose>
 			<c:when test="${userEntity.evaluation.status != 'admitted'}">
 				<form id="grantAdmisionForm" action="${grantAdmisionUrl}" method="post">
-					<div><input type="submit" value="grantAdmision" /></div>
+					<div>
+						<!-- <input type="submit" value="grantAdmision" /> -->
+						<input type="submit" class="btn btn-success btn-sm" value="Grant Admision">
+					</div>
 				</form>
 			</c:when>
-			<c:otherwise>Prospective student already admitted</c:otherwise>
+			<c:otherwise>Prospective student is admitted</c:otherwise>
 		</c:choose>
 		
 		

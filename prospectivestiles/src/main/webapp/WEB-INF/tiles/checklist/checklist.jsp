@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
@@ -218,13 +218,21 @@
 		  <dd><c:out value="${userEntity.checklist.notes}"></c:out></dd>
 		  
 		  <dt><spring:message code="checklist.label.dateCreated" /></dt>
-		  <dd><c:out value="${userEntity.checklist.dateCreated}"></c:out></dd>
+		  <dd>
+		  	<fmt:formatDate var="dateCreatedString" value="${userEntity.checklist.dateCreated}" pattern="MM-dd-yyyy" />
+			<c:out value="${dateCreatedString}" />
+		  	<%-- <c:out value="${userEntity.checklist.dateCreated}"></c:out> --%>
+		  </dd>
 		  
 		  <dt><spring:message code="checklist.label.createdBy" /></dt>
 		  <dd><c:out value="${userEntity.checklist.createdBy}"></c:out></dd>
 		  
 		  <dt><spring:message code="checklist.label.dateLastModified" /></dt>
-		  <dd><c:out value="${userEntity.checklist.dateLastModified}"></c:out></dd>
+		  <dd>
+		  	<fmt:formatDate var="dateLastModifiedString" value="${userEntity.checklist.dateLastModified}" pattern="MM-dd-yyyy" />
+			<c:out value="${dateLastModifiedString}" />
+		  	<%-- <c:out value="${userEntity.checklist.dateLastModified}"></c:out> --%>
+		  </dd>
 		  
 		  <dt><spring:message code="checklist.label.lastModifiedBy" /></dt>
 		  <dd><c:out value="${userEntity.checklist.lastModifiedBy}"></c:out></dd>

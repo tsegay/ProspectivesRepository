@@ -7,8 +7,6 @@
 
 <h1>All Prospective Students</h1>
 
-<%-- <h3><a class="btn btn-info" href="<c:url value='/registrationform'/>">Register</a></h3> --%>
-
 
 <!-- ############################################################################################# -->
 <!-- Using JavaScript for Pagination -->
@@ -83,7 +81,11 @@
 
 </sec:authorize>
 
-<script>	
+<script>
+	/* 
+	#############################################
+	#############################################
+	 */
 	/* 
 	when the page loads, call up updatePage method, 
 	this will call "/accounts/accounts/1/3" passing default page number and default page size
@@ -119,11 +121,11 @@
 	     });
 	}
 	
-	
-			
-	
 	 */
-	 
+	 /* 
+	#############################################
+	#############################################
+	 */
 	 
 
 	/* 

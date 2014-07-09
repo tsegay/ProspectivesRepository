@@ -57,11 +57,15 @@ public class AdminReportsController {
 		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
 		ArrayList<String> missingDocuments = new ArrayList<String>();
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
-		String admissionOfficerName;
-		if (associatedUser.getAdmissionOfficer() != null) {
-			admissionOfficerName = associatedUser.getAdmissionOfficer().getFullName();
-		} else {
-			admissionOfficerName = "None";
+		String admissionOfficerName = null;
+		if (associatedUser != null) {
+			
+			if (associatedUser.getAdmissionOfficer() != null) {
+				admissionOfficerName = associatedUser.getAdmissionOfficer().getFullName();
+			} else {
+				admissionOfficerName = "None";
+			}
+			
 		}
 		
 		/**
@@ -132,11 +136,15 @@ public class AdminReportsController {
 			(evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired"))) {
 				evaluationReportSummary.put("admnOfficerReport",evaluation.getAdmnOfficerReport());
 				evaluationReportSummary.put("studentQualification",evaluation.getStudentQualification());
-//				evaluationReportSummary.put("admissionOfficerName",evaluation.getAdmissionOfficer().getFullName());
-				if (associatedUser.getAdmissionOfficer() != null) {
-					evaluationReportSummary.put("admissionOfficerName",associatedUser.getAdmissionOfficer().getFullName());
-				} else {
-					evaluationReportSummary.put("admissionOfficerName","None");
+				evaluationReportSummary.put("dateLastModified",evaluation.getDateLastModified());
+				if (associatedUser != null) {
+					
+					if (associatedUser.getAdmissionOfficer() != null) {
+						evaluationReportSummary.put("admissionOfficerName",associatedUser.getAdmissionOfficer().getFullName());
+					} else {
+						evaluationReportSummary.put("admissionOfficerName","None");
+					}
+					
 				}
 				
 			}
@@ -175,10 +183,14 @@ public class AdminReportsController {
 //				acceptanceLetterReport.put("admissionOfficerName",evaluation.getAdmissionOfficer().getFullName());
 				acceptanceLetterReport.put("admittedBy",evaluation.getAdmittedBy().getFullName());
 				acceptanceLetterReport.put("dateAdmitted",evaluation.getDateAdmitted());
-				if (associatedUser.getAdmissionOfficer() != null) {
-					acceptanceLetterReport.put("admissionOfficerName",associatedUser.getAdmissionOfficer().getFullName());
-				} else {
-					acceptanceLetterReport.put("admissionOfficerName","None");
+				if (associatedUser != null) {
+					
+					if (associatedUser.getAdmissionOfficer() != null) {
+						acceptanceLetterReport.put("Admissions Couselor",associatedUser.getAdmissionOfficer().getFullName());
+					} else {
+						acceptanceLetterReport.put("Admissions Couselor","None");
+					}
+					
 				}
 			}
 		}
