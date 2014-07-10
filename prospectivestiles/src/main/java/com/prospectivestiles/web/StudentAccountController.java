@@ -1,5 +1,7 @@
 package com.prospectivestiles.web;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -38,7 +41,17 @@ public class StudentAccountController {
 	@RequestMapping(value="/myAccount", method = RequestMethod.GET)
 	public String getMyAccount(Model model) {		
 		
-		UserEntity userEntity = getUserEntityFromSecurityContext();	
+		/**
+		 * When user makes change in account in editMyAccount page and clicks on submit,
+		 * The changes are udpated in the db but the myAccount page shows the data before the update.
+		 * If user logs out and login back, the new updated data is loaded from db.
+		 * So, I have to override the userEntity saved in the session, 
+		 * by loading the data from the db on every call of the myAccount page
+		 */
+		
+		UserEntity userEntityInSession = getUserEntityFromSecurityContext();	
+		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityInSession.getId());
 		
 		/**
 		 * load all addresses for a user
@@ -57,14 +70,18 @@ public class StudentAccountController {
 		 */
 		model.addAttribute("userEntity", userEntity);
 		
-//		return "accounts/account";
-		return "myAccount";
+		return "userAccount";
 	}
 	
 	@RequestMapping(value="/myAccount/edit", method = RequestMethod.GET)
 	public String editMyAccount(Model model) {
 		
-		UserEntity userEntity = getUserEntityFromSecurityContext();			
+		/**
+		 * Read comment with in getMyAccount method
+		 */
+		UserEntity userEntityInSession = getUserEntityFromSecurityContext();	
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityInSession.getId());
+		
 		model.addAttribute("originalUserEntity", userEntity);
 		model.addAttribute(userEntity);
 		
@@ -84,9 +101,12 @@ public class StudentAccountController {
 		if (result.hasErrors()) {
 			System.out.println("######## result.hasErrors(): true" );
 //			model.addAttribute("origUserEntity", origUserEntity);
-//			return "newAddressForm";
-			model.addAttribute(userEntity);
-			return "myAccount";
+			
+			origUserEntity.setId(userEntity.getId());
+			model.addAttribute("userEntity", origUserEntity);
+			
+//			model.addAttribute(userEntity);
+			return "editMyAccount";
 		} else {
 			System.out.println("######## result.hasErrors(): false");
 		}

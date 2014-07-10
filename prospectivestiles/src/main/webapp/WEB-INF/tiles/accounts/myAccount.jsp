@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%-- <sec:authentication var="userEntity" property="principal" /> --%>
 
@@ -70,14 +71,16 @@
 		
 		<dt><spring:message code="account.label.dateCreated" /></dt>
 		<dd>
-			<c:out value="${userEntity.dateCreated}" />
+			<fmt:formatDate var="dateCreatedString" value="${userEntity.dateCreated}" pattern="MM-dd-yyyy" />
+			<c:out value="${dateCreatedString}" />
 		</dd>
 	</dl>
 	<dl class="dl-horizontal col-md-6">
 	
 		<dt><spring:message code="account.label.dob" /></dt>
 		<dd>
-			<c:out value="${userEntity.dob}" />
+			<fmt:formatDate var="dobString" value="${userEntity.dob}" pattern="MM-dd-yyyy" />
+			<c:out value="${dobString}" />
 		</dd>
 		
 		<dt><spring:message code="account.label.gender" /></dt>
@@ -106,6 +109,11 @@
 		<dt><spring:message code="account.label.ethnicity" /></dt>
 		<dd>
 			<c:out value="${userEntity.ethnicity}" />
+		</dd>
+		
+		<dt><spring:message code="account.label.sevisNumber" /></dt>
+		<dd>
+			<c:out value="${userEntity.sevisNumber}" />
 		</dd>
 		
 	</dl>

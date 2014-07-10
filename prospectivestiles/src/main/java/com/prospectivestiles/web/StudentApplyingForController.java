@@ -43,7 +43,13 @@ public class StudentApplyingForController {
 	@RequestMapping(value = "/myAccount/applyingFor", method = RequestMethod.GET)
 	public String getApplyingFor(Model model) {
 		
-		UserEntity userEntity = getUserEntityFromSecurityContext();
+		/**
+		 * READ comment within getMyAccount method in StudentAccountController class for explanation on userEntityInSession.
+		 */
+		
+		UserEntity userEntityInSession = getUserEntityFromSecurityContext();	
+		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityInSession.getId());
 		
 		/**
 		 * this return all terms. i need term for a student
@@ -77,7 +83,15 @@ public class StudentApplyingForController {
 			System.out.println("######## StudentApplyingForController.postNewAddressForm result.hasErrors(): false" );
 		}
 
-		UserEntity userEntity = getUserEntityFromSecurityContext();
+		
+		/**
+		 * READ comment within getMyAccount method in StudentAccountController class for explanation on userEntityInSession.
+		 */
+		
+		UserEntity userEntityInSession = getUserEntityFromSecurityContext();	
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityInSession.getId());
+//		UserEntity userEntity = getUserEntityFromSecurityContext();
+		
 		model.addAttribute("userEntity", userEntity);
 		
 		System.out.println("######## StudentApplyingForController.userEntity.getId(): " + userEntity.getId());

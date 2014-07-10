@@ -23,7 +23,9 @@
 <form:form action="${editAccountUrl}"
 	modelAttribute="userEntity" role="form" class="form-horizontal">
 
-		<div class="form-group row">
+		<!-- Should not change username -->
+		
+		<%-- <div class="form-group row">
 			<label for="username" class="col-sm-2 control-label">
 				<spring:message code="account.label.username" />
 				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
@@ -35,7 +37,7 @@
 			<div class="col-sm-5">
 				<form:errors class="errormsg" path="username" htmlEscape="false" />
 			</div>
-		</div>
+		</div> --%>
 	
 		<div class="form-group row">
 			<label for="email" class="col-sm-2 control-label">
@@ -189,12 +191,13 @@
 		<div class="form-group row">
 			<label for="dob" class="col-sm-2 control-label">
 				<spring:message code="account.label.dob" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
 			</label>
 			<div class="col-sm-5">
 				<form:input path="dob" value="${dateString}" class="form-control" id="dob" placeholder="Your dob" />
 			</div>
 			<div class="col-sm-5">
-				<form:errors class="errormsg" path="sevisNumber" htmlEscape="false" />
+				<form:errors class="errormsg" path="dob" htmlEscape="false" />
 			</div>
 		</div>
 		

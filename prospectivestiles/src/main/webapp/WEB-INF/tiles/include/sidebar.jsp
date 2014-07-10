@@ -28,7 +28,7 @@
 				<li class="list-group-item"><a href="<c:url value='/accounts/notification'/>">Notifications</a></li>
 				<li class="list-group-item"><a href="<c:url value='/registrationform'/>">Register New Applicant</a></li>
 				<li class="list-group-item"><a href="<c:url value='/accounts'/>">All Accounts</a></li>
-				<li class="list-group-item"><a href="<c:url value='/adminpage'/>">Admin</a></li>
+				<%-- <li class="list-group-item"><a href="<c:url value='/adminpage'/>">Admin</a></li> --%>
 				<%-- <li class="list-group-item"><a href="<c:url value='/accounts/accounts/1'/>">All Accounts</a></li> --%>
 				<li class="list-group-item"><a href="<c:url value='#'/>">Agents</a></li>
 				<li class="list-group-item"><a href="<c:url value='#'/>">Referrers</a></li>

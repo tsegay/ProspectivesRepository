@@ -124,7 +124,7 @@
 	
 	<!-- ====================== ^^^ Student ^^^ ====================================== -->
 	
-	<definition name="myAccount" extends="prospectivestiles.base">
+	<definition name="userAccount" extends="prospectivestiles.base">
 		<put-attribute name="title" value="myAccount page"></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/myAccount.jsp"></put-attribute>
 	</definition>

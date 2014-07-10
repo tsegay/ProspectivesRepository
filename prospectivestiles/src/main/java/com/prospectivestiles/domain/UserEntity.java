@@ -132,8 +132,10 @@ public class UserEntity implements UserDetails {
 	@Column(name = "id")
 	public Long getId() { return id; }
 	
+	// why is this private???
 	@SuppressWarnings("unused")
-	private void setId(Long id) { this.id = id; }
+	public void setId(Long id) { this.id = id; }
+//	private void setId(Long id) { this.id = id; }
 	
 	@NotNull
 	@Size(min = 1, max = 50)
@@ -224,6 +226,7 @@ public class UserEntity implements UserDetails {
 	
 	public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
 	
+	@NotNull(message = "{userEntity.dob.message}")
 	public Date getDob() {
 		return dob;
 	}

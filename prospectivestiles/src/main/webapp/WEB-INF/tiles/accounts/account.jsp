@@ -122,6 +122,11 @@
 			<c:out value="${userEntity.transferee}" />
 		</dd>
 		
+		<dt><spring:message code="account.label.sevisNumber" /></dt>
+		<dd>
+			<c:out value="${userEntity.sevisNumber}" />
+		</dd>
+		
 		<dt><spring:message code="account.label.enabled" /></dt>
 		<dd>
 			<c:out value="${userEntity.enabled}" />

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.AssociatedUser;
+import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.AssociatedUserService;
@@ -49,7 +50,7 @@ public class AdminAccountController {
 	
 	
 	// ======================================
-	// =             accounts             =
+	// =             All Accounts             =
 	// ======================================
 	
 	@RequestMapping(value="/accounts", method = RequestMethod.GET)
@@ -245,7 +246,7 @@ public class AdminAccountController {
 	}
 
 	// ======================================
-	// =                         =
+	// =           Individual Account              =
 	// ======================================
 	
 	/*
@@ -303,11 +304,14 @@ public class AdminAccountController {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		if (result.hasErrors()) {
+//			log.debug("Validation Error in HighSchool form");
 			System.out.println("######## result.hasErrors(): true" );
 //			model.addAttribute("originalUserEntity", userEntity);
-			model.addAttribute("userEntity", userEntity);
-//			return "accounts/account";
-			return "account";
+			origUserEntity.setId(userEntityId);
+			model.addAttribute("userEntity", origUserEntity);
+//			model.addAttribute("userEntity", userEntity);
+			return "editAccount";
+			
 		} else {
 			System.out.println("######## result.hasErrors(): false" );
 		}
