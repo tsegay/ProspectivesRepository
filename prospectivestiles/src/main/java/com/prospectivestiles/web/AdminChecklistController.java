@@ -1,6 +1,7 @@
 package com.prospectivestiles.web;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +64,15 @@ public class AdminChecklistController {
 	@RequestMapping(value = "/accounts/{userEntityId}/checklists", method = RequestMethod.GET)
 	public String getChecklists(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/checklists on " + now);
+		log.info("######## viewing /accounts/userEntityId/checklists: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/checklists on " + now);
+		// ##### END LOGGING #########
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		/**
@@ -84,6 +94,15 @@ public class AdminChecklistController {
 	@RequestMapping(value = "/accounts/{userEntityId}/checklist/new", method = RequestMethod.GET)
 	public String getNewEvaluationForm(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/checklists/new on " + now);
+		log.info("######## viewing /accounts/userEntityId/checklists/new: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/checklists/new on " + now);
+		// ##### END LOGGING #########
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		// get the admission officer and set the evaluation.admofficer
@@ -100,6 +119,14 @@ public class AdminChecklistController {
 	@RequestMapping(value = "/accounts/{userEntityId}/checklists", method = RequestMethod.POST)
 	public String postNewChecklistForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Checklist checklist, BindingResult result, Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/checklists on " + now);
+		log.info("######## viewing /accounts/userEntityId/checklists: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/checklists on " + now);
+		// ##### END LOGGING #########
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
@@ -119,6 +146,15 @@ public class AdminChecklistController {
 	@RequestMapping(value = "/accounts/{userEntityId}/checklist/{checklistId}", method = RequestMethod.GET)
 	public String editChecklist(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("checklistId") Long checklistId, Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/checklists/checklistId on " + now);
+		log.info("######## viewing /accounts/userEntityId/checklists/checklistId: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/checklists/checklistId on " + now);
+		// ##### END LOGGING #########
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Checklist checklist = getChecklistValidateUserEntityId(userEntityId, checklistId);
 		
@@ -135,6 +171,15 @@ public class AdminChecklistController {
 			@ModelAttribute @Valid Checklist origChecklist, 
 			BindingResult result,
 			Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/checklists/checklistId on " + now);
+		log.info("######## viewing /accounts/userEntityId/checklists/checklistId: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/checklists/checklistId on " + now);
+		// ##### END LOGGING #########
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		Checklist checklist = getChecklistValidateUserEntityId(userEntityId, checklistId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
@@ -167,6 +212,15 @@ public class AdminChecklistController {
 	public String deleteChecklist(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("checklistId") Long checklistId)
 			throws IOException {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/checklists/checklistId/delete on " + now);
+		log.info("######## viewing /accounts/userEntityId/checklists/checklistId/delete: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/checklists/checklistId/delete on " + now);
+		// ##### END LOGGING #########
+		
 		checklistService.deleteChecklist(getChecklistValidateUserEntityId(userEntityId, checklistId));
 		return "redirect:/accounts/{userEntityId}/checklists";
 	}
@@ -188,6 +242,15 @@ public class AdminChecklistController {
 	@ResponseBody
 	public Map<String, Object> getChecklistStatus(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/checklistState on " + now);
+		log.info("######## viewing /accounts/userEntityId/checklistState: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/checklistState on " + now);
+		// ##### END LOGGING #########
+		
 		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
 //		ArrayList<String> evaluationReportSummary = new ArrayList<String>();
 //		Map<String, Object> checklistStatus = new HashMap<String, Object>();
@@ -231,6 +294,8 @@ public class AdminChecklistController {
 		System.out.println("################## checklistCount: " + checklistCount );
 		log.debug("# # # # # # # # # # # # getChecklistStatus... [log.debug]");
 		log.info("# # # # # # # # # # # # getChecklistStatus... [log.info]");
+		log.info("########  currentUserFullName  viewing /accounts/userEntityId/checklistState on now");
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/checklistState on " + now);
 		
 		return data;
 	}

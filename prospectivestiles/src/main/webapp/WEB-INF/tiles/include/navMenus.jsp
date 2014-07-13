@@ -15,6 +15,7 @@
 	<c:url var="checklistUrl" value="/accounts/${userEntity.id}/checklists" />
 	<c:url var="evaluationUrl" value="/accounts/${userEntity.id}/evaluations" />
 	<c:url var="reportsUrl" value="/accounts/${userEntity.id}/reports" />
+	<c:url var="applicationFormUrl" value="/admin/report/${userEntity.id}/applicationForm" />
 	<c:url var="missingDocumentsUrl" value="/accounts/${userEntity.id}/reports/missingDocuments" />
 	<c:url var="evaluationReportUrl" value="/accounts/${userEntity.id}/reports/evaluationReport" />
 	<c:url var="acceptanceLetterUrl" value="/accounts/${userEntity.id}/reports/acceptanceLetter" />
@@ -75,9 +76,10 @@
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Reports<span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 			    <%-- <li id="reports-reports-li"><a href="${reportsUrl}">Reports</a></li> --%>
-			    <li id="reports-missing-li"><a href="${missingDocumentsUrl}">MissingDocuments</a></li>
-			    <li id="reports-evaluation-li"><a href="${evaluationReportUrl}">evaluationReport</a></li>
-			    <li id="reports-acceptance-li"><a href="${acceptanceLetterUrl}">acceptanceLetter</a></li>
+			    <li id="reports-applicationForm-li"><a href="${applicationFormUrl}" target="_blank">Application Form</a></li>
+			    <li id="reports-missing-li"><a href="${missingDocumentsUrl}">Missing Documents</a></li>
+			    <li id="reports-evaluation-li"><a href="${evaluationReportUrl}">Evaluation Report</a></li>
+			    <li id="reports-acceptance-li"><a href="${acceptanceLetterUrl}">Acceptance Letter</a></li>
 			    <!-- <li><a href="#">Link</a></li>
 			    <li class="divider"></li>
 			    <li><a href="#">Link</a></li>

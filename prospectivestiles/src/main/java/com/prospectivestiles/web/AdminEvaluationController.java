@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.apache.velocity.tools.config.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -51,6 +53,8 @@ public class AdminEvaluationController {
 	private EvaluationService evaluationService;
 	@Inject
 	private AssociatedUserService associatedUserService;
+	
+	private static final Logger log = LoggerFactory.getLogger(AdminEvaluationController.class);
 	
 	// ======================================
 	// =             evaluations             =
@@ -381,6 +385,14 @@ public class AdminEvaluationController {
 		data.put("evaluationCount", evaluationCount);
 		data.put("evaluationTotal", 8);
 		data.put("evaluationStatus", evaluationStatus);
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/evaluationState on " + now);
+		log.info("######## viewing /accounts/userEntityId/evaluationState: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/evaluationState on " + now);
+		// ##### END LOGGING #########
 		
 		System.out.println("################## evaluationCount: " + evaluationCount );
 		

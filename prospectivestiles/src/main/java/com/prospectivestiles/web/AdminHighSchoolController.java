@@ -8,6 +8,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
@@ -59,6 +61,8 @@ public class AdminHighSchoolController {
 	@Autowired
 	private UserEntityService userEntityService;
 	
+	private static final Logger log = LoggerFactory.getLogger(AdminHighSchoolController.class);
+	
 	/*
 	 * Use @InitBinder to fix the following error
 	 * Failed to convert property value of type java.lang.String to required type java.util.Date 
@@ -107,7 +111,8 @@ public class AdminHighSchoolController {
 	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/new", method = RequestMethod.GET)
 	public String getNewHighSchoolForm(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
-//		System.out.println("########### getNewHighSchoolForm");
+		System.out.println("########### 1 getNewHighSchoolForm");
+		log.info("######## 1 getNewHighSchoolForm");
 		HighSchool highSchool = new HighSchool();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
@@ -115,7 +120,7 @@ public class AdminHighSchoolController {
 		
 		model.addAttribute(highSchool);
 		model.addAttribute(userEntity);
-		
+		log.info("######## 1b");
 		return "newHighSchoolForm";
 	}
 	
@@ -123,6 +128,9 @@ public class AdminHighSchoolController {
 	public String postNewHighSchoolForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid HighSchool highSchool, BindingResult result, Model model) {
 
+		System.out.println("########### 2 postNewHighSchoolForm");
+		log.info("######## 2 postNewHighSchoolForm");
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 
@@ -134,6 +142,7 @@ public class AdminHighSchoolController {
 		highSchool.setUserEntity(userEntity);
 		highSchool.setCreatedBy(currentAdmissionUser);
 		highSchoolService.createHighSchool(highSchool);
+		log.info("######## 2b");
 		return "redirect:/accounts/{userEntityId}/educations";
 	}
 	
@@ -141,23 +150,30 @@ public class AdminHighSchoolController {
 	public String getHighSchool(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("highSchoolId") Long highSchoolId, Model model) {
 		
+		System.out.println("########### 3 getHighSchool");
+		log.info("######## 3 getHighSchool");
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		model.addAttribute(getHighSchoolValidateUserEntityId(userEntityId, highSchoolId));
 		model.addAttribute(userEntity);
-
+		log.info("######## 3b");
 		return "highSchool";
 	}
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/{highSchoolId}/edit", method = RequestMethod.GET)
 	public String editHighSchool(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("highSchoolId") Long highSchoolId, Model model) {
+		
+		System.out.println("########### 4 editHighSchool");
+		log.info("######## 4 editHighSchool");
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		HighSchool highSchool = getHighSchoolValidateUserEntityId(userEntityId, highSchoolId);
 		
 		model.addAttribute("originalHighSchool", highSchool);
 		model.addAttribute(highSchool);
 		model.addAttribute(userEntity);
-		
+		log.info("######## 4b");
 		return "editHighSchool";
 	}
 	
@@ -167,6 +183,10 @@ public class AdminHighSchoolController {
 			@ModelAttribute @Valid HighSchool origHighSchool, 
 			BindingResult result,
 			Model model) {
+		
+		System.out.println("########### 5 editHighSchool");
+		log.info("######## 5 editHighSchool");
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		HighSchool highSchool = getHighSchoolValidateUserEntityId(userEntityId, highSchoolId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
@@ -201,6 +221,7 @@ public class AdminHighSchoolController {
 //		return "/accounts/{userEntityId}/highSchool/{highSchoolId}/edit.html?saved=true";
 //		return "accounts/editHighSchoolSaved";
 //		return "highSchool";
+		log.info("######## 5b");
 		return "redirect:/accounts/{userEntityId}/educations";
 	}
 	
@@ -212,11 +233,14 @@ public class AdminHighSchoolController {
 	public String getDeleteHighSchool(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("highSchoolId") Long highSchoolId, Model model) {
 		
+		System.out.println("########### 6 getDeleteHighSchool");
+		log.info("######## 6 getDeleteHighSchool");
+		
 		HighSchool highSchool = getHighSchoolValidateUserEntityId(userEntityId, highSchoolId);
 		
 		model.addAttribute("originalHighSchool", highSchool);
 		model.addAttribute(highSchool);
-		
+		log.info("######## 6b");
 		return "deleteHighSchool";
 	}
 	
@@ -224,6 +248,10 @@ public class AdminHighSchoolController {
 	public String deleteHighSchool(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("highSchoolId") Long highSchoolId)
 			throws IOException {
+		
+		System.out.println("########### 7 deleteHighSchool");
+		log.info("######## 7 deleteHighSchool");
+		
 		highSchoolService.delete(getHighSchoolValidateUserEntityId(userEntityId, highSchoolId));
 //		return "deleteHighSchool";
 //		return getRedirectToForumPath(forumId) + ".html?deleted=true";

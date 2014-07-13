@@ -55,11 +55,16 @@ public class AdminAccountController {
 	
 	@RequestMapping(value="/accounts", method = RequestMethod.GET)
 	public String getAllAccounts(Model model) {
+
+		// ##### LOGGING #########
 		Date now = new Date();
 		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
-		
-		log.debug(currentUserFullName + " viewing /accounts on " + now);
+		log.info("######## " + currentUserFullName + " viewing /accounts on " + now);
+//		log.debug("Temperature set to {}. Old temperature was {}.", t, oldT);
+		log.info("######## viewing /accounts: ## Username: {}, ## Date: {}", currentUserFullName, now);
 		System.out.println("sysout " + currentUserFullName + " viewing /accounts on " + now);
+		// ##### END LOGGING #########
+		
 		
 //		List<UserEntity> users = userEntityService.getAllUserEntities();
 		/*I want to get all students only, not admin users*/
@@ -99,6 +104,18 @@ public class AdminAccountController {
 		
 		System.out.println("page: " + page);
 		System.out.println("pageSize: " + pageSize);
+		
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts on " + now);
+		log.info("######## viewing /accounts/accounts/page/pageSize: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/accounts/page/pageSize on " + now);
+		// ##### END LOGGING #########
+		
+		
+		
 //		long usersCount = userEntityService.count();
 		/*I want to count all students only, not admin users*/
 		long usersCount = userEntityService.countByRole(1);
@@ -129,6 +146,14 @@ public class AdminAccountController {
 			@PathVariable("asc") boolean asc, 
 			Model model) {
 		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts on " + now);
+		log.info("######## viewing /accounts/accounts/page/pageSize/asc: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/accounts/page/pageSize/ASC on " + now);
+		// ##### END LOGGING #########
+				
 		System.out.println("page: " + page);
 		System.out.println("pageSize: " + pageSize);
 		System.out.println("asc: " + asc);
@@ -187,6 +212,14 @@ public class AdminAccountController {
 	@ResponseBody
 	public Map<String, Object> sendMessageJSON( 
 			@RequestBody Map<String, Object> origdata) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/accounts/searchAccount on " + now);
+		log.info("######## viewing /accounts/accounts/searchAccount: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/accounts/searchAccount on " + now);
+		// ##### END LOGGING #########
 
 		System.out.println("############# sendMessageJSON called");
 		
@@ -218,6 +251,14 @@ public class AdminAccountController {
 	public Map<String, Object> getAccountsPagination(@RequestBody Map<String, Object> origdata) {
 
 		System.out.println("############# getAccountsPagination called");
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/accounts/getAccounts on " + now);
+		log.info("######## viewing /accounts/accounts/getAccounts: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/accounts/getAccounts on " + now);
+		// ##### END LOGGING #########
 		
 		int page = Integer.parseInt((String) origdata.get("pg"));
 		int pageSize = Integer.parseInt((String) origdata.get("pgSize"));
@@ -255,11 +296,14 @@ public class AdminAccountController {
 	 */
 	@RequestMapping(value = "/accounts/{userEntityId}", method = RequestMethod.GET)
 	public String getAccountInfo(@PathVariable("userEntityId") long userEntityId, Model model) {
+		
+		// ##### LOGGING #########
 		Date now = new Date();
 		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
-		
-		log.debug(currentUserFullName + " viewing /accounts/"+userEntityId+" on " + now);
-		System.out.println("sysout " + currentUserFullName + " viewing /accounts on " + now);
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId on " + now);
+		log.info("######## viewing /accounts/userEntityId: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId on " + now);
+		// ##### END LOGGING #########
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
@@ -287,6 +331,14 @@ public class AdminAccountController {
 	@RequestMapping(value="/accounts/{userEntityId}/edit", method = RequestMethod.GET)
 	public String editAccount(@PathVariable("userEntityId") long userEntityId, Model model) {
 		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/edit on " + now);
+		log.info("######## viewing /accounts/userEntityId/edit: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/edit on " + now);
+		// ##### END LOGGING #########
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);		
 		model.addAttribute("originalUserEntity", userEntity);
 		model.addAttribute(userEntity);
@@ -300,6 +352,14 @@ public class AdminAccountController {
 	@RequestMapping(value="/accounts/{userEntityId}/edit", method = RequestMethod.POST)
 	public String editAccount(@PathVariable("userEntityId") long userEntityId, 
 			@ModelAttribute UserEntity origUserEntity, BindingResult result, Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/edit on " + now);
+		log.info("######## viewing /accounts/userEntityId/edit: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/edit on " + now);
+		// ##### END LOGGING #########
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
@@ -342,6 +402,15 @@ public class AdminAccountController {
 	@RequestMapping(value = "/accounts/{userEntityId}/associatedUser/new", method = RequestMethod.GET)
 	public String getNewAssociatedUsersForm(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/associatedUser/new on " + now);
+		log.info("######## viewing /accounts/userEntityId/associatedUser/new: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/associatedUser/new on " + now);
+		// ##### END LOGGING #########
+		
 		AssociatedUser associatedUser = new AssociatedUser();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		// get all admission counsellors and pass it to the model
@@ -380,6 +449,14 @@ public class AdminAccountController {
 	public String postNewAssociatedUsersForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid AssociatedUser associatedUser, BindingResult result, Model model) {
 		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/associatedUsers on " + now);
+		log.info("######## viewing /accounts/userEntityId/associatedUsers: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/associatedUsers on " + now);
+		// ##### END LOGGING #########
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
@@ -407,6 +484,14 @@ public class AdminAccountController {
 	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/associatedUser/edit", method = RequestMethod.GET)
 	public String editAssociatedUser(@PathVariable("userEntityId") Long userEntityId, Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/associatedUser/edit on " + now);
+		log.info("######## viewing /accounts/userEntityId/associatedUser/edit: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/associatedUser/edit on " + now);
+		// ##### END LOGGING #########
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
@@ -442,6 +527,15 @@ public class AdminAccountController {
 			@ModelAttribute @Valid AssociatedUser origAssociatedUser, 
 			BindingResult result,
 			Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts/userEntityId/associatedUser/edit on " + now);
+		log.info("######## viewing /accounts/userEntityId/associatedUser/edit: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/associatedUser/edit on " + now);
+		// ##### END LOGGING #########
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);

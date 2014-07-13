@@ -70,6 +70,7 @@ public class UserEntity implements UserDetails {
 	private String cellPhone;
 	private String ssn;
 	private String citizenship;
+	private String countryOfBirth;
 	private String ethnicity;
 	private String sevisNumber;
 	private boolean marketingOk = true, acceptTerms = false, enabled = true;
@@ -80,12 +81,12 @@ public class UserEntity implements UserDetails {
 	if true - student is transferee
 	if false - student is new entrant
 	*/
-	private boolean transferee;
+	private boolean transferee = false;
 	/*
 	if true - student is international
 	if false - student is domestic
 	*/
-	private boolean international;
+	private boolean international = false;
 	private Date dateLastModified;
 	/*private UserEntity createdBy;
 	private UserEntity lastModifiedBy;*/
@@ -298,6 +299,14 @@ public class UserEntity implements UserDetails {
 
 	public void setCitizenship(String citizenship) {
 		this.citizenship = citizenship;
+	}
+
+	public String getCountryOfBirth() {
+		return countryOfBirth;
+	}
+
+	public void setCountryOfBirth(String countryOfBirth) {
+		this.countryOfBirth = countryOfBirth;
 	}
 
 	public String getEthnicity() {

@@ -256,6 +256,16 @@
 		
 		<!-- Student reports -->
 		
+		<!-- =========================================================================== -->
+		
+		<!-- Admin PDF Reports -->
+		<intercept-url pattern="/admin/report/*/applicationForm" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/report/*/evaluation" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/report/*/missingDocuments" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/report/*/acceptanceLetter" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student PDF Reports -->
+		
 		<!-- Admin messages -->
 		<intercept-url pattern="/accounts/*/message/*/delete" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/message/*/edit" access="hasRole('ROLE_ADMIN')" />
@@ -286,15 +296,6 @@
 		<intercept-url pattern="/accounts/notifications" access="hasRole('ROLE_ADMIN')" />
 		
 		<!-- Student notification -->
-		
-		<!-- =========================================================================== -->
-		
-		<!-- Admin PDF Reports -->
-		<intercept-url pattern="/admin/report/*/evaluation" access="permitAll" />
-		<intercept-url pattern="/admin/report/*/missingDocuments" access="permitAll" />
-		<intercept-url pattern="/admin/report/*/acceptanceLetter" access="permitAll" />
-		
-		<!-- Student PDF Reports -->
 		
 		<!-- =========================================================================== -->
 		
