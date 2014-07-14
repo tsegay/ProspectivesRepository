@@ -156,20 +156,28 @@
 		alert("searchAccountUrl" + "${searchAccountUrl}");
 		
 		$.ajax({
-			"type": 'POST',
-			"url" : '${searchAccountUrl}',
-			"data": JSON.stringify({"text": text}),
-			"complete": function(response, textStatus){
-				return alert("#### complete called. " + textStatus);
+			type: 'POST',
+			url : '${searchAccountUrl}',
+			data: JSON.stringify({"text": text}),
+			complete: function(response, textStatus){
+				 alert("#### complete called. " + textStatus);
 			},
-			"success": success,
-			"error" : error,
+			success: success,
+			error : function(jqXHR, textStatus, errorThrown ){
+				alert(errorThrown);
+			},
 			contentType : "application/json",
 			dataType : "json"
 		});
+		return false;
 		
 	}
-	
+	$(document).on("submit","#searchForm",null,function(){
+		alert("submitting form");
+		searchAccount();
+		alert("submit form complete");
+		return false;
+	});
 	/* I am passing data, but not using it */
 	function searchFormProcessor(data){
 		
@@ -187,12 +195,17 @@
 		searchButton.setAttribute("class", "searchButton");
 		searchButton.setAttribute("type", "submit");
 		searchButton.appendChild(document.createTextNode("Search"));
-		
+			/* searchForm.onSubmit = function(){
+			
+					searchAccount();
+					return false;
+				
+			}();
 			searchButton.onclick = function(){
 				return function(){
-					searchAccount();
-				}
-			}();
+					//searchAccount();
+				};
+			}(); */
 			/* searchButton.onclick = searchAccount(); */
 		
 		searchForm.appendChild(searchtext);
