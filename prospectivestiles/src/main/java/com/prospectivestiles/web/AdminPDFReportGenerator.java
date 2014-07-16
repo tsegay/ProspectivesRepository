@@ -613,8 +613,10 @@ public class AdminPDFReportGenerator {
 			// row 3, cell 1
 			/*Format DOB to "MM-dd-YYYY"*/
 			String dobString = new String("");
-			SimpleDateFormat formatDob = new SimpleDateFormat("MM-dd-YYYY");
-			dobString = formatDob.format(userEntity.getDob());
+			if (userEntity.getDob() != null) {
+				SimpleDateFormat formatDob = new SimpleDateFormat("MM-dd-YYYY");
+				dobString = formatDob.format(userEntity.getDob());
+			} 
 			
 			paragraph = new Paragraph();
 			paragraph.add(new Phrase("Date of Birth: ", normalBoldFont));
@@ -746,7 +748,9 @@ public class AdminPDFReportGenerator {
 			// row 6, cell 1 - span 3
 			paragraph = new Paragraph();
 			paragraph.add(new Phrase("Term applying for: ", normalBoldFont));
-			paragraph.add(new Phrase(userEntity.getTerm().getName(), smallFont));
+			if (userEntity.getTerm() != null) {
+				paragraph.add(new Phrase(userEntity.getTerm().getName(), smallFont));
+			}
 			cell = new PdfPCell(paragraph);
 			cell.setColspan(3);
 			cell.setPadding(8);
@@ -755,7 +759,9 @@ public class AdminPDFReportGenerator {
 			// row 7, cell 1 - span 3
 			paragraph = new Paragraph();
 			paragraph.add(new Phrase("Program of Study: ", normalBoldFont));
-			paragraph.add(new Phrase(userEntity.getProgramOfStudy().getName(), smallFont));
+			if (userEntity.getProgramOfStudy() != null) {
+				paragraph.add(new Phrase(userEntity.getProgramOfStudy().getName(), smallFont));
+			}
 			cell = new PdfPCell(paragraph);
 			cell.setColspan(3);
 			cell.setPadding(8);

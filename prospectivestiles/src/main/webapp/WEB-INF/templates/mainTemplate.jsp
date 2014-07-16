@@ -11,20 +11,21 @@
 	<title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
 	
 	
-	<%-- <link rel="shortcut icon"
-		href="${pageContext.request.contextPath}/resources/css/images/favicon-spring.ico" /> --%>
-	<link rel="shortcut icon"
-		href="${pageContext.request.contextPath}/resources/images/favicon-2.jpg" />
- 	<%-- <link rel="shortcut icon"
-		href="${pageContext.request.contextPath}/resources/images/favicon-spring.ico" /> --%>
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon-2.jpg" />
+ 	<%-- <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon-spring.ico" /> --%>
 	
 	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script> --%>
 	
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
 	
-	<link rel="stylesheet" type="text/css"
-		href="${pageContext.request.contextPath}/resources/css/style.css" />
+	<!-- datepicker css http://bootstrap-datepicker.readthedocs.org/en/release/ -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/datepicker.less" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/datepicker.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" />
+	<!-- END datepicker css -->
+	
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css" />
 	
 	<tiles:insertAttribute name="includes"></tiles:insertAttribute>
 
@@ -155,10 +156,14 @@
 	</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- datepicker http://bootstrap-datepicker.readthedocs.org/en/release/ -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap-datepicker.js"></script>
+	<!-- END datepicker -->
+	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script> --%>
+
 		
 		
 	<!-- Twitter Bootstrap to add 'active' class to li in Master page 

@@ -122,8 +122,33 @@
 		    </div>
         </div>
         
-	
-        <fmt:formatDate value="${highSchool.attendedFrom}" var="attendedFromString" pattern="dd/MM/yyyy" />
+		<div class="form-group row">
+			<label for="attendedFrom" class="col-sm-2 control-label">
+				<spring:message code="highSchoolForm.label.attendedFrom" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="attendedFrom" path="attendedFrom" class="form-control" />
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="attendedFrom" htmlEscape="false" />
+		    </div>
+		</div>
+		
+		<div class="form-group row">
+			<label for="attendedTo" class="col-sm-2 control-label">
+				<spring:message code="highSchoolForm.label.attendedTo" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="attendedTo" path="attendedTo" class="form-control" />
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="attendedTo" htmlEscape="false" />
+		    </div>
+		</div>
+		
+        <%-- <fmt:formatDate value="${highSchool.attendedFrom}" var="attendedFromString" pattern="dd/MM/yyyy" />
         <div class="form-group row">
 			<!-- <label for="attendedFrom" class="col-sm-2 control-label">attendedFrom</label> -->
 			<label for="attendedFrom" class="col-sm-2 control-label">
@@ -151,7 +176,7 @@
 		    <div class="col-sm-5">
 		    	<form:errors class="errormsg" path="attendedTo" htmlEscape="false" />
 		    </div>
-		</div>
+		</div> --%>
 		
 		<div class="form-group checkbox">
 			<!-- <label for="diplome" class="col-sm-2 control-label">Diplome</label> -->
@@ -173,7 +198,31 @@
 			</div>
 		</div>
         
-        <fmt:formatDate value="${highSchool.diplomeAwardedDate}" var="diplomeAwardedDateString" pattern="dd/MM/yyyy" />
+        <div class="form-group row">
+			<label for="diplomeAwardedDate" class="col-sm-2 control-label">
+				<spring:message code="highSchoolForm.label.diplomeAwardedDate" />
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="diplomeAwardedDate" path="diplomeAwardedDate" class="form-control" />
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="diplomeAwardedDate" htmlEscape="false" />
+		    </div>
+		</div>
+		
+        <div class="form-group row">
+			<label for="gEDAwardedDate" class="col-sm-2 control-label">
+				<spring:message code="highSchoolForm.label.gEDAwardedDate" />
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="gEDAwardedDate" path="gEDAwardedDate" class="form-control" />
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="gEDAwardedDate" htmlEscape="false" />
+		    </div>
+		</div>
+		
+        <%-- <fmt:formatDate value="${highSchool.diplomeAwardedDate}" var="diplomeAwardedDateString" pattern="dd/MM/yyyy" />
         <div class="form-group row">
 			<!-- <label for="diplomeAwardedDate" class="col-sm-2 control-label">diplomeAwardedDate</label> -->
 			<label for="diplomeAwardedDate" class="col-sm-2 control-label">
@@ -199,7 +248,7 @@
 		    <div class="col-sm-5">
 		    	<form:errors class="errormsg" path="gEDAwardedDate" htmlEscape="false" />
 		    </div>
-		</div>
+		</div> --%>
 		
         <div class = "form-group">
         	<label for="diplome" class="col-sm-2 control-label">&nbsp;</label>
@@ -211,3 +260,11 @@
         
 </form:form>
 
+<script>
+	$(function (){
+		$('#attendedFrom').datepicker();
+		$('#attendedTo').datepicker();
+		$('#diplomeAwardedDate').datepicker();
+		$('#gEDAwardedDate').datepicker();
+	});
+ </script>

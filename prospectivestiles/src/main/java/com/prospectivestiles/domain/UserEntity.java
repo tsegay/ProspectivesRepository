@@ -227,7 +227,8 @@ public class UserEntity implements UserDetails {
 	
 	public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
 	
-	@NotNull(message = "{userEntity.dob.message}")
+//	@NotNull(message = "{userEntity.dob.message}")
+	@NotNull
 	public Date getDob() {
 		return dob;
 	}

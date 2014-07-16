@@ -18,7 +18,7 @@
 	<c:url var="deleteAccountUrl" value="" />
 </sec:authorize>
 
-<h1>editAccount.jsp</h1>
+<h1>Edit Account</h1>
 
 <form:form action="${editAccountUrl}"
 	modelAttribute="userEntity" role="form" class="form-horizontal">
@@ -186,8 +186,21 @@
 			</div>
 		</div>
 	
+		<div class="form-group row">
+			<label for="dob" class="col-sm-2 control-label">
+				<spring:message code="account.label.dob" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="dob" path="dob" class="form-control" />
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="dob" htmlEscape="false" />
+		    </div>
+		</div>
+		
 		<%-- Use timeStyle="short" so jquery.tablesorter can parse column as date --%>
-		<fmt:formatDate value="${userEntity.dob}" var="dateString" pattern="dd/MM/yyyy" />
+		<%-- <fmt:formatDate value="${userEntity.dob}" var="dateString" pattern="dd/MM/yyyy" />
 		<div class="form-group row">
 			<label for="dob" class="col-sm-2 control-label">
 				<spring:message code="account.label.dob" />
@@ -199,7 +212,7 @@
 			<div class="col-sm-5">
 				<form:errors class="errormsg" path="dob" htmlEscape="false" />
 			</div>
-		</div>
+		</div> --%>
 		
 		<div class="form-group checkbox row">
 			<label for="international" class="col-sm-5 control-label label-pad">
@@ -246,4 +259,9 @@
 		</div>
 
 </form:form>
-
+<!-- datepicker http://bootstrap-datepicker.readthedocs.org/en/release/ -->
+<script>
+	$(function (){
+		$('#dob').datepicker();
+	});
+ </script>

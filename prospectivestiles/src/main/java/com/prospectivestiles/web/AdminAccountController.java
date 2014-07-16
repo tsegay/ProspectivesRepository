@@ -1,5 +1,6 @@
 package com.prospectivestiles.web;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 /*import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;*/
 import org.springframework.security.core.Authentication;
@@ -19,6 +21,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,6 +52,20 @@ public class AdminAccountController {
 	
 	private static final Logger log = LoggerFactory.getLogger(AdminAccountController.class);
 	
+	/*
+	 * Use @InitBinder to fix the following error
+	 * Failed to convert property value of type java.lang.String to required type java.util.Date 
+	 * for property attendedFrom;
+	 * Failed to convert from type java.lang.String to type @javax.validation.constraints.NotNull java.util.Date 
+	 */
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	    dateFormat.setLenient(false);
+
+	    // true passed to CustomDateEditor constructor means convert empty String to null
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 	
 	// ======================================
 	// =             All Accounts             =

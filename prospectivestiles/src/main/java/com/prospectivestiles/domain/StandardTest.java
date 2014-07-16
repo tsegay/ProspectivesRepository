@@ -32,7 +32,7 @@ public class StandardTest extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 //	private long id;
 	private String name;
-	private Integer score;
+	private double score;
 	private Date validTill;
 	
 	private UserEntity userEntity;
@@ -43,7 +43,7 @@ public class StandardTest extends BaseEntity implements Serializable {
 
 	public StandardTest() {
 	}
-	public StandardTest(String name, Integer score, Date validTill) {
+	public StandardTest(String name, double score, Date validTill) {
 		this.name = name;
 		this.score = score;
 		this.validTill = validTill;
@@ -69,10 +69,10 @@ public class StandardTest extends BaseEntity implements Serializable {
 		this.name = name;
 	}
 	@NotNull
-	public Integer getScore() {
+	public double getScore() {
 		return score;
 	}
-	public void setScore(Integer score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 //	@NotNull

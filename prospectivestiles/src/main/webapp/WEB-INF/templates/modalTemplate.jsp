@@ -12,18 +12,11 @@
 <title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
 
 
-<%-- <link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/css/images/favicon-spring.ico" /> --%>
-
+<%-- <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/css/images/favicon-spring.ico" /> --%>
 <%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script> --%>
-
 <!-- Latest compiled and minified CSS -->
-<%-- <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" /> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css" /> --%>
 
 <tiles:insertAttribute name="includes"></tiles:insertAttribute>
 
@@ -42,12 +35,6 @@
 		<div class="footer">
 			<tiles:insertAttribute name="footer"></tiles:insertAttribute>
 		</div>
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<%-- <script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script> --%>
 
 </body>
 </html>

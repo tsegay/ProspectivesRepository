@@ -35,13 +35,10 @@
 	</div>
 </sec:authorize>
 
-<h1>Standard Test Form</h1>
-<br>
-<br>
-<h4>Please enter all the standard tests (TOEFL, IELTS) you took</h4>
-<br>
+<h1>Test Form</h1>
 
-<form:form action="${standardTestsUrl}" id="standardTestForm"
+
+<%-- <form:form action="${standardTestsUrl}" id="standardTestForm"
 	modelAttribute="standardTest" role="form" class="form-horizontal">
 
 	<div class="form-group row">
@@ -72,7 +69,7 @@
 	</div>
 	
 	
-	<%-- <fmt:formatDate value="${standardTest.validTill}" var="validTillString" pattern="dd/MM/yyyy" />
+	<fmt:formatDate value="${standardTest.validTill}" var="validTillString" pattern="dd/MM/yyyy" />
     <div class="form-group row">
 		<label for="validTill" class="col-sm-2 control-label">
 			<spring:message code="standardTestsForm.label.validTill" />
@@ -81,20 +78,6 @@
 	    <div class="col-sm-5">
 	      <form:input path="validTill" value="${validTillString}" class="form-control" id="validTill" placeholder="Test valid till ..." />
 		</div>
-	    <div class="col-sm-5">
-	    	<form:errors class="errormsg" path="validTill" htmlEscape="false" />
-	    </div>
-	</div> --%>
-
-    <div class="form-group row">
-		<label for="validTill" class="col-sm-2 control-label">
-			<spring:message code="standardTestsForm.label.validTill" />
-			<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
-		</label>
-	    <div class="col-sm-5">
-	      <form:input id="validTill" path="validTill" class="form-control" />
-	      <!-- <input type="text" id="validTill"> -->
-	    </div>
 	    <div class="col-sm-5">
 	    	<form:errors class="errormsg" path="validTill" htmlEscape="false" />
 	    </div>
@@ -110,11 +93,7 @@
 		</div>
 	</div>
 
-</form:form>
+</form:form> --%>
 
-<script>
-	$(function (){
-		$('#validTill').datepicker();
-	});
- </script>
+
 

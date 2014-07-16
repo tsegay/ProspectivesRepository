@@ -114,8 +114,33 @@
 		    </div>
         </div>
         
+        <div class="form-group row">
+			<label for="attendedFrom" class="col-sm-2 control-label">
+				<spring:message code="highSchoolForm.label.attendedFrom" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="attendedFrom" path="attendedFrom" class="form-control" />
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="attendedFrom" htmlEscape="false" />
+		    </div>
+		</div>
+		
+		<div class="form-group row">
+			<label for="attendedTo" class="col-sm-2 control-label">
+				<spring:message code="highSchoolForm.label.attendedTo" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="attendedTo" path="attendedTo" class="form-control" />
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="attendedTo" htmlEscape="false" />
+		    </div>
+		</div>
 	
-        <fmt:formatDate value="${highSchool.attendedFrom}" var="attendedFromString" pattern="dd/MM/yyyy" />
+        <%-- <fmt:formatDate value="${highSchool.attendedFrom}" var="attendedFromString" pattern="dd/MM/yyyy" />
         <div class="form-group row">
 			<!-- <label for="attendedFrom" class="col-sm-2 control-label">attendedFrom
 			<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label> -->
@@ -145,7 +170,7 @@
 		    <div class="col-sm-5">
 		    	<form:errors class="errormsg" path="attendedTo" htmlEscape="false" />
 		    </div>
-		</div>
+		</div> --%>
 		
 		<div class="form-group checkbox">
 			<!-- <label for="diplome" class="col-sm-2 control-label">Diplome</label> -->
@@ -206,6 +231,13 @@
         
 	</form:form>
 		
-		
+<script>
+	$(function (){
+		$('#attendedFrom').datepicker();
+		$('#attendedTo').datepicker();
+		$('#diplomeAwardedDate').datepicker();
+		$('#gEDAwardedDate').datepicker();
+	});
+ </script>		
           
                      	

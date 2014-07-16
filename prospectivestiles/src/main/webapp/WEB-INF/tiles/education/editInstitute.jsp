@@ -148,10 +148,47 @@
 	    </div>
        </div>
        
-
-       <fmt:formatDate value="${institute.attendedFrom}" var="attendedFromString" pattern="dd/MM/yyyy" />
        <div class="form-group row">
-		<!-- <label for="attendedFrom" class="col-sm-2 control-label">attendedFrom</label> -->
+			<label for="attendedFrom" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.attendedFrom" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="attendedFrom" path="attendedFrom" class="form-control" />
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="attendedFrom" htmlEscape="false" />
+		    </div>
+		</div>
+		
+        <div class="form-group row">
+			<label for="attendedTo" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.attendedTo" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="attendedTo" path="attendedTo" class="form-control" />
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="attendedTo" htmlEscape="false" />
+		    </div>
+		</div>
+		
+        <div class="form-group row">
+			<label for="graduationDate" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.graduationDate" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="graduationDate" path="graduationDate" class="form-control" />
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="graduationDate" htmlEscape="false" />
+		    </div>
+		</div>
+	
+       <%-- <fmt:formatDate value="${institute.attendedFrom}" var="attendedFromString" pattern="dd/MM/yyyy" />
+       <div class="form-group row">
 		<label for="attendedFrom" class="col-sm-2 control-label">
 			<spring:message code="instituteForm.label.attendedFrom" />
 			<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
@@ -166,7 +203,6 @@
        
        <fmt:formatDate value="${institute.attendedTo}" var="attendedToString" pattern="dd/MM/yyyy" />
        <div class="form-group row">
-		<!-- <label for="attendedTo" class="col-sm-2 control-label">attendedTo</label> -->
 		<label for="attendedTo" class="col-sm-2 control-label">
 			<spring:message code="instituteForm.label.attendedTo" />
 			<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
@@ -192,7 +228,7 @@
 	    <div class="col-sm-5">
 	    	<form:errors class="errormsg" path="graduationDate" htmlEscape="false" />
 	    </div>
-	</div>
+	</div> --%>
 
 	
        <div class = "form-group">
@@ -204,3 +240,10 @@
        </div>
 </form:form>
 
+<script>
+	$(function (){
+		$('#attendedFrom').datepicker();
+		$('#attendedTo').datepicker();
+		$('#graduationDate').datepicker();
+	});
+ </script>

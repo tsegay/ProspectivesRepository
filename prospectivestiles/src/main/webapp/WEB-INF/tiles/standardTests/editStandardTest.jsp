@@ -20,7 +20,7 @@
 	<c:url var="deleteStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/delete" />
 </sec:authorize>
 
-<h1>editStandardTest.jsp</h1>
+<h1>Edit Standard Test</h1>
 
 <form:form action="${editStandardTestUrl}"
 	modelAttribute="standardTest" role="form" class="form-horizontal">
@@ -53,7 +53,21 @@
 		    </div>
 		</div>
 		
-		<fmt:formatDate value="${standardTest.validTill}" var="validTillString" pattern="dd/MM/yyyy" />
+		<div class="form-group row">
+			<label for="validTill" class="col-sm-2 control-label">
+				<spring:message code="standardTestsForm.label.validTill" />
+				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+			</label>
+		    <div class="col-sm-5">
+		      <form:input id="validTill" path="validTill" class="form-control" />
+		      <!-- <input type="text" id="validTill"> -->
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="validTill" htmlEscape="false" />
+		    </div>
+		</div>
+	
+		<%-- <fmt:formatDate value="${standardTest.validTill}" var="validTillString" pattern="dd/MM/yyyy" />
 	    <div class="form-group row">
 			<label for="validTill" class="col-sm-2 control-label">
 				<spring:message code="standardTestsForm.label.validTill" />
@@ -65,7 +79,7 @@
 		    <div class="col-sm-5">
 		    	<form:errors class="errormsg" path="validTill" htmlEscape="false" />
 		    </div>
-		</div>
+		</div> --%>
 	
 	
 	<div class="form-group">
@@ -78,45 +92,8 @@
 
 </form:form>
 
-<%-- <h1>editStandardTest.jsp Modal</h1>
-<form:form action="${editStandardTestUrl}"
-	modelAttribute="standardTest" role="form" class="form-horizontal">
-	<div class="modal-header">
-		<h4>Edit standardTest</h4>
-		standardTest:
-		<c:if test="${standardTest.id > 0}">
-			<c:out value="${standardTest.id}" />
-		</c:if>
-		<br /> standardTest.userEntity.id:
-		<c:if test="${standardTest.id > 0}">
-			<c:out value="${standardTest.userEntity.id}" />
-		</c:if>
-	</div>
-	<div class="modal-body">
-
-		<div class="form-group row">
-			<label for="name" class="col-sm-2 control-label">name</label>
-		    <div class="col-sm-5">
-		      <form:input path="name" class="form-control" placeholder = "Your name" />
-		    </div>
-		    <div class="col-sm-5">
-		    	<form:errors class="errormsg" path="name" htmlEscape="false" />
-		    </div>
-		</div>
-        <div class="form-group row">
-			<label for="score" class="col-sm-2 control-label">score</label>
-		    <div class="col-sm-5">
-		      <form:input path="score" class="form-control" placeholder = "Your score" />
-		    </div>
-		    <div class="col-sm-5">
-		    	<form:errors class="errormsg" path="score" htmlEscape="false" />
-		    </div>
-		</div>
-        
-
-	</div>
-	<div class="modal-footer">
-		<a class="btn btn-default" data-dismiss="modal">Cancel</a> <input
-			class="btn btn-primary" type="submit" value="Submit"></input>
-	</div>
-</form:form> --%>
+<script>
+	$(function (){
+		$('#validTill').datepicker();
+	});
+</script>
