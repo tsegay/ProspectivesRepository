@@ -67,25 +67,21 @@ public class TableHeader extends PdfPageEventHelper {
             /*cell 1 - Logo*/
             table.getDefaultCell().setFixedHeight(20);
             table.getDefaultCell().setBorder(Rectangle.BOTTOM);
-            table.addCell(header);
+//            table.addCell(header);
             
-            /*Image img = null;
+            Image img = null;
 			try {
-//				img = Image.getInstance("${pageContext.request.contextPath}/resources/images/LOGO_for_Online_Reg._Form_Small_7.jpg");
-//			"http://localhost:8080/myApp/chart.jpg")
-				String imageUrl = "/prospectivestiles/src/main/webapp/resources/images/LOGO_for_Online_Reg._Form_Small_7.png";
-
-			    img = Image.getInstance(new URL(imageUrl));
+			    
+			    URL imageUrl = getClass().getResource("/res-img/logo.png");
+			    img = Image.getInstance(imageUrl);
 				
-//				${pageContext.request.contextPath}/resources/images/favicon-2.jpg
-//				/prospectivestiles/src/main/webapp/resources/images/LOGO_for_Online_Reg._Form_Small_7.png
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
         	img.scalePercent(150f);
-        	table.addCell(img);*/
+        	table.addCell(img);
             
             /*cell 2 - ACCT address on right corner of header*/
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);

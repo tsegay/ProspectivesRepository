@@ -506,7 +506,6 @@ public class AdminPDFReportGenerator {
 		
 		// ############################
 		
-		// Create a database connection
         // step 1
 //        Document document = new Document(PageSize.A4, 36, 36, 54, 54);
         // step 2
