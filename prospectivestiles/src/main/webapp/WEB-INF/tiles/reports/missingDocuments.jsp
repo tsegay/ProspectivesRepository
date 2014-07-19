@@ -60,11 +60,11 @@
 		</p>
 		<p>These documents are missing from your file.</p>
 		
-		<ul>
+		<ol>
 			<c:forEach var="missingDocument" items="${missingDocuments}">
 				<li><c:out value="${missingDocument}" /></li>			
 			</c:forEach>
-		</ul>
+		</ol>
 		<p><strong>Admission Officer Name</strong></p>
 		<p>
 			<c:out value="${admissionOfficerName}" />

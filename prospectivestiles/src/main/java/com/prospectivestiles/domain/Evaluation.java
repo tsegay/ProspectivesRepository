@@ -49,6 +49,10 @@ public class Evaluation extends BaseEntity implements Serializable {
 	private String applicationFee;
 	private String transcript;
 	private String diplome;
+	private String applicationForm;
+	private String enrollmentAgreement;
+	private String grievancePolicy;
+	private String recommendationLetter;
 	/**
 	 * remarks and comments in the evaluation process
 	 */
@@ -161,6 +165,30 @@ public class Evaluation extends BaseEntity implements Serializable {
 	}
 	public void setDiplome(String diplome) {
 		this.diplome = diplome;
+	}
+	public String getApplicationForm() {
+		return applicationForm;
+	}
+	public void setApplicationForm(String applicationForm) {
+		this.applicationForm = applicationForm;
+	}
+	public String getEnrollmentAgreement() {
+		return enrollmentAgreement;
+	}
+	public void setEnrollmentAgreement(String enrollmentAgreement) {
+		this.enrollmentAgreement = enrollmentAgreement;
+	}
+	public String getGrievancePolicy() {
+		return grievancePolicy;
+	}
+	public void setGrievancePolicy(String grievancePolicy) {
+		this.grievancePolicy = grievancePolicy;
+	}
+	public String getRecommendationLetter() {
+		return recommendationLetter;
+	}
+	public void setRecommendationLetter(String recommendationLetter) {
+		this.recommendationLetter = recommendationLetter;
 	}
 	@Size(max=255)
 	public String getNotes() {

@@ -50,6 +50,10 @@ public class ChecklistServiceImpl implements ChecklistService {
 		checklistToUpdate.setApplicationFee(checklist.getApplicationFee());
 		checklistToUpdate.setDiplome(checklist.getDiplome());
 		checklistToUpdate.setFinancialAffidavit(checklist.getFinancialAffidavit());
+		checklistToUpdate.setApplicationForm(checklist.getApplicationForm());
+		checklistToUpdate.setEnrollmentAgreement(checklist.getEnrollmentAgreement());
+		checklistToUpdate.setGrievancePolicy(checklist.getGrievancePolicy());
+		checklistToUpdate.setRecommendationLetter(checklist.getRecommendationLetter());
 		checklistToUpdate.setPassport(checklist.getPassport());
 		checklistToUpdate.setTranscript(checklist.getTranscript());
 		Date now = new Date();

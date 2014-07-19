@@ -151,6 +151,78 @@
 		</div>
 	</div>
 
+	<!-- ############ -->
+	<div class="form-group row">
+		<label for="applicationForm" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.applicationForm" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="applicationForm" class="form-control">
+				<form:option value="notreviewed" label="Not Reviewed" />
+				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="invalid" label="Invalid" />
+				<form:option value="incomplete" label="Incomplete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="applicationForm" htmlEscape="false" />
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="enrollmentAgreement" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.enrollmentAgreement" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="enrollmentAgreement" class="form-control">
+				<form:option value="notreviewed" label="Not Reviewed" />
+				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="invalid" label="Invalid" />
+				<form:option value="incomplete" label="Incomplete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="enrollmentAgreement" htmlEscape="false" />
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="grievancePolicy" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.grievancePolicy" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="grievancePolicy" class="form-control">
+				<form:option value="notreviewed" label="Not Reviewed" />
+				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="invalid" label="Invalid" />
+				<form:option value="incomplete" label="Incomplete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="grievancePolicy" htmlEscape="false" />
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="recommendationLetter" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.recommendationLetter" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="recommendationLetter" class="form-control">
+				<form:option value="notreviewed" label="Not Reviewed" />
+				<form:option value="valid" label="Valid" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="invalid" label="Invalid" />
+				<form:option value="incomplete" label="Incomplete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="recommendationLetter" htmlEscape="false" />
+		</div>
+	</div>
+
+	<!-- ############# -->
+	
 	<div class="form-group row">
 		<label for="transcript" class="col-sm-2 control-label">
 			<spring:message code="evaluationForm.label.transcript" />

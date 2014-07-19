@@ -1,5 +1,6 @@
 package com.prospectivestiles.dao.hbn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.prospectivestiles.dao.AddressDao;
 import com.prospectivestiles.domain.Address;
+import com.prospectivestiles.domain.AddressType;
 
 @Repository
 public class HbnAddressDao extends AbstractHbnDao<Address> implements AddressDao {
@@ -33,8 +35,31 @@ public class HbnAddressDao extends AbstractHbnDao<Address> implements AddressDao
 		
 		return addresses;
 	}
+	/**
+	 * Return a single address for a user. Eg Home address or mailing address
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Address getAddressByUserEntityIdAndAddressType(long userEntityId, AddressType addressType) {
+		Session session = getSession();
+		Query query = session.getNamedQuery("findAddressByUserEntityIdAndAddressType");
+		query.setParameter("id", userEntityId);
+		query.setParameter("addressType", addressType);
+		
+		List<Address> addresses = query.list();
+		Address address = null;
+		
+//		if (addresses != null) {
+		if (addresses.size() != 0) {
+			address = addresses.get(0);
+		} 
+		
+		return address;
+	}
 	
-
+	/**
+	 * I think this is FOR TESTING PURPOSE :::: CHECK IT OUT!!
+	 */
 	public String findAddress1ById(String username) {
 		return jdbcTemplate.queryForObject(
 				FIND_ADDRESS1_SQL, new Object[] { username }, String.class);

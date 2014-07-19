@@ -74,10 +74,10 @@ public class AdminReportsController {
 		if (checklist != null) {
 		
 			if (checklist.getF1Visa().equalsIgnoreCase("incomplete")) {
-				missingDocuments.add("F1Visa");
+				missingDocuments.add("F1 Visa");
 			}
 			if (checklist.getBankStmt().equalsIgnoreCase("incomplete")) {
-				missingDocuments.add("BankStmt");
+				missingDocuments.add("Bank Statement");
 			}
 			if (checklist.getI20().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("I20");
@@ -86,10 +86,22 @@ public class AdminReportsController {
 				missingDocuments.add("Passport");
 			}
 			if (checklist.getFinancialAffidavit().equalsIgnoreCase("incomplete")) {
-				missingDocuments.add("FinancialAffidavit");
+				missingDocuments.add("Financial Affidavit");
 			}
 			if (checklist.getApplicationFee().equalsIgnoreCase("incomplete")) {
-				missingDocuments.add("ApplicationFee");
+				missingDocuments.add("Application Fee");
+			}
+			if (checklist.getApplicationForm().equalsIgnoreCase("incomplete")) {
+				missingDocuments.add("Application Form");
+			}
+			if (checklist.getEnrollmentAgreement().equalsIgnoreCase("incomplete")) {
+				missingDocuments.add("Enrollment Agreement");
+			}
+			if (checklist.getGrievancePolicy().equalsIgnoreCase("incomplete")) {
+				missingDocuments.add("Grievance Policy");
+			}
+			if (checklist.getRecommendationLetter().equalsIgnoreCase("incomplete")) {
+				missingDocuments.add("Recommendation Letter");
 			}
 			if (checklist.getTranscript().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Transcript");
@@ -127,6 +139,10 @@ public class AdminReportsController {
 			
 			if (
 			(evaluation.getApplicationFee().equalsIgnoreCase("valid") || evaluation.getApplicationFee().equalsIgnoreCase("notrequired")) &&  
+			(evaluation.getApplicationForm().equalsIgnoreCase("valid") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) &&  
+			(evaluation.getEnrollmentAgreement().equalsIgnoreCase("valid") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) &&  
+			(evaluation.getGrievancePolicy().equalsIgnoreCase("valid") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&  
+			(evaluation.getRecommendationLetter().equalsIgnoreCase("valid") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) &&  
 			(evaluation.getBankStmt().equalsIgnoreCase("valid") || evaluation.getBankStmt().equalsIgnoreCase("notrequired")) && 
 			(evaluation.getDiplome().equalsIgnoreCase("valid") || evaluation.getDiplome().equalsIgnoreCase("notrequired")) && 
 			(evaluation.getF1Visa().equalsIgnoreCase("valid") || evaluation.getF1Visa().equalsIgnoreCase("notrequired")) && 

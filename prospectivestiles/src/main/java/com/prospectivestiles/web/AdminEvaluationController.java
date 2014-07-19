@@ -213,6 +213,10 @@ public class AdminEvaluationController {
 		evaluation.setPassport(origEvaluation.getPassport());
 		evaluation.setFinancialAffidavit(origEvaluation.getFinancialAffidavit());
 		evaluation.setApplicationFee(origEvaluation.getApplicationFee());
+		evaluation.setApplicationForm(origEvaluation.getApplicationForm());
+		evaluation.setEnrollmentAgreement(origEvaluation.getEnrollmentAgreement());
+		evaluation.setGrievancePolicy(origEvaluation.getGrievancePolicy());
+		evaluation.setRecommendationLetter(origEvaluation.getRecommendationLetter());
 		evaluation.setTranscript(origEvaluation.getTranscript());
 		evaluation.setDiplome(origEvaluation.getDiplome());
 //		evaluation.setAdmissionOfficer(admissionOfficer);
@@ -220,7 +224,27 @@ public class AdminEvaluationController {
 		evaluation.setStudentQualification(origEvaluation.getStudentQualification());
 		evaluation.setLastModifiedBy(currentAdmissionUser);
 		
-		if (evaluation.getF1Visa().equalsIgnoreCase("valid") &&
+		
+		if (
+				(evaluation.getApplicationFee().equalsIgnoreCase("valid") || evaluation.getApplicationFee().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getBankStmt().equalsIgnoreCase("valid") || evaluation.getBankStmt().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getDiplome().equalsIgnoreCase("valid") || evaluation.getDiplome().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getFinancialAffidavit().equalsIgnoreCase("valid") || evaluation.getFinancialAffidavit().equalsIgnoreCase("notrequired")) && 
+				(evaluation.getF1Visa().equalsIgnoreCase("valid") || evaluation.getF1Visa().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getI20().equalsIgnoreCase("valid") || evaluation.getI20().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getPassport().equalsIgnoreCase("valid") || evaluation.getPassport().equalsIgnoreCase("notrequired")) && 
+				(evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getApplicationForm().equalsIgnoreCase("complete") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getEnrollmentAgreement().equalsIgnoreCase("complete") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getGrievancePolicy().equalsIgnoreCase("complete") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getRecommendationLetter().equalsIgnoreCase("complete") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) 
+			) {
+			evaluation.setStatus("complete");
+		} else {
+			evaluation.setStatus("inprocess");
+		}
+		
+		/*if (evaluation.getF1Visa().equalsIgnoreCase("valid") &&
 				evaluation.getApplicationFee().equalsIgnoreCase("valid") &&  
 				evaluation.getBankStmt().equalsIgnoreCase("valid") && 
 				evaluation.getDiplome().equalsIgnoreCase("valid") && 
@@ -232,7 +256,7 @@ public class AdminEvaluationController {
 			evaluation.setStatus("complete");
 		} else {
 			evaluation.setStatus("inprocess");
-		}
+		}*/
 		
 		evaluationService.updateEvaluation(evaluation);
 		
@@ -377,13 +401,27 @@ public class AdminEvaluationController {
 			if (evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired")) {
 				evaluationCount = evaluationCount + 1;
 			}
+			///#########
+			if (evaluation.getApplicationForm().equalsIgnoreCase("complete") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			if (evaluation.getEnrollmentAgreement().equalsIgnoreCase("complete") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			if (evaluation.getGrievancePolicy().equalsIgnoreCase("complete") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			if (evaluation.getRecommendationLetter().equalsIgnoreCase("complete") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) {
+				evaluationCount = evaluationCount + 1;
+			}
+			///#########
 			evaluationStatus = evaluation.getStatus();
 		
 		}
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("evaluationCount", evaluationCount);
-		data.put("evaluationTotal", 8);
+		data.put("evaluationTotal", 12);
 		data.put("evaluationStatus", evaluationStatus);
 		
 		// ##### LOGGING #########

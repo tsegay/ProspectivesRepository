@@ -54,6 +54,10 @@ public class EvaluationServiceImpl implements EvaluationService {
 		evaluationToUpdate.setPassport(evaluation.getPassport());
 		evaluationToUpdate.setFinancialAffidavit(evaluation.getFinancialAffidavit());
 		evaluationToUpdate.setApplicationFee(evaluation.getApplicationFee());
+		evaluationToUpdate.setApplicationForm(evaluation.getApplicationForm());
+		evaluationToUpdate.setEnrollmentAgreement(evaluation.getEnrollmentAgreement());
+		evaluationToUpdate.setGrievancePolicy(evaluation.getGrievancePolicy());
+		evaluationToUpdate.setRecommendationLetter(evaluation.getRecommendationLetter());
 		evaluationToUpdate.setTranscript(evaluation.getTranscript());
 		evaluationToUpdate.setDiplome(evaluation.getDiplome());
 //		evaluationToUpdate.setAdmissionOfficer(evaluation.getAdmissionOfficer());

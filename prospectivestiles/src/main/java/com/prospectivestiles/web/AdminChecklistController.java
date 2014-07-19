@@ -197,6 +197,10 @@ public class AdminChecklistController {
 		checklist.setF1Visa(origChecklist.getF1Visa());
 		checklist.setI20(origChecklist.getI20());
 		checklist.setApplicationFee(origChecklist.getApplicationFee());
+		checklist.setApplicationForm(origChecklist.getApplicationForm());
+		checklist.setEnrollmentAgreement(origChecklist.getEnrollmentAgreement());
+		checklist.setGrievancePolicy(origChecklist.getGrievancePolicy());
+		checklist.setRecommendationLetter(origChecklist.getRecommendationLetter());
 		checklist.setDiplome(origChecklist.getDiplome());
 		checklist.setFinancialAffidavit(origChecklist.getFinancialAffidavit());
 		checklist.setPassport(origChecklist.getPassport());
@@ -277,6 +281,20 @@ public class AdminChecklistController {
 			if (checklist.getApplicationFee().equalsIgnoreCase("complete") || checklist.getApplicationFee().equalsIgnoreCase("notrequired")) {
 				checklistCount = checklistCount + 1;
 			}
+			///#########
+			if (checklist.getApplicationForm().equalsIgnoreCase("complete") || checklist.getApplicationForm().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			if (checklist.getEnrollmentAgreement().equalsIgnoreCase("complete") || checklist.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			if (checklist.getGrievancePolicy().equalsIgnoreCase("complete") || checklist.getGrievancePolicy().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			if (checklist.getRecommendationLetter().equalsIgnoreCase("complete") || checklist.getRecommendationLetter().equalsIgnoreCase("notrequired")) {
+				checklistCount = checklistCount + 1;
+			}
+			///#########
 			if (checklist.getTranscript().equalsIgnoreCase("complete") || checklist.getTranscript().equalsIgnoreCase("notrequired")) {
 				checklistCount = checklistCount + 1;
 			}
@@ -289,7 +307,7 @@ public class AdminChecklistController {
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("checklistCount", checklistCount);
-		data.put("checklistTotal", 8);
+		data.put("checklistTotal", 12);
 		
 		System.out.println("################## checklistCount: " + checklistCount );
 		log.debug("# # # # # # # # # # # # getChecklistStatus... [log.debug]");

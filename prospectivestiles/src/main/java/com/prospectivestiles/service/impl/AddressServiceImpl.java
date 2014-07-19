@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.prospectivestiles.dao.AddressDao;
 import com.prospectivestiles.domain.Address;
+import com.prospectivestiles.domain.AddressType;
 import com.prospectivestiles.service.AddressService;
 
 @Service
@@ -63,6 +64,12 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public void updateAddressZipCode(long addressId, String zipcode) {
 		addressDao.updateZipCode(addressId, zipcode);
+	}
+
+	@Override
+	public Address getAddressByUserEntityIdAndAddressType(long userEntityId,
+			AddressType addressType) {
+		return addressDao.getAddressByUserEntityIdAndAddressType(userEntityId, addressType);
 	}
 	
 	

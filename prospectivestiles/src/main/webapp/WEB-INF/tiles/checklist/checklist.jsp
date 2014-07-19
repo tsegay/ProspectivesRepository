@@ -175,6 +175,84 @@
 		  		</span>
 		  	</c:if>
 		  </dd>
+		  <!-- ################# -->
+		  <dt><spring:message code="checklist.label.applicationForm" /></dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.applicationForm == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.applicationForm == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.applicationForm == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt><spring:message code="checklist.label.enrollmentAgreement" /></dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.enrollmentAgreement == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.enrollmentAgreement == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.enrollmentAgreement == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt><spring:message code="checklist.label.grievancePolicy" /></dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.grievancePolicy == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.grievancePolicy == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.grievancePolicy == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt><spring:message code="checklist.label.recommendationLetter" /></dt>
+		  <dd>
+		  	<c:if test="${userEntity.checklist.recommendationLetter == \"notrequired\"}">
+		  		<span class="gray"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.recommendationLetter == \"incomplete\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.checklist.recommendationLetter == \"complete\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Complete
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <!-- ################# -->
 		  
 		  <dt><spring:message code="checklist.label.transcript" /></dt>
 		  <dd>

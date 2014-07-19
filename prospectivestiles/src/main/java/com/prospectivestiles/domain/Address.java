@@ -12,13 +12,25 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@NamedQueries(
-		@NamedQuery(name = "findAddressesByUserEntityId", 
-		query = "FROM Address WHERE userEntity.id = :id")
-		)
+//@NamedQueries(
+//		@NamedQuery(name = "findAddressesByUserEntityId", 
+//		query = "FROM Address WHERE userEntity.id = :id")
+//		)
+@NamedQueries({
+	@NamedQuery(
+    		name = "findAddressesByUserEntityId",
+    		query = "FROM Address WHERE userEntity.id = :id"),
+	@NamedQuery(
+    		name = "findAddressByUserEntityIdAndAddressType",
+    		query = "FROM Address WHERE userEntity.id = :id AND addressType= :addressType")
+}) 
 public class Address extends BaseEntity implements Serializable  {
 	
-    // ======================================
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7777131449791659217L;
+	// ======================================
     // =             Attributes             =
     // ======================================
 	
@@ -133,9 +145,16 @@ public class Address extends BaseEntity implements Serializable  {
 	public void setUserEntity(UserEntity userEntity) {
 		this.userEntity = userEntity;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Address [addressType=" + addressType + ", address1=" + address1
+				+ ", address2=" + address2 + ", city=" + city + ", state="
+				+ state + ", zipcode=" + zipcode + ", country=" + country + "]";
+	}
+	
+	
+	
 
 	
 }

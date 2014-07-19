@@ -34,7 +34,10 @@ public class Checklist extends BaseEntity implements Serializable {
 	private String passport;
 	private String financialAffidavit;
 	// Don't need application form!!
-//	private String applicationForm;
+	private String applicationForm;
+	private String enrollmentAgreement;
+	private String grievancePolicy;
+	private String recommendationLetter;
 	private String applicationFee;
 	private String transcript;
 	private String diplome;
@@ -98,6 +101,30 @@ public class Checklist extends BaseEntity implements Serializable {
 	}
 	public void setFinancialAffidavit(String financialAffidavit) {
 		this.financialAffidavit = financialAffidavit;
+	}
+	public String getApplicationForm() {
+		return applicationForm;
+	}
+	public void setApplicationForm(String applicationForm) {
+		this.applicationForm = applicationForm;
+	}
+	public String getEnrollmentAgreement() {
+		return enrollmentAgreement;
+	}
+	public void setEnrollmentAgreement(String enrollmentAgreement) {
+		this.enrollmentAgreement = enrollmentAgreement;
+	}
+	public String getGrievancePolicy() {
+		return grievancePolicy;
+	}
+	public void setGrievancePolicy(String grievancePolicy) {
+		this.grievancePolicy = grievancePolicy;
+	}
+	public String getRecommendationLetter() {
+		return recommendationLetter;
+	}
+	public void setRecommendationLetter(String recommendationLetter) {
+		this.recommendationLetter = recommendationLetter;
 	}
 	public String getApplicationFee() {
 		return applicationFee;

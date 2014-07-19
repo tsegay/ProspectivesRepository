@@ -93,7 +93,7 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt><spring:message code="evaluationForm.label.f1Visa" /></dt>
+		  <dt><spring:message code="evaluationForm.label.bankStmt" /></dt>
 		  <%-- <dd><c:out value="${userEntity.evaluation.bankStmt}"></c:out></dd> --%>
 		  <dd>
 		  	<c:if test="${userEntity.evaluation.bankStmt == \"notreviewed\"}">
@@ -233,6 +233,122 @@
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.applicationFee == \"valid\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Valid
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt><spring:message code="evaluationForm.label.applicationForm" /></dt>
+		  <dd>
+		  	<c:if test="${userEntity.evaluation.applicationForm == \"notreviewed\"}">
+		  		<span class="gray"> 
+		  			Not Reviewed
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.applicationForm == \"incomplete\"}">
+		  		<span class="orange"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.applicationForm == \"invalid\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Invalid
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.applicationForm == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.applicationForm == \"valid\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Valid
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt><spring:message code="evaluationForm.label.enrollmentAgreement" /></dt>
+		  <dd>
+		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"notreviewed\"}">
+		  		<span class="gray"> 
+		  			Not Reviewed
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"incomplete\"}">
+		  		<span class="orange"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"invalid\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Invalid
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"valid\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Valid
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt><spring:message code="evaluationForm.label.grievancePolicy" /></dt>
+		  <dd>
+		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"notreviewed\"}">
+		  		<span class="gray"> 
+		  			Not Reviewed
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"incomplete\"}">
+		  		<span class="orange"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"invalid\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Invalid
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"valid\"}">
+		  		<span class="green glyphicon glyphicon-ok"> 
+		  			Valid
+		  		</span>
+		  	</c:if>
+		  </dd>
+		  
+		  <dt><spring:message code="evaluationForm.label.recommendationLetter" /></dt>
+		  <dd>
+		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"notreviewed\"}">
+		  		<span class="gray"> 
+		  			Not Reviewed
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"incomplete\"}">
+		  		<span class="orange"> 
+		  			Incomplete
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"invalid\"}">
+		  		<span class="red glyphicon glyphicon-remove"> 
+		  			Invalid
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"notrequired\"}">
+		  		<span class="green"> 
+		  			Not Required
+		  		</span>
+		  	</c:if>
+		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"valid\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
 		  			Valid
 		  		</span>

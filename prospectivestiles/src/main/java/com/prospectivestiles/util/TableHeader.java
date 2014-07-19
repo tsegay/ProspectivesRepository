@@ -69,6 +69,10 @@ public class TableHeader extends PdfPageEventHelper {
             table.getDefaultCell().setBorder(Rectangle.BOTTOM);
 //            table.addCell(header);
             
+            /**
+             * add-image-in-pdf-using-itext
+             * create a folder 'res-img' in src/main/resources
+            */
             Image img = null;
 			try {
 			    
@@ -101,11 +105,6 @@ public class TableHeader extends PdfPageEventHelper {
 			cell.setBorder(Rectangle.BOTTOM);
             table.addCell(cell);
             
-//            PdfPCell cell = new PdfPCell(Image.getInstance(total));
-//            PdfPCell cell = new PdfPCell(new Phrase("www.acct2day.org"));
-//            cell.setBorder(Rectangle.BOTTOM);
-//            table.addCell(cell);
-            
             table.writeSelectedRows(0, -1, 34, 833, writer.getDirectContent());
         }
         catch(DocumentException de) {
@@ -134,7 +133,6 @@ public class TableHeader extends PdfPageEventHelper {
         	
         	Image a = Image.getInstance(total);
         	a.scalePercent(65f);
-//        	PdfPCell cell = new PdfPCell(Image.getInstance(total));
         	PdfPCell cell = new PdfPCell(a);
         	cell.setBorder(Rectangle.TOP);
         	table2.addCell(cell);
