@@ -785,24 +785,6 @@ public class AdminPDFReportGenerator {
 			paragraph.add(new Paragraph("Executive Director"));
 			document.add(paragraph);
 			
-			/*paragraph = new Paragraph();
-			paragraph.setSpacingAfter(20);
-			paragraph.add(new Paragraph("Admissions Counselor: ", normalBoldFont));
-			document.add(paragraph);
-			
-			paragraph = new Paragraph();
-			paragraph.setSpacingAfter(10);
-			paragraph.add(new Paragraph(admissionOfficerName));
-			document.add(paragraph);
-			
-			paragraph = new Paragraph();
-			paragraph.setSpacingAfter(20);
-			String dateAdmittedString = new String("");
-			SimpleDateFormat formatDateAdmitted = new SimpleDateFormat("MM-dd-YYYY");
-			dateAdmittedString = formatDateAdmitted.format(evaluation.getDateAdmitted());
-			paragraph.add(new Paragraph("Admitted on: " + dateAdmittedString));
-			document.add(paragraph);*/
-
 			document.close();
 		} catch (DocumentException e) {
 			e.printStackTrace();
@@ -1511,12 +1493,12 @@ public class AdminPDFReportGenerator {
 	// iText allows to add metadata to the PDF which can be viewed in your Adobe
 	  // Reader
 	  // under File -> Properties
-	private static void addMetaData(Document document){
-		document.addTitle("First Title");
-		document.addSubject("First Subject");
-		document.addKeywords("First");
-		document.addCreator("Daniel");
-		document.addAuthor("Daniel");
+	private static void addMetaData(Document document) {
+		document.addTitle("American College of Commerce and Technology Prospectives Form");
+		document.addSubject("American College of Commerce and Technology Form");
+		document.addKeywords("ACCT, Application Form, International");
+		document.addAuthor("Daniel Anenia");
+		document.addCreator("Daniel Anenia");
 	}
 	
 	private static void addContent(Document document) throws DocumentException{

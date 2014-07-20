@@ -328,13 +328,3 @@
 </script>
 
 
-
-
-
-
-<!-- Call the dropdowns via JavaScript  -->
-<!-- <script>
-	$(document).ready(function () {
-        $('.dropdown-toggle').dropdown();
-    });
-</script> -->

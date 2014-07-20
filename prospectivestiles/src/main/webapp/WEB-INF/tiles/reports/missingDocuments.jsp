@@ -46,9 +46,22 @@
 	</c:when>
 	<c:otherwise>
 	
-	
-		<a href="${getMissingDocuments}" class="btn btn-primary btn-lg" target="_blank">Print/Download</a>
-		<a href="#" class="btn btn-primary btn-lg">Email to Student</a>
+		<div class="row">
+  			<div class="col-md-2">
+				<a href="${getMissingDocuments}" class="btn btn-primary btn-lg" target="_blank">Download</a>
+			</div>
+			
+		<!-- Email MissingDocuments attachment to student -->
+			<div class="col-md-2">
+				<c:url var="emailMissingDocuments" value="/admin/report/${userEntity.id}/missingDocuments/email" />
+				<form action="${emailMissingDocuments}" method="post">
+					<div>
+						<input class="btn btn-primary btn-lg" type="submit" value="Email to Student" />
+					</div>
+				</form>
+			</div>
+		</div>
+		
 		<br />
 		<br />
 		

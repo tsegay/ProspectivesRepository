@@ -40,6 +40,7 @@
 		<!-- =========================================================================== -->
 		<!-- ###############  TESTING PURPOSE ONLY #################### -->
 		<!-- =========================================================================== -->
+		<intercept-url pattern="/accounts/*/testAttachment" access="permitAll" />
 		<intercept-url pattern="/show" access="permitAll" />
 		<intercept-url pattern="/save" access="permitAll" />
 		<intercept-url pattern="/createPDF" access="permitAll" />
@@ -253,6 +254,10 @@
 		<intercept-url pattern="/accounts/*/reports/missingDocuments" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/reports/evaluationReport" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/reports/acceptanceLetter" access="hasRole('ROLE_ADMIN')" />
+		
+		<intercept-url pattern="/admin/report/*/missingDocuments/email" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/report/*/acceptanceLetter/email" access="hasRole('ROLE_ADMIN')" />
+		
 		
 		<!-- Student reports -->
 		

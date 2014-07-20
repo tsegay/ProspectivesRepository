@@ -51,7 +51,6 @@ check why I am using this checlist urls
 	<c:otherwise>
 	
 		<a href="${getEvaluationReport}" class="btn btn-primary btn-lg" target="_blank">Print/Download</a>
-		<a href="#" class="btn btn-primary btn-lg">Email to Student</a>
 		<br />
 		<br />
 		

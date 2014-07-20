@@ -143,8 +143,6 @@ public class AdminMessageController {
 		
 		Message message = new Message();
 		message.setAdmissionOfficer(admissionOfficer);
-//		message.setDateCreated(dateCreated);
-//		message.setDateModified(dateModified);
 		message.setStudent(student);
 		message.setSubject(subject);
 		message.setText(text);
@@ -158,25 +156,8 @@ public class AdminMessageController {
 		*/
 		Notification notification = new Notification("message", admissionOfficer.getFullName() + " sent a message to " + student.getFullName(), student);
 		
-		/*Notification notification = new Notification();
-		notification.setDateCreated(new Date());
-		notification.setDateModified(new Date());
-		notification.setNotice(student.getFullName() + " sent a message");
-		notification.setRead(false);
-		notification.setReadBy(admissionOfficer);
-		notification.setReadOn(new Date());
-		notification.setStudent(student);
-		notification.setType("message");
-		notification.setVisible(true);
-		
-		
-		notificationService.createNotification(notification);*/
-		
 		notificationService.createNotification(notification);
 
-//		System.out.println("new Date(): " + new Date());
-		//notificationService.createNotificationJDBC("message", student.getFullName() + " sent a message", new Date(), true, student.getId(), false);
-		
 		/*
 		 * I tried setting the dateCreated, visible and read fields here. 
 		 * It didn't work. So i set gave them default values at the DB itself.

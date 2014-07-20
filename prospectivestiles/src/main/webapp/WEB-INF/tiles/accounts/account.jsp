@@ -193,7 +193,6 @@
 			</div>
 		</div>
 		
-		
 	</c:otherwise>
 </c:choose>
 
@@ -298,7 +297,13 @@ I need this to push down the h3 below from mixing with the addresses -->
 	<a href="${newAddressUrl}">Add New Address</a>
 </h3>
 
-
+<!-- Testing Email attachment -->
+<%-- <c:url var="testAttachment" value="/accounts/${userEntity.id}/testAttachment" />
+<form id="testAttach" action="${testAttachment}" method="post">
+	<div>
+		<input class="btn btn-danger btn-sm" type="submit" value="test attach" />
+	</div>
+</form> --%>
 
 
 
