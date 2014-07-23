@@ -221,7 +221,7 @@ public class AdminEvaluationController {
 		evaluation.setDiplome(origEvaluation.getDiplome());
 //		evaluation.setAdmissionOfficer(admissionOfficer);
 		evaluation.setAdmnOfficerReport(origEvaluation.getAdmnOfficerReport());
-		evaluation.setStudentQualification(origEvaluation.getStudentQualification());
+//		evaluation.setStudentQualification(origEvaluation.getStudentQualification());
 		evaluation.setLastModifiedBy(currentAdmissionUser);
 		
 		

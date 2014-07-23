@@ -15,10 +15,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "evaluation")
-//@NamedQueries(
-//		@NamedQuery(name = "findEvaluationByUserEntityId", 
-//		query = "FROM Evaluation WHERE userEntity.id = :id")
-//		)
 @NamedQueries({
 	@NamedQuery(
     		name = "findEvaluationByUserEntityId",
@@ -37,7 +33,6 @@ public class Evaluation extends BaseEntity implements Serializable {
     // =             Attributes             =
     // ======================================
 
-//	private long id;
 	/**
 	 * Values for the ff are: valid, invalid, incomplete, not reviewed
 	 */
@@ -68,7 +63,7 @@ public class Evaluation extends BaseEntity implements Serializable {
 	 * what are the qualifications the student has that enable him to get admission
 	 */
 //	@Size(max=1000)
-	private String studentQualification;
+//	private String studentQualification;
 	/**
 	 * Admission Officer report
 	 */
@@ -111,13 +106,6 @@ public class Evaluation extends BaseEntity implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 	
-	/*@Id @GeneratedValue
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}*/
 	public String getF1Visa() {
 		return f1Visa;
 	}
@@ -205,13 +193,13 @@ public class Evaluation extends BaseEntity implements Serializable {
 		this.userEntity = userEntity;
 	}
 	
-	@Size(max=1000)
-	public String getStudentQualification() {
-		return studentQualification;
-	}
-	public void setStudentQualification(String studentQualification) {
-		this.studentQualification = studentQualification;
-	}
+//	@Size(max=1000)
+//	public String getStudentQualification() {
+//		return studentQualification;
+//	}
+//	public void setStudentQualification(String studentQualification) {
+//		this.studentQualification = studentQualification;
+//	}
 	@Size(max=1000)
 	public String getAdmnOfficerReport() {
 		return admnOfficerReport;
@@ -219,14 +207,6 @@ public class Evaluation extends BaseEntity implements Serializable {
 	public void setAdmnOfficerReport(String admnOfficerReport) {
 		this.admnOfficerReport = admnOfficerReport;
 	}
-//	@OneToOne
-//	@JoinColumn(name="admissionOfficer")
-//	public UserEntity getAdmissionOfficer() {
-//		return admissionOfficer;
-//	}
-//	public void setAdmissionOfficer(UserEntity admissionOfficer) {
-//		this.admissionOfficer = admissionOfficer;
-//	}
 	public String getStatus() {
 		return status;
 	}

@@ -413,8 +413,8 @@
 		  	</c:if>
 		  </dd>
 		  
-		  <dt><spring:message code="evaluationForm.label.studentQualification" /></dt>
-		  <dd><c:out value="${userEntity.evaluation.studentQualification}"></c:out></dd>
+		  <%-- <dt><spring:message code="evaluationForm.label.studentQualification" /></dt>
+		  <dd><c:out value="${userEntity.evaluation.studentQualification}"></c:out></dd> --%>
 		  
 		  <dt><spring:message code="evaluationForm.label.admnOfficerReport" /></dt>
 		  <dd><c:out value="${userEntity.evaluation.admnOfficerReport}"></c:out></dd>

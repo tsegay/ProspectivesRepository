@@ -47,11 +47,12 @@ insert the term and program of study to the userEntity using jdbc
 	<c:otherwise>
 		
 		<dl class="dl-horizontal">
-			<dt>term</dt>
+			<dt><spring:message code="applyingFor.label.term" /></dt>
 			<dd>
 				<c:out value="${userEntity.term.name}"></c:out>
 			</dd>
 		
+			<dt><spring:message code="applyingFor.label.programOfStudy" /></dt>
 			<dt>programOfStudy</dt>
 			<dd>
 				<c:out value="${userEntity.programOfStudy.name}"></c:out>

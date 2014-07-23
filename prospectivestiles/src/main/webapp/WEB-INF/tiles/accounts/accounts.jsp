@@ -137,14 +137,14 @@
 	 var chklNum;
 	 
 	function success(data){
-		alert("Successfully ...");
+		/* alert("Successfully ..."); */
 		/* alert(data); */
 
 		fetchAndDisplayAccounts(data);
 	}
 	
 	function error(data){
-		alert("Error. ... within JS");
+		/* alert("Error. ... within JS"); */
 		/* alert(data.stId); */
 	}
 	
@@ -152,19 +152,19 @@
 		
 		var text = $("#searchtext").val();
 		var searchUrl = "${pageContext.request.contextPath}"+"/accounts/accounts/searchAccount";
-		alert("searchUrl" + searchUrl);
-		alert("searchAccountUrl" + "${searchAccountUrl}");
+		/* alert("searchUrl" + searchUrl);
+		alert("searchAccountUrl" + "${searchAccountUrl}"); */
 		
 		$.ajax({
 			type: 'POST',
 			url : '${searchAccountUrl}',
 			data: JSON.stringify({"text": text}),
 			complete: function(response, textStatus){
-				 alert("#### complete called. " + textStatus);
+				 /* alert("#### complete called. " + textStatus); */
 			},
 			success: success,
 			error : function(jqXHR, textStatus, errorThrown ){
-				alert(errorThrown);
+				/* alert(errorThrown); */
 			},
 			contentType : "application/json",
 			dataType : "json"
@@ -173,9 +173,9 @@
 		
 	}
 	$(document).on("submit","#searchForm",null,function(){
-		alert("submitting form");
+		/* alert("submitting form"); */
 		searchAccount();
-		alert("submit form complete");
+		/* alert("submit form complete"); */
 		return false;
 	});
 	/* I am passing data, but not using it */

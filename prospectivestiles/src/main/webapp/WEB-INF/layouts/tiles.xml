@@ -145,6 +145,13 @@
 	
 	<!-- ====================== Admin && Student ====================================== -->
 	
+	<!-- ======================  ====================================== -->
+	
+	<definition name="studentAgreements" extends="prospectivestiles.base">
+		<put-attribute name="title" value="review page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/review.jsp"></put-attribute>
+	</definition>
+	
 	<!-- ====================== Education ====================================== -->
 	
 	<definition name="educations" extends="prospectivestiles.base">

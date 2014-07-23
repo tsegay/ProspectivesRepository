@@ -41,7 +41,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 @NamedQueries({
 	@NamedQuery(
     		name = "findUserEntityByUsername",
@@ -90,6 +89,10 @@ public class UserEntity implements UserDetails {
 	private Date dateLastModified;
 	/*private UserEntity createdBy;
 	private UserEntity lastModifiedBy;*/
+	/**
+	 * How did you hear about ACCT?
+	 */
+	private String heardAboutAcctThru;
 	
 	private Set<Role> roles = new HashSet<Role>();
 	
@@ -268,6 +271,14 @@ public class UserEntity implements UserDetails {
 
 	public void setDateLastModified(Date dateLastModified) {
 		this.dateLastModified = dateLastModified;
+	}
+	@Size(max = 255)
+	public String getHeardAboutAcctThru() {
+		return heardAboutAcctThru;
+	}
+
+	public void setHeardAboutAcctThru(String heardAboutAcctThru) {
+		this.heardAboutAcctThru = heardAboutAcctThru;
 	}
 
 	public String getHomePhone() {

@@ -247,7 +247,7 @@
 		</div>
 	</div>
 
-	<div class="form-group row">
+	<%-- <div class="form-group row">
 		<label for="studentQualification" class="col-sm-2 control-label">
 			<spring:message code="evaluationForm.label.studentQualification" />
 		</label>
@@ -258,7 +258,7 @@
 		<div class="col-sm-5">
 			<form:errors class="errormsg" path="studentQualification" htmlEscape="false" />
 		</div>
-	</div>
+	</div> --%>
 
 	<div class="form-group row">
 		<label for="admnOfficerReport" class="col-sm-2 control-label">

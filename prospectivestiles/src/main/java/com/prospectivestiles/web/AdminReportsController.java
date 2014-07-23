@@ -151,7 +151,7 @@ public class AdminReportsController {
 			(evaluation.getPassport().equalsIgnoreCase("valid") || evaluation.getPassport().equalsIgnoreCase("notrequired")) && 
 			(evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired"))) {
 				evaluationReportSummary.put("admnOfficerReport",evaluation.getAdmnOfficerReport());
-				evaluationReportSummary.put("studentQualification",evaluation.getStudentQualification());
+//				evaluationReportSummary.put("studentQualification",evaluation.getStudentQualification());
 				evaluationReportSummary.put("dateLastModified",evaluation.getDateLastModified());
 				if (associatedUser != null) {
 					
@@ -165,12 +165,6 @@ public class AdminReportsController {
 				
 			}
 		}
-		
-//		evaluation.getAdmnOfficerReport()
-//		evaluation.getAdmissionOfficer()
-//		evaluation.getDateCreated()
-//		evaluation.getDateLastModified()
-		
 		
 		model.addAttribute("evaluationReportSummary", evaluationReportSummary);
 		/**

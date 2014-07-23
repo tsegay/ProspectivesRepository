@@ -44,7 +44,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	private static final String INSERT_PROGRAMOFSTUDY_SQL =
 			"update userEntity set programOfStudy_id = ? where id = ?";
 	private static final String UPDATE_USERENTITY_SQL = 
-			"update userEntity set first_name = ?, last_name = ?, middle_name = ?, email = ?, homePhone = ?, cellPhone = ?, dob = ?, gender = ?, citizenship = ?, ethnicity = ?, ssn = ?, sevisNumber = ?, transferee = ? where id = ?";
+			"update userEntity set first_name = ?, last_name = ?, middle_name = ?, email = ?, homePhone = ?, cellPhone = ?, dob = ?, gender = ?, citizenship = ?, ethnicity = ?, ssn = ?, sevisNumber = ?, transferee = ?, heardAboutAcctThru = ? where id = ?";
 	
 	@Inject private JdbcTemplate jdbcTemplate;
 	
@@ -136,7 +136,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 				userEntity.getFirstName(), userEntity.getLastName(), userEntity.getMiddleName(),
 				userEntity.getEmail(), userEntity.getHomePhone(), userEntity.getCellPhone(), userEntity.getDob(), 
 				userEntity.getGender(), userEntity.getCitizenship(), userEntity.getEthnicity(), userEntity.getSsn(), 
-				userEntity.getSevisNumber(), userEntity.isTransferee(),
+				userEntity.getSevisNumber(), userEntity.isTransferee(), userEntity.getHeardAboutAcctThru(),
 				userEntityId});
 	}
 

@@ -1,19 +1,12 @@
 package com.prospectivestiles.web;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -37,9 +30,7 @@ import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.ExceptionConverter;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
@@ -47,21 +38,18 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.Section;
-import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfPageEventHelper;
-import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.AddressType;
+import com.prospectivestiles.domain.AgreementName;
 import com.prospectivestiles.domain.AssociatedUser;
 import com.prospectivestiles.domain.Checklist;
 import com.prospectivestiles.domain.Evaluation;
 import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.Institute;
-import com.prospectivestiles.domain.StandardTest;
+import com.prospectivestiles.domain.StudentAgreement;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.AssociatedUserService;
@@ -70,6 +58,7 @@ import com.prospectivestiles.service.EvaluationService;
 import com.prospectivestiles.service.HighSchoolService;
 import com.prospectivestiles.service.InstituteService;
 import com.prospectivestiles.service.StandardTestService;
+import com.prospectivestiles.service.StudentAgreementService;
 import com.prospectivestiles.service.UserEntityService;
 import com.prospectivestiles.util.TableHeader;
 
@@ -93,6 +82,8 @@ public class AdminPDFReportGenerator {
 	private InstituteService instituteService;
 	@Inject
 	private StandardTestService standardTestService;
+	@Inject
+	private StudentAgreementService studentAgreementService;
 
 	
 	private static String FILE = "path-to-file";
@@ -817,6 +808,8 @@ public class AdminPDFReportGenerator {
 		java.util.List<Address> addresses = addressService.getAddressesByUserEntityId(userEntityId);
 		java.util.List<HighSchool> highSchools = highSchoolService.getHighSchoolsByUserEntityId(userEntityId);
 		java.util.List<Institute> institutes = instituteService.getInstitutesByUserEntityId(userEntityId);
+		StudentAgreement studentAgreement = studentAgreementService.getStudentAgreementByUserEntityIdAndAgreementName(userEntityId, 
+				AgreementName.CERTIFY_INFO_PROVIDED_IS_TRUE_ACCURATE);
 		
 
 		
@@ -1073,6 +1066,24 @@ public class AdminPDFReportGenerator {
 				
 			}
 			
+			// row HeardAboutAcctThru, cell 1 - span 3
+			cell = new PdfPCell(new Phrase("How did you hear about ACCT?"));
+			cell.setColspan(3);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			cell.setPadding(8);
+			cell.setBorderWidthBottom(2f);
+	        cell.setGrayFill(0.95f);
+			table.addCell(cell);
+			
+			// row HeardAboutAcctThru, cell 1 - span 3
+			paragraph = new Paragraph(" ");
+			paragraph.add(new Phrase(userEntity.getHeardAboutAcctThru(), smallFont));
+			cell = new PdfPCell(paragraph);
+			cell.setColspan(3);
+			cell.setPadding(8);
+			cell.setBorder(Rectangle.BOX);
+			table.addCell(cell);
+			
 			// row pre6, cell 1 - span 3
 			cell = new PdfPCell(new Phrase("TERM AND PROGRAM OF STUDY"));
 			cell.setColspan(3);
@@ -1262,6 +1273,42 @@ public class AdminPDFReportGenerator {
 					
 				}
 			}
+			
+			// signature
+			// row preHighSchool, cell 1 - span 3
+			cell = new PdfPCell(new Phrase("I certify the information provided in this application is true and accurate to the best of my knowledge."));
+			cell.setColspan(3);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPadding(8);
+			cell.setBorderWidthBottom(2f);
+	        cell.setGrayFill(0.95f);
+			table.addCell(cell);
+			
+			paragraph = new Paragraph();
+			paragraph.add(new Phrase("Name(Signature): ", normalBoldFont));
+			if (studentAgreement != null) {
+				paragraph.add(new Phrase(studentAgreement.getSignature(), smallFont));
+			}
+			cell = new PdfPCell(paragraph);
+			cell.setColspan(2);
+			cell.setPadding(8);
+			cell.setBorder(Rectangle.BOX);
+			table.addCell(cell);
+			
+			paragraph = new Paragraph();
+			paragraph.add(new Phrase("Date: ", normalBoldFont));
+			if (studentAgreement != null) {
+				/*String agreementCreatedString = new String("");
+				SimpleDateFormat formatAgreementCreatedDate = new SimpleDateFormat("MM-dd-YYYY");
+				agreementCreatedString = formatAgreementCreatedDate.format(studentAgreement.getDateCreated());
+				paragraph.add(new Phrase(agreementCreatedString, smallFont));*/
+				paragraph.add(new Phrase(studentAgreement.getDateCreated().toString(), smallFont));
+			}
+			cell = new PdfPCell(paragraph);
+			cell.setPadding(8);
+			cell.setBorder(Rectangle.BOX);
+			table.addCell(cell);
+			
 			
 						
 			document.add(table);

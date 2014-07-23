@@ -19,6 +19,7 @@
 	<c:url var="missingDocumentsUrl" value="/accounts/${userEntity.id}/reports/missingDocuments" />
 	<c:url var="evaluationReportUrl" value="/accounts/${userEntity.id}/reports/evaluationReport" />
 	<c:url var="acceptanceLetterUrl" value="/accounts/${userEntity.id}/reports/acceptanceLetter" />
+	<c:url var="reviewUrl" value="/accounts/${userEntity.id}/studentAgreements" />
 	<c:url var="messagesUrl" value="/accounts/${userEntity.id}/messages" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
@@ -30,6 +31,7 @@
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
 	<c:url var="uploadedFilesUrl" value="/myAccount/files" />
 	<c:url var="employersUrl" value="/myAccount/employers" />
+	<c:url var="reviewUrl" value="/myAccount/studentAgreements" />
 	<c:url var="messagesUrl" value="/myAccount/messages" />
 </sec:authorize>
 
@@ -62,6 +64,9 @@
 			</li>
 			<li id="uploadedfiles-li">
 				<a href="${uploadedFilesUrl}">Documents</a>
+			</li>
+			<li id="applicationForm-li">
+				<a href="${reviewUrl}">Review & Accept</a>
 			</li>
 		</sec:authorize>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">

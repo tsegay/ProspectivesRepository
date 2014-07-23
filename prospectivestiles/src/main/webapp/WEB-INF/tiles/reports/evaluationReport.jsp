@@ -39,7 +39,6 @@ check why I am using this checlist urls
 	<c:url var="getEvaluationReport" value="/admin/report/${userEntity.id}/evaluation" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<%-- <c:url var="checklistUrl"	value="/myAccount/checklist/${userEntity.checklist.id}" /> --%>
 	<c:url var="editChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}" />
 	<c:url var="deleteChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}/delete" />
 </sec:authorize>
@@ -78,10 +77,10 @@ check why I am using this checlist urls
 			<c:out value="${evaluationReportSummary.admnOfficerReport}" />
 		</p>
 		
-		<p><strong>Student Qualification</strong></p>
+		<%-- <p><strong>Student Qualification</strong></p>
 		<p>
 			<c:out value="${evaluationReportSummary.studentQualification}" />
-		</p>
+		</p> --%>
 		
 		<p><strong>Admission Officer Name</strong></p>
 		<p>

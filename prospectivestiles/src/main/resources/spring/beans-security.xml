@@ -304,6 +304,15 @@
 		
 		<!-- =========================================================================== -->
 		
+		<!-- Admin studentAgreements -->
+		<intercept-url pattern="/accounts/*/studentAgreements" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Student studentAgreements -->
+		<intercept-url pattern="/myAccount/studentAgreements" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/certifyInfoProvided" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/report/applicationForm" access="isAuthenticated()" />
+		
+		<!-- =========================================================================== -->
 		<!-- myAccount -->
 		<intercept-url pattern="/myAccount/edit" access="isAuthenticated()" />
 		<intercept-url pattern="/myAccount" access="isAuthenticated()" />

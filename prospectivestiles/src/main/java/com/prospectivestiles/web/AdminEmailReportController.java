@@ -1,10 +1,8 @@
 package com.prospectivestiles.web;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
@@ -14,24 +12,15 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.MailException;
 import org.springframework.mail.MailParseException;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.Assert;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -106,6 +95,10 @@ public class AdminEmailReportController {
 		UserEntity student = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
+		/**
+		 * When email is sent to the student, save it to the messages entity
+		 * this will be displayed in the messages page, so users can track all email sent
+		 */
 		Message message = new Message();
 		message.setAdmissionOfficer(currentAdmissionUser);
 		message.setStudent(student);
@@ -115,6 +108,11 @@ public class AdminEmailReportController {
 		message.setCreatedBy(currentAdmissionUser);
 		messageService.createMessage(message);
 		
+		/**
+		 * Get the missingDocuments pdf file in the server
+		 * Then attach the file created in server to the mail
+		 * TODO: delete file in server when no longer needed
+		 */
 		String fileName = createMissingDocumentsPDF(userEntityId);
 				
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -126,13 +124,9 @@ public class AdminEmailReportController {
 			helper.setSubject("missingDocuments");
 			helper.setText("Find attached the missingDocuments...");
 	 
-//			FileSystemResource file = new FileSystemResource("C:\\log.txt");
-//			helper.addAttachment(file.getFilename(), file);
-			
 			String rootPath = System.getProperty("catalina.home");
 			System.out.println("rootPath:" + rootPath);
 			File dir = new File(rootPath + File.separator + "tmpFiles");
-//			String fileName = "testPDF.pdf";
 			// Create the file on server
 			File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
 			System.out.println("serverFile.toString(): " + serverFile.toString());
@@ -140,7 +134,7 @@ public class AdminEmailReportController {
 			helper.addAttachment(serverFile.getName(), serverFile);
 			
 		     }catch (MessagingException e) {
-			throw new MailParseException(e);
+		    	 throw new MailParseException(e);
 		     }
 		     
 		javaMailSender.send(mimeMessage);
@@ -148,10 +142,19 @@ public class AdminEmailReportController {
 		return "redirect:/accounts/{userEntityId}/messages";
 	}
 	
+	/**
+	 * Create the missing documents PDF file in the server
+	 * Then this file will be attached to the mail in the emailMissingDocuments()
+	 * Same content as AdminPDFReportGenerator.missingDocumentsReport()
+	 * @param userEntityId
+	 * @return
+	 */
 	public String createMissingDocumentsPDF(Long userEntityId) {
 
 		// ##################
-		
+		/**
+		 * get the missing documents list for the applicant
+		 */
 		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
 		ArrayList<String> missingDocuments = new ArrayList<String>();
 		UserEntity currentAdmissionOfficer = getUserEntityFromSecurityContext();
@@ -212,30 +215,42 @@ public class AdminEmailReportController {
 		// ##################
 		
 		Document document = new Document();
-		// document.setPageSize(PageSize.A4);
 
 		String rootPath = System.getProperty("catalina.home");
-		// System.out.println("rootPath:" + rootPath);
+//		System.out.println("rootPath:" + rootPath);
 		File dir = new File(rootPath + File.separator + "tmpFiles");
 		if (!dir.exists())
 			dir.mkdirs();
 		String fileName = random();
-		// Create the file on server
+		/**
+		 * To create the file on server - get its path
+		 */
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName + ".pdf");
-		System.out.println("serverFile.toString(): " + serverFile.toString());
+//		System.out.println("serverFile.toString(): " + serverFile.toString());
 
 		
 		try {
+			/**
+			 * Create the file on server
+			 */
 			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(serverFile));
-			// add header and footer before document.open()
+			/**
+			 * add header and footer before document.open()
+			 */
 		    TableHeader event = new TableHeader();
 	        writer.setPageEvent(event);
 			document.open();
-
-			addMetaData(document, "Missing Documents", 
+			/**
+			 * addMetaData(document, title, subject);
+			 */
+			addMetaData(document, 
+					"Missing Documents", 
 					"American College of Commerce and Technology prospective student missing documentc report");
 			
 			// ##################
+			/**
+			 * Here comes the body part of the document
+			 */
 			Paragraph paragraph = new Paragraph(50);
 			paragraph.setSpacingBefore(20);
 			paragraph.setSpacingAfter(20);
@@ -285,9 +300,9 @@ public class AdminEmailReportController {
 			paragraph.add(new Paragraph("Report generated by: " + currentAdmissionOfficer.getFullName() + " on " + nowString, smallFont));
 			document.add(paragraph);
 			// ##################
-			
 
 			document.close();
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (DocumentException e) {
@@ -310,6 +325,10 @@ public class AdminEmailReportController {
 		UserEntity student = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
+		/**
+		 * When email is sent to the student, save it to the messages entity
+		 * this will be displayed in the messages page, so users can track all email sent
+		 */
 		Message message = new Message();
 		message.setAdmissionOfficer(currentAdmissionUser);
 		message.setStudent(student);
@@ -319,6 +338,11 @@ public class AdminEmailReportController {
 		message.setCreatedBy(currentAdmissionUser);
 		messageService.createMessage(message);
 		
+		/**
+		 * Get the AcceptanceLetter pdf file in the server
+		 * Then attach the file created in server to the mail
+		 * TODO: delete file in server when no longer needed
+		 */
 		String fileName = createAcceptanceLetterPDF(userEntityId);
 				
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -340,7 +364,7 @@ public class AdminEmailReportController {
 			helper.addAttachment(serverFile.getName(), serverFile);
 			
 		     }catch (MessagingException e) {
-			throw new MailParseException(e);
+		    	 throw new MailParseException(e);
 		     }
 		     
 		javaMailSender.send(mimeMessage);
@@ -348,11 +372,20 @@ public class AdminEmailReportController {
 		return "redirect:/accounts/{userEntityId}/messages";
 	}
 	
+	/**
+	 * Create the AcceptanceLetter PDF file in the server
+	 * Then this file will be attached to the mail in the emailMissingDocuments()
+	 * Same content as AdminPDFReportGenerator.missingDocumentsReport()
+	 * @param userEntityId
+	 * @return
+	 */
 	public String createAcceptanceLetterPDF(Long userEntityId) {
 
 		
 		// ##################
-		
+		/**
+		 * Get the acceptance letter for the applicant
+		 */
 		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
 		String admissionOfficerName = null;
@@ -377,22 +410,35 @@ public class AdminEmailReportController {
 		if (!dir.exists())
 			dir.mkdirs();
 		String fileName = random();
-		// Create the file on server
+		/**
+		 * To create the file on server - get its path
+		 */
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName + ".pdf");
 		System.out.println("serverFile.toString(): " + serverFile.toString());
 
 		
 		try {
+			/**
+			 * Create the file on server
+			 */
 			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(serverFile));
-			// add header and footer before document.open()
+			/**
+			 * add header and footer before document.open()
+			 */
 		    TableHeader event = new TableHeader();
 	        writer.setPageEvent(event);
 			document.open();
 			
+			/**
+			 * addMetaData(document, title, subject);
+			 */
 			addMetaData(document, "Acceptance Letter", 
 					"American College of Commerce and Technology prospective student acceptance letter");
 			
 			// ##################
+			/**
+			 * Here comes the body part of the document
+			 */
 			Paragraph paragraph = new Paragraph(" ");
 			paragraph.setSpacingAfter(35);
 			document.add(paragraph);

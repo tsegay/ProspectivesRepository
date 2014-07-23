@@ -223,6 +223,20 @@
 		    </div>
 		</div>
 		
+		<div class="form-group row">
+			<label for="heardAboutAcctThru" class="col-sm-2 control-label">
+				<spring:message code="account.label.heardAboutAcctThru" />
+			</label>
+		    <div class="col-sm-5">
+		    	<form:textarea id="heardAboutAcctThru" path="heardAboutAcctThru" class="form-control" rows="2"></form:textarea>
+		    </div>
+		    <div class="col-sm-5">
+		    	<form:errors class="errormsg" path="heardAboutAcctThru" htmlEscape="false" />
+		    </div>
+		</div>
+		
+		
+		
 		<div class="form-group">
 			<label for="" class="col-sm-2 control-label">&nbsp;</label>
 			<div class="col-sm-10">

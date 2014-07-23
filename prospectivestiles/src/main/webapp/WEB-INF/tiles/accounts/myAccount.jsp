@@ -118,6 +118,15 @@
 		
 	</dl>
 </div>
+<div class="row">
+	<dl class="dl-horizontal col-md-12">
+		<dt>How did you hear about ACCT?</dt>
+		<dd>
+			<c:out value="${userEntity.heardAboutAcctThru}" />
+		</dd>
+  </dl>
+</div>
+
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 </sec:authorize>

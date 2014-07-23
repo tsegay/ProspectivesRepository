@@ -12,10 +12,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-//@NamedQueries(
-//		@NamedQuery(name = "findAddressesByUserEntityId", 
-//		query = "FROM Address WHERE userEntity.id = :id")
-//		)
 @NamedQueries({
 	@NamedQuery(
     		name = "findAddressesByUserEntityId",
@@ -34,7 +30,6 @@ public class Address extends BaseEntity implements Serializable  {
     // =             Attributes             =
     // ======================================
 	
-//	private long id;
 	private AddressType addressType;
 	private String address1;
 	private String address2;
@@ -42,8 +37,6 @@ public class Address extends BaseEntity implements Serializable  {
 	private String state;
 	private String zipcode;
 	private String country;
-//	@ManyToOne
-//	private UserEntity userEntity = new UserEntity();
 	private UserEntity userEntity = new UserEntity();
 	
 	// ======================================
@@ -67,15 +60,6 @@ public class Address extends BaseEntity implements Serializable  {
     // =          Getters & Setters         =
     // ======================================
 	
-	/*@Id @GeneratedValue
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-*/
 	public AddressType getAddressType() {
 		return addressType;
 	}
