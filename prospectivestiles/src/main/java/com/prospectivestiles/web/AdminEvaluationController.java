@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.prospectivestiles.domain.AccountState;
 import com.prospectivestiles.domain.AssociatedUser;
 import com.prospectivestiles.domain.Checklist;
 import com.prospectivestiles.domain.EmergencyContact;
@@ -126,7 +127,7 @@ public class AdminEvaluationController {
 	}
 	
 	/**
-	 * When creating a new evaluation set status = 'inprocess'
+	 * When admin start evaluating a student (creating a new evaluation) set status = 'inprocess'
 	 * 
 	 * @param userEntityId
 	 * @param evaluation
@@ -149,7 +150,8 @@ public class AdminEvaluationController {
 
 		evaluation.setUserEntity(userEntity);
 //		evaluation.setAdmissionOfficer(admissionOfficer);
-		evaluation.setStatus("inprocess");
+		userEntityService.insertAccountState(userEntityId, "inprocess");
+//		evaluation.setStatus("inprocess");
 		evaluation.setCreatedBy(currentAdmissionUser);
 		
 		evaluationService.createEvaluation(evaluation);
@@ -234,29 +236,24 @@ public class AdminEvaluationController {
 				(evaluation.getI20().equalsIgnoreCase("valid") || evaluation.getI20().equalsIgnoreCase("notrequired")) &&
 				(evaluation.getPassport().equalsIgnoreCase("valid") || evaluation.getPassport().equalsIgnoreCase("notrequired")) && 
 				(evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getApplicationForm().equalsIgnoreCase("complete") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getEnrollmentAgreement().equalsIgnoreCase("complete") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getGrievancePolicy().equalsIgnoreCase("complete") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getRecommendationLetter().equalsIgnoreCase("complete") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) 
+				(evaluation.getApplicationForm().equalsIgnoreCase("valid") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getEnrollmentAgreement().equalsIgnoreCase("valid") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getGrievancePolicy().equalsIgnoreCase("valid") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getRecommendationLetter().equalsIgnoreCase("valid") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) 
 			) {
-			evaluation.setStatus("complete");
+			/**
+			 * If all evaluation items are valid or notrequired change accountState to "COMPLETE"
+			 */
+//			evaluation.setStatus("complete");
+			userEntityService.insertAccountState(userEntityId, "complete");
 		} else {
-			evaluation.setStatus("inprocess");
+			/**
+			 * If all evaluation items are not valid or notrequired make accountState to "INPROCESS"
+			 */
+//			evaluation.setStatus("inprocess");
+			userEntityService.insertAccountState(userEntityId, "inprocess");
 		}
 		
-		/*if (evaluation.getF1Visa().equalsIgnoreCase("valid") &&
-				evaluation.getApplicationFee().equalsIgnoreCase("valid") &&  
-				evaluation.getBankStmt().equalsIgnoreCase("valid") && 
-				evaluation.getDiplome().equalsIgnoreCase("valid") && 
-				evaluation.getF1Visa().equalsIgnoreCase("valid") && 
-				evaluation.getFinancialAffidavit().equalsIgnoreCase("valid") && 
-				evaluation.getI20().equalsIgnoreCase("valid") && 
-				evaluation.getPassport().equalsIgnoreCase("valid") && 
-				evaluation.getTranscript().equalsIgnoreCase("valid")) {
-			evaluation.setStatus("complete");
-		} else {
-			evaluation.setStatus("inprocess");
-		}*/
 		
 		evaluationService.updateEvaluation(evaluation);
 		
@@ -284,8 +281,7 @@ public class AdminEvaluationController {
 			model.addAttribute(userEntity);
 			return "editEvaluation";
 		}
-		
-		evaluation.setStatus("admitted");
+//		evaluation.setStatus("admitted");
 		evaluation.setAdmittedBy(admittedBy);
 //		evaluation.setAdmissionOfficer(admissionOfficer);
 		Date dateAdmitted = new Date();
@@ -295,6 +291,10 @@ public class AdminEvaluationController {
 		System.out.println("### evaluation.getAdmittedBy: " + evaluation.getAdmittedBy());
 //		System.out.println("### evaluation.getAdmissionOfficer: " + evaluation.getAdmissionOfficer());
 		
+		/**
+		 * When a student is admitted change accountState to "ADMITTED"
+		 */
+		userEntityService.insertAccountState(userEntityId, "admitted");
 		evaluationService.updateEvaluation(evaluation);
 		
 		
@@ -318,7 +318,7 @@ public class AdminEvaluationController {
 	// =                        =
 	// ======================================
 	
-	@RequestMapping(value = "/accounts/admittedEvaluations", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/accounts/admittedEvaluations", method = RequestMethod.GET)
 	public String getAdmittedEvaluations(Model model) {
 		
 		List<Evaluation> admittedEvaluations = evaluationService.findEvaluationsByStatus("admitted");
@@ -349,7 +349,7 @@ public class AdminEvaluationController {
 		model.addAttribute("inprocessCount", inprocessCount);
 		
 		return "inprocessStudents";
-	}
+	}*/
 	
 	
 	// ======================================
@@ -371,6 +371,7 @@ public class AdminEvaluationController {
 			Model model) {
 
 		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		int evaluationCount = 0;
 		String evaluationStatus = "pending";
@@ -401,21 +402,20 @@ public class AdminEvaluationController {
 			if (evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired")) {
 				evaluationCount = evaluationCount + 1;
 			}
-			///#########
-			if (evaluation.getApplicationForm().equalsIgnoreCase("complete") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) {
+			if (evaluation.getApplicationForm().equalsIgnoreCase("valid") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) {
 				evaluationCount = evaluationCount + 1;
 			}
-			if (evaluation.getEnrollmentAgreement().equalsIgnoreCase("complete") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) {
+			if (evaluation.getEnrollmentAgreement().equalsIgnoreCase("valid") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) {
 				evaluationCount = evaluationCount + 1;
 			}
-			if (evaluation.getGrievancePolicy().equalsIgnoreCase("complete") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) {
+			if (evaluation.getGrievancePolicy().equalsIgnoreCase("valid") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) {
 				evaluationCount = evaluationCount + 1;
 			}
-			if (evaluation.getRecommendationLetter().equalsIgnoreCase("complete") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) {
+			if (evaluation.getRecommendationLetter().equalsIgnoreCase("valid") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) {
 				evaluationCount = evaluationCount + 1;
 			}
-			///#########
-			evaluationStatus = evaluation.getStatus();
+//			evaluationStatus = evaluation.getStatus();
+			evaluationStatus = userEntity.getAccountState();
 		
 		}
 		

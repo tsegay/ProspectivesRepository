@@ -1,11 +1,14 @@
 package com.prospectivestiles.web;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +39,15 @@ public class StudentStandardTestController {
 	@Autowired
 	private UserEntityService userEntityService;
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	    dateFormat.setLenient(false);
+
+	    // true passed to CustomDateEditor constructor means convert empty String to null
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
+	
 	// ======================================
 	// =  =
 	// ======================================

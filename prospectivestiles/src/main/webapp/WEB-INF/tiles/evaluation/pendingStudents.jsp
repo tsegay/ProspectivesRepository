@@ -5,27 +5,24 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<h1>Admitted Prospective Students</h1>
-
-<h4>Total Admitted: <c:out value="${admittedCount}"></c:out></h4>
+<h1>Pending Prospective Students</h1>
+<h4>Total pending applications: <c:out value="${pendingCount}"></c:out></h4>
 
 <div class="table-responsive">
 	<table class="table table-hover table-striped">
 		<tr>
-			<th>ID</th>
 			<th>Username</th>
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Date of Birth</th>
 			<th>Date Created</th>
-			<th>Date Admitted</th>
+			<!-- <th>Date Admitted</th> -->
 			<!-- <th>Admission Counselor</th> -->
 		</tr>
 	
-		<c:forEach var="userEntity" items="${admittedUsers}">
+		<c:forEach var="userEntity" items="${pendingUserEntities}">
 	
 			<tr>
-				<td><c:out value="${userEntity.id}"></c:out></td>
 				<td><c:out value="${userEntity.username}"></c:out></td>
 				<td><c:out value="${userEntity.firstName}"></c:out></td>
 				<td><c:out value="${userEntity.lastName}"></c:out></td>
@@ -37,11 +34,8 @@
 					<fmt:formatDate var="dateCreatedString" value="${userEntity.dateCreated}" pattern="MM-dd-yyyy" />
 					<c:out value="${dateCreatedString}" />
 				</td>
-				<td>
-					<fmt:formatDate var="dateAdmittedString" value="${userEntity.evaluation.dateAdmitted}" pattern="MM-dd-yyyy" />
-					<c:out value="${dateAdmittedString}" />
-				</td>
-				<%-- <td><c:out value="${evaluation.userEntity.}"></c:out></td> --%>
+				<%-- <td><c:out value="${evaluation.dateAdmitted}"></c:out></td> --%>
+				<%-- <td><c:out value="${userEntity.}"></c:out></td> --%>
 			</tr>
 	
 		</c:forEach>

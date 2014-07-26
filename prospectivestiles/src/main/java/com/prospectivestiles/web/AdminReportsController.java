@@ -176,6 +176,14 @@ public class AdminReportsController {
 		return "evaluationReport";
 	}
 	
+	/**
+	 * Fetch these entities: evaluation, associateduser, userEntity
+	 * if user has an evaluation created and the account state is admitted,
+	 * then pass status and ... to the jsp page to display the msg and provide optionto download the pdf letter
+	 * @param userEntityId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/reports/acceptanceLetter", method = RequestMethod.GET)
 	public String getAcceptanceLetter(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
@@ -183,14 +191,14 @@ public class AdminReportsController {
 		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
 		Map<String, Object> acceptanceLetterReport = new HashMap<String, Object>();
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		
 		/**
 		 * if user has no checklist created, you can't generate missing documents report
 		 */
-		if ((evaluation != null) && (evaluation.getStatus() != null)) {
-			if(evaluation.getStatus().equalsIgnoreCase("admitted")){
+		if ((evaluation != null) && (userEntity.getAccountState() != null)) {
+			if(userEntity.getAccountState().equalsIgnoreCase("admitted")){
 				acceptanceLetterReport.put("status", "admitted");
-//				acceptanceLetterReport.put("admissionOfficerName",evaluation.getAdmissionOfficer().getFullName());
 				acceptanceLetterReport.put("admittedBy",evaluation.getAdmittedBy().getFullName());
 				acceptanceLetterReport.put("dateAdmitted",evaluation.getDateAdmitted());
 				if (associatedUser != null) {
@@ -204,7 +212,23 @@ public class AdminReportsController {
 				}
 			}
 		}
-		
+/*		if ((evaluation != null) && (evaluation.getStatus() != null)) {
+			if(evaluation.getStatus().equalsIgnoreCase("admitted")){
+				acceptanceLetterReport.put("status", "admitted");
+				acceptanceLetterReport.put("admittedBy",evaluation.getAdmittedBy().getFullName());
+				acceptanceLetterReport.put("dateAdmitted",evaluation.getDateAdmitted());
+				if (associatedUser != null) {
+					
+					if (associatedUser.getAdmissionOfficer() != null) {
+						acceptanceLetterReport.put("Admissions Couselor",associatedUser.getAdmissionOfficer().getFullName());
+					} else {
+						acceptanceLetterReport.put("Admissions Couselor","None");
+					}
+					
+				}
+			}
+		}
+*/		
 		model.addAttribute("acceptanceLetterReport", acceptanceLetterReport);
 		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
 		

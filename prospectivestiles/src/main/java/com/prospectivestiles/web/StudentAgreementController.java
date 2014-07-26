@@ -58,7 +58,7 @@ public class StudentAgreementController {
 	public String getStudentAgreements(Model model) {
 
 		UserEntity userEntity = getUserEntityFromSecurityContext();
-		List<StudentAgreement> studentAgreements = studentAgreementService.getStudentAgreementsByUserEntityId(userEntity.getId());
+//		List<StudentAgreement> studentAgreements = studentAgreementService.getStudentAgreementsByUserEntityId(userEntity.getId());
 		List<Address> addresses = addressService.getAddressesByUserEntityId(userEntity.getId());
 		List<HighSchool> highSchools = highSchoolService.getHighSchoolsByUserEntityId(userEntity.getId());
 		List<Institute> institutes = instituteService.getInstitutesByUserEntityId(userEntity.getId());
@@ -72,7 +72,7 @@ public class StudentAgreementController {
 		}
 		studentAgreement.setUserEntity(userEntity);
 
-		model.addAttribute("studentAgreements", studentAgreements);
+//		model.addAttribute("studentAgreements", studentAgreements);
 		model.addAttribute("studentAgreement", studentAgreement);
 		model.addAttribute("userEntity", userEntity);
 		model.addAttribute("addresses", addresses);

@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.AssociatedUser;
+import com.prospectivestiles.domain.Evaluation;
+import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
@@ -84,29 +86,17 @@ public class AdminAccountController {
 		// ##### END LOGGING #########
 		
 		
-//		List<UserEntity> users = userEntityService.getAllUserEntities();
 		/*I want to get all students only, not admin users*/
 		List<UserEntity> users = userEntityService.findByRole(1);
 		model.addAttribute("users", users);
 		return "accounts";
 	}
 	
-	/*@RequestMapping(value="/accounts/accounts", method = RequestMethod.GET, produces="text/html")
-	public String list(Pageable pageable, Model model){
-		System.out.println(pageable);
-		Page<UserEntity> users = this.userEntityRepository.findAll(pageable);
-		
-        model.addAttribute("users", users);
-		return "accounts/accounts";
-	}*/
-	
-	
-	/*
+	/**
 	 * passing page and pageSize, MAKE optional
 	 * if page is null page = 1
 	 * if pageSize is null pageSize = 25
 	 */
-	
 	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> getAccountsForJSON(@PathVariable("page") int page, 
@@ -133,7 +123,6 @@ public class AdminAccountController {
 		// ##### END LOGGING #########
 		
 		
-		
 //		long usersCount = userEntityService.count();
 		/*I want to count all students only, not admin users*/
 		long usersCount = userEntityService.countByRole(1);
@@ -157,74 +146,6 @@ public class AdminAccountController {
 		return data;
 	}
 	
-	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}/{asc}", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> getAccountsForJSON(@PathVariable("page") int page, 
-			@PathVariable("pageSize") int pageSize, 
-			@PathVariable("asc") boolean asc, 
-			Model model) {
-		
-		// ##### LOGGING #########
-		Date now = new Date();
-		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
-		log.info("######## " + currentUserFullName + " viewing /accounts on " + now);
-		log.info("######## viewing /accounts/accounts/page/pageSize/asc: ## Username: {}, ## Date: {}", currentUserFullName, now);
-		System.out.println("sysout " + currentUserFullName + " viewing /accounts/accounts/page/pageSize/ASC on " + now);
-		// ##### END LOGGING #########
-				
-		System.out.println("page: " + page);
-		System.out.println("pageSize: " + pageSize);
-		System.out.println("asc: " + asc);
-		long usersCount = userEntityService.count();
-		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
-		// getAllUserEntitiesForPage -- TO BE CHANGED
-		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(page, pageSize, null, asc);
-		
-		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("users", users);
-		data.put("usersCount", usersCount);
-		data.put("page", page);
-		data.put("pageSize", pageSize);
-		data.put("totalPages", totalPages);
-		
-		System.out.println("################## usersCount: " + usersCount + 
-				" ### page: " + page +
-				" ### pageSize: " + pageSize +
-				" ### totalPages: " + totalPages);
-		
-		return data;
-	}
-	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}/{filter}/{asc}", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> getAccountsForJSON(@PathVariable("page") int page, 
-			@PathVariable("pageSize") int pageSize, 
-			@PathVariable("filter") String filter, 
-			@PathVariable("asc") boolean asc, 
-			Model model) {
-		
-		System.out.println("page: " + page);
-		System.out.println("pageSize: " + pageSize);
-		System.out.println("filter: " + filter);
-		System.out.println("asc: " + asc);
-		long usersCount = userEntityService.count();
-		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
-		// getAllUserEntitiesForPage -- TO BE CHANGED
-		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(page, pageSize, filter, asc);
-		
-		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("users", users);
-		data.put("usersCount", usersCount);
-		data.put("page", page);
-		data.put("pageSize", pageSize);
-		data.put("totalPages", totalPages);
-		
-		System.out.println("################## usersCount: " + usersCount + 
-				" ### page: " + page +
-				" ### pageSize: " + pageSize +
-				" ### totalPages: " + totalPages);
-		
-		return data;
-	}
 	
 	@RequestMapping(value = "/accounts/accounts/searchAccount", method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
@@ -407,8 +328,59 @@ public class AdminAccountController {
 	/*@RequestMapping(value = "/myAccount/delete", method = RequestMethod.POST)
 	public String deleteMyAccount(){}*/
 	
+	
+	// ======================================
+	// =                         =
+	// ======================================
+	
+	@RequestMapping(value = "/accounts/admittedStudents", method = RequestMethod.GET)
+	public String getAdmittedStudents(Model model) {
+		
+		List<UserEntity> admittedUsers = userEntityService.findUserEntitiesByAccountState("admitted");
+		long admittedCount = userEntityService.countByAccountState("admitted");
+		model.addAttribute("admittedUsers", admittedUsers);
+		model.addAttribute("admittedCount", admittedCount);
+		
+		return "admittedStudents";
+	}
+	
+	@RequestMapping(value = "/accounts/completeStudents", method = RequestMethod.GET)
+	public String getCompleteStudents(Model model) {
+		
+		List<UserEntity> completeUserEntities = userEntityService.findUserEntitiesByAccountState("complete");
+		long completeCount = userEntityService.countByAccountState("complete");
+		model.addAttribute("completeUserEntities", completeUserEntities);
+		model.addAttribute("completeCount", completeCount);
+
+		return "completeStudents";
+	}
+	
+	@RequestMapping(value = "/accounts/inprocessStudents", method = RequestMethod.GET)
+	public String getInprocessStudents(Model model) {
+		
+		List<UserEntity> inprocessUserEntities = userEntityService.findUserEntitiesByAccountState("inprocess");
+		long inprocessCount = userEntityService.countByAccountState("inprocess");
+		model.addAttribute("inprocessUserEntities", inprocessUserEntities);
+		model.addAttribute("inprocessCount", inprocessCount);
+		
+		return "inprocessStudents";
+	}
+	
+	@RequestMapping(value = "/accounts/pendingStudents", method = RequestMethod.GET)
+	public String getPendingStudents(Model model) {
+		
+		List<UserEntity> pendingUserEntities = userEntityService.findUserEntitiesByAccountState("pending");
+		long pendingCount = userEntityService.countByAccountState("pending");
+		model.addAttribute("pendingUserEntities", pendingUserEntities);
+		model.addAttribute("pendingCount", pendingCount);
+		
+		return "pendingStudents";
+	}
+	
+	
 	// ======================================
 	// =             associatedUsers            =
+	// 				CREATE ASSOCIATED USERS CONTROLLER				
 	// ======================================
 	
 	/**
@@ -589,6 +561,90 @@ public class AdminAccountController {
 		Authentication auth = securityCtx.getAuthentication();
 		UserEntity userEntity =  (UserEntity) auth.getPrincipal();
 		return userEntity;
+	}
+	
+	
+	
+	// ======================================
+	// =                         =
+	// ======================================
+	
+	/*@RequestMapping(value="/accounts/accounts", method = RequestMethod.GET, produces="text/html")
+	public String list(Pageable pageable, Model model){
+		System.out.println(pageable);
+		Page<UserEntity> users = this.userEntityRepository.findAll(pageable);
+		
+        model.addAttribute("users", users);
+		return "accounts/accounts";
+	}*/
+	
+	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}/{asc}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getAccountsForJSON(@PathVariable("page") int page, 
+			@PathVariable("pageSize") int pageSize, 
+			@PathVariable("asc") boolean asc, 
+			Model model) {
+		
+		// ##### LOGGING #########
+		Date now = new Date();
+		String currentUserFullName = getUserEntityFromSecurityContext().getFullName();
+		log.info("######## " + currentUserFullName + " viewing /accounts on " + now);
+		log.info("######## viewing /accounts/accounts/page/pageSize/asc: ## Username: {}, ## Date: {}", currentUserFullName, now);
+		System.out.println("sysout " + currentUserFullName + " viewing /accounts/accounts/page/pageSize/ASC on " + now);
+		// ##### END LOGGING #########
+				
+		System.out.println("page: " + page);
+		System.out.println("pageSize: " + pageSize);
+		System.out.println("asc: " + asc);
+		long usersCount = userEntityService.count();
+		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
+		// getAllUserEntitiesForPage -- TO BE CHANGED
+		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(page, pageSize, null, asc);
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("users", users);
+		data.put("usersCount", usersCount);
+		data.put("page", page);
+		data.put("pageSize", pageSize);
+		data.put("totalPages", totalPages);
+		
+		System.out.println("################## usersCount: " + usersCount + 
+				" ### page: " + page +
+				" ### pageSize: " + pageSize +
+				" ### totalPages: " + totalPages);
+		
+		return data;
+	}
+	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}/{filter}/{asc}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getAccountsForJSON(@PathVariable("page") int page, 
+			@PathVariable("pageSize") int pageSize, 
+			@PathVariable("filter") String filter, 
+			@PathVariable("asc") boolean asc, 
+			Model model) {
+		
+		System.out.println("page: " + page);
+		System.out.println("pageSize: " + pageSize);
+		System.out.println("filter: " + filter);
+		System.out.println("asc: " + asc);
+		long usersCount = userEntityService.count();
+		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
+		// getAllUserEntitiesForPage -- TO BE CHANGED
+		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(page, pageSize, filter, asc);
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("users", users);
+		data.put("usersCount", usersCount);
+		data.put("page", page);
+		data.put("pageSize", pageSize);
+		data.put("totalPages", totalPages);
+		
+		System.out.println("################## usersCount: " + usersCount + 
+				" ### page: " + page +
+				" ### pageSize: " + pageSize +
+				" ### totalPages: " + totalPages);
+		
+		return data;
 	}
 
 }

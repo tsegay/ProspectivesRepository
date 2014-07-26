@@ -322,7 +322,50 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 <br>
 <hr>
-<c:choose>
+
+
+<c:if test="${studentAgreement.id < 1}">
+		<p>
+		I certify the information provided in this application is true and accurate to the best of my knowledge. 
+		</p>
+		<p>
+		By typing your full name and clicking on "Submit" in the box below you agree to the statement above.
+		</p>
+		
+		<form:form action="${certifyInfoProvidedUrl}" modelAttribute="studentAgreement" role="form" class="form-horizontal">
+		
+			<div class="form-group row">
+				<label for="signature" class="col-sm-2 control-label">
+					<spring:message code="studentAgreement.label.signature" />
+					<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
+				</label>
+				<div class="col-sm-5">
+					<form:input class="form-control" path="signature" />
+				</div>
+				<div class="col-sm-5">
+					<form:errors class="errormsg" path="signature" htmlEscape="false" />
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label for="" class="col-sm-2 control-label">&nbsp;</label>
+				<div class="col-sm-10">
+					<input class="btn btn-primary" type="submit" value="Sign"></input> 
+				</div>
+			</div>
+		
+		</form:form>
+</c:if>
+<c:if test="${studentAgreement.id > 0}">
+	<p>I certify the information provided in this application is true and accurate to the best of my knowledge.</p>
+	<p>Name(Signature): <c:out value="${studentAgreement.signature}" /></p>
+	<p>Date: <c:out value="${studentAgreement.dateCreated}" /></p>
+		
+</c:if>
+
+
+
+<%-- <c:choose>
 	<c:when test="${empty studentAgreement}">
 		<p>
 		I certify the information provided in this application is true and accurate to the best of my knowledge. 
@@ -356,17 +399,12 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 		</form:form>
 	</c:when>
 	<c:otherwise>
-		<%-- <c:forEach var="studentAgreement" items="${studentAgreements}">
-			<p>I certify the information provided in this application is true and accurate to the best of my knowledge.</p>
-			<p>Name(Signature): <c:out value="${studentAgreement.signature}" /></p>
-			<p>Date: <c:out value="${studentAgreement.dateCreated}" /></p>
-		</c:forEach> --%>
 		<p>I certify the information provided in this application is true and accurate to the best of my knowledge.</p>
 		<p>Name(Signature): <c:out value="${studentAgreement.signature}" /></p>
 		<p>Date: <c:out value="${studentAgreement.dateCreated}" /></p>
 		
 	</c:otherwise>
-</c:choose>
+</c:choose> --%>
 
 <sec:authorize access="hasRole('ROLE_USER')">
 	<a href="${getApplicationForm}" class="btn btn-primary btn-lg" target="_blank">Download application form</a>

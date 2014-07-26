@@ -64,7 +64,7 @@ public class EvaluationServiceImpl implements EvaluationService {
 		evaluationToUpdate.setAdmnOfficerReport(evaluation.getAdmnOfficerReport());
 //		evaluationToUpdate.setStudentQualification(evaluation.getStudentQualification());
 		
-		evaluationToUpdate.setStatus(evaluation.getStatus());
+//		evaluationToUpdate.setStatus(evaluation.getStatus());
 		evaluationToUpdate.setAdmittedBy(evaluation.getAdmittedBy());
 		evaluationToUpdate.setDateAdmitted(evaluation.getDateAdmitted());
 		Date now = new Date();
@@ -79,15 +79,15 @@ public class EvaluationServiceImpl implements EvaluationService {
 		evaluationDao.delete(evaluation);
 	}
 
-	@Override
-	public List<Evaluation> findEvaluationsByStatus(String status) {
-		return evaluationDao.findEvaluationsByStatus(status);
-	}
-
-	@Override
-	public long countByStatus(String status) {
-		return evaluationDao.countByStatus(status);
-	}
+//	@Override
+//	public List<Evaluation> findEvaluationsByStatus(String status) {
+//		return evaluationDao.findEvaluationsByStatus(status);
+//	}
+//
+//	@Override
+//	public long countByStatus(String status) {
+//		return evaluationDao.countByStatus(status);
+//	}
 	
 
 

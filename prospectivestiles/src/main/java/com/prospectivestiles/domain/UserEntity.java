@@ -48,6 +48,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 	@NamedQuery(
     		name = "findUserEntitiesByRole",
     		query = "select u from UserEntity u inner join u.roles r where r.id = :roleID"),
+	@NamedQuery(
+    		name = "findUserEntitiesByStatus",
+    		query = "FROM UserEntity WHERE accountState = :accountState"),
 }) 
 @Entity
 @Table(name = "userEntity")
@@ -93,6 +96,7 @@ public class UserEntity implements UserDetails {
 	 * How did you hear about ACCT?
 	 */
 	private String heardAboutAcctThru;
+	private String accountState;
 	
 	private Set<Role> roles = new HashSet<Role>();
 	
@@ -231,7 +235,7 @@ public class UserEntity implements UserDetails {
 	public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
 	
 //	@NotNull(message = "{userEntity.dob.message}")
-	@NotNull
+//	@NotNull
 	public Date getDob() {
 		return dob;
 	}
@@ -279,6 +283,14 @@ public class UserEntity implements UserDetails {
 
 	public void setHeardAboutAcctThru(String heardAboutAcctThru) {
 		this.heardAboutAcctThru = heardAboutAcctThru;
+	}
+
+	public String getAccountState() {
+		return accountState;
+	}
+
+	public void setAccountState(String accountState) {
+		this.accountState = accountState;
 	}
 
 	public String getHomePhone() {

@@ -16,6 +16,7 @@ import org.springframework.validation.Errors;
 
 import com.prospectivestiles.dao.RoleDao;
 import com.prospectivestiles.dao.UserEntityDao;
+import com.prospectivestiles.domain.AccountState;
 import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.Role;
 import com.prospectivestiles.domain.UserEntity;
@@ -155,6 +156,21 @@ public class UserEntityServiceImpl implements UserEntityService {
 
 	@Override
 	@Transactional(readOnly = false)
+	public void insertAccountState(long userEntityId, String accountState) {
+		userEntityDao.insertAccountState(userEntityId, accountState);
+		
+	}
+	
+
+	/**
+	 * Use @Transactional(readOnly = false) or exception thrown is:
+	 * org.springframework.dao.TransientDataAccessResourceException: 
+	 * PreparedStatementCallback; SQL [update userEntity set accountState = ? where accountState = ?]; 
+	 * Connection is read-only. Queries leading to data modification are not allowed; nested exception is java.sql.SQLException: 
+	 * Connection is read-only. 
+	 */
+	@Override
+	@Transactional(readOnly = false)
 	public void insertIntoUserEntity(long userEntityId, UserEntity userEntity) {
 		
 		userEntityDao.insertIntoUserEntity(userEntityId, userEntity);
@@ -200,5 +216,17 @@ public class UserEntityServiceImpl implements UserEntityService {
 	public boolean hasRoleAdmin(long userEntityId) {
 		return userEntityDao.hasRoleAdmin(userEntityId);
 	}
+
+	@Override
+	public List<UserEntity> findUserEntitiesByAccountState(String accountState) {
+		return userEntityDao.findUserEntitiesByAccountState(accountState);
+	}
+
+	@Override
+	public long countByAccountState(String accountState) {
+		return userEntityDao.countByAccountState(accountState);
+	}
+
+	
 	
 }

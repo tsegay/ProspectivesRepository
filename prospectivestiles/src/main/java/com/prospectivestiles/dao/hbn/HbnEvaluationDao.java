@@ -43,26 +43,26 @@ public class HbnEvaluationDao extends AbstractHbnDao<Evaluation> implements
 	/**
 	 * To get evaluations by status, eg 'admitted' students
 	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Evaluation> findEvaluationsByStatus(String status) {
-		return (List<Evaluation>) getSession()
-				.getNamedQuery("findEvaluationsByStatus")
-				.setParameter("status", status)
-				.list();
-	}
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public List<Evaluation> findEvaluationsByStatus(String status) {
+//		return (List<Evaluation>) getSession()
+//				.getNamedQuery("findEvaluationsByStatus")
+//				.setParameter("status", status)
+//				.list();
+//	}
 	
 	/**
 	 * I want to count prospective students by their status
 	 * Eg. admitted students
 	 */
-	@Override
-	public long countByStatus(String status) {
-		return (Long) getSession()
-			.createQuery("SELECT count(*) FROM Evaluation e WHERE e.status = :status")
-			.setParameter("status", status)
-			.uniqueResult();
-	}
+//	@Override
+//	public long countByStatus(String status) {
+//		return (Long) getSession()
+//			.createQuery("SELECT count(*) FROM Evaluation e WHERE e.status = :status")
+//			.setParameter("status", status)
+//			.uniqueResult();
+//	}
 
 
 }

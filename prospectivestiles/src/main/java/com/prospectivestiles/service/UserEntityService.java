@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.validation.Errors;
 
+import com.prospectivestiles.domain.AccountState;
 import com.prospectivestiles.domain.UserEntity;
 
 public interface UserEntityService {
@@ -15,19 +16,16 @@ public interface UserEntityService {
 	boolean createUserEntity(UserEntity userEntity, Errors errors);
 	
 	UserEntity getUserEntity(long userEntityId);
-	
 	UserEntity getUserEntityByUsername(String username);
-	
 	String getPasswordByUsername(String username);
-
 	List<UserEntity> getAllUserEntities();
-	
 	List<UserEntity> findByRole(long roleID);
 	
 	void updateUserEntity(UserEntity userEntity);
 	void delete(UserEntity userEntity);
 	void insertTerm(long userEntityId, long termId);
 	void insertProgramOfStudy(long userEntityId, long programOfStudyId);
+	void insertAccountState(long userEntityId, String accountState);
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
 
 	List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize);
@@ -42,5 +40,8 @@ public interface UserEntityService {
 	 */
 	long countByRole(long roleID);
 	boolean hasRoleAdmin(long userEntityId);
+	
+	List<UserEntity> findUserEntitiesByAccountState(String accountState);
+	long countByAccountState(String accountState);
 
 }

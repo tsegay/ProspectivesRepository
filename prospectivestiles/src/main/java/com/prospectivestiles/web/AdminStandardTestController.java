@@ -41,12 +41,11 @@ public class AdminStandardTestController {
 	@Inject
 	private StandardTestService standardTestService;
 	
-	/*
+	/**
 	 * Use this iniit Binder to fix converstaino validTill from String to Date
 	 * Failed to convert property value of type java.lang.String to required type java.util.Date 
 	 * for property validTill; 
 	 */
-	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");

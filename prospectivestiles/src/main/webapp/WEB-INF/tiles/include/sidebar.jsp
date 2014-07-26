@@ -33,9 +33,10 @@
 				<li class="list-group-item"><a href="<c:url value='#'/>">Agents</a></li>
 				<li class="list-group-item"><a href="<c:url value='#'/>">Referrers</a></li>
 				<%-- <li class="list-group-item"><a href="<c:url value='#'/>">Admission Counselors</a></li> --%>
-				<li class="list-group-item"><a href="<c:url value='/accounts/inprocessEvaluations'/>">In process</a></li>
-				<li class="list-group-item"><a href="<c:url value='/accounts/completeEvaluations'/>">Complete</a></li>
-				<li class="list-group-item"><a href="<c:url value='/accounts/admittedEvaluations'/>">Admitted</a></li>
+				<li class="list-group-item"><a href="<c:url value='/accounts/pendingStudents'/>">Pending</a></li>
+				<li class="list-group-item"><a href="<c:url value='/accounts/inprocessStudents'/>">In process</a></li>
+				<li class="list-group-item"><a href="<c:url value='/accounts/completeStudents'/>">Complete</a></li>
+				<li class="list-group-item"><a href="<c:url value='/accounts/admittedStudents'/>">Admitted</a></li>
 				
 				
 			</sec:authorize>

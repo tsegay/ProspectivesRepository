@@ -4,16 +4,32 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import com.prospectivestiles.domain.AccountState;
 import com.prospectivestiles.domain.Term;
 import com.prospectivestiles.domain.UserEntity;
 
 public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
+	
+	// ##################
+//	findEvaluationsByStatus
+	/**
+	 * to find users by their status. eg admitted students, inprocess students etc
+	 * used in pages: admittedStudents.jsp, completeStudents.jsp, inprocessStudents.jsp
+	 * @param accountState
+	 * @return
+	 */
+	List<UserEntity> findUserEntitiesByAccountState(String accountState);
+//	List<Evaluation> findEvaluationsByStatus(String status);
+	long countByAccountState(String accountState);
+	
+	// ##################
 	
 	void createUserEntity(UserEntity userEntity);
 	
 	UserEntity findByUsername(String username);
 
 	String getPasswordByUsername(String username);
+	
 	
 	void insertTerm(long userEntityId, long termId);
 	
@@ -24,6 +40,8 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	 * @param userEntity
 	 */
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
+	void insertAccountState(long userEntityId, String accountState);
+//	void insertAccountState(long userEntityId, AccountState accountState);
 	
 	List<UserEntity> findByRole(long roleID);
 	

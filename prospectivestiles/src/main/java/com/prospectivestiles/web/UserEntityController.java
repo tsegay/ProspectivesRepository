@@ -80,6 +80,11 @@ public class UserEntityController {
 //		}
 		
 		String password = form.getPassword();
+		/**
+		 * When applicant first create an account it is defaulted to PENDING state
+		 */
+		form.setAccountState("pending");
+		
 		userEntityService.createUserEntity(form, result);
 		
 		/**
@@ -101,30 +106,32 @@ public class UserEntityController {
 					
 					Authentication authRequest =
 							new UsernamePasswordAuthenticationToken(form.getUsername(), password);
+					Authentication authResult = authMgr.authenticate(authRequest);
+					SecurityContextHolder.getContext().setAuthentication(authResult);
+					
 //					if (authRequest != null) {
 //						System.out.println("######## authREquest: " + authRequest.toString());
 //					}
-					
-					Authentication authResult = authMgr.authenticate(authRequest);
-					
 //					if (authResult == null) {
 //						System.out.println("######## authResult is null");
 //					} else {
 //						System.out.println("######## authResult is: " + authRequest.toString());
 //					}
 					
-					SecurityContextHolder.getContext().setAuthentication(authResult);
 				}
 				
 			} else {
-				// When admission officer created a user account, redirect to profile page of the new user
-				if (userEntityService.hasRoleAdmin(currentUser.getId())) {
+				if (!result.hasErrors()) {
+					// When admission officer created a user account, redirect to profile page of the new user
+					if (userEntityService.hasRoleAdmin(currentUser.getId())) {
 //					System.out.println("######## currentUser: " + currentUser.getFullName());
-					log.debug("####### debug: " + currentUser.getFullName() + " creating an account ");
-					log.info("####### info: " + currentUser.getFullName() + " creating an account ");
+						log.debug("####### debug: " + currentUser.getFullName() + " creating an account ");
+						log.info("####### info: " + currentUser.getFullName() + " creating an account ");
+						
+						UserEntity createdAccount = userEntityService.getUserEntityByUsername(form.getUsername());
+						return "redirect:/accounts/" + createdAccount.getId();
+					}
 					
-					UserEntity createdAccount = userEntityService.getUserEntityByUsername(form.getUsername());
-					return "redirect:/accounts/" + createdAccount.getId();
 				}
 			}
 		

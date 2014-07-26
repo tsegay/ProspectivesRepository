@@ -80,7 +80,7 @@ public class Evaluation extends BaseEntity implements Serializable {
 	/**
 	 * Status values are pending, in process, complete, admitted, (transfered to enrolled students portal)
 	 */
-	private String status;
+//	private String status;
 	/**
 	 * Date admission was approved
 	 */
@@ -207,12 +207,12 @@ public class Evaluation extends BaseEntity implements Serializable {
 	public void setAdmnOfficerReport(String admnOfficerReport) {
 		this.admnOfficerReport = admnOfficerReport;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
+//	public String getStatus() {
+//		return status;
+//	}
+//	public void setStatus(String status) {
+//		this.status = status;
+//	}
 	public Date getDateAdmitted() {
 		return dateAdmitted;
 	}

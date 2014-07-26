@@ -74,6 +74,31 @@
 	margin-right: 20px;
 }
 
+/*
+Change all links to green, to match the logo
+*/
+a {
+    color: #4cae4c;
+}
+a:hover, a:focus {
+	color: #13EF6B;
+}
+
+/*
+Change all buttons to green, to match the logo. I should use .btn-success instead of .btn-primary, 
+then I don't have to override any css
+*/
+.btn-primary {
+    background-color: #24ad4b;
+    border-color: #2fbb67;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+    background-color: #2ABF66;
+    border-color: #2ABF66;
+}
+
+
+
 /* Bootstrap's .dl-horizontal, however, lines up this elements side-by-side. 
 And when one of <dd> has no content, it's collapsed and others are shifted up. 
 This behaviour could be "fixed" like this: */
@@ -83,6 +108,17 @@ dt, dd {
   /* Keep this the same as line-height */
   min-height: 20px;
  }
+
+/*
+overriding pagination css on accounts page
+*/
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.pagination > li > a, .pagination > li > span {
+    color: #4cae4c;
+}
 
 /* 
 ##################################################################
@@ -99,18 +135,6 @@ dt, dd {
 background-color: #5cb85c;
 }
 
-/* .green {
-display: inline;
-padding: .2em .6em .3em;
-font-size: 75%;
-font-weight: bold;
-line-height: 1;
-color: #00ff00;
-text-align: center;
-white-space: nowrap;
-vertical-align: baseline;
-border-radius: .25em;
-} */
 .green {
 display: inline;
 font-weight: bold;
@@ -185,13 +209,6 @@ div.text {
 	margin-top: -12px;
 }
 
-/* 
-##################################################################
-		JSON Test CSS 
-##################################################################
-*/
-
-
 
 /* 
 ##################################################################
@@ -201,7 +218,7 @@ div.text {
 
 /* 
 This form is created by JavaScript.
-When user click on the 'Compomse Message' Link, the form is displayed by #messageform.toggle() fn */
+When user click on the 'Compose Message' Link, the form is displayed by #messageform.toggle() fn */
 
 /* form.messageform {
 	padding: 20px;

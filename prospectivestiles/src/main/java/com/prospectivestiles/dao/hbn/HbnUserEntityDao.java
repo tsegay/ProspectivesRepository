@@ -31,6 +31,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prospectivestiles.dao.UserEntityDao;
+import com.prospectivestiles.domain.AccountState;
 import com.prospectivestiles.domain.Role;
 import com.prospectivestiles.domain.Term;
 import com.prospectivestiles.domain.UserEntity;
@@ -43,6 +44,8 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 			"update userEntity set term_id = ? where id = ?";
 	private static final String INSERT_PROGRAMOFSTUDY_SQL =
 			"update userEntity set programOfStudy_id = ? where id = ?";
+	private static final String INSERT_ACCOUNTSTATE_SQL =
+			"update userEntity set accountState = ? where id = ?";
 	private static final String UPDATE_USERENTITY_SQL = 
 			"update userEntity set first_name = ?, last_name = ?, middle_name = ?, email = ?, homePhone = ?, cellPhone = ?, dob = ?, gender = ?, citizenship = ?, ethnicity = ?, ssn = ?, sevisNumber = ?, transferee = ?, heardAboutAcctThru = ? where id = ?";
 	
@@ -77,12 +80,12 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 			System.out.println("Encrypting password: {}" + encPassword);
 		}
 		userEntity.setPassword(encPassword);
+		
 		create(userEntity);
 		System.out.println("Password after userEntity created. Should be encrypted: {}" + userEntity.getPassword());
 //		log.debug("Password after account updated. Should be encrypted: {}", account.getPassword());
 	}
 
-	// OR U CAN USE getByUsername()
 	
 	public UserEntity findByUsername(String username) {
 		return (UserEntity) getSession()
@@ -110,9 +113,6 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 				.setParameter("username", username)
 				.uniqueResult();
 		return userEntity.getPassword();
-		/*return (String) getSession().createQuery("select password from Account where username = :username")
-				.setParameter("username", username)
-				.uniqueResult();*/
 	}
 
 	@Override
@@ -126,6 +126,11 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		jdbcTemplate.update(INSERT_PROGRAMOFSTUDY_SQL, programOfStudyId, userEntityId);
 	}
 	
+	@Override
+	public void insertAccountState(long userEntityId, String accountState) {
+		jdbcTemplate.update(INSERT_ACCOUNTSTATE_SQL, accountState, userEntityId);
+		
+	}
 	
 	/**
 	 * Using JDBC to update userEntity
@@ -227,6 +232,31 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		}
 		
 		return isAdmin;
+	}
+
+	/**
+	 * To get evaluations by status, eg 'admitted' students
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserEntity> findUserEntitiesByAccountState(String accountState) {
+		return (List<UserEntity>) getSession()
+				.getNamedQuery("findUserEntitiesByStatus")
+				.setParameter("accountState", accountState)
+				.list();
+	}
+
+
+	/**
+	 * I want to count prospective students by their status
+	 * Eg. admitted students
+	 */
+	@Override
+	public long countByAccountState(String accountState) {
+		return (Long) getSession()
+				.createQuery("SELECT count(*) FROM UserEntity e WHERE e.accountState = :accountState")
+				.setParameter("accountState", accountState)
+				.uniqueResult();
 	}
 	
 	

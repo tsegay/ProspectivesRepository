@@ -463,6 +463,17 @@
 		
 		<br />	
 		<c:choose>
+			<c:when test="${userEntity.accountState != 'admitted'}">
+				<form id="grantAdmisionForm" action="${grantAdmisionUrl}" method="post">
+					<div>
+						<input type="submit" class="btn btn-success btn-sm" value="Grant Admision">
+					</div>
+				</form>
+			</c:when>
+			<c:otherwise>Prospective student is admitted</c:otherwise>
+		</c:choose>
+		
+		<%-- <c:choose>
 			<c:when test="${userEntity.evaluation.status != 'admitted'}">
 				<form id="grantAdmisionForm" action="${grantAdmisionUrl}" method="post">
 					<div>
@@ -472,7 +483,7 @@
 				</form>
 			</c:when>
 			<c:otherwise>Prospective student is admitted</c:otherwise>
-		</c:choose>
+		</c:choose> --%>
 		
 		
 		

@@ -21,19 +21,19 @@
 			<!-- <th>Admission Counselor</th> -->
 		</tr>
 	
-		<c:forEach var="evaluation" items="${completeEvaluations}">
+		<c:forEach var="userEntity" items="${completeUserEntities}">
 	
 			<tr>
-				<td><c:out value="${evaluation.userEntity.id}"></c:out></td>
-				<td><c:out value="${evaluation.userEntity.username}"></c:out></td>
-				<td><c:out value="${evaluation.userEntity.firstName}"></c:out></td>
-				<td><c:out value="${evaluation.userEntity.lastName}"></c:out></td>
+				<td><c:out value="${userEntity.id}"></c:out></td>
+				<td><c:out value="${userEntity.username}"></c:out></td>
+				<td><c:out value="${userEntity.firstName}"></c:out></td>
+				<td><c:out value="${userEntity.lastName}"></c:out></td>
 				<td>
-					<fmt:formatDate var="dobString" value="${evaluation.userEntity.dob}" pattern="MM-dd-yyyy" />
+					<fmt:formatDate var="dobString" value="${userEntity.dob}" pattern="MM-dd-yyyy" />
 					<c:out value="${dobString}" />
 				</td>
 				<td>
-					<fmt:formatDate var="dateCreatedString" value="${evaluation.userEntity.dateCreated}" pattern="MM-dd-yyyy" />
+					<fmt:formatDate var="dateCreatedString" value="${userEntity.dateCreated}" pattern="MM-dd-yyyy" />
 					<c:out value="${dateCreatedString}" />
 				</td>
 				<%-- <td><c:out value="${evaluation.dateAdmitted}"></c:out></td> --%>
