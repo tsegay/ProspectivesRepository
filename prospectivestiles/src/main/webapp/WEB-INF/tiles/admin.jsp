@@ -6,7 +6,7 @@
 
 
 <h1>Admin page</h1>
-<h3>Authorised Users Only!</h3>
+<h3>Authorised Users Only! Should display admins only</h3>
 
 <div class="table-responsive">
 	<table class="table table-hover table-striped">
