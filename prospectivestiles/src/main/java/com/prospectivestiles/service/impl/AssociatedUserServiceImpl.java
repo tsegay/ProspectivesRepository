@@ -61,5 +61,15 @@ public class AssociatedUserServiceImpl implements AssociatedUserService {
 		
 	}
 
+	@Override
+	public List<AssociatedUser> findAllAgents() {
+		return associatedUserDao.findAllAgents();
+	}
+
+	@Override
+	public List<AssociatedUser> findAllReferrers() {
+		return associatedUserDao.findAllReferrers();
+	}
+
 
 }

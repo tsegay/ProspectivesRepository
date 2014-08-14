@@ -322,6 +322,8 @@
 		<!-- JUST FOR TESTING PURPOSE; REMOVE  /accounts/** -->
 		<!-- <intercept-url pattern="/accounts/**" method="GET" access="isAuthenticated()" /> -->
 		
+		<intercept-url pattern="/accounts/agents" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/referrers" access="hasRole('ROLE_ADMIN')" />
 		
 		<intercept-url pattern="/accounts/*/associatedUser/new" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/accounts/*/associatedUsers" access="hasRole('ROLE_ADMIN')" />

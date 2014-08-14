@@ -42,6 +42,7 @@ public class AssociatedUser extends BaseEntity implements Serializable {
 	 * object references an unsaved transient instance - 
 	 * save the transient instance before flushing: com.prospectivestiles.domain.UserEntity
 	 */
+	/* @Transient */
 	private long aoId;
 	private String referrer;
 	private String agent;

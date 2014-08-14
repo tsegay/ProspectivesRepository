@@ -13,4 +13,6 @@ public interface AssociatedUserService {
 	void updateAssociatedUser(AssociatedUser associatedUser);
 	void deleteAssociatedUser(AssociatedUser associatedUser);
 
+	List<AssociatedUser> findAllAgents();
+	List<AssociatedUser> findAllReferrers();
 }

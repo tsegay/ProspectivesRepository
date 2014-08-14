@@ -377,6 +377,29 @@ public class AdminAccountController {
 		return "pendingStudents";
 	}
 	
+	// ======================================
+	// =             Agents and Referrers            =
+	// ======================================
+	@RequestMapping(value = "/accounts/agents", method = RequestMethod.GET)
+	public String getAgents(Model model) {
+		
+		List<AssociatedUser> associatedUsersAgents = associatedUserService.findAllAgents();
+		
+		model.addAttribute("associatedUsersAgents", associatedUsersAgents);
+		
+		return "agents";
+	}
+	
+	@RequestMapping(value = "/accounts/referrers", method = RequestMethod.GET)
+	public String getReferrers(Model model) {
+		
+		List<AssociatedUser> associatedUsersReferrers = associatedUserService.findAllReferrers();
+		
+		model.addAttribute("associatedUsersReferrers", associatedUsersReferrers);
+		
+		return "referrers";
+	}
+	
 	
 	// ======================================
 	// =             associatedUsers            =
