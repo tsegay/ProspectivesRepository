@@ -163,6 +163,9 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		return results;
 	}
 	
+	/**
+	 * Used for searching users on the accounts page
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserEntity> findAll(int page, int pageSize, String filter, boolean asc) {
@@ -170,9 +173,19 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		String hql;
 		if (filter != null) {
 			if(asc){
-				hql = "FROM UserEntity u WHERE u.lastName LIKE '%" + filter + "%' ORDER BY u.lastName ASC";
+				hql = "FROM UserEntity u WHERE "
+						+ "u.lastName LIKE '%" + filter + "%' OR "
+						+ "u.firstName LIKE '%" + filter + "%' OR "
+						+ "u.username LIKE '%" + filter + "%' OR "
+						+ "u.email LIKE '%" + filter + "%'"
+						+ "ORDER BY u.lastName ASC";
 			} else {
-				hql = "FROM UserEntity u WHERE u.lastName LIKE '%" + filter + "%' ORDER BY u.lastName DESC";
+				hql = "FROM UserEntity u WHERE "
+						+ "u.lastName LIKE '%" + filter + "%' OR "
+						+ "u.firstName LIKE '%" + filter + "%' OR "
+						+ "u.username LIKE '%" + filter + "%' OR "
+						+ "u.email LIKE '%" + filter + "%'"
+						+ "ORDER BY u.lastName DESC";
 				
 			}
 		} else {

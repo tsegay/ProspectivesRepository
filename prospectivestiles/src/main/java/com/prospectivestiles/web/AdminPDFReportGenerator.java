@@ -191,7 +191,11 @@ public class AdminPDFReportGenerator {
 			table.addCell(cell);
 			
 			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getTerm().getName(), normalFont));
+			if (userEntityService.getUserEntity(userEntityId).getTerm() != null) {
+				cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getTerm().getName(), normalFont));
+			} else {
+				cell = new PdfPCell(new Phrase(" XXXXXXXXXXX ", normalFont));
+			}
 			cell.setBorder(Rectangle.NO_BORDER);
 			table.addCell(cell);
 			
@@ -201,7 +205,11 @@ public class AdminPDFReportGenerator {
 			table.addCell(cell);
 			
 			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName(), normalFont));
+			if (userEntityService.getUserEntity(userEntityId).getProgramOfStudy() != null) {
+				cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName(), normalFont));
+			} else {
+				cell = new PdfPCell(new Phrase(" XXXXXXXXXXX ", normalFont));
+			}
 			cell.setBorder(Rectangle.NO_BORDER);
 			table.addCell(cell);
 			
@@ -733,13 +741,26 @@ public class AdminPDFReportGenerator {
 			paragraph = new Paragraph();
 			paragraph.setSpacingAfter(10);
 			paragraph.add(new Chunk("I am pleased to inform you that your application for admission to "));
-			paragraph.add(userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName());
+			if (userEntityService.getUserEntity(userEntityId).getProgramOfStudy() != null) {
+				paragraph.add(userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName());
+			} else {
+				paragraph.add(new Chunk(" XXXXXXXXXXX "));
+			}
 			paragraph.add(new Chunk(" at the American College of Commerce and Technology has been approved. "));
-			paragraph.add(userEntityService.getUserEntity(userEntityId).getTerm().getName());
+			if (userEntityService.getUserEntity(userEntityId).getTerm() != null) {
+				paragraph.add(userEntityService.getUserEntity(userEntityId).getTerm().getName());
+			} else {
+				paragraph.add(new Chunk(" XXXXXXXXXXX "));
+			}
 			paragraph.add(new Chunk(" classes start on "));
 			String startDateString = "";
 			SimpleDateFormat startDateFormat = new SimpleDateFormat("EEE, MMM dd, YYYY");
-			startDateString = startDateFormat.format(userEntityService.getUserEntity(userEntityId).getTerm().getStartDate());
+			
+			if (userEntityService.getUserEntity(userEntityId).getTerm() != null) {
+				startDateString = startDateFormat.format(userEntityService.getUserEntity(userEntityId).getTerm().getStartDate());
+			} else {
+				paragraph.add(new Chunk(" XXXXXXXXXXX "));
+			}
 			paragraph.add(startDateString);
 			document.add(paragraph);
 			

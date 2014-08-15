@@ -149,7 +149,7 @@ public class AdminAccountController {
 	
 	@RequestMapping(value = "/accounts/accounts/searchAccount", method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public Map<String, Object> sendMessageJSON( 
+	public Map<String, Object> getAccountsBySearchTextJSON( 
 			@RequestBody Map<String, Object> origdata) {
 		
 		// ##### LOGGING #########
