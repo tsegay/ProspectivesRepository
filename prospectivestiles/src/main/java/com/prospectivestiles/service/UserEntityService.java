@@ -27,6 +27,7 @@ public interface UserEntityService {
 	void insertProgramOfStudy(long userEntityId, long programOfStudyId);
 	void insertAccountState(long userEntityId, String accountState);
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
+	void updatePassword(long userEntityId, String password);
 
 	List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize);
 	List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize, String filter, boolean asc);
@@ -43,5 +44,6 @@ public interface UserEntityService {
 	
 	List<UserEntity> findUserEntitiesByAccountState(String accountState);
 	long countByAccountState(String accountState);
+	List<UserEntity> findByEmail(String email);
 
 }

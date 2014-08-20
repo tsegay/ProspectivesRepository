@@ -26,8 +26,23 @@
 	</definition>
 	
 	<definition name="login" extends="prospectivestiles.base">
-		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="title" value="Login page"></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/login.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="resetPasswordRequest" extends="prospectivestiles.base">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/resetPassword.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="resetPasswordRequestResult" extends="prospectivestiles.base">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/resetPasswordRequestResult.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="newPassword" extends="prospectivestiles.base">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/newPassword.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="denied" extends="prospectivestiles.base">

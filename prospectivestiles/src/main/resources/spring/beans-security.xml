@@ -27,6 +27,11 @@
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/welcome" access="permitAll" />
 		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/resetPasswordRequest" access="permitAll" />
+		<intercept-url pattern="/resetPasswordRequestResult" access="permitAll" />
+		<intercept-url pattern="/postResetPasswordForm" access="permitAll" />
+		<intercept-url pattern="/getNewPasswordResetForm/*/*" access="permitAll" />
+		<intercept-url pattern="/postNewPasswordResetForm/*" access="permitAll" />
 		<intercept-url pattern="/logout" access="permitAll" />
 		<intercept-url pattern="/denied" access="permitAll" />
 		<intercept-url pattern="/privacyPolicy" access="permitAll" />

@@ -34,9 +34,7 @@
 		<div class="form-group">
 			<input type="submit" class="btn btn-default" value="Log in" />
 			<a class="btn btn-danger btn-sm" href="<c:url value='/registrationform'/>">Register</a>
-			<a href="#">Lost your password?</a>
-			<!-- <button class="btn btn-success btn-sm">Save</button>
-			<a href="#" class="btn btn-warning btn-sm">Cancel</a> -->
+			<a href="<c:url value='/resetPasswordRequest'/>">Lost your password?</a>
 		</div>
 	</form>
 

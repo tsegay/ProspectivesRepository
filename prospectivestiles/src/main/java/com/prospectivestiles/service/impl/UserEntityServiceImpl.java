@@ -37,11 +37,11 @@ public class UserEntityServiceImpl implements UserEntityService {
 	@Transactional(readOnly = false)	
 	public boolean createUserEntity(UserEntity userEntity, Errors errors) {
 		validateUsername(userEntity.getUsername(), errors);
+//		validateEmail(userEntity.getEmail(), errors);
 		validatePassword(userEntity.getPassword(), userEntity.getConfirmPassword(), errors);
 		
 		System.out.println("userEntity.getPassword(): " + userEntity.getPassword());
 		System.out.println("userEntity.getConfirmPassword(): " + userEntity.getConfirmPassword());
-		
 		
 		boolean valid = !errors.hasErrors();
 		
@@ -57,9 +57,9 @@ public class UserEntityServiceImpl implements UserEntityService {
 			Notification notification = new Notification("accountCreated", userEntity.getFullName() + " created an account", userEntity);
 			notificationService.createNotification(notification);
 		}
-		
 		return valid;
 	}
+	
 	
 	private void validateUsername(String username, Errors errors) {
 		if (userEntityDao.findByUsername(username) != null) {
@@ -68,10 +68,17 @@ public class UserEntityServiceImpl implements UserEntityService {
 		}
 	}
 	
-	private void validatePassword(String passworrd, String confirmPassword, Errors errors) {
-		if (!passworrd.equals(confirmPassword)) {
+//	private void validateEmail(String email, Errors errors) {
+//		if (userEntityDao.findByEmail(email) != null) {
+//			log.info("Validation failed: duplicate email");
+//			errors.rejectValue("email", "error.duplicate", new String[] { email }, null);
+//		}
+//	}
+	
+	private void validatePassword(String password, String confirmPassword, Errors errors) {
+		if (!password.equals(confirmPassword)) {
 			log.info("Validation failed: password doesn't match confirmPassword");
-			errors.rejectValue("username", "error.mismatch.userEntity.password", new String[] { passworrd }, null);
+			errors.rejectValue("username", "error.mismatch.userEntity.password", new String[] { password }, null);
 		}
 	}
 	
@@ -161,6 +168,12 @@ public class UserEntityServiceImpl implements UserEntityService {
 		
 	}
 	
+	@Override
+	public void updatePassword(long userEntityId, String password) {
+		userEntityDao.updatePassword(userEntityId, password);
+		
+	}
+	
 
 	/**
 	 * Use @Transactional(readOnly = false) or exception thrown is:
@@ -226,6 +239,13 @@ public class UserEntityServiceImpl implements UserEntityService {
 	public long countByAccountState(String accountState) {
 		return userEntityDao.countByAccountState(accountState);
 	}
+
+	@Override
+	public List<UserEntity> findByEmail(String email) {
+		return userEntityDao.findByEmail(email);
+	}
+
+	
 
 	
 	

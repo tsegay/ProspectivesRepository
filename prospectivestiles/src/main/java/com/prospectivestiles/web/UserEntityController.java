@@ -71,13 +71,6 @@ public class UserEntityController {
 //		System.out.println("######## getPassword: " + form.getPassword());
 //		System.out.println("######## isMarketingOk: " + form.isMarketingOk());
 //		System.out.println("######## getAcceptTerms: " + form.getAcceptTerms());
-//		
-//		if (result.hasErrors()) {
-//			System.out.println("######## result.hasErrors(): true" );
-//			System.out.println("######## Error in: " + result.toString());
-//		} else {
-//			System.out.println("######## result.hasErrors(): false" );
-//		}
 		
 		String password = form.getPassword();
 		/**

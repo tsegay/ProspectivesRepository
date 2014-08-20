@@ -303,8 +303,8 @@ public class AdminAddressController {
 	// =                        =
 	// ======================================
 	
-	private Address getAddressValidateUserEntityId(Long userEntityId, Long highschoolId) {
-		Address address = addressService.getAddress(highschoolId);
+	private Address getAddressValidateUserEntityId(Long userEntityId, Long addressId) {
+		Address address = addressService.getAddress(addressId);
 		
 		Assert.isTrue(userEntityId.equals(address.getUserEntity().getId()), "Address Id mismatch");
 		return address;

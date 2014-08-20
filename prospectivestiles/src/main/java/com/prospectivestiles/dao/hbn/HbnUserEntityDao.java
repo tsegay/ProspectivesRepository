@@ -48,6 +48,8 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 			"update userEntity set accountState = ? where id = ?";
 	private static final String UPDATE_USERENTITY_SQL = 
 			"update userEntity set first_name = ?, last_name = ?, middle_name = ?, email = ?, homePhone = ?, cellPhone = ?, dob = ?, gender = ?, citizenship = ?, ethnicity = ?, ssn = ?, sevisNumber = ?, transferee = ?, heardAboutAcctThru = ? where id = ?";
+	private static final String UPDATE_PASSWORD_SQL =
+			"update userEntity set password = ? where id = ?";
 	
 	@Inject private JdbcTemplate jdbcTemplate;
 	
@@ -130,6 +132,23 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	public void insertAccountState(long userEntityId, String accountState) {
 		jdbcTemplate.update(INSERT_ACCOUNTSTATE_SQL, accountState, userEntityId);
 		
+	}
+	
+	@Override
+	public void updatePassword(long userEntityId, String password) {
+		log.info("Updating password for: ", userEntityId);
+		System.out.println("########### Updating password for: " + userEntityId);
+		System.out.println("Raw Password is: {}" + password);
+		
+		log.info("Updating password");
+		String encPassword = passwordEncoder.encodePassword(password, null);
+		if (encPassword != null) {
+			System.out.println("Encrypting password: {}" + encPassword);
+		}
+		
+		jdbcTemplate.update(UPDATE_PASSWORD_SQL, encPassword, userEntityId);
+		
+//		System.out.println("Password after userEntity created. Should be encrypted: {}" + userEntity.getPassword());
 	}
 	
 	/**
@@ -270,6 +289,17 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 				.createQuery("SELECT count(*) FROM UserEntity e WHERE e.accountState = :accountState")
 				.setParameter("accountState", accountState)
 				.uniqueResult();
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserEntity> findByEmail(String email) {
+		return (List<UserEntity>) getSession()
+				.getNamedQuery("findUserEntitiesByEmail")
+				.setParameter("email", email)
+				.list();
+		
 	}
 	
 	

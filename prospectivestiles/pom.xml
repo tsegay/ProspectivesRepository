@@ -24,6 +24,28 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-war-plugin</artifactId>
+	            <version>2.3</version>
+	            <configuration>
+	           		<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+	            </configuration>
+	        </plugin>
+	        <plugin>
+			  <groupId>org.apache.tomcat.maven</groupId>
+			  <artifactId>tomcat7-maven-plugin</artifactId>
+			  <version>2.2</version>
+			  <configuration>
+			  	<!-- tomcat manager url  
+			  	http://localhost:8080/manager/html - this is the url to deploy the application manually on the web interface
+			  	http://localhost:8080/manager/text/ - this url uses script to deploy the application.
+			  	  -->
+			 	<url>http://localhost:8080/manager/text/</url>
+			 	<!-- id of the server in the .m2 directory in setting.xml file -->
+				<server>localhost</server>
+			  </configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -255,6 +277,11 @@
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
 			<version>5.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
 		</dependency>
 		
 	</dependencies>

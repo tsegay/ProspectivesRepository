@@ -27,6 +27,11 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	void createUserEntity(UserEntity userEntity);
 	
 	UserEntity findByUsername(String username);
+	/**
+	 * This method returns list of email because email is not a unique field
+	 * Make email a unique field using the method validateEmail in UserEntityServiceImpl
+	 */
+	List<UserEntity> findByEmail(String email);
 
 	String getPasswordByUsername(String username);
 	
@@ -42,6 +47,7 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
 	void insertAccountState(long userEntityId, String accountState);
 //	void insertAccountState(long userEntityId, AccountState accountState);
+	void updatePassword(long userEntityId, String password);
 	
 	List<UserEntity> findByRole(long roleID);
 	

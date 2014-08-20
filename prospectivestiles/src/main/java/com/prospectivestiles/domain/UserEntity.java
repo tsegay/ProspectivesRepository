@@ -51,6 +51,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 	@NamedQuery(
     		name = "findUserEntitiesByStatus",
     		query = "FROM UserEntity WHERE accountState = :accountState"),
+	@NamedQuery(
+			name = "findUserEntitiesByEmail",
+			query = "FROM UserEntity WHERE email = :email"),
 }) 
 @Entity
 @Table(name = "userEntity")
