@@ -37,7 +37,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 	@Transactional(readOnly = false)	
 	public boolean createUserEntity(UserEntity userEntity, Errors errors) {
 		validateUsername(userEntity.getUsername(), errors);
-//		validateEmail(userEntity.getEmail(), errors);
+		validateEmail(userEntity.getEmail(), errors);
 		validatePassword(userEntity.getPassword(), userEntity.getConfirmPassword(), errors);
 		
 		System.out.println("userEntity.getPassword(): " + userEntity.getPassword());
@@ -68,12 +68,12 @@ public class UserEntityServiceImpl implements UserEntityService {
 		}
 	}
 	
-//	private void validateEmail(String email, Errors errors) {
-//		if (userEntityDao.findByEmail(email) != null) {
-//			log.info("Validation failed: duplicate email");
-//			errors.rejectValue("email", "error.duplicate", new String[] { email }, null);
-//		}
-//	}
+	private void validateEmail(String email, Errors errors) {
+		if (userEntityDao.findByEmail(email) != null) {
+			log.info("Validation failed: duplicate email");
+			errors.rejectValue("email", "error.duplicateemail", new String[] { email }, null);
+		}
+	}
 	
 	private void validatePassword(String password, String confirmPassword, Errors errors) {
 		if (!password.equals(confirmPassword)) {

@@ -54,6 +54,8 @@ public class ResetPasswordController {
 	 * req.getServletContext().getContextPath() - prospectivestiles
 	 * I can't use req.getServletPath() coz it returns postResetPasswordForm i.e. the current request path.
 	 * I will use "getNewPasswordResetForm/" coz that is the servletPath of the method that handles the link.
+	 * Reference: http://stackoverflow.com/questions/6814611/how-to-find-the-base-url-of-the-current-webapp-in-spring
+	 * Check: http://forum.spring.io/forum/spring-projects/security/117238-secure-way-of-generate-new-users-reset-password
 	 * 
 	 * @param resetPasswordEntity
 	 * @param result

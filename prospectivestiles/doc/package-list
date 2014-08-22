@@ -1,0 +1,7 @@
+com.prospectivestiles.dao
+com.prospectivestiles.dao.hbn
+com.prospectivestiles.domain
+com.prospectivestiles.service
+com.prospectivestiles.service.impl
+com.prospectivestiles.util
+com.prospectivestiles.web
