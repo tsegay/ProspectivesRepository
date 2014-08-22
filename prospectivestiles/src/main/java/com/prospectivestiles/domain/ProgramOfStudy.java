@@ -42,7 +42,6 @@ public class ProgramOfStudy extends BaseEntity implements Serializable {
 	
 	private Collection<UserEntity> listOfUserEntity = new ArrayList<UserEntity>();
 	
-	private Collection<TestA> listOfTestA = new ArrayList<TestA>();
 	
 	// ======================================
     // =            Constructors            =
@@ -97,14 +96,6 @@ public class ProgramOfStudy extends BaseEntity implements Serializable {
 	}
 	public void setListOfUserEntity(Collection<UserEntity> listOfUserEntity) {
 		this.listOfUserEntity = listOfUserEntity;
-	}
-//	@ManyToMany
-	@ManyToMany(mappedBy = "listOfProgramOfStudy", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	public Collection<TestA> getListOfTestA() {
-		return listOfTestA;
-	}
-	public void setListOfTestA(Collection<TestA> listOfTestA) {
-		this.listOfTestA = listOfTestA;
 	}
 
 	

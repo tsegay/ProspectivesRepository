@@ -41,8 +41,6 @@ public class Term extends BaseEntity implements Serializable {
 //	private Collection<ProStudent> proStudentsList = new ArrayList<>();
 	private Collection<UserEntity> listOfUserEntity = new ArrayList<UserEntity>();
 	
-	private Collection<TestA> lsitOfTestA = new ArrayList<TestA>();
-	
 	// ======================================
     // =            Constructors            =
     // ======================================
@@ -100,14 +98,6 @@ public class Term extends BaseEntity implements Serializable {
 	}
 	public void setListOfUserEntity(Collection<UserEntity> listOfUserEntity) {
 		this.listOfUserEntity = listOfUserEntity;
-	}
-	@OneToMany(mappedBy = "term", cascade = CascadeType.ALL)
-//	@OneToMany(mappedBy = "term")
-	public Collection<TestA> getLsitOfTestA() {
-		return lsitOfTestA;
-	}
-	public void setLsitOfTestA(Collection<TestA> lsitOfTestA) {
-		this.lsitOfTestA = lsitOfTestA;
 	}
 	
 	// ======================================

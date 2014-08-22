@@ -183,17 +183,6 @@
 		<intercept-url pattern="/myAccount/standardTest" access="isAuthenticated()" />
 		<intercept-url pattern="/myAccount/standardTests" access="isAuthenticated()" />
 		
-		<!-- Admin testAs -->
-		
-		<!-- Student testAs -->
-		<intercept-url pattern="/myAccount/testA/*/delete" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/testA/*/edit" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/testA/new" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/testA/*" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/testA" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/testAs" access="isAuthenticated()" />
-		
-		
 		
 		<!-- Admin applyingFor -->
 		<!-- If I didn't use the delete or edit option remove the filters -->
