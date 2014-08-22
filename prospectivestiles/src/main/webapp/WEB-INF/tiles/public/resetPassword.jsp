@@ -21,6 +21,7 @@
 <br>
 
 <c:url var="resetPasswordEntityUrl" value="/postResetPasswordForm" />
+<c:url var="resetPasswordRequestUrl" value="/resetPasswordRequest" />
 
 <form:form action="${resetPasswordEntityUrl}" id="resetPasswordEntityForm"
 	modelAttribute="resetPasswordEntity" role="form" class="form-horizontal">
@@ -44,7 +45,7 @@
 			<!-- submit calls the post method resetPasswordEntityUrl -->
 			<input class="btn btn-primary" type="submit" value="Submit"></input> 
 			<!-- cancel calls the get method resetPasswordEntityUrl -->
-			<a class="btn btn-default" href="${resetPasswordEntityUrl}">Cancel</a>
+			<a class="btn btn-default" href="${resetPasswordRequestUrl}">Cancel</a>
 		</div>
 	</div>
 

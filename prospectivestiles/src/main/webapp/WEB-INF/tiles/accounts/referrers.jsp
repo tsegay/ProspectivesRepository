@@ -5,12 +5,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<h1>Agents</h1>
+<h1>Referrers</h1>
 
 <div class="table-responsive">
 	<table class="table table-hover table-striped">
 		<tr>
-			<th>Agent</th>
+			<th>Referrer</th>
 			<th>Student</th>
 			<th>Student Status</th>
 			<!-- <th>Date Created</th> -->
