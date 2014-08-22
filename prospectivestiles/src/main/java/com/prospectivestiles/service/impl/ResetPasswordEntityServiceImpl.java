@@ -91,16 +91,26 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 		
 	}
 	
+	/**
+	 * First check if there is an account by the entered email address
+	 * if no user exist with that email take no action
+	 * if user exist, create resetKey, expiration date, then call createResetPasswordEntity() and sendEmail()
+	 * 
+	 * When a user inputs an invalid email in the reset password page, an email should not be sent out.
+	 */
 	@Override
 	public void saveResetPasswordEntityAndSendEmail(ResetPasswordEntity resetPasswordEntity, String url){
-		
 		String email = null;
 		/**
 		 * This method returns list of email because email is not a unique field
 		 * Make email a unique field using the method validateEmail in UserEntityServiceImpl
+		 * 
+		 * When a user inputs an invalid email in the reset password page, an email should not be sent out. 	
 		 */
 		List<UserEntity> users = userEntityService.findByEmail(resetPasswordEntity.getEmail());
-		if (users != null) {
+//		if (users != null) {
+		if (!users.isEmpty()) {
+			System.out.println("########## inside !users.isEmpty()");
 			for (UserEntity userEntity : users) {
 				if (userEntity.getEmail() != null) {
 					email = userEntity.getEmail();
@@ -115,7 +125,7 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 			
 			String resetKey = randomString();
 			
-			String emailBody = "Click here /" + resetKey;
+//			String emailBody = "Click here /" + resetKey;
 			
 		    
 			resetPasswordEntity.setExpireDate(expirationDate);
@@ -126,6 +136,8 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 			sendEmail(resetPasswordEntity, url);
 			
 		    
+		} else {
+			System.out.println("########## users.isEmpty(). no user found by email: " + resetPasswordEntity.getEmail());
 		}
 	}
 	
@@ -146,7 +158,7 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 			mailSender.send(mail);
 		} catch (MailException e) {
 			e.printStackTrace();
-			System.out.println("Failed to send email");
+			System.out.println("########## Failed to send email");
 		}
 	}
 	
@@ -186,9 +198,9 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 		
 		validatePassword(origResetPasswordEntity.getPassword(), origResetPasswordEntity.getConfirmPassword(), errors);
 		
-		System.out.println("userEntity.getPassword(): " + origResetPasswordEntity.getPassword());
-		System.out.println("userEntity.getConfirmPassword(): " + origResetPasswordEntity.getConfirmPassword());
-		System.out.println("userEntity.getEmail(): " + origResetPasswordEntity.getEmail());
+		System.out.println("########## userEntity.getPassword(): " + origResetPasswordEntity.getPassword());
+		System.out.println("########## userEntity.getConfirmPassword(): " + origResetPasswordEntity.getConfirmPassword());
+		System.out.println("########## userEntity.getEmail(): " + origResetPasswordEntity.getEmail());
 		
 		boolean valid = !errors.hasErrors();
 		
@@ -203,7 +215,7 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 			 * After a user account is successfully created I want to create a notification
 			 * I need to create an enum NotificationType: message, uploadedDoc, statusChanged, updatedProfile, ...
 			*/
-			Notification notification = new Notification("password resetted", testuserEntities.get(0).getFullName() + " reset password", testuserEntities.get(0));
+			Notification notification = new Notification("########## password resetted", testuserEntities.get(0).getFullName() + " reset password", testuserEntities.get(0));
 			notificationService.createNotification(notification);
 		}
 //		return valid;

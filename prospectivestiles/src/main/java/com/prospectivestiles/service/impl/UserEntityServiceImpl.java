@@ -36,6 +36,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 		
 	@Transactional(readOnly = false)	
 	public boolean createUserEntity(UserEntity userEntity, Errors errors) {
+		
 		validateUsername(userEntity.getUsername(), errors);
 		validateEmail(userEntity.getEmail(), errors);
 		validatePassword(userEntity.getPassword(), userEntity.getConfirmPassword(), errors);
@@ -62,19 +63,38 @@ public class UserEntityServiceImpl implements UserEntityService {
 	
 	
 	private void validateUsername(String username, Errors errors) {
+//		UserEntity u = userEntityDao.findByUsername(username);
 		if (userEntityDao.findByUsername(username) != null) {
 			log.info("Validation failed: duplicate username");
 			errors.rejectValue("username", "error.duplicate", new String[] { username }, null);
 		}
 	}
 	
+	/**
+	 * When creating a new account, check the email address doesn't exist in the db
+	 * Email address should be unique
+	 * @param email
+	 * @param errors
+	 */
 	private void validateEmail(String email, Errors errors) {
-		if (userEntityDao.findByEmail(email) != null) {
+//		List<UserEntity> users = userEntityDao.findByEmail(email);
+//		users.isEmpty();
+//		if (userEntityDao.findByEmail(email) != null) {
+		System.out.println("validating email: " + email);
+		System.out.println("Users: " + userEntityDao.findByEmail(email).size());
+		if (!userEntityDao.findByEmail(email).isEmpty()) {
+			System.out.println("inside !userEntityDao.findByEmail(email).isEmpty()");
 			log.info("Validation failed: duplicate email");
 			errors.rejectValue("email", "error.duplicateemail", new String[] { email }, null);
 		}
 	}
 	
+	/**
+	 * Checks that the password and confirm password matches
+	 * @param password
+	 * @param confirmPassword
+	 * @param errors
+	 */
 	private void validatePassword(String password, String confirmPassword, Errors errors) {
 		if (!password.equals(confirmPassword)) {
 			log.info("Validation failed: password doesn't match confirmPassword");
@@ -82,6 +102,10 @@ public class UserEntityServiceImpl implements UserEntityService {
 		}
 	}
 	
+	/**
+	 * Fetches a userEntity by its id. 
+	 * Initalizing the collection using Hibernate.initialize(obj)
+	 */
 	@Override
 	public UserEntity getUserEntity(long userEntityId) {
 		UserEntity userEntity = userEntityDao.find(userEntityId);

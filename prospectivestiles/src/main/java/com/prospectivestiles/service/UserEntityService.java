@@ -15,6 +15,11 @@ public interface UserEntityService {
 	 */
 	boolean createUserEntity(UserEntity userEntity, Errors errors);
 	
+	/**
+	 * Returns a userEntity by its id
+	 * @param userEntityId
+	 * @return
+	 */
 	UserEntity getUserEntity(long userEntityId);
 	UserEntity getUserEntityByUsername(String username);
 	String getPasswordByUsername(String username);
