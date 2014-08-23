@@ -53,9 +53,15 @@ public class StudentAccountController {
 	// =             myAccount             =
 	// ======================================
 	
-	/*
-	 * I am going to merge the personal info and addresses page together.
-	 * I will load the addresses to the model
+	/**
+	 * 
+	 * merged the personal info and addresses page together. so this method:
+	 * adds userEntity to the model
+	 * adds all addresses for a user to the model
+	 * adds the modelAttribute "address" for the form to add new address to the model
+	 * 
+	 * @param model
+	 * @return
 	 */
 	@RequestMapping(value="/myAccount", method = RequestMethod.GET)
 	public String getMyAccount(Model model) {		

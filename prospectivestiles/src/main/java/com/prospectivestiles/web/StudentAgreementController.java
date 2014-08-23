@@ -57,7 +57,18 @@ public class StudentAgreementController {
 	@RequestMapping(value = "/myAccount/studentAgreements", method = RequestMethod.GET)
 	public String getStudentAgreements(Model model) {
 
-		UserEntity userEntity = getUserEntityFromSecurityContext();
+		/**
+		 * When user edits page and clicks on submit,
+		 * The changes are udpated in the db but the page shows the data before the update.
+		 * If user logs out and login back, the new updated data is loaded from db.
+		 * So, I have to override the userEntity saved in the session, 
+		 * by loading the data from the db on every call of the page
+		 */		
+		UserEntity userEntityInSession = getUserEntityFromSecurityContext();	
+		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityInSession.getId());
+		
+		
 //		List<StudentAgreement> studentAgreements = studentAgreementService.getStudentAgreementsByUserEntityId(userEntity.getId());
 		List<Address> addresses = addressService.getAddressesByUserEntityId(userEntity.getId());
 		List<HighSchool> highSchools = highSchoolService.getHighSchoolsByUserEntityId(userEntity.getId());

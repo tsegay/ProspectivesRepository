@@ -192,6 +192,7 @@
 				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
 			</label>
 		    <div class="col-sm-5">
+		      <%-- <form:input id="dob" path="dob" class="form-control" type="date" format="mm/dd/yyyy" /> --%>
 		      <form:input id="dob" path="dob" class="form-control" />
 		    </div>
 		    <div class="col-sm-5">
@@ -274,6 +275,8 @@
 <!-- datepicker http://bootstrap-datepicker.readthedocs.org/en/release/ -->
 <script>
 	$(function (){
-		$('#dob').datepicker();
+		$('#dob').datepicker({
+			format : 'mm/dd/yyyy'
+		});
 	});
  </script>
