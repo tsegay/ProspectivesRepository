@@ -26,11 +26,7 @@ public class StandardTest extends BaseEntity implements Serializable {
     // ======================================	
 	
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-//	private long id;
 	private String name;
 	private double score;
 	private Date validTill;
@@ -53,14 +49,6 @@ public class StandardTest extends BaseEntity implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 
-	/*@Id @GeneratedValue
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}*/
-	
 	@Size(min = 2, max = 25)
 	public String getName() {
 		return name;
@@ -75,7 +63,7 @@ public class StandardTest extends BaseEntity implements Serializable {
 	public void setScore(double score) {
 		this.score = score;
 	}
-//	@NotNull
+	@NotNull
 	public Date getValidTill() {
 		return validTill;
 	}

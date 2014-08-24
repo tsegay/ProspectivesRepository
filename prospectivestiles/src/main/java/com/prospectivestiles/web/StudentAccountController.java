@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -115,7 +116,7 @@ public class StudentAccountController {
 	
 	/*use @Valid to validate userEntity*/
 	@RequestMapping(value = "/myAccount/edit", method = RequestMethod.POST)
-	public String editMyAccount(@ModelAttribute UserEntity origUserEntity, BindingResult result, Model model) {
+	public String editMyAccount(@ModelAttribute @Valid UserEntity origUserEntity, BindingResult result, Model model) {
 		
 		UserEntity userEntity = getUserEntityFromSecurityContext();
 		

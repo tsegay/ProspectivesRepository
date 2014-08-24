@@ -53,7 +53,7 @@ public class AdminStandardTestController {
 
 	    // true passed to CustomDateEditor constructor means convert empty String to null
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-	    binder.registerCustomEditor(Integer.class, new CustomNumberEditor(Integer.class, false));
+	    binder.registerCustomEditor(Double.class, new CustomNumberEditor(Double.class, true));
 	}
 	
 	// ======================================
@@ -95,8 +95,12 @@ public class AdminStandardTestController {
 	}
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/standardTests", method = RequestMethod.POST)
-	public String postNewStandardTestForm(@PathVariable("userEntityId") Long userEntityId,
-			@ModelAttribute @Valid StandardTest standardTest, BindingResult result, Model model) {
+	public String postNewStandardTestForm(
+			@PathVariable("userEntityId") Long userEntityId,
+			@ModelAttribute @Valid StandardTest standardTest, 
+			BindingResult result, 
+			Model model) {
+		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		

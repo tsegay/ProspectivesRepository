@@ -17,25 +17,13 @@
 <h1>MyAccount editMyAccount.jsp</h1>
 
 <form:form action="${editAccountUrl}" modelAttribute="userEntity" role="form" class="form-horizontal">
-	
+
+		<form:hidden path="username" />
+		<form:hidden path="password" />
+		<form:hidden path="acceptTerms" />
+			
 		<!-- Should not change username -->
 	
-		<%-- <div class="form-group row">
-			<label for="username" class="col-sm-2 control-label">
-				<spring:message code="account.label.username" />
-				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
-			</label>
-			<div class="col-sm-5">
-				<form:input class="form-control" path="username"
-					placeholder="Your username" />
-			</div>
-			<div class="col-sm-5">
-				<form:errors class="errormsg" path="username" htmlEscape="false" />
-			</div>
-		</div> --%>
-
-		
-		
 		<div class="form-group row">
 			<label for="email" class="col-sm-2 control-label">
 				<spring:message code="account.label.email" />

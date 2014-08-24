@@ -64,10 +64,10 @@ public class AdminAccountController {
 	public void initBinder(WebDataBinder binder) {
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	    dateFormat.setLenient(false);
-
 	    // true passed to CustomDateEditor constructor means convert empty String to null
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
+	
 	
 	// ======================================
 	// =             All Accounts             =
@@ -288,9 +288,14 @@ public class AdminAccountController {
 	/**
 	 * @Valid - use validation to validate userEntity
 	 */
+//			@ModelAttribute("userEntity") @Valid UserEntity form,
 	@RequestMapping(value="/accounts/{userEntityId}/edit", method = RequestMethod.POST)
-	public String editAccount(@PathVariable("userEntityId") long userEntityId, 
-			@ModelAttribute UserEntity origUserEntity, BindingResult result, Model model) {
+	public String editAccount(
+			@PathVariable("userEntityId") long userEntityId, 
+			Model model,
+			@ModelAttribute @Valid UserEntity origUserEntity, 
+			BindingResult result 
+			) {
 		
 		// ##### LOGGING #########
 		Date now = new Date();
@@ -305,6 +310,9 @@ public class AdminAccountController {
 		if (result.hasErrors()) {
 //			log.debug("Validation Error in HighSchool form");
 			System.out.println("######## result.hasErrors(): true" );
+			System.out.println("######## getErrorCount: " + result.getErrorCount());
+			System.out.println("######## getAllErrors: " + result.getAllErrors());
+			System.out.println("######## toString: " + result.toString());
 //			model.addAttribute("originalUserEntity", userEntity);
 			origUserEntity.setId(userEntityId);
 			model.addAttribute("userEntity", origUserEntity);

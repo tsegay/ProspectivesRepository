@@ -94,6 +94,7 @@
 	    <div class="col-sm-5">
 	      <form:input id="validTill" path="validTill" class="form-control" />
 	      <!-- <input type="text" id="validTill"> -->
+	      <%-- <form:input id="dob" path="dob" class="form-control" type="date" format="mm/dd/yyyy" /> --%>
 	    </div>
 	    <div class="col-sm-5">
 	    	<form:errors class="errormsg" path="validTill" htmlEscape="false" />
@@ -114,7 +115,10 @@
 
 <script>
 	$(function (){
-		$('#validTill').datepicker();
+		$('#validTill').datepicker({
+			format : 'mm/dd/yyyy'
+		});
+		/* $('#validTill').datepicker(); */
 	});
  </script>
 

@@ -323,14 +323,15 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 <br>
 <hr>
 
-
 <c:if test="${studentAgreement.id < 1}">
+
 		<p>
 		I certify the information provided in this application is true and accurate to the best of my knowledge. 
 		</p>
 		<p>
 		By typing your full name and clicking on "Submit" in the box below you agree to the statement above.
 		</p>
+	<sec:authorize access="hasRole('ROLE_USER')">
 		
 		<form:form action="${certifyInfoProvidedUrl}" modelAttribute="studentAgreement" role="form" class="form-horizontal">
 		
@@ -355,6 +356,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 			</div>
 		
 		</form:form>
+	</sec:authorize>
 </c:if>
 <c:if test="${studentAgreement.id > 0}">
 	<p>I certify the information provided in this application is true and accurate to the best of my knowledge.</p>
