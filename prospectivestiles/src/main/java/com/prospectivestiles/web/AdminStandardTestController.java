@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.prospectivestiles.domain.EmergencyContact;
-import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.StandardTest;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.StandardTestService;
@@ -52,8 +50,11 @@ public class AdminStandardTestController {
 	    dateFormat.setLenient(false);
 
 	    // true passed to CustomDateEditor constructor means convert empty String to null
+	    
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	    
 	    binder.registerCustomEditor(Double.class, new CustomNumberEditor(Double.class, true));
+//	    NumberFormatUtil.registerDoubleFormat(binder);
 	}
 	
 	// ======================================

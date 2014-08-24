@@ -30,7 +30,6 @@ public class Message extends BaseEntity implements Serializable {
     // =             Attributes             =
     // ======================================
 	
-//	private Long id;
 	private String subject;
 	private String text;
 	// use this one to block messages
@@ -68,14 +67,6 @@ public class Message extends BaseEntity implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 	
-	/*@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}*/
 	@Size(max=100)
 	public String getSubject() {
 		return subject;

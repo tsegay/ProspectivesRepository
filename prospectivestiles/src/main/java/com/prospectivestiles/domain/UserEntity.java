@@ -59,6 +59,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "userEntity")
 @SuppressWarnings("serial")
 public class UserEntity implements UserDetails {
+	/**
+	 * # # # # # # # # CHECK THIS OUT!!!!
+	 */
+//	@Pattern(regexp = "[1-9][0-9]{9}", message = "Phone numbers are 10 digit numbers") 	
+//	private String phoneNumber;
 	
 	// ======================================
     // =             Attributes             =

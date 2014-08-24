@@ -10,8 +10,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "standardTest")
@@ -56,7 +59,14 @@ public class StandardTest extends BaseEntity implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	/**
+	 * the annotation value (of Min and Max) is of type long, so it can not express any number with decimal places.
+	 * Specify min and max using DecimalMin and DecimalMax
+	 * 
+	 */
+//	@NotNull(message = "{userEntity.dob.message}") // use something like this
 	@NotNull
+	@DecimalMin(value="1", message = "Invalid input. Please enter a number greater than 0.")
 	public double getScore() {
 		return score;
 	}
@@ -64,6 +74,7 @@ public class StandardTest extends BaseEntity implements Serializable {
 		this.score = score;
 	}
 	@NotNull
+//	@DateTimeFormat
 	public Date getValidTill() {
 		return validTill;
 	}
