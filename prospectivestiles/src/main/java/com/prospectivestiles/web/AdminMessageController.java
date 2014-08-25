@@ -114,11 +114,18 @@ public class AdminMessageController {
 	 * going to receive the @RequestBody data from javascript or jquery post
 	 * The map data is what the jquery sendMessage sent
 	 */
+//	@PathVariable("userEntityId") long userEntityId, 
+//	Model model,
+//	@ModelAttribute @Valid UserEntity origUserEntity, 
+//	BindingResult result 
 	@RequestMapping(value = "/accounts/{userEntityId}/sendmessage", method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public Map<String, Object> sendMessageJSON(@PathVariable("userEntityId") Long userEntityId, 
-			@RequestBody Map<String, Object> data) {
-
+	public Map<String, Object> sendMessageJSON(
+			@PathVariable("userEntityId") Long userEntityId,
+			@RequestBody Map<String, Object> data
+			) {
+		
+		
 		System.out.println("############# sendMessageJSON called");
 		
 		long studentId = Long.parseLong((String) data.get("studentId"));
@@ -137,8 +144,8 @@ public class AdminMessageController {
 		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		
 //		if (result.hasErrors()) {
+//			System.out.println("########## sendMessageJSON: inside result.hasErrors");
 //			return "newMessageForm";
-//			System.out.println("########## inside result.hasErrors");
 //		} 
 		
 		Message message = new Message();

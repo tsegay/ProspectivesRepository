@@ -40,13 +40,16 @@ public class MessageServiceImpl implements MessageService {
 		messageDao.create(message);
 	}
 
+	/**
+	 * SHOULDN'T UPDATE A MESSAGE
+	 */
 	@Override
 	public void updateMessage(Message message) {
 		Message messageToUpdate = messageDao.find(message.getId());
 		
 		messageToUpdate.setAdmissionOfficer(message.getAdmissionOfficer());
 //		messageToUpdate.setDateCreated(message.getDateCreated());
-		messageToUpdate.setDateModified(message.getDateModified());
+//		messageToUpdate.setDateModified(message.getDateModified());
 		messageToUpdate.setStudent(message.getStudent());
 		messageToUpdate.setSubject(message.getSubject());
 		messageToUpdate.setText(message.getText());

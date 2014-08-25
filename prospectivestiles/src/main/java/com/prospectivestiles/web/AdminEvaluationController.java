@@ -139,7 +139,6 @@ public class AdminEvaluationController {
 	public String postNewEvaluationForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Evaluation evaluation, BindingResult result, Model model) {
 		
-//		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
@@ -149,10 +148,33 @@ public class AdminEvaluationController {
 		}
 
 		evaluation.setUserEntity(userEntity);
-//		evaluation.setAdmissionOfficer(admissionOfficer);
-		userEntityService.insertAccountState(userEntityId, "inprocess");
-//		evaluation.setStatus("inprocess");
+//		userEntityService.insertAccountState(userEntityId, "inprocess");
 		evaluation.setCreatedBy(currentAdmissionUser);
+		
+		if (
+				(evaluation.getApplicationFee().equalsIgnoreCase("valid") || evaluation.getApplicationFee().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getBankStmt().equalsIgnoreCase("valid") || evaluation.getBankStmt().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getDiplome().equalsIgnoreCase("valid") || evaluation.getDiplome().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getFinancialAffidavit().equalsIgnoreCase("valid") || evaluation.getFinancialAffidavit().equalsIgnoreCase("notrequired")) && 
+				(evaluation.getF1Visa().equalsIgnoreCase("valid") || evaluation.getF1Visa().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getI20().equalsIgnoreCase("valid") || evaluation.getI20().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getPassport().equalsIgnoreCase("valid") || evaluation.getPassport().equalsIgnoreCase("notrequired")) && 
+				(evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getApplicationForm().equalsIgnoreCase("valid") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getEnrollmentAgreement().equalsIgnoreCase("valid") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getGrievancePolicy().equalsIgnoreCase("valid") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&
+				(evaluation.getRecommendationLetter().equalsIgnoreCase("valid") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) 
+			) {
+			/**
+			 * If all evaluation items are valid or notrequired change accountState to "COMPLETE"
+			 */
+			userEntityService.insertAccountState(userEntityId, "complete");
+		} else {
+			/**
+			 * If all evaluation items are not valid or notrequired make accountState to "INPROCESS"
+			 */
+			userEntityService.insertAccountState(userEntityId, "inprocess");
+		}
 		
 		evaluationService.createEvaluation(evaluation);
 		
@@ -183,8 +205,13 @@ public class AdminEvaluationController {
 			Model model) {
 		
 		Evaluation evaluation = getEvaluationValidateUserEntityId(userEntityId, evaluationId);
-//		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
-		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		/**
+		 * The student
+		 */
+		UserEntity student = userEntityService.getUserEntity(userEntityId);
+		/**
+		 * The admission officer that is currently logged in
+		 */
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 
 		if (result.hasErrors()) {
@@ -192,17 +219,17 @@ public class AdminEvaluationController {
 			origEvaluation.setUserEntity(userEntityService.getUserEntity(userEntityId));
 //			model.addAttribute("originalEvaluation", origEvaluation);
 			model.addAttribute("evaluation", origEvaluation);
-			model.addAttribute(userEntity);
+			model.addAttribute("userEntity", student);
 			/*
 			when I used this model.addAttribute("evaluation", origEvaluation);
 			I got java.lang.NullPointerException: .../accounts/10/evaluation/0
 			origEvaluation has no userEntity set
 			And when I use model.addAttribute("evaluation", evaluation)
-			page doesn't crash; but form is rediplayed and I lose all data I typed
+			page doesn't crash; but form is redisplayed and I loose all data I typed
 			When I use a return "/accounts/{userEntityId}/evaluation/{evaluationId}/edit" 
 				I get view can't be resolved err
 			When I use a return "redirect:/accounts/" + userEntityId + "/evaluation/" + evaluationId + "/edit"
-				I get redirected to the edit form page,  the page is refreshed and I lose all the data typed, no err msg displayed on page
+				I get redirected to the edit form page,  the page is refreshed and I loose all the data typed, no err msg displayed on page
 			*/
 			return "editEvaluation";
 		}
@@ -221,40 +248,48 @@ public class AdminEvaluationController {
 		evaluation.setRecommendationLetter(origEvaluation.getRecommendationLetter());
 		evaluation.setTranscript(origEvaluation.getTranscript());
 		evaluation.setDiplome(origEvaluation.getDiplome());
-//		evaluation.setAdmissionOfficer(admissionOfficer);
 		evaluation.setAdmnOfficerReport(origEvaluation.getAdmnOfficerReport());
-//		evaluation.setStudentQualification(origEvaluation.getStudentQualification());
 		evaluation.setLastModifiedBy(currentAdmissionUser);
 		
+		/**
+		 * When we udpate the evaluation page of a student, we should also update the student's status
+		 * Check if the accountState of the student is "admitted". If student is admitted don't update the status.
+		 * Else,
+		 * If the values of all the items is either valid or notrequired make accountState = "complete"
+		 * Else it is "inprocess"
+		 */
+		System.out.println("#### 0" + student.getFullName());
+		System.out.println("#### 1" + student.getAccountState());
+		System.out.println("#### 2" + student.getAccountState().toString());
+		if (!student.getAccountState().equalsIgnoreCase("admitted")) {
+			System.out.println("#### 3" + student.getAccountState());
+			System.out.println("#### 4" + student.getAccountState().toString());
+			if (
+					(evaluation.getApplicationFee().equalsIgnoreCase("valid") || evaluation.getApplicationFee().equalsIgnoreCase("notrequired")) &&
+					(evaluation.getBankStmt().equalsIgnoreCase("valid") || evaluation.getBankStmt().equalsIgnoreCase("notrequired")) &&
+					(evaluation.getDiplome().equalsIgnoreCase("valid") || evaluation.getDiplome().equalsIgnoreCase("notrequired")) &&
+					(evaluation.getFinancialAffidavit().equalsIgnoreCase("valid") || evaluation.getFinancialAffidavit().equalsIgnoreCase("notrequired")) && 
+					(evaluation.getF1Visa().equalsIgnoreCase("valid") || evaluation.getF1Visa().equalsIgnoreCase("notrequired")) &&
+					(evaluation.getI20().equalsIgnoreCase("valid") || evaluation.getI20().equalsIgnoreCase("notrequired")) &&
+					(evaluation.getPassport().equalsIgnoreCase("valid") || evaluation.getPassport().equalsIgnoreCase("notrequired")) && 
+					(evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired")) &&
+					(evaluation.getApplicationForm().equalsIgnoreCase("valid") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) &&
+					(evaluation.getEnrollmentAgreement().equalsIgnoreCase("valid") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) &&
+					(evaluation.getGrievancePolicy().equalsIgnoreCase("valid") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&
+					(evaluation.getRecommendationLetter().equalsIgnoreCase("valid") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) 
+				) {
+				/**
+				 * If all evaluation items are valid or notrequired change accountState to "COMPLETE"
+				 */
+				userEntityService.insertAccountState(userEntityId, "complete");
+			} else {
+				/**
+				 * If all evaluation items are not valid or notrequired make accountState to "INPROCESS"
+				 */
+				userEntityService.insertAccountState(userEntityId, "inprocess");
+			}
 		
-		if (
-				(evaluation.getApplicationFee().equalsIgnoreCase("valid") || evaluation.getApplicationFee().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getBankStmt().equalsIgnoreCase("valid") || evaluation.getBankStmt().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getDiplome().equalsIgnoreCase("valid") || evaluation.getDiplome().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getFinancialAffidavit().equalsIgnoreCase("valid") || evaluation.getFinancialAffidavit().equalsIgnoreCase("notrequired")) && 
-				(evaluation.getF1Visa().equalsIgnoreCase("valid") || evaluation.getF1Visa().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getI20().equalsIgnoreCase("valid") || evaluation.getI20().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getPassport().equalsIgnoreCase("valid") || evaluation.getPassport().equalsIgnoreCase("notrequired")) && 
-				(evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getApplicationForm().equalsIgnoreCase("valid") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getEnrollmentAgreement().equalsIgnoreCase("valid") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getGrievancePolicy().equalsIgnoreCase("valid") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getRecommendationLetter().equalsIgnoreCase("valid") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) 
-			) {
-			/**
-			 * If all evaluation items are valid or notrequired change accountState to "COMPLETE"
-			 */
-//			evaluation.setStatus("complete");
-			userEntityService.insertAccountState(userEntityId, "complete");
-		} else {
-			/**
-			 * If all evaluation items are not valid or notrequired make accountState to "INPROCESS"
-			 */
-//			evaluation.setStatus("inprocess");
-			userEntityService.insertAccountState(userEntityId, "inprocess");
 		}
-		
-		
 		evaluationService.updateEvaluation(evaluation);
 		
 		return "redirect:/accounts/{userEntityId}/evaluations";
@@ -272,24 +307,19 @@ public class AdminEvaluationController {
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		UserEntity currentAdmissionUser = getUserEntityFromSecurityContext();
 		
-//		UserEntity admissionOfficer = getUserEntityFromSecurityContext();
 		System.out.println("#### admittedBy: " + admittedBy);
-//		System.out.println("#### admissionOfficer: " + admissionOfficer);
 
 		if (result.hasErrors()) {
 			model.addAttribute("originalEvaluation", origEvaluation);
 			model.addAttribute(userEntity);
 			return "editEvaluation";
 		}
-//		evaluation.setStatus("admitted");
 		evaluation.setAdmittedBy(admittedBy);
-//		evaluation.setAdmissionOfficer(admissionOfficer);
 		Date dateAdmitted = new Date();
 		evaluation.setDateAdmitted(dateAdmitted);
 		evaluation.setLastModifiedBy(currentAdmissionUser);
 		
 		System.out.println("### evaluation.getAdmittedBy: " + evaluation.getAdmittedBy());
-//		System.out.println("### evaluation.getAdmissionOfficer: " + evaluation.getAdmissionOfficer());
 		
 		/**
 		 * When a student is admitted change accountState to "ADMITTED"
@@ -414,7 +444,6 @@ public class AdminEvaluationController {
 			if (evaluation.getRecommendationLetter().equalsIgnoreCase("valid") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) {
 				evaluationCount = evaluationCount + 1;
 			}
-//			evaluationStatus = evaluation.getStatus();
 			evaluationStatus = userEntity.getAccountState();
 		
 		}

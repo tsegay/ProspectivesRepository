@@ -55,7 +55,7 @@
 		  Create Evaluation
 		</button> -->
 		<h3>
-			<a href="${newEvaluationUrl}">Create Evaluation</a>
+			<a href="${newEvaluationUrl}">Start Evaluation</a>
 		</h3>
 	</c:when>
 	<c:otherwise>
