@@ -9,15 +9,15 @@
 <c:set var="accountsPath" value="/accounts" />
 
 <c:set var="user" value="${institute.userEntity}" />
-<c:url var="adminInstituteFormUrl" value="/accounts/${user.id}/institute" />
+<%-- <c:url var="adminInstituteFormUrl" value="/accounts/${user.id}/institute" /> --%>
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="editInstituteFormUrl" value="/accounts/${user.id}/institute/${institute.id}" />
+	<c:url var="editInstituteFormUrl" value="/accounts/${user.id}/institute/${institute.id}/edit" />
 	<c:url var="myEducationUrl" value="/accounts/${user.id}/educations" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="editInstituteFormUrl" value="/myAccount/institute/${institute.id}" />
+	<c:url var="editInstituteFormUrl" value="/myAccount/institute/${institute.id}/edit" />
 	<c:url var="myEducationUrl" value="/myAccount/educations" />
 </sec:authorize>
 

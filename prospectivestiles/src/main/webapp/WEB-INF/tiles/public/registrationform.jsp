@@ -5,6 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <spring:message var="registerLabel" code="account.label.register" />
+<c:url var="homeUrl" value="/welcome" />
 
 <h1>Registration form</h1>
 
@@ -136,7 +137,7 @@
      	<label class="col-sm-2 control-label">&nbsp;</label>
      	<div class = "col-sm-10">
      		<input class="btn btn-default" type="submit" value="${registerLabel}"></input>
-     		<a class="btn btn-default" href="${accountsUrl}">Cancel</a>
+     		<a class="btn btn-default" href="${homeUrl}">Cancel</a>
      	</div>
     </div>
     

@@ -32,6 +32,16 @@ import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.HighSchoolService;
 import com.prospectivestiles.service.UserEntityService;
 
+/**
+ * The url to get the form and post the form are the same. 
+ * eg. "/accounts/{userEntityId}/xxx/new"
+ * Advantage: when a user submit a form with error the post url will be displayed in the url,
+ * if the session expires, and post url used to post the form will be displayed in the url,
+ * if post and get url are the same then when the user login and refresh the page, 
+ * the get method will be called. or the page will crash.
+ * @author danielanenia
+ *
+ */
 @Controller
 public class AdminHighSchoolController {
 	
@@ -87,21 +97,6 @@ public class AdminHighSchoolController {
 	// =             highSchools             =
 	// ======================================
 	
-	/*
-	 * I don't think i am using this method anymore. I am using educations...
-	 * I removed the highSchools page
-	 */
-	/*@RequestMapping(value = "/accounts/{userEntityId}/highSchools", method = RequestMethod.GET)
-	public String getHighSchools(@PathVariable("userEntityId") Long userEntityId,
-			Model model) {
-		
-		model.addAttribute("highSchools", highSchoolService.getHighSchoolsByUserEntityId(userEntityId));
-		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
-		return "highSchools";
-//		return "redirect:/accounts/{userEntityId}/educations";
-	}*/
-	
-	
 	/**
 	 * New highSchool form to add highSchool
 	 * @param userEntityId
@@ -124,7 +119,7 @@ public class AdminHighSchoolController {
 		return "newHighSchoolForm";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/highSchools", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/new", method = RequestMethod.POST)
 	public String postNewHighSchoolForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid HighSchool highSchool, BindingResult result, Model model) {
 
@@ -146,7 +141,14 @@ public class AdminHighSchoolController {
 		return "redirect:/accounts/{userEntityId}/educations";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/{highSchoolId}", method = RequestMethod.GET)
+	/**
+	 * CLASS NOT REQUIRED, REMOVE!! I dont have highschool page.
+	 * @param userEntityId
+	 * @param highSchoolId
+	 * @param model
+	 * @return
+	 */
+	/*@RequestMapping(value = "/accounts/{userEntityId}/highSchool/{highSchoolId}", method = RequestMethod.GET)
 	public String getHighSchool(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("highSchoolId") Long highSchoolId, Model model) {
 		
@@ -158,7 +160,7 @@ public class AdminHighSchoolController {
 		model.addAttribute(userEntity);
 		log.info("######## 3b");
 		return "highSchool";
-	}
+	}*/
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/{highSchoolId}/edit", method = RequestMethod.GET)
 	public String editHighSchool(@PathVariable("userEntityId") Long userEntityId,
@@ -177,7 +179,7 @@ public class AdminHighSchoolController {
 		return "editHighSchool";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/{highSchoolId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/highSchool/{highSchoolId}/edit", method = RequestMethod.POST)
 	public String editHighSchool(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("highSchoolId") Long highSchoolId,
 			@ModelAttribute @Valid HighSchool origHighSchool, 

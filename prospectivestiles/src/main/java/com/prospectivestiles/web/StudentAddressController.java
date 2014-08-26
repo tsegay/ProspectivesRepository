@@ -63,7 +63,7 @@ public class StudentAddressController {
 	 * I am going to merge the personal info and addresses page together.
 	 * Then i am not going to have addresses page. this method will be removed.
 	 */
-	@RequestMapping(value = "/myAccount/addresses", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/myAccount/addresses", method = RequestMethod.GET)
 	public String getAddresses(Model model) {
 		
 		UserEntity userEntity = getUserEntityFromSecurityContext();
@@ -78,7 +78,7 @@ public class StudentAddressController {
 		model.addAttribute("userEntity", userEntity);
 		
 		return "addresses";
-	}
+	}*/
 	
 //	Used a new page to add new address
 //	-----------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ public class StudentAddressController {
 	/**
 	 * For Modal use and new page use for adding new address
 	 */
-	@RequestMapping(value = "/myAccount/addresses", method = RequestMethod.POST)
+	@RequestMapping(value = "/myAccount/address/new", method = RequestMethod.POST)
 	public String postNewAddressForm(@ModelAttribute @Valid Address address, BindingResult result, Model model) {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
 		
@@ -130,13 +130,13 @@ public class StudentAddressController {
 	
 //	If I list all the addresses in the addresses page, I don't need individual address pages
 //	-----------------------------------------------------------------------------------------
-	@RequestMapping(value = "/myAccount/address/{addressId}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/myAccount/address/{addressId}", method = RequestMethod.GET)
 	public String getAddress(@PathVariable("addressId") Long addressId, Model model) {
 		
 		UserEntity userEntity = getUserEntityFromSecurityContext();		
 		model.addAttribute(getAddressValidateUserEntityId(userEntity.getId(), addressId));
 		return "address";
-	}
+	}*/
 	
 //	@RequestMapping(value = "/myAccount/address/{addressId}", method = RequestMethod.GET)
 	@RequestMapping(value = "/myAccount/address/{addressId}/edit", method = RequestMethod.GET)
@@ -150,7 +150,7 @@ public class StudentAddressController {
 		return "editAddress";
 	}
 
-	@RequestMapping(value = "/myAccount/address/{addressId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/myAccount/address/{addressId}/edit", method = RequestMethod.POST)
 	public String editAddress(@PathVariable("addressId") Long addressId,
 			@ModelAttribute @Valid Address origAddress, 
 			BindingResult result,
@@ -216,7 +216,7 @@ public class StudentAddressController {
 	// ======================================
 	// =                JSON        =
 	// ======================================
-	@RequestMapping(value = "/json/myAccount/jsonAddresses", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/json/myAccount/jsonAddresses", method = RequestMethod.GET)
 	public String showJsonMessages(Model model) {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
 		
@@ -226,8 +226,8 @@ public class StudentAddressController {
 		model.addAttribute("address", address);
 		
 		return "jsonAddresses";
-	}
-	@RequestMapping(value = "/json/myAccount/addresses", method = RequestMethod.GET, produces = "application/json")
+	}*/
+	/*@RequestMapping(value = "/json/myAccount/addresses", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> getAddressesForJSON() {
 		UserEntity userEntity = getUserEntityFromSecurityContext();
@@ -244,9 +244,9 @@ public class StudentAddressController {
 		
 		return data;
 		
-	}
+	}*/
 
-	@RequestMapping(value = "/json/myAccount/jsonAddresses", method = RequestMethod.POST, produces="application/json")
+	/*@RequestMapping(value = "/json/myAccount/jsonAddresses", method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
 	public Map<String, Object> sendMessageJSON(@RequestBody Map<String, Object> data) {
 		System.out.println("############## sendAddressJSON called....");
@@ -286,7 +286,7 @@ public class StudentAddressController {
 		returnVal.put("success", true);
 	//		returnVal.put("target", target);
 		return returnVal;
-	}
+	}*/
 		
 	// ======================================
 	// =                         =

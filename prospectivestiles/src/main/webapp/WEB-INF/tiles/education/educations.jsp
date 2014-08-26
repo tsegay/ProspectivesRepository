@@ -73,12 +73,12 @@
 				<c:forEach var="highSchool" items="${highSchools}">
 				
 				 <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<c:url var="highSchoolUrl"	value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}" />
+					<%-- <c:url var="highSchoolUrl"	value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}" /> --%>
 					<c:url var="editHighSchoolUrl" value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}/edit" />
 					<c:url var="deleteHighSchoolUrl" value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}/delete" />
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_USER')">
-					<c:url var="highSchoolUrl"	value="/myAccount/highSchool/${highSchool.id}" />
+					<%-- <c:url var="highSchoolUrl"	value="/myAccount/highSchool/${highSchool.id}" /> --%>
 					<c:url var="editHighSchoolUrl" value="/myAccount/highSchool/${highSchool.id}/edit" />
 					<c:url var="deleteHighSchoolUrl" value="/myAccount/highSchool/${highSchool.id}/delete" />
 				</sec:authorize>
@@ -162,12 +162,12 @@
 				<c:forEach var="institute" items="${institutes}">
 				
 				 <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<c:url var="instituteUrl"	value="/accounts/${institute.userEntity.id}/institute/${institute.id}" />
+					<%-- <c:url var="instituteUrl"	value="/accounts/${institute.userEntity.id}/institute/${institute.id}" /> --%>
 					<c:url var="editInstituteUrl" value="/accounts/${institute.userEntity.id}/institute/${institute.id}/edit" />
 					<c:url var="deleteInstituteUrl" value="/accounts/${institute.userEntity.id}/institute/${institute.id}/delete" />
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_USER')">
-					<c:url var="instituteUrl"	value="/myAccount/institute/${institute.id}" />
+					<%-- <c:url var="instituteUrl"	value="/myAccount/institute/${institute.id}" /> --%>
 					<c:url var="editInstituteUrl" value="/myAccount/institute/${institute.id}/edit" />
 					<c:url var="deleteInstituteUrl" value="/myAccount/institute/${institute.id}/delete" />
 				</sec:authorize>

@@ -11,12 +11,12 @@
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="standardTestsUrl" value="/accounts/${user.id}/standardTests" />
-	<c:url var="editStandardTestUrl" value="/accounts/${user.id}/standardTest/${standardTest.id}" />
+	<c:url var="editStandardTestUrl" value="/accounts/${user.id}/standardTest/${standardTest.id}/edit" />
 	<c:url var="deleteStandardTestUrl" value="/accounts/${user.id}/standardTest/${standardTest.id}/delete" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
-	<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}" />
+	<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/edit" />
 	<c:url var="deleteStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/delete" />
 </sec:authorize>
 

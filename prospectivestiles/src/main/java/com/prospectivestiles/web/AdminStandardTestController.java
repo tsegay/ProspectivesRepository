@@ -29,6 +29,16 @@ import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.StandardTestService;
 import com.prospectivestiles.service.UserEntityService;
 
+/**
+ * The url to get the form and post the form are the same. 
+ * eg. "/accounts/{userEntityId}/standardTest/new"
+ * Advantage: when a user submit a form with error the post url will be displayed in the url,
+ * if the session expires, and post url used to post the form will be displayed in the url,
+ * if post and get url are the same then when the user login and refresh the page, 
+ * the get method will be called. or the page will crash.
+ * @author danielanenia
+ *
+ */
 @Controller
 public class AdminStandardTestController {
 	
@@ -60,7 +70,12 @@ public class AdminStandardTestController {
 	// ======================================
 	// =             standardTests             =
 	// ======================================
-	
+	/**
+	 * Get all Standard Tests for a student by student id
+	 * @param userEntityId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/standardTests", method = RequestMethod.GET)
 	public String getStandardTests(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
@@ -81,6 +96,7 @@ public class AdminStandardTestController {
 		return "standardTests";
 	}
 
+
 	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/new", method = RequestMethod.GET)
 	public String getNewStandardTestForm(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
@@ -95,7 +111,7 @@ public class AdminStandardTestController {
 		return "newStandardTestForm";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/standardTests", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/new", method = RequestMethod.POST)
 	public String postNewStandardTestForm(
 			@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid StandardTest standardTest, 
@@ -132,7 +148,7 @@ public class AdminStandardTestController {
 	}
 
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/{standardTestId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/standardTest/{standardTestId}/edit", method = RequestMethod.POST)
 	public String editStandardTest(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("standardTestId") Long standardTestId,
 			@ModelAttribute @Valid StandardTest origStandardTest, 

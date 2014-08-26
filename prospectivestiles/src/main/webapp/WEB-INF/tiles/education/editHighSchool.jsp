@@ -12,11 +12,11 @@
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="editHighSchoolFormUrl" value="/accounts/${user.id}/highSchool/${highSchool.id}" />
+	<c:url var="editHighSchoolFormUrl" value="/accounts/${user.id}/highSchool/${highSchool.id}/edit" />
 	<c:url var="myEducationUrl" value="/accounts/${user.id}/educations" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="editHighSchoolFormUrl" value="/myAccount/highSchool/${highSchool.id}" />
+	<c:url var="editHighSchoolFormUrl" value="/myAccount/highSchool/${highSchool.id}/edit" />
 	<c:url var="myEducationUrl" value="/myAccount/educations" />
 </sec:authorize>
 

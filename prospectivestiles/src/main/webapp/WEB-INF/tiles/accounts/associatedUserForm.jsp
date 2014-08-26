@@ -9,7 +9,7 @@
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="accountsUrl" value="/accounts/${userEntity.id}" />
-	<c:url var="associatedUserFormUrl" value="/accounts/${userEntity.id}/associatedUsers" />
+	<c:url var="associatedUserFormUrl" value="/accounts/${userEntity.id}/associatedUser/new" />
 </sec:authorize>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">

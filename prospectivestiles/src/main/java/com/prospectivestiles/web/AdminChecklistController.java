@@ -31,6 +31,16 @@ import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.ChecklistService;
 import com.prospectivestiles.service.UserEntityService;
 
+/**
+ * The url to get the form and post the form are the same. 
+ * eg. "/accounts/{userEntityId}/checklist/new"
+ * Advantage: when a user submit a form with error the post url will be displayed in the url,
+ * if the session expires, and post url used to post the form will be displayed in the url,
+ * if post and get url are the same then when the user login and refresh the page, 
+ * the get method will be called. or the page will crash.
+ * @author danielanenia
+ *
+ */
 @Controller
 public class AdminChecklistController {
 	

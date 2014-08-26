@@ -12,11 +12,11 @@
 <%-- <c:url var="highSchoolFormUrl" value="/accounts/${user.id}/highSchool" /> --%>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="highSchoolFormUrl" value="/accounts/${userEntity.id}/highSchools" />
+	<c:url var="highSchoolFormUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="myEducationUrl" value="/accounts/${userEntity.id}/educations" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="highSchoolFormUrl" value="/myAccount/highSchools" />
+	<c:url var="highSchoolFormUrl" value="/myAccount/highSchool/new" />
 	<c:url var="myEducationUrl" value="/myAccount/educations" />
 </sec:authorize>	
 

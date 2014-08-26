@@ -9,9 +9,11 @@
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
+	<c:url var="newStandardTestsUrl" value="/accounts/${userEntity.id}/standardTest/new" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
+	<c:url var="newStandardTestsUrl" value="/myAccount/standardTest/new" />
 </sec:authorize>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -41,7 +43,7 @@
 <h4>Please enter all the standard tests (TOEFL, IELTS) you took</h4>
 <br>
 
-<form:form action="${standardTestsUrl}" id="standardTestForm"
+<form:form action="${newStandardTestsUrl}" id="standardTestForm"
 	modelAttribute="standardTest" role="form" class="form-horizontal">
 
 	<div class="form-group row">
@@ -106,7 +108,7 @@
 		<div class="col-sm-10">
 			<!-- submit calls the post method standardTestsUrl -->
 			<input class="btn btn-primary" type="submit" value="Save"></input> 
-			<!-- cancel calls the get method standardTestsUrl -->
+			<!-- cancel calls returns to the all tests page -->
 			<a class="btn btn-default" href="${standardTestsUrl}">Cancel</a>
 		</div>
 	</div>

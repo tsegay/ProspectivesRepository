@@ -12,14 +12,14 @@
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="accountsUrl" value="/accounts/${userEntity.id}" />
-	<c:url var="addressesUrl" value="/accounts/${user.id}/addresses" />
-	<c:url var="editAddressUrl" value="/accounts/${user.id}/address/${address.id}" />
+	<%-- <c:url var="addressesUrl" value="/accounts/${user.id}/addresses" /> --%>
+	<c:url var="editAddressUrl" value="/accounts/${user.id}/address/${address.id}/edit" />
 	<c:url var="deleteAddressUrl" value="/accounts/${user.id}/address/${address.id}/delete" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<c:url var="accountsUrl" value="/myAccount" />
-	<c:url var="addressesUrl" value="/myAccount/addresses" />
-	<c:url var="editAddressUrl" value="/myAccount/address/${address.id}" />
+	<%-- <c:url var="addressesUrl" value="/myAccount/addresses" /> --%>
+	<c:url var="editAddressUrl" value="/myAccount/address/${address.id}/edit" />
 	<c:url var="deleteAddressUrl" value="/myAccount/address/${address.id}/delete" />
 </sec:authorize>
 

@@ -11,11 +11,11 @@
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="instituteFormUrl" value="/accounts/${userEntity.id}/institutes" />
+	<c:url var="instituteFormUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="myEducationUrl" value="/accounts/${userEntity.id}/educations" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="instituteFormUrl" value="/myAccount/institutes" />
+	<c:url var="instituteFormUrl" value="/myAccount/institute/new" />
 	<c:url var="myEducationUrl" value="/myAccount/educations" />
 </sec:authorize>	
 

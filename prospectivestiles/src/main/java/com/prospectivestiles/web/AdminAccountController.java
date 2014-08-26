@@ -40,6 +40,16 @@ import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.AssociatedUserService;
 import com.prospectivestiles.service.UserEntityService;
 
+/**
+ * The url to get the form and post the form are the same. 
+ * eg. "/accounts/{userEntityId}/xxx/new"
+ * Advantage: when a user submit a form with error the post url will be displayed in the url,
+ * if the session expires, and post url used to post the form will be displayed in the url,
+ * if post and get url are the same then when the user login and refresh the page, 
+ * the get method will be called. or the page will crash.
+ * @author danielanenia
+ *
+ */
 @Controller
 public class AdminAccountController {
 	
@@ -466,7 +476,7 @@ public class AdminAccountController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/accounts/{userEntityId}/associatedUsers", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/associatedUser/new", method = RequestMethod.POST)
 	public String postNewAssociatedUsersForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid AssociatedUser associatedUser, BindingResult result, Model model) {
 		

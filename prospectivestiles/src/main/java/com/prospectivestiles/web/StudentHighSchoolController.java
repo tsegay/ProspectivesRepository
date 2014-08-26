@@ -87,7 +87,7 @@ public class StudentHighSchoolController {
 		return "newHighSchoolForm";
 	}
 	
-	@RequestMapping(value = "/myAccount/highSchools", method = RequestMethod.POST)
+	@RequestMapping(value = "/myAccount/highSchool/new", method = RequestMethod.POST)
 	public String postNewHighSchoolForm(@ModelAttribute @Valid HighSchool highSchool, BindingResult result, Model model) {
 
 		UserEntity userEntity = getUserEntityFromSecurityContext();
@@ -104,14 +104,14 @@ public class StudentHighSchoolController {
 		return "redirect:/myAccount/educations";
 	}
 	
-	@RequestMapping(value = "/myAccount/highSchool/{highSchoolId}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/myAccount/highSchool/{highSchoolId}", method = RequestMethod.GET)
 	public String getHighSchool(@PathVariable("highSchoolId") Long highSchoolId, Model model) {
 		
 		UserEntity userEntity = getUserEntityFromSecurityContext();		
 		model.addAttribute(getHighSchoolValidateUserEntityId(userEntity.getId(), highSchoolId));
 		model.addAttribute(userEntity);
 		return "highSchool";
-	}
+	}*/
 	
 	@RequestMapping(value = "/myAccount/highSchool/{highSchoolId}/edit", method = RequestMethod.GET)
 	public String editHighSchool(@PathVariable("highSchoolId") Long highSchoolId, Model model) {
@@ -124,7 +124,7 @@ public class StudentHighSchoolController {
 		return "editHighSchool";
 	}
 	
-	@RequestMapping(value = "/myAccount/highSchool/{highSchoolId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/myAccount/highSchool/{highSchoolId}/edit", method = RequestMethod.POST)
 	public String editHighSchool(@PathVariable("highSchoolId") Long highSchoolId,
 			@ModelAttribute @Valid HighSchool origHighSchool, 
 			BindingResult result,

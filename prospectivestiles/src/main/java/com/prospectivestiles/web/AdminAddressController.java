@@ -36,6 +36,16 @@ import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.UserEntityService;
 
+/**
+ * The url to get the form and post the form are the same. 
+ * eg. "/accounts/{userEntityId}/xxx/new"
+ * Advantage: when a user submit a form with error the post url will be displayed in the url,
+ * if the session expires, and post url used to post the form will be displayed in the url,
+ * if post and get url are the same then when the user login and refresh the page, 
+ * the get method will be called. or the page will crash.
+ * @author danielanenia
+ *
+ */
 @Controller
 public class AdminAddressController {
 	
@@ -56,31 +66,31 @@ public class AdminAddressController {
 	 * I am going to merge the personal info and addresses page together.
 	 * Then i am not going to have addresses page. this method will be removed.
 	 */
-	@RequestMapping(value = "/accounts/{userEntityId}/addresses", method = RequestMethod.GET)
-	public String getAddresses(@PathVariable("userEntityId") Long userEntityId,
-			Model model) {
-		
-		log.debug(" viewing /accounts/userEntityId/addresses on ");
-		
-		/**
-		 * load all addresses for a user
-		 */
-		model.addAttribute("addresses", addressService.getAddressesByUserEntityId(userEntityId));
-		
-		/**
-		 * The modelAttribute "address" for the form to add new address
-		 */
-		Address address = new Address();
-		model.addAttribute("address", address);
-		
-		/**
-		 * Do I really need to add the userEntity? 
-		 * Maybe, I just need the Full Name of the user or userId
-		 */
-		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
-		
-		return "addresses";
-	}
+//	@RequestMapping(value = "/accounts/{userEntityId}/addresses", method = RequestMethod.GET)
+//	public String getAddresses(@PathVariable("userEntityId") Long userEntityId,
+//			Model model) {
+//		
+//		log.debug(" viewing /accounts/userEntityId/addresses on ");
+//		
+//		/**
+//		 * load all addresses for a user
+//		 */
+//		model.addAttribute("addresses", addressService.getAddressesByUserEntityId(userEntityId));
+//		
+//		/**
+//		 * The modelAttribute "address" for the form to add new address
+//		 */
+//		Address address = new Address();
+//		model.addAttribute("address", address);
+//		
+//		/**
+//		 * Do I really need to add the userEntity? 
+//		 * Maybe, I just need the Full Name of the user or userId
+//		 */
+//		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
+//		
+//		return "addresses";
+//	}
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/address/new", method = RequestMethod.GET)
 	public String getNewAddressForm(@PathVariable("userEntityId") Long userEntityId,
@@ -106,7 +116,7 @@ public class AdminAddressController {
 	 * @param result
 	 * @return
 	 */
-	@RequestMapping(value = "/accounts/{userEntityId}/addresses", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/address/new", method = RequestMethod.POST)
 	public String postNewAddressForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Address address, BindingResult result, Model model) {
 		
@@ -161,7 +171,7 @@ public class AdminAddressController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/address/{addressId}/edit", method = RequestMethod.POST)
 	public String editAddress(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("addressId") Long addressId,
 			@ModelAttribute @Valid Address origAddress, 
@@ -235,7 +245,7 @@ public class AdminAddressController {
 	// =                JSON        =
 	// ======================================
 	
-	@RequestMapping(value = "/json/accounts/{userEntityId}/addresses", method = RequestMethod.GET, produces = "application/json")
+	/*@RequestMapping(value = "/json/accounts/{userEntityId}/addresses", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> getAddressesForJSON(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
@@ -251,13 +261,13 @@ public class AdminAddressController {
 		data.put("number", addresses.size());
 		return data;
 		
-	}
+	}*/
 	/**
 	 * @requestBody - this enables you to get data in the appropriate data type
 	 * going to receive the @RequestBody data from javascript or jquery post
 	 * The map data is what the jquery sendMessage sent
 	 */
-	@RequestMapping(value = "/json/accounts/{userEntityId}/addresses", method = RequestMethod.POST, produces="application/json")
+	/*@RequestMapping(value = "/json/accounts/{userEntityId}/addresses", method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
 	public Map<String, Object> sendAddressJSON(@PathVariable("userEntityId") Long userEntityId,
 			@RequestBody Map<String, Object> data) {
@@ -297,7 +307,7 @@ public class AdminAddressController {
 		returnVal.put("success", true);
 //		returnVal.put("target", target);
 		return returnVal;
-	}
+	}*/
 	
 	// ======================================
 	// =                        =

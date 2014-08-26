@@ -81,7 +81,7 @@ public class StudentStandardTestController {
 		return "newStandardTestForm";
 	}
 
-	@RequestMapping(value = "/myAccount/standardTests", method = RequestMethod.POST)
+	@RequestMapping(value = "/myAccount/standardTest/new", method = RequestMethod.POST)
 	public String postNewStandardTestForm(@ModelAttribute @Valid StandardTest standardTest,
 			BindingResult result, Model model) {
 
@@ -123,7 +123,7 @@ public class StudentStandardTestController {
 		return "editStandardTest";
 	}
 
-	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/myAccount/standardTest/{standardTestId}/edit", method = RequestMethod.POST)
 	public String editStandardTest(@PathVariable("standardTestId") Long standardTestId,
 			@ModelAttribute @Valid StandardTest origStandardTest,
 			BindingResult result, Model model) {

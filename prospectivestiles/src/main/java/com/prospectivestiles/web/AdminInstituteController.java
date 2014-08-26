@@ -30,6 +30,16 @@ import com.prospectivestiles.service.HighSchoolService;
 import com.prospectivestiles.service.InstituteService;
 import com.prospectivestiles.service.UserEntityService;
 
+/**
+ * The url to get the form and post the form are the same. 
+ * eg. "/accounts/{userEntityId}/xxx/new"
+ * Advantage: when a user submit a form with error the post url will be displayed in the url,
+ * if the session expires, and post url used to post the form will be displayed in the url,
+ * if post and get url are the same then when the user login and refresh the page, 
+ * the get method will be called. or the page will crash.
+ * @author danielanenia
+ *
+ */
 @Controller
 public class AdminInstituteController {
 	
@@ -93,7 +103,7 @@ public class AdminInstituteController {
 		return "newInstituteForm";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/institutes", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/institute/new", method = RequestMethod.POST)
 	public String postNewInstituteForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Institute institute, BindingResult result, Model model) {
 
@@ -113,14 +123,14 @@ public class AdminInstituteController {
 		return "redirect:/accounts/{userEntityId}/educations";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/institute/{instituteId}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/accounts/{userEntityId}/institute/{instituteId}", method = RequestMethod.GET)
 	public String getInstitute(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("instituteId") Long instituteId, Model model) {
 		
 		model.addAttribute(getInstituteValidateUserEntityId(userEntityId, instituteId));
 
 		return "institute";
-	}
+	}*/
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/institute/{instituteId}/edit", method = RequestMethod.GET)
 	public String editInstitute(@PathVariable("userEntityId") Long userEntityId,
@@ -135,7 +145,7 @@ public class AdminInstituteController {
 		return "editInstitute";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/institute/{instituteId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/institute/{instituteId}/edit", method = RequestMethod.POST)
 	public String editInstitute(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("instituteId") Long instituteId,
 			@ModelAttribute @Valid Institute origInstitute, 

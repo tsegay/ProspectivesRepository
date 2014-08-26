@@ -9,12 +9,11 @@
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="accountsUrl" value="/accounts/${userEntity.id}" />
-	<c:url var="addressFormUrl" value="/accounts/${userEntity.id}/addresses" />
-	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
+	<c:url var="addressFormUrl" value="/accounts/${userEntity.id}/address/new" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="addressFormUrl" value="/myAccount/addresses" />
-	<c:url var="addressUrl" value="/myAccount/addresses" />
+	<c:url var="accountsUrl" value="/myAccount" />
+	<c:url var="addressFormUrl" value="/myAccount/address/new" />
 </sec:authorize>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">

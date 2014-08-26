@@ -54,12 +54,12 @@
 				<c:forEach var="standardTest" items="${standardTests}">
 				
 				 <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<c:url var="standardTestUrl"	value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}" />
+					<%-- <c:url var="standardTestUrl"	value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}" /> --%>
 					<c:url var="editStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/edit" />
 					<c:url var="deleteStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/delete" />
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_USER')">
-					<c:url var="standardTestUrl"	value="/myAccount/standardTest/${standardTest.id}" />
+					<%-- <c:url var="standardTestUrl"	value="/myAccount/standardTest/${standardTest.id}" /> --%>
 					<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/edit" />
 					<c:url var="deleteStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/delete" />
 				</sec:authorize>

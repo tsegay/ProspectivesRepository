@@ -85,22 +85,7 @@ public class StudentInstituteController {
 		return "institutes";
 	}
 	*/
-	@RequestMapping(value = "/myAccount/institutes", method = RequestMethod.POST)
-	public String postNewInstituteForm(@ModelAttribute @Valid Institute institute, BindingResult result) {
-
-		if (result.hasErrors()) {
-			return "newInstituteForm";
-		}
-
-
-		UserEntity userEntity = getUserEntityFromSecurityContext();
-		
-		institute.setUserEntity(userEntity);
-		institute.setCreatedBy(userEntity);
-		instituteService.createInstitute(institute);
-
-		return "redirect:/myAccount/educations";
-	}
+	
 	
 	// ======================================
 	// =                         =
@@ -117,15 +102,43 @@ public class StudentInstituteController {
 		return "newInstituteForm";
 	}
 	
-	@RequestMapping(value = "/myAccount/institute/{instituteId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/myAccount/institute/new", method = RequestMethod.POST)
+	public String postNewInstituteForm(@ModelAttribute @Valid Institute institute, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "newInstituteForm";
+		}
+
+
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		
+		institute.setUserEntity(userEntity);
+		institute.setCreatedBy(userEntity);
+		instituteService.createInstitute(institute);
+
+		return "redirect:/myAccount/educations";
+	}
+	
+	/*@RequestMapping(value = "/myAccount/institute/{instituteId}", method = RequestMethod.GET)
 	public String getInstitute(@PathVariable("instituteId") Long instituteId, Model model) {
 		
 		UserEntity userEntity = getUserEntityFromSecurityContext();		
 		model.addAttribute(getInstituteValidateUserEntityId(userEntity.getId(), instituteId));
 		return "institute";
+	}*/
+	
+	@RequestMapping(value = "/myAccount/institute/{instituteId}/edit", method = RequestMethod.GET)
+	public String editInstitute(@PathVariable("instituteId") Long instituteId, Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();	
+		Institute institute = getInstituteValidateUserEntityId(userEntity.getId(), instituteId);
+		
+		model.addAttribute("originalInstitute", institute);
+		model.addAttribute(institute);
+		
+		return "editInstitute";
 	}
 	
-	@RequestMapping(value = "/myAccount/institute/{instituteId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/myAccount/institute/{instituteId}/edit", method = RequestMethod.POST)
 	public String editInstitute(@PathVariable("instituteId") Long instituteId,
 			@ModelAttribute @Valid Institute origInstitute, 
 			BindingResult result,
@@ -167,23 +180,14 @@ public class StudentInstituteController {
 		return "redirect:/myAccount/educations";
 	}
 	
-	@RequestMapping(value = "/myAccount/institute/{instituteId}/edit", method = RequestMethod.GET)
-	public String editInstitute(@PathVariable("instituteId") Long instituteId, Model model) {
-		UserEntity userEntity = getUserEntityFromSecurityContext();	
-		Institute institute = getInstituteValidateUserEntityId(userEntity.getId(), instituteId);
-		
-		model.addAttribute("originalInstitute", institute);
-		model.addAttribute(institute);
-		
-		return "editInstitute";
-	}
+
 	
 	/*
 	 * Using a Modal to delete High School.
 	 * The delete form in the Modal calls this method
 	 */
 	@RequestMapping(value = "/myAccount/institute/{instituteId}/delete", method = RequestMethod.GET)
-	public String getDeleteHighSchool(@PathVariable("instituteId") Long instituteId, Model model) {
+	public String getDeleteInstitute(@PathVariable("instituteId") Long instituteId, Model model) {
 		
 		UserEntity userEntity = getUserEntityFromSecurityContext();	
 		Institute institute = getInstituteValidateUserEntityId(userEntity.getId(), instituteId);
