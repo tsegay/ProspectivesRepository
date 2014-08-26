@@ -126,7 +126,7 @@ public class AdminChecklistController {
 		return "newChecklistForm";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/checklists", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/checklist/new", method = RequestMethod.POST)
 	public String postNewChecklistForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Checklist checklist, BindingResult result, Model model) {
 		
@@ -153,7 +153,7 @@ public class AdminChecklistController {
 		return "redirect:/accounts/{userEntityId}/checklists";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/checklist/{checklistId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/accounts/{userEntityId}/checklist/{checklistId}/edit", method = RequestMethod.GET)
 	public String editChecklist(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("checklistId") Long checklistId, Model model) {
 		
@@ -175,7 +175,7 @@ public class AdminChecklistController {
 		return "editChecklist";
 	}
 	
-	@RequestMapping(value = "/accounts/{userEntityId}/checklist/{checklistId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/checklist/{checklistId}/edit", method = RequestMethod.POST)
 	public String editChecklist(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("checklistId") Long checklistId,
 			@ModelAttribute @Valid Checklist origChecklist, 

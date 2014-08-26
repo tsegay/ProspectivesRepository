@@ -32,20 +32,10 @@
 </c:if>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<!-- evaluationUrl name is already used. look up -->
-	<%-- <c:url var="evaluationUrl"	value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}" /> --%>
 	<c:url var="newEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/new" />
 	<c:url var="editEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/edit" />
-	<%-- <c:url var="deleteEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/delete" /> --%>
 	<c:url var="grantAdmisionUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/grantAdmision" />
 </sec:authorize>
-<!-- Delete this student doesn't have the evaluations page -->
-<%-- <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="evaluationUrl"	value="/myAccount/evaluation/${userEntity.evaluation.id}" />
-	<c:url var="newEvaluationUrl" value="/myAccount/evaluation/new" />
-	<c:url var="editEvaluationUrl" value="/myAccount/evaluation/${userEntity.evaluation.id}/edit" />
-	<c:url var="deleteEvaluationUrl" value="/myAccount/evaluation/${userEntity.evaluation.id}/delete" />
-</sec:authorize> --%>
 		
 <c:choose>
 	<c:when test="${empty evaluations}">

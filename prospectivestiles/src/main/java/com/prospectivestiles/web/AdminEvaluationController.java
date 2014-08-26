@@ -135,7 +135,7 @@ public class AdminEvaluationController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/accounts/{userEntityId}/evaluations", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/evaluation/new", method = RequestMethod.POST)
 	public String postNewEvaluationForm(@PathVariable("userEntityId") Long userEntityId,
 			@ModelAttribute @Valid Evaluation evaluation, BindingResult result, Model model) {
 		
@@ -197,7 +197,7 @@ public class AdminEvaluationController {
 		return "editEvaluation";
 	}
 
-	@RequestMapping(value = "/accounts/{userEntityId}/evaluation/{evaluationId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/accounts/{userEntityId}/evaluation/{evaluationId}/edit", method = RequestMethod.POST)
 	public String editEvaluation(@PathVariable("userEntityId") Long userEntityId,
 			@PathVariable("evaluationId") Long evaluationId,
 			@ModelAttribute @Valid Evaluation origEvaluation, 
@@ -343,44 +343,6 @@ public class AdminEvaluationController {
 		evaluationService.deleteEvaluation(getEvaluationValidateUserEntityId(userEntityId, evaluationId));
 		return "redirect:/accounts/{userEntityId}/evaluations";
 	}
-	
-	// ======================================
-	// =                        =
-	// ======================================
-	
-/*	@RequestMapping(value = "/accounts/admittedEvaluations", method = RequestMethod.GET)
-	public String getAdmittedEvaluations(Model model) {
-		
-		List<Evaluation> admittedEvaluations = evaluationService.findEvaluationsByStatus("admitted");
-		long admittedCount = evaluationService.countByStatus("admitted");
-		model.addAttribute("admittedEvaluations", admittedEvaluations);
-		model.addAttribute("admittedCount", admittedCount);
-		
-		return "admittedStudents";
-	}
-	
-	@RequestMapping(value = "/accounts/completeEvaluations", method = RequestMethod.GET)
-	public String getCompleteEvaluations(Model model) {
-		
-		List<Evaluation> completeEvaluations = evaluationService.findEvaluationsByStatus("complete");
-		long completeCount = evaluationService.countByStatus("complete");
-		model.addAttribute("completeEvaluations", completeEvaluations);
-		model.addAttribute("completeCount", completeCount);
-		
-		return "completeStudents";
-	}
-	
-	@RequestMapping(value = "/accounts/inprocessEvaluations", method = RequestMethod.GET)
-	public String getInProcessEvaluations(Model model) {
-		
-		List<Evaluation> inprocessEvaluations = evaluationService.findEvaluationsByStatus("inprocess");
-		long inprocessCount = evaluationService.countByStatus("inprocess");
-		model.addAttribute("inprocessEvaluations", inprocessEvaluations);
-		model.addAttribute("inprocessCount", inprocessCount);
-		
-		return "inprocessStudents";
-	}*/
-	
 	
 	// ======================================
 	// =                        =

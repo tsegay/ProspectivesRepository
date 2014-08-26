@@ -9,10 +9,9 @@
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="evaluationsUrl" value="/accounts/${userEntity.id}/evaluations" />
+	<c:url var="newEvaluationsUrl" value="/accounts/${userEntity.id}/evaluation/new" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="evaluationsUrl" value="/myAccount/evaluations" />
-</sec:authorize>
+
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<div class="well well-sm row">
@@ -37,7 +36,7 @@
 
 <h1>Evaluation Form</h1>
 
-<form:form action="${evaluationsUrl}" modelAttribute="evaluation"
+<form:form action="${newEvaluationsUrl}" modelAttribute="evaluation"
 	role="form" class="form-horizontal">
 
 	<div class="form-group row">

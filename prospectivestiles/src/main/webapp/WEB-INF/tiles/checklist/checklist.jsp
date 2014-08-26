@@ -32,17 +32,12 @@
 </c:if>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<!-- checklistUrl name is already used. look up -->
-	<%-- <c:url var="checklistUrl"	value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" /> --%>
 	<c:url var="newChecklistUrl" value="/accounts/${userEntity.id}/checklist/new" />
-	<c:url var="editChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" />
-	<%-- <c:url var="deleteChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}/delete" /> --%>
+	<c:url var="editChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}/edit" />
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
-	<%-- <c:url var="checklistUrl"	value="/myAccount/checklist/${userEntity.checklist.id}" /> --%>
 	<c:url var="newChecklistUrl" value="/myAccount/checklist/new" />
-	<c:url var="editChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}" />
-	<%-- <c:url var="deleteChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}/delete" /> --%>
+	<c:url var="editChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}/edit" />
 </sec:authorize>
 		
 <c:choose>

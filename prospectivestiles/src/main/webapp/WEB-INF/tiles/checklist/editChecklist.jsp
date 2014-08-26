@@ -9,12 +9,8 @@
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="checklistsUrl" value="/accounts/${checklist.userEntity.id}/checklists" />
-	<c:url var="editChecklistUrl" value="/accounts/${checklist.userEntity.id}/checklist/${checklist.id}" />
+	<c:url var="editChecklistUrl" value="/accounts/${checklist.userEntity.id}/checklist/${checklist.id}/edit" />
 </sec:authorize>
-<%-- <sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="evaluationsUrl" value="/myAccount/evaluations" />
-	<c:url var="editChecklistUrl" value="/myAccount/evaluation/${userEntity.id}" />
-</sec:authorize> --%>
 
 <h1>Edit Checklist</h1>
 

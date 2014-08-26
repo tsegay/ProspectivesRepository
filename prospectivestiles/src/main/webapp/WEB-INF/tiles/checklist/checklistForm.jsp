@@ -8,10 +8,8 @@
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<c:url var="checklistsUrl" value="/accounts/${userEntity.id}/checklists" />
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="checklistsUrl" value="/myAccount/checklists" />
+	<c:url var="checklistsUrl" value="/accounts/${checklist.userEntity.id}/checklists" />
+	<c:url var="newChecklistsUrl" value="/accounts/${userEntity.id}/checklist/new" />
 </sec:authorize>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -37,7 +35,7 @@
 
 <h1>Checklist Form</h1>
 
-<form:form action="${checklistsUrl}" modelAttribute="checklist"
+<form:form action="${newChecklistsUrl}" modelAttribute="checklist"
 	role="form" class="form-horizontal">
 
 		  	

@@ -6,20 +6,11 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<%-- <c:set var="user" value="${evaluation.userEntity}" /> --%>
-
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:url var="evaluationsUrl" value="/accounts/${userEntity.id}/evaluations" />
-	<c:url var="editEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${evaluation.id}" />
-	<c:url var="deleteEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${evaluation.id}/delete" />
+	<c:url var="editEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${evaluation.id}/edit" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
-	<c:url var="evaluationsUrl" value="/myAccount/evaluations" />
-	<c:url var="editEvaluationUrl"
-		value="/myAccount/evaluation/${evaluation.id}" />
-	<c:url var="deleteEvaluationUrl"
-		value="/myAccount/evaluation/${evaluation.id}/delete" />
-</sec:authorize>
+
 
 <h1>Edit Evaluation</h1>
 
