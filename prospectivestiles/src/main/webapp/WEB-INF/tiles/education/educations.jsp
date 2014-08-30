@@ -5,17 +5,17 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<c:url var="newHighSchoolUrl" value="/myAccount/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
 </sec:authorize>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
 	  		<img src="${pageContext.request.contextPath}/resources/images/placeholderImage_140x140.jpg" alt="Your Pic" class="img-rounded profileImg">
@@ -35,9 +35,11 @@
 
 <h1>HighSchool</h1>
 
-<h3>
-	<a href="${newHighSchoolUrl}">Add New High School</a>
-</h3>
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+	<h3>
+		<a href="${newHighSchoolUrl}">Add New High School</a>
+	</h3>
+</sec:authorize>
 	
 
 <c:if test="${param.deleted == true}">
@@ -72,12 +74,12 @@
 	
 				<c:forEach var="highSchool" items="${highSchools}">
 				
-				 <sec:authorize access="hasRole('ROLE_ADMIN')">
+				 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 					<%-- <c:url var="highSchoolUrl"	value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}" /> --%>
 					<c:url var="editHighSchoolUrl" value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}/edit" />
 					<c:url var="deleteHighSchoolUrl" value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}/delete" />
 				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_USER')">
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 					<%-- <c:url var="highSchoolUrl"	value="/myAccount/highSchool/${highSchool.id}" /> --%>
 					<c:url var="editHighSchoolUrl" value="/myAccount/highSchool/${highSchool.id}/edit" />
 					<c:url var="deleteHighSchoolUrl" value="/myAccount/highSchool/${highSchool.id}/delete" />
@@ -94,12 +96,16 @@
 					<td><c:out value="${highSchool.diplome}"></c:out></td>
 					<td><c:out value="${highSchool.gED}"></c:out></td>
 					<td>
-						<a href="${editHighSchoolUrl}">Edit</a>
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+							<a href="${editHighSchoolUrl}">Edit</a>
+						</sec:authorize>
 					</td>
 					<td>
 						<!-- Button trigger modal -->
-						<a data-toggle="modal" data-remote="${deleteHighSchoolUrl}" data-target="#deleteHighSchoolModal" 
-							class="btn btn-danger btn-sm">Delete</a><br><br>
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+							<a data-toggle="modal" data-remote="${deleteHighSchoolUrl}" data-target="#deleteHighSchoolModal" 
+								class="btn btn-danger btn-sm">Delete</a><br><br>
+						</sec:authorize>
 							
 						<!-- delete address Modal -->
 						<div class="modal fade" id="deleteHighSchoolModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -126,10 +132,11 @@
 
 
 <h1>Institute</h1>
-<h3>
-	<a href="${newInstituteUrl}">Add New Institute</a>
-</h3>
-	
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+	<h3>
+		<a href="${newInstituteUrl}">Add New Institute</a>
+	</h3>
+</sec:authorize>
 
 
 <c:choose>
@@ -161,12 +168,12 @@
 	
 				<c:forEach var="institute" items="${institutes}">
 				
-				 <sec:authorize access="hasRole('ROLE_ADMIN')">
+				 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 					<%-- <c:url var="instituteUrl"	value="/accounts/${institute.userEntity.id}/institute/${institute.id}" /> --%>
 					<c:url var="editInstituteUrl" value="/accounts/${institute.userEntity.id}/institute/${institute.id}/edit" />
 					<c:url var="deleteInstituteUrl" value="/accounts/${institute.userEntity.id}/institute/${institute.id}/delete" />
 				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_USER')">
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 					<%-- <c:url var="instituteUrl"	value="/myAccount/institute/${institute.id}" /> --%>
 					<c:url var="editInstituteUrl" value="/myAccount/institute/${institute.id}/edit" />
 					<c:url var="deleteInstituteUrl" value="/myAccount/institute/${institute.id}/delete" />
@@ -183,12 +190,16 @@
 						<td><c:out value="${institute.state}"></c:out></td>
 						<td><c:out value="${institute.country}"></c:out></td>
 						<td>
-							<a href="${editInstituteUrl}">Edit</a>
+							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+								<a href="${editInstituteUrl}">Edit</a>
+							</sec:authorize>
 						</td>
 						<td>
 							<!-- Button trigger modal -->
-							<a data-toggle="modal" data-remote="${deleteInstituteUrl}" data-target="#deleteInstituteModal" 
-								class="btn btn-danger btn-sm">Delete</a><br><br>
+							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+								<a data-toggle="modal" data-remote="${deleteInstituteUrl}" data-target="#deleteInstituteModal" 
+									class="btn btn-danger btn-sm">Delete</a><br><br>
+							</sec:authorize>
 								
 							<!-- delete address Modal -->
 							<div class="modal fade" id="deleteInstituteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

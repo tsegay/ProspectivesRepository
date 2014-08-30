@@ -118,8 +118,8 @@ public class StudentApplyingForController {
 		 * I need to use JDBC to insert data to tables
 		 */
 		
-		userEntityService.insertTerm(userEntity.getId(), origUserEntity.getTerm().getId());
-		userEntityService.insertProgramOfStudy(userEntity.getId(), origUserEntity.getProgramOfStudy().getId());
+		userEntityService.updateTerm(userEntity.getId(), origUserEntity.getTerm().getId());
+		userEntityService.updateProgramOfStudy(userEntity.getId(), origUserEntity.getProgramOfStudy().getId());
 		
 		
 		

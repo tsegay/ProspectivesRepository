@@ -7,7 +7,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="checklistsUrl" value="/accounts/${checklist.userEntity.id}/checklists" />
 	<c:url var="editChecklistUrl" value="/accounts/${checklist.userEntity.id}/checklist/${checklist.id}/edit" />
 </sec:authorize>

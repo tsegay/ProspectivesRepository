@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="myAccount" value="/accounts/${userEntity.id}" />
 	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
 	<c:url var="addressUrl" value="/accounts/${userEntity.id}/addresses" />
@@ -22,7 +22,7 @@
 	<c:url var="reviewUrl" value="/accounts/${userEntity.id}/studentAgreements" />
 	<c:url var="messagesUrl" value="/accounts/${userEntity.id}/messages" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')">
 	<c:url var="myAccount" value='/myAccount'/>
 	<c:url var="educationUrl" value="/myAccount/educations" />
 	<c:url var="addressUrl" value="/myAccount/addresses" />
@@ -69,7 +69,7 @@
 				<a href="${reviewUrl}">Review & Accept</a>
 			</li>
 		</sec:authorize>
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 		
 			<li id="checklist-li">
 				<a href="${checklistUrl}">Checklist</a>
@@ -80,7 +80,6 @@
 			<li id="reports-li" class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Reports<span class="caret"></span></a>
 			  <ul class="dropdown-menu">
-			    <%-- <li id="reports-reports-li"><a href="${reportsUrl}">Reports</a></li> --%>
 			    <li id="reports-applicationForm-li"><a href="${applicationFormUrl}" target="_blank">Application Form</a></li>
 			    <li id="reports-missing-li"><a href="${missingDocumentsUrl}">Missing Documents</a></li>
 			    <li id="reports-evaluation-li"><a href="${evaluationReportUrl}">Evaluation Report</a></li>

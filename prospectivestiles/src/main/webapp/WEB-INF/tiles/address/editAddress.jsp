@@ -10,13 +10,13 @@
 <c:set var="user" value="${address.userEntity}" />
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="accountsUrl" value="/accounts/${userEntity.id}" />
 	<%-- <c:url var="addressesUrl" value="/accounts/${user.id}/addresses" /> --%>
 	<c:url var="editAddressUrl" value="/accounts/${user.id}/address/${address.id}/edit" />
 	<c:url var="deleteAddressUrl" value="/accounts/${user.id}/address/${address.id}/delete" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<c:url var="accountsUrl" value="/myAccount" />
 	<%-- <c:url var="addressesUrl" value="/myAccount/addresses" /> --%>
 	<c:url var="editAddressUrl" value="/myAccount/address/${address.id}/edit" />
@@ -24,7 +24,7 @@
 </sec:authorize>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
 	  		<img src="${pageContext.request.contextPath}/resources/images/placeholderImage_140x140.jpg" alt="Your Pic" class="img-rounded profileImg">

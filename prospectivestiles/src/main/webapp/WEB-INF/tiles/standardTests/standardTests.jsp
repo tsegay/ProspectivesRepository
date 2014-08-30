@@ -6,7 +6,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
 	  		<img src="${pageContext.request.contextPath}/resources/images/placeholderImage_140x140.jpg" alt="Your Pic" class="img-rounded profileImg">
@@ -53,12 +53,12 @@
 	
 				<c:forEach var="standardTest" items="${standardTests}">
 				
-				 <sec:authorize access="hasRole('ROLE_ADMIN')">
+				 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 					<%-- <c:url var="standardTestUrl"	value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}" /> --%>
 					<c:url var="editStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/edit" />
 					<c:url var="deleteStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/delete" />
 				</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_USER')">
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 					<%-- <c:url var="standardTestUrl"	value="/myAccount/standardTest/${standardTest.id}" /> --%>
 					<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/edit" />
 					<c:url var="deleteStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/delete" />
@@ -76,13 +76,17 @@
 					<%-- <c:out value="${standardTest.validTill}"></c:out> --%>
 					</td>
 					<td>
-						<a href="${editStandardTestUrl}" class="btn btn-primary btn-md">Edit</a>
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+							<a href="${editStandardTestUrl}" class="btn btn-primary btn-md">Edit</a>
+						</sec:authorize>
 					</td>
 					<td>
 						<!-- Button trigger modal -->
-						<a data-toggle="modal" data-remote="${deleteStandardTestUrl}" data-target="#deleteStandardTestModal" 
-							class="btn btn-danger btn-sm">Delete</a><br><br>
-							
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+							<a data-toggle="modal" data-remote="${deleteStandardTestUrl}" data-target="#deleteStandardTestModal" 
+								class="btn btn-danger btn-sm">Delete</a><br><br>
+						</sec:authorize>
+						
 						<!-- delete address Modal -->
 						<div class="modal fade" id="deleteStandardTestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						  <div class="modal-dialog">
@@ -105,16 +109,18 @@
 	</c:otherwise>
 </c:choose>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="newStandardTestUrl" value="/accounts/${userEntity.id}/standardTest/new" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<c:url var="newStandardTestUrl" value="/myAccount/standardTest/new" />
 </sec:authorize>
-			
-<h3>
-	<a href="${newStandardTestUrl}">Add New Standard Test</a>
-</h3>
+		
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">	
+	<h3>
+		<a href="${newStandardTestUrl}">Add New Standard Test</a>
+	</h3>
+</sec:authorize>
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -168,12 +168,12 @@ public class AdminEvaluationController {
 			/**
 			 * If all evaluation items are valid or notrequired change accountState to "COMPLETE"
 			 */
-			userEntityService.insertAccountState(userEntityId, "complete");
+			userEntityService.updateAccountState(userEntityId, "complete");
 		} else {
 			/**
 			 * If all evaluation items are not valid or notrequired make accountState to "INPROCESS"
 			 */
-			userEntityService.insertAccountState(userEntityId, "inprocess");
+			userEntityService.updateAccountState(userEntityId, "inprocess");
 		}
 		
 		evaluationService.createEvaluation(evaluation);
@@ -281,12 +281,12 @@ public class AdminEvaluationController {
 				/**
 				 * If all evaluation items are valid or notrequired change accountState to "COMPLETE"
 				 */
-				userEntityService.insertAccountState(userEntityId, "complete");
+				userEntityService.updateAccountState(userEntityId, "complete");
 			} else {
 				/**
 				 * If all evaluation items are not valid or notrequired make accountState to "INPROCESS"
 				 */
-				userEntityService.insertAccountState(userEntityId, "inprocess");
+				userEntityService.updateAccountState(userEntityId, "inprocess");
 			}
 		
 		}
@@ -324,7 +324,7 @@ public class AdminEvaluationController {
 		/**
 		 * When a student is admitted change accountState to "ADMITTED"
 		 */
-		userEntityService.insertAccountState(userEntityId, "admitted");
+		userEntityService.updateAccountState(userEntityId, "admitted");
 		evaluationService.updateEvaluation(evaluation);
 		
 		

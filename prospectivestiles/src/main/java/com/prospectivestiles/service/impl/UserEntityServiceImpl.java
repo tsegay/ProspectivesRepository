@@ -48,7 +48,8 @@ public class UserEntityServiceImpl implements UserEntityService {
 		
 		if (valid) {
 			Set<Role> roles = new HashSet<Role>();
-			roles.add(roleDao.findByName("ROLE_USER"));
+			roles.add(roleDao.findByName("ROLE_STUDENT_PENDING"));
+//			roles.add(roleDao.findByName("ROLE_USER"));
 			userEntity.setRoles(roles);
 			userEntityDao.createUserEntity(userEntity);
 			/*
@@ -175,20 +176,20 @@ public class UserEntityServiceImpl implements UserEntityService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public void insertTerm(long userEntityId, long termId) {
-		userEntityDao.insertTerm(userEntityId, termId);
+	public void updateTerm(long userEntityId, long termId) {
+		userEntityDao.updateTerm(userEntityId, termId);
 	}
 
 	@Override
 	@Transactional(readOnly = false)
-	public void insertProgramOfStudy(long userEntityId, long programOfStudyId) {
-		userEntityDao.insertProgramOfStudy(userEntityId, programOfStudyId);
+	public void updateProgramOfStudy(long userEntityId, long programOfStudyId) {
+		userEntityDao.updateProgramOfStudy(userEntityId, programOfStudyId);
 	}
 
 	@Override
 	@Transactional(readOnly = false)
-	public void insertAccountState(long userEntityId, String accountState) {
-		userEntityDao.insertAccountState(userEntityId, accountState);
+	public void updateAccountState(long userEntityId, String accountState) {
+		userEntityDao.updateAccountState(userEntityId, accountState);
 		
 	}
 	
@@ -267,6 +268,12 @@ public class UserEntityServiceImpl implements UserEntityService {
 	@Override
 	public List<UserEntity> findByEmail(String email) {
 		return userEntityDao.findByEmail(email);
+	}
+
+
+	@Override
+	public long countByRoles(List<Long> rolesList) {
+		return userEntityDao.countByRoles(rolesList);
 	}
 
 	

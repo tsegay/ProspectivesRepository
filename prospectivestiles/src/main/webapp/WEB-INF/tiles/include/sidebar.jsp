@@ -18,15 +18,15 @@
 	
 			<li class="list-group-item active"><a href="<c:url value='/welcome'/>">Home</a></li>
 			<sec:authorize access="!isAuthenticated()">
-				<li class="list-group-item"><a href="<c:url value='/registrationform'/>">Register</a></li>
+				<li class="list-group-item"><a href="<c:url value='/registrationform'/>">SignUp</a></li>
 			</sec:authorize>
-			<sec:authorize access="isAuthenticated()">
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')">
 				<li class="list-group-item"><a href="<c:url value='/myAccount'/>">MyAccount</a></li>
 			</sec:authorize>
 			
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 				<li class="list-group-item"><a href="<c:url value='/accounts/notification'/>">Notifications</a></li>
-				<li class="list-group-item"><a href="<c:url value='/registrationform'/>">Register New Applicant</a></li>
+				<li class="list-group-item"><a href="<c:url value='/registrationform'/>">SignUp New Applicant</a></li>
 				<li class="list-group-item"><a href="<c:url value='/accounts'/>">All Accounts</a></li>
 				<%-- <li class="list-group-item"><a href="<c:url value='/adminpage'/>">Admin</a></li> --%>
 				<%-- <li class="list-group-item"><a href="<c:url value='/accounts/accounts/1'/>">All Accounts</a></li> --%>
@@ -37,10 +37,12 @@
 				<li class="list-group-item"><a href="<c:url value='/accounts/inprocessStudents'/>">In process</a></li>
 				<li class="list-group-item"><a href="<c:url value='/accounts/completeStudents'/>">Complete</a></li>
 				<li class="list-group-item"><a href="<c:url value='/accounts/admittedStudents'/>">Admitted</a></li>
-				
-				
 			</sec:authorize>
 			
+			<sec:authorize access="isAuthenticated()">
+				<li class="list-group-item"><a href="<c:url value='#'/>">Enrollment Agreement</a></li>
+				<li class="list-group-item"><a href="<c:url value='#'/>">Grievance Policy</a></li>
+			</sec:authorize>
 			
 		</ul>
 	</div>

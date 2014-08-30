@@ -60,17 +60,9 @@ public class UserEntityController {
 			@ModelAttribute("userEntity") @Valid UserEntity form,
 			BindingResult result) {
 		
-//		System.out.println("######## postRegistrationForm() Called #####");
 		log.debug("####### debug creating an account");
 		log.info("######## info creating an account");
 		
-//		System.out.println("######## getFirstName: " + form.getFirstName());
-//		System.out.println("######## getLastName: " + form.getLastName());
-//		System.out.println("######## getEmail: " + form.getEmail());
-//		System.out.println("######## getUsername: " + form.getUsername());
-//		System.out.println("######## getPassword: " + form.getPassword());
-//		System.out.println("######## isMarketingOk: " + form.isMarketingOk());
-//		System.out.println("######## getAcceptTerms: " + form.getAcceptTerms());
 		
 		String password = form.getPassword();
 		/**
@@ -102,9 +94,6 @@ public class UserEntityController {
 					Authentication authResult = authMgr.authenticate(authRequest);
 					SecurityContextHolder.getContext().setAuthentication(authResult);
 					
-//					if (authRequest != null) {
-//						System.out.println("######## authREquest: " + authRequest.toString());
-//					}
 //					if (authResult == null) {
 //						System.out.println("######## authResult is null");
 //					} else {

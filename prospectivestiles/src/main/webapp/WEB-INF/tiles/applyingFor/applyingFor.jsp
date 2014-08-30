@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
 	  		<img src="${pageContext.request.contextPath}/resources/images/placeholderImage_140x140.jpg" alt="Your Pic" class="img-rounded profileImg">
@@ -39,9 +39,12 @@ insert the term and program of study to the userEntity using jdbc
 		
 		<!-- Button trigger modal -->
 		<p>Select term and program of study you are applying for:</p> <br />
-		<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#addTermModal">
-		  Select
-		</button>
+		
+		<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+			<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#addTermModal">
+			  Select
+			</button>
+		</sec:authorize>
 
 	</c:when>
 	<c:otherwise>
@@ -64,9 +67,11 @@ insert the term and program of study to the userEntity using jdbc
 		
 		<div class="row">
 			<div class="col-md-2">
-				<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTermModal">
-				  Edit
-				</button>
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+					<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTermModal">
+					  Edit
+					</button>
+				</sec:authorize>
 			</div>
 		</div>
 		

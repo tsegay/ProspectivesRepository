@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
 	  		<img src="${pageContext.request.contextPath}/resources/images/placeholderImage_140x140.jpg" alt="Your Pic" class="img-rounded profileImg">
@@ -24,10 +24,10 @@
 </sec:authorize>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="saveFileUrl" value="/accounts/${userEntity.id}/saveFile" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<c:url var="saveFileUrl" value="/myAccount/saveFile" />
 </sec:authorize>
 			
@@ -78,11 +78,11 @@
 		    <c:forEach items="${files}" var="file">
 		    
 		    
-		    <sec:authorize access="hasRole('ROLE_ADMIN')">
+		    <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 				<c:url var="donwloadFileUrl" value="/accounts/${userEntity.id}/files/${file.id}" />
 		    	<c:url var="deleteFileUrl" value="/accounts/${userEntity.id}/files/${file.id}/delete" />
 			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_USER')">
+			<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 				<c:url var="donwloadFileUrl" value="/myAccount/files/${file.id}" />
 		    	<c:url var="deleteFileUrl" value="/myAccount/files/${file.id}/delete" />
 			</sec:authorize>
@@ -94,8 +94,10 @@
 		         	<span class="col-md-1"></span>
 		         	
 		         	<!-- Button trigger modal -->
-					<a data-toggle="modal" data-remote="${deleteFileUrl}" data-target="#deleteFileModal" 
-						class="btn btn-danger btn-sm col-md-1 neg-12-margin-top">Delete</a><br><br>
+		         	<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+						<a data-toggle="modal" data-remote="${deleteFileUrl}" data-target="#deleteFileModal" 
+							class="btn btn-danger btn-sm col-md-1 neg-12-margin-top">Delete</a><br><br>
+					</sec:authorize>
 						
 					<!-- delete address Modal -->
 					<div class="modal fade" id="deleteFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

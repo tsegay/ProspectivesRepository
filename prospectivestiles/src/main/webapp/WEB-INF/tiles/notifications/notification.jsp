@@ -30,11 +30,11 @@
 
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="getNotificationsUrl" value="/accounts/notifications" />
 	<c:url var="markReadcUrl" value="/accounts/notifications/markRead" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 
 </sec:authorize>
 

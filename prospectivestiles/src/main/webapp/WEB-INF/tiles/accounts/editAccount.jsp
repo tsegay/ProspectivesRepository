@@ -7,12 +7,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="accountsUrl" value="/accounts/${userEntity.id}" />
 	<c:url var="editAccountUrl" value="/accounts/${userEntity.id}/edit" />
 	<c:url var="deleteAccountUrl" value="" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<%-- <c:url var="accountsUrl" value="/myAccount/accounts" /> --%>
 	<%-- <c:url var="editAccountUrl" value="/myAccount/account/${userEntity.id}" /> --%>
 	<c:url var="deleteAccountUrl" value="" />

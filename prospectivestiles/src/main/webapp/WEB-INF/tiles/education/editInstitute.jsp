@@ -12,16 +12,16 @@
 <%-- <c:url var="adminInstituteFormUrl" value="/accounts/${user.id}/institute" /> --%>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="editInstituteFormUrl" value="/accounts/${user.id}/institute/${institute.id}/edit" />
 	<c:url var="myEducationUrl" value="/accounts/${user.id}/educations" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<c:url var="editInstituteFormUrl" value="/myAccount/institute/${institute.id}/edit" />
 	<c:url var="myEducationUrl" value="/myAccount/educations" />
 </sec:authorize>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
 	  		<img src="${pageContext.request.contextPath}/resources/images/placeholderImage_140x140.jpg" alt="Your Pic" class="img-rounded profileImg">

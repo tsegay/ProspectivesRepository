@@ -7,7 +7,7 @@
 <spring:message var="registerLabel" code="account.label.register" />
 <c:url var="homeUrl" value="/welcome" />
 
-<h1>Registration form</h1>
+<h1>SignUp</h1>
 
 <!-- ########################################## -->
 

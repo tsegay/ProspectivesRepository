@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.management.relation.RoleList;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -40,11 +41,11 @@ import com.prospectivestiles.domain.UserEntity;
 public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements UserEntityDao {
 	
 	private static final Logger log = LoggerFactory.getLogger(HbnUserEntityDao.class);
-	private static final String INSERT_TERM_SQL =
+	private static final String UPDATE_TERM_SQL =
 			"update userEntity set term_id = ? where id = ?";
-	private static final String INSERT_PROGRAMOFSTUDY_SQL =
+	private static final String UPDATE_PROGRAMOFSTUDY_SQL =
 			"update userEntity set programOfStudy_id = ? where id = ?";
-	private static final String INSERT_ACCOUNTSTATE_SQL =
+	private static final String UPDATE_ACCOUNTSTATE_SQL =
 			"update userEntity set accountState = ? where id = ?";
 	private static final String UPDATE_USERENTITY_SQL = 
 			"update userEntity set first_name = ?, last_name = ?, middle_name = ?, email = ?, homePhone = ?, cellPhone = ?, dob = ?, gender = ?, citizenship = ?, ethnicity = ?, ssn = ?, sevisNumber = ?, transferee = ?, heardAboutAcctThru = ? where id = ?";
@@ -118,19 +119,19 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	}
 
 	@Override
-	public void insertTerm(long userEntityId, long termId) {
-		jdbcTemplate.update(INSERT_TERM_SQL, termId, userEntityId);
+	public void updateTerm(long userEntityId, long termId) {
+		jdbcTemplate.update(UPDATE_TERM_SQL, termId, userEntityId);
 				
 	}
 
 	@Override
-	public void insertProgramOfStudy(long userEntityId, long programOfStudyId) {
-		jdbcTemplate.update(INSERT_PROGRAMOFSTUDY_SQL, programOfStudyId, userEntityId);
+	public void updateProgramOfStudy(long userEntityId, long programOfStudyId) {
+		jdbcTemplate.update(UPDATE_PROGRAMOFSTUDY_SQL, programOfStudyId, userEntityId);
 	}
 	
 	@Override
-	public void insertAccountState(long userEntityId, String accountState) {
-		jdbcTemplate.update(INSERT_ACCOUNTSTATE_SQL, accountState, userEntityId);
+	public void updateAccountState(long userEntityId, String accountState) {
+		jdbcTemplate.update(UPDATE_ACCOUNTSTATE_SQL, accountState, userEntityId);
 		
 	}
 	
@@ -168,11 +169,13 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	@Override
 	public List<UserEntity> findAll(int page, int pageSize) {
 		
-//		String hql = "FROM UserEntity u ORDER BY u.lastName ASC";
-		/*I want to get all students only, not admin users*/
-		String hql = "SELECT u FROM UserEntity u INNER JOIN u.roles r WHERE r.id = 1 ORDER BY u.lastName ASC";
+		/**
+		 * I want to get all students with the status below only, not admin users
+		 * 6 - ROLE_STUDENT_PENDING, 7 - ROLE_STUDENT_INPROCESS, 8 - ROLE_STUDENT_COMPLETE, 9 - ROLE_STUDENT_ADMITTED
+		 */
+		String hql = "SELECT u FROM UserEntity u INNER JOIN u.roles r WHERE r.id = 6 OR r.id = 7 OR r.id = 8 OR r.id = 9 ORDER BY u.lastName ASC";
 		Query query = getSession().createQuery(hql);
-		// setFirst shoulb be set with the index of the first element in the page, 
+		// setFirst should be set with the index of the first element in the page, 
 		// something like page * pageSize
 		query.setFirstResult((page - 1) * pageSize);
 		query.setMaxResults(pageSize);
@@ -245,6 +248,40 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 			.setParameter("roleID", roleID)
 			.uniqueResult();
 	}
+	
+	/**
+	 * To get the count of users based on their roles. 
+	 * Eg. all student with role ROLE_STUDENT_PENDING, ROLE_STUDENT_INPROCESS etc
+	 * 
+	 * CHECK IF PASSED PARAMA IS NOT NULL
+	 * @param rolesList
+	 * @return
+	 */
+	@Override
+	public long countByRoles(List<Long> rolesList) {
+		
+		String query = "SELECT count(*) FROM UserEntity u INNER JOIN u.roles r WHERE";
+		
+		for (int i = 0; i < rolesList.size(); i++) {
+			if (i == rolesList.size() - 1) {
+				query = query + " r.id = :roleID" + i;
+			} else {
+				query = query + " r.id = :roleID" + i + " OR";
+			}
+		}
+		
+		query = query + " ORDER BY u.lastName ASC";
+		
+		Query q = getSession().createQuery(query);
+		for (int i = 0; i < rolesList.size(); i++) {
+			q.setParameter("roleID"+i, rolesList.get(i));
+		}
+		
+		return (long) q.uniqueResult();
+		
+	}
+	
+	
 
 	/**
 	 * To find if a user is an admin

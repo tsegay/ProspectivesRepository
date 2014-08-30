@@ -36,16 +36,16 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	String getPasswordByUsername(String username);
 	
 	
-	void insertTerm(long userEntityId, long termId);
+	void updateTerm(long userEntityId, long termId);
 	
-	void insertProgramOfStudy(long userEntityId, long programOfStudyId);
+	void updateProgramOfStudy(long userEntityId, long programOfStudyId);
 	/**
 	 * Using JDBC to update userEntity
 	 * @param userEntityId
 	 * @param userEntity
 	 */
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
-	void insertAccountState(long userEntityId, String accountState);
+	void updateAccountState(long userEntityId, String accountState);
 //	void insertAccountState(long userEntityId, AccountState accountState);
 	void updatePassword(long userEntityId, String password);
 	
@@ -64,6 +64,7 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	 * To count all students or admins
 	 */
 	long countByRole(long roleID);
+	long countByRoles(List<Long> rolesList);
 
 	
 }

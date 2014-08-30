@@ -77,18 +77,19 @@
 
 						<li><a href="<c:url value='/welcome'/>">Home</a></li>
 						<sec:authorize access="!isAuthenticated()">
-							<li><a href="<c:url value='/registrationform'/>">Register</a></li>
+							<li><a href="<c:url value='/registrationform'/>">SingUp</a></li>
 						</sec:authorize>
-						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<li><a href="<c:url value='/registrationform'/>">Register</a></li>
+						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+							<li><a href="<c:url value='/registrationform'/>">SignUp New Applicant</a></li>
 						</sec:authorize>
-						<sec:authorize access="isAuthenticated()">
+						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')">
 							<li><a href="<c:url value='/myAccount'/>">MyAccount</a></li>
 						</sec:authorize>
-						<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 							<li><a href="<c:url value='/accounts/notification'/>">Notifications</a></li>
 						</sec:authorize>
 						<!-- <li><a href="#">Blog</a></li> -->
+						<li><a href="http://www.acct2day.org/" target="_blank">ACCT Website</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Social Media <b class="caret"></b></a>
 							<ul class="dropdown-menu">
@@ -97,7 +98,6 @@
 								<li><a href="#">Google+</a></li>
 								<li><a href="#">Instagram</a></li>
 							</ul></li>
-						<!-- <li><a href="#">About</a></li> -->
 						<!-- <li><a href="#">Contact</a></li> -->
 
 					</ul>

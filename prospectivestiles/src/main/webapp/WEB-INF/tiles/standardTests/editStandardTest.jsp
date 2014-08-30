@@ -9,12 +9,12 @@
 <c:set var="user" value="${standardTest.userEntity}" />
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="standardTestsUrl" value="/accounts/${user.id}/standardTests" />
 	<c:url var="editStandardTestUrl" value="/accounts/${user.id}/standardTest/${standardTest.id}/edit" />
 	<c:url var="deleteStandardTestUrl" value="/accounts/${user.id}/standardTest/${standardTest.id}/delete" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
 	<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/edit" />
 	<c:url var="deleteStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/delete" />

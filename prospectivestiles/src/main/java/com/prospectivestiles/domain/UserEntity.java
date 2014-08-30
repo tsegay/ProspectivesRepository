@@ -106,6 +106,9 @@ public class UserEntity implements UserDetails {
 	private String heardAboutAcctThru;
 	private String accountState;
 	
+	/**
+	 * CHANGE THIS TO ONE-TO-ONE.
+	 */
 	private Set<Role> roles = new HashSet<Role>();
 	
 	@JsonIgnore

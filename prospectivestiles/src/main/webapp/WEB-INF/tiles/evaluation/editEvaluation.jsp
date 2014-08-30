@@ -6,7 +6,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="evaluationsUrl" value="/accounts/${userEntity.id}/evaluations" />
 	<c:url var="editEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${evaluation.id}/edit" />
 </sec:authorize>

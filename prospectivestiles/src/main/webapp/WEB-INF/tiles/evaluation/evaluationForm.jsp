@@ -7,13 +7,13 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="evaluationsUrl" value="/accounts/${userEntity.id}/evaluations" />
 	<c:url var="newEvaluationsUrl" value="/accounts/${userEntity.id}/evaluation/new" />
 </sec:authorize>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
 			<img

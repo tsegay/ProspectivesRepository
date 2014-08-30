@@ -33,7 +33,7 @@
 		
 		<div class="form-group">
 			<input type="submit" class="btn btn-default" value="Log in" />
-			<a class="btn btn-danger btn-sm" href="<c:url value='/registrationform'/>">Register</a>
+			<a class="btn btn-danger btn-sm" href="<c:url value='/registrationform'/>">SignUp</a>
 			<a href="<c:url value='/resetPasswordRequest'/>">Lost your password?</a>
 		</div>
 	</form>

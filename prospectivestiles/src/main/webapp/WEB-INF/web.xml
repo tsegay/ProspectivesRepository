@@ -15,6 +15,11 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list> -->
 	
+	<!-- <error-page>
+	    <error-code>404</error-code>
+	    <location>/abc.jsp</location>
+	</error-page> -->
+	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -83,10 +88,10 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<session-config>
+	<!-- <session-config>
 		<session-timeout>2</session-timeout>
 		
-	</session-config>
+	</session-config> -->
 	
 	<!-- ###### for primefaces -->
 	

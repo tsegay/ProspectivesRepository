@@ -28,9 +28,9 @@ public interface UserEntityService {
 	
 	void updateUserEntity(UserEntity userEntity);
 	void delete(UserEntity userEntity);
-	void insertTerm(long userEntityId, long termId);
-	void insertProgramOfStudy(long userEntityId, long programOfStudyId);
-	void insertAccountState(long userEntityId, String accountState);
+	void updateTerm(long userEntityId, long termId);
+	void updateProgramOfStudy(long userEntityId, long programOfStudyId);
+	void updateAccountState(long userEntityId, String accountState);
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
 	void updatePassword(long userEntityId, String password);
 
@@ -45,6 +45,7 @@ public interface UserEntityService {
 	 * To count all students or admins
 	 */
 	long countByRole(long roleID);
+	long countByRoles(List<Long> rolesList);
 	boolean hasRoleAdmin(long userEntityId);
 	
 	List<UserEntity> findUserEntitiesByAccountState(String accountState);

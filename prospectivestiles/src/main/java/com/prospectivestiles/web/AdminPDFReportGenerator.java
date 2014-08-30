@@ -229,12 +229,18 @@ public class AdminPDFReportGenerator {
 			table.addCell(cell);
 			
 			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Country of Birth: ", normalFont));
+			cell = new PdfPCell(new Phrase("Student Status: ", normalFont));
 			cell.setBorder(Rectangle.NO_BORDER);
 			table.addCell(cell);
 			
 			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getCountryOfBirth(), normalFont));
+			String studentStatus;
+			if (userEntityService.getUserEntity(userEntityId).isInternational()) {
+				studentStatus = "International";
+			} else {
+				studentStatus = "Domestic";
+			}
+			cell = new PdfPCell(new Phrase(studentStatus, normalFont));
 			cell.setBorder(Rectangle.NO_BORDER);
 			table.addCell(cell);
 			
@@ -454,7 +460,9 @@ public class AdminPDFReportGenerator {
 			
 			String dateAdmittedString = new String("");
 			SimpleDateFormat formatDateAdmitted = new SimpleDateFormat("MM-dd-YYYY");
-			dateAdmittedString = formatDateAdmitted.format(eval.getDateAdmitted());
+			if (eval.getDateAdmitted() != null) {
+				dateAdmittedString = formatDateAdmitted.format(eval.getDateAdmitted());
+			} 
 			
 			paragraph.add(new Phrase("Admitted on: ", normalBoldFont));
 			paragraph.add(new Phrase(dateAdmittedString, normalUnderline));
@@ -762,6 +770,7 @@ public class AdminPDFReportGenerator {
 				paragraph.add(new Chunk(" XXXXXXXXXXX "));
 			}
 			paragraph.add(startDateString);
+			paragraph.add(".");
 			document.add(paragraph);
 			
 			paragraph = new Paragraph();

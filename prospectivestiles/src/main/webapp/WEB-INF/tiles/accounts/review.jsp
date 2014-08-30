@@ -6,10 +6,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="getApplicationForm" value="/admin/report/${userEntity.id}/applicationForm" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<c:url var="certifyInfoProvidedUrl"	value="/myAccount/certifyInfoProvided" />
 	<c:url var="getApplicationForm" value="/myAccount/report/applicationForm" />
 </sec:authorize>
@@ -331,7 +331,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 		<p>
 		By typing your full name and clicking on "Submit" in the box below you agree to the statement above.
 		</p>
-	<sec:authorize access="hasRole('ROLE_USER')">
+	<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 		
 		<form:form action="${certifyInfoProvidedUrl}" modelAttribute="studentAgreement" role="form" class="form-horizontal">
 		
@@ -366,49 +366,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 </c:if>
 
 
-
-<%-- <c:choose>
-	<c:when test="${empty studentAgreement}">
-		<p>
-		I certify the information provided in this application is true and accurate to the best of my knowledge. 
-		</p>
-		<p>
-		By typing your full name and clicking on "Submit" in the box below you agree to the statement above.
-		</p>
-		
-		<form:form action="${certifyInfoProvidedUrl}" modelAttribute="studentAgreement" role="form" class="form-horizontal">
-		
-			<div class="form-group row">
-				<label for="signature" class="col-sm-2 control-label">
-					<spring:message code="studentAgreement.label.signature" />
-					<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
-				</label>
-				<div class="col-sm-5">
-					<form:input class="form-control" path="signature" />
-				</div>
-				<div class="col-sm-5">
-					<form:errors class="errormsg" path="signature" htmlEscape="false" />
-				</div>
-			</div>
-		
-			<div class="form-group">
-				<label for="" class="col-sm-2 control-label">&nbsp;</label>
-				<div class="col-sm-10">
-					<input class="btn btn-primary" type="submit" value="Sign"></input> 
-				</div>
-			</div>
-		
-		</form:form>
-	</c:when>
-	<c:otherwise>
-		<p>I certify the information provided in this application is true and accurate to the best of my knowledge.</p>
-		<p>Name(Signature): <c:out value="${studentAgreement.signature}" /></p>
-		<p>Date: <c:out value="${studentAgreement.dateCreated}" /></p>
-		
-	</c:otherwise>
-</c:choose> --%>
-
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<a href="${getApplicationForm}" class="btn btn-primary btn-lg" target="_blank">Download application form</a>
 </sec:authorize>
 <!-- 

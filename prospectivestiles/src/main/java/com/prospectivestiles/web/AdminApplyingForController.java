@@ -72,8 +72,8 @@ public class AdminApplyingForController {
 		}
 
 //		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
-		userEntityService.insertTerm(userEntityId, origUserEntity.getTerm().getId());
-		userEntityService.insertProgramOfStudy(userEntityId, origUserEntity.getProgramOfStudy().getId());
+		userEntityService.updateTerm(userEntityId, origUserEntity.getTerm().getId());
+		userEntityService.updateProgramOfStudy(userEntityId, origUserEntity.getProgramOfStudy().getId());
 		
 		
 		return "redirect:/accounts/{userEntityId}/applyingFor";

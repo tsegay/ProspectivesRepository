@@ -1,6 +1,7 @@
 package com.prospectivestiles.web;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -107,18 +108,18 @@ public class AdminAccountController {
 	 * if page is null page = 1
 	 * if pageSize is null pageSize = 25
 	 */
-	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> getAccountsForJSON(@PathVariable("page") int page, 
-			@PathVariable("pageSize") int pageSize, 
-			Model model) {
-		// I used @RequestParam when the c:url was not passing parameters in the url -- for testing
+	// I used @RequestParam when the c:url was not passing parameters in the url -- for testing
 //	@RequestMapping(value = "/accounts/accountspage/", method = RequestMethod.GET, produces = "application/json")
 //	@ResponseBody
 //	public Map<String, Object> getAccountsForJSON(
 //			@RequestParam(value = "page", required = false) int page, 
 //			@RequestParam(value = "pageSize", required = false) int pageSize, 
 //				Model model) {
+	@RequestMapping(value = "/accounts/accounts/{page}/{pageSize}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getAccountsForJSON(@PathVariable("page") int page, 
+			@PathVariable("pageSize") int pageSize, 
+			Model model) {
 		
 		System.out.println("page: " + page);
 		System.out.println("pageSize: " + pageSize);
@@ -135,11 +136,20 @@ public class AdminAccountController {
 		
 //		long usersCount = userEntityService.count();
 		/*I want to count all students only, not admin users*/
-		long usersCount = userEntityService.countByRole(1);
+		
+		List<Long> rolesList = new ArrayList<Long>();
+		rolesList.add((long) 6);
+		rolesList.add((long) 7);
+		rolesList.add((long) 8);
+		rolesList.add((long) 9);
+		
+		long usersCount = userEntityService.countByRoles(rolesList);
+//		long usersCount = userEntityService.countByRole(1);
 		
 		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
 		// getAllUserEntitiesForPage -- TO BE CHANGED
 		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(page, pageSize);
+		
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("users", users);

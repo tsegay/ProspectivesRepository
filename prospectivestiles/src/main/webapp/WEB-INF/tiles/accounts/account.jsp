@@ -5,7 +5,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
 	  		<img src="${pageContext.request.contextPath}/resources/images/placeholderImage_140x140.jpg" alt="Your Pic" class="img-rounded profileImg">
@@ -152,19 +152,19 @@
 </div>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="editAccountUrl" value="/accounts/${userEntity.id}/edit" />
-	<%-- <c:url var="accountUrl"	value="/accounts/${userEntity.id}" /> --%>
-	<%-- <c:url var="deleteAccountUrl" value="/accounts/${userEntity.id}/delete" /> --%>
 	
 	<c:url var="createAssociatedUser" value="/accounts/${userEntity.id}/associatedUser/new" />
 	<c:url var="editAssociatedUser" value="/accounts/${userEntity.id}/associatedUser/edit" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
-	
+<sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
 </sec:authorize>
 
-<a href="${editAccountUrl}" class="btn btn-primary btn-sm">Update Personal Information</a>
+
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+	<a href="${editAccountUrl}" class="btn btn-primary btn-sm">Update Personal Information</a>
+</sec:authorize>
 
 <hr>
 
@@ -172,7 +172,7 @@
 
 <c:choose>
 	<c:when test="${empty associatedUsers}">
-			<a href="${createAssociatedUser}" class="btn btn-primary btn-sm">Register associated users</a>
+			<a href="${createAssociatedUser}" class="btn btn-primary btn-sm">Add Admission Officer, Agent, Referrer</a>
 	</c:when>
 	<c:otherwise>
 		
@@ -225,17 +225,13 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 	</c:when>
 	<c:otherwise>
 		<c:forEach var="address" items="${addresses}">
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<c:url var="editAddressUrl"
-					value="/accounts/${address.userEntity.id}/address/${address.id}/edit" />
-				<c:url var="deleteAddressUrl"
-					value="/accounts/${address.userEntity.id}/address/${address.id}/delete" />
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+				<c:url var="editAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}/edit" />
+				<c:url var="deleteAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}/delete" />
 			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_USER')">
-				<c:url var="editAddressUrl"
-					value="/myAccount/address/${address.id}/edit" />
-				<c:url var="deleteAddressUrl"
-					value="/myAccount/address/${address.id}/delete" />
+			<sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
+				<c:url var="editAddressUrl" value="/myAccount/address/${address.id}/edit" />
+				<c:url var="deleteAddressUrl" value="/myAccount/address/${address.id}/delete" />
 			</sec:authorize>
 
 			<address class="col-md-6">
@@ -258,12 +254,16 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 					
 				<div class="row">
 					<div class="col-md-3">
+						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 						<a href="${editAddressUrl}" class="btn btn-primary btn-sm">Edit</a>
+						</sec:authorize>
 					</div>
 					<div class="col-md-3">
 						<!-- Button trigger modal -->
+						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 						<a data-toggle="modal" data-remote="${deleteAddressUrl}" data-target="#deleteModal" 
 							class="btn btn-danger btn-sm">Delete</a><br><br>
+						</sec:authorize>
 							
 							
 						<!-- delete address Modal -->
@@ -295,11 +295,11 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 I need this to push down the h3 below from mixing with the addresses -->
 <div class="row"></div>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="newAddressUrl"
 		value="/accounts/${userEntity.id}/address/new" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
 	<c:url var="newAddressUrl" value="/myAccount/address/new" />
 </sec:authorize>
 

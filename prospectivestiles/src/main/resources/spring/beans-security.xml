@@ -45,17 +45,17 @@
 		<!-- =========================================================================== -->
 		<!-- ###############  TESTING PURPOSE ONLY #################### -->
 		<!-- =========================================================================== -->
-		<intercept-url pattern="/accounts/*/testAttachment" access="permitAll" />
+		<!-- <intercept-url pattern="/accounts/*/testAttachment" access="permitAll" />
 		<intercept-url pattern="/show" access="permitAll" />
 		<intercept-url pattern="/save" access="permitAll" />
 		<intercept-url pattern="/createPDF" access="permitAll" />
 		<intercept-url pattern="/download/*" access="permitAll" />
 		<intercept-url pattern="/createMemPDF" access="permitAll" />
 		<intercept-url pattern="/admin/report/createPDF" access="permitAll" />
-		<intercept-url pattern="/admin/report/download/*" access="permitAll" />
+		<intercept-url pattern="/admin/report/download/*" access="permitAll" /> -->
 		
 		<!-- For testing JSON -->
-		<intercept-url pattern="/json/accounts/messages" access="permitAll" />
+		<!-- <intercept-url pattern="/json/accounts/messages" access="permitAll" />
 		<intercept-url pattern="/json/accounts/*/sendmessage" access="permitAll" />
 		<intercept-url pattern="/json/accounts/sendmessage" access="permitAll" />
 		<intercept-url pattern="/json/accounts/*/messages" access="permitAll" />
@@ -63,7 +63,7 @@
 		
 		
 		<intercept-url pattern="/json/accounts/*/addresses" access="permitAll" />
-		<intercept-url pattern="/json/**" access="permitAll" />
+		<intercept-url pattern="/json/**" access="permitAll" /> -->
 		
 		
 		<!-- =========================================================================== -->
@@ -77,181 +77,181 @@
 		
 		<!-- =========================================================================== -->
 		<!-- Admin console -->
-		<intercept-url pattern="/adminpage" method="GET" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/adminpage" method="GET" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Admin institute -->
-		<intercept-url pattern="/accounts/*/institute/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/institute/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/institute/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/institute/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/institute" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/institutes" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/institute/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/institute/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/institute/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/institute/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/institute" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/institutes" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 
 		<!-- Student institute -->
-		<intercept-url pattern="/myAccount/institute/*/delete" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/institute/*/edit" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/institute/new" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/institute/*" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/institute" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/institutes" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/institute/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/institute/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/institute/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/institute/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/institute" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/institutes" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		
 		<!-- Admin highSchool -->
-		<intercept-url pattern="/accounts/*/highSchool/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/highSchool/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/highSchool/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/highSchool/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/highSchool" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/highSchools" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/highSchool/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/highSchool/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/highSchool/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/highSchool/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/highSchool" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/highSchools" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 
 		<!-- Student highSchool -->
-		<intercept-url pattern="/myAccount/highSchool/*/delete" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/highSchool/*/edit" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/highSchool/new" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/highSchool/*" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/highSchool" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/highSchools" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/highSchool/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/highSchool/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/highSchool/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/highSchool/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/highSchool" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/highSchools" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		
 		<!-- Admin addresses -->
-		<intercept-url pattern="/accounts/*/address/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/address/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/address/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/address/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/address" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/addresses" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/address/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/address/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/address/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/address/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/address" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/addresses" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student addresses -->
-		<intercept-url pattern="/myAccount/address/*/delete" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/address/*/edit" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/address/new" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/address/*" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/address" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/addresses" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/address/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/address/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/address/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/address/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/address" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/addresses" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		
 		<!-- Admin educations -->
-		<intercept-url pattern="/accounts/*/educations" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/educations" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student educations -->
-		<intercept-url pattern="/myAccount/educationsHighSchoolFormUrl" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/educations/highSchools" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/educations" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/educationsHighSchoolFormUrl" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/educations/highSchools" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/educations" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		
 		<!-- Admin employers -->
-		<intercept-url pattern="/accounts/*/employer/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/employer/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/employer/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/employer/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/employer" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/employers" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/employer/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/employer/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/employer/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/employer/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/employer" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/employers" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student employers -->
-		<intercept-url pattern="/myAccount/employer/*/delete" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/employer/*/edit" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/employer/new" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/employer/*" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/employer" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/employers" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/employer/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/employer/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/employer/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/employer/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/employer" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/employers" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		
 		<!-- Admin emergencyContacts -->
-		<intercept-url pattern="/accounts/*/emergencyContact/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/emergencyContact/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/emergencyContact/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/emergencyContact/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/emergencyContact" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/emergencyContacts" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/emergencyContact/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/emergencyContact/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/emergencyContact/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/emergencyContact/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/emergencyContact" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/emergencyContacts" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student emergencyContacts -->
-		<intercept-url pattern="/myAccount/emergencyContact/*/delete" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/emergencyContact/*/edit" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/emergencyContact/new" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/emergencyContact/*" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/emergencyContact" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/emergencyContacts" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/emergencyContact/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/emergencyContact/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/emergencyContact/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/emergencyContact/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/emergencyContact" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/emergencyContacts" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		
 		<!-- Admin StandardTest -->
-		<intercept-url pattern="/accounts/*/standardTest/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/standardTest/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/standardTest/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/standardTest/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/standardTest" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/standardTests" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/standardTest/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/standardTest/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/standardTest/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/standardTest/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/standardTest" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/standardTests" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student StandardTest -->
-		<intercept-url pattern="/myAccount/standardTest/*/delete" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/standardTest/*/edit" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/standardTest/new" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/standardTest/*" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/standardTest" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/standardTests" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/standardTest/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/standardTest/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/standardTest/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/standardTest/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/standardTest" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/standardTests" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		
 		
 		<!-- Admin applyingFor -->
 		<!-- If I didn't use the delete or edit option remove the filters -->
-		<intercept-url pattern="/accounts/*/applyingFor/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/applyingFor/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/applyingFor/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/applyingFor/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/applyingFor" access="hasRole('ROLE_ADMIN')" />
-		<!-- <intercept-url pattern="/accounts/*/applyingFors" access="hasRole('ROLE_ADMIN')" /> -->
+		<intercept-url pattern="/accounts/*/applyingFor/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/applyingFor/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/applyingFor/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/applyingFor/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/applyingFor" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<!-- <intercept-url pattern="/accounts/*/applyingFors" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" /> -->
 		
 		<!-- Student applyingFor -->
-		<intercept-url pattern="/myAccount/applyingFor/*/delete" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/applyingFor/*/edit" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/applyingFor/new" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/applyingFor/*" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/applyingFor" access="isAuthenticated()" />
-		<!-- <intercept-url pattern="/myAccount/applyingFors" access="isAuthenticated()" /> -->
+		<intercept-url pattern="/myAccount/applyingFor/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/applyingFor/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/applyingFor/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/applyingFor/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/applyingFor" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<!-- <intercept-url pattern="/myAccount/applyingFors" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" /> -->
 		
 		<!-- Admin uploadFiles -->
-		<intercept-url pattern="/accounts/*/files/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/files/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/saveFile" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/files" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/files/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/files/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/saveFile" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/files" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student uploadFiles -->
-		<intercept-url pattern="/myAccount/files/*/delete" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/files/*" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/saveFile" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/files" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/files/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/files/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/saveFile" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/files" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		
 		<!-- Admin checklists -->
-		<intercept-url pattern="/accounts/*/checklistState" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/checklist/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/checklist/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/checklist/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/checklist/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/checklist" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/checklists" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/checklistState" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/checklist/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/checklist/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/checklist/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/checklist/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/checklist" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/checklists" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student checklists -->
 		
 		<!-- Admin evaluations -->
-		<intercept-url pattern="/accounts/admittedStudents" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/completeStudents" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/inprocessStudents" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/pendingStudents" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluationState" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluation/*/grantAdmision" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluation/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluation/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluation/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluation/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluation" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluations" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/admittedStudents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/completeStudents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/inprocessStudents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/pendingStudents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluationState" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation/*/grantAdmision" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluations" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student evaluations -->
 		
 		<!-- Admin reports -->
-		<!-- <intercept-url pattern="/accounts/*/evaluation/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluation/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluation/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluation/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/evaluation" access="hasRole('ROLE_ADMIN')" /> -->
-		<intercept-url pattern="/accounts/*/reports/missingDocuments" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/reports/evaluationReport" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/reports/acceptanceLetter" access="hasRole('ROLE_ADMIN')" />
+		<!-- <intercept-url pattern="/accounts/*/evaluation/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" /> -->
+		<intercept-url pattern="/accounts/*/reports/missingDocuments" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/reports/evaluationReport" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/reports/acceptanceLetter" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
-		<intercept-url pattern="/admin/report/*/missingDocuments/email" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/admin/report/*/acceptanceLetter/email" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/report/*/missingDocuments/email" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/admin/report/*/acceptanceLetter/email" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		
 		<!-- Student reports -->
@@ -259,86 +259,89 @@
 		<!-- =========================================================================== -->
 		
 		<!-- Admin PDF Reports -->
-		<intercept-url pattern="/admin/report/*/applicationForm" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/admin/report/*/evaluation" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/admin/report/*/missingDocuments" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/admin/report/*/acceptanceLetter" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/report/*/applicationForm" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/admin/report/*/evaluation" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/admin/report/*/missingDocuments" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/admin/report/*/acceptanceLetter" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student PDF Reports -->
 		
 		<!-- Admin messages -->
-		<intercept-url pattern="/accounts/*/message/*/delete" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/message/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/message/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/message/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/message" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/messages" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/message/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/message/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/message/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/message/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/message" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/messages" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
-		<intercept-url pattern="/accounts/*/sendmessage" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/getmessages" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/sendmessage" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/messages" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/sendmessage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/getmessages" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/sendmessage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/messages" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student messages -->
-		<intercept-url pattern="/myAccount/getmessages" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/sendmessage" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/message/*/delete" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/message/*/edit" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/message/new" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/message/*" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/message" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/messages" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/getmessages" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/sendmessage" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/message/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/message/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/message/new" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/message/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/message" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/messages" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		
 		<!-- Admin notification -->
-		<intercept-url pattern="/accounts/notifications/markRead/*/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/notifications/markRead" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/notification" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/notifications" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/notifications/markRead/*/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/notifications/markRead" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/notification" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/notifications" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student notification -->
 		
 		<!-- =========================================================================== -->
 		
 		<!-- Admin studentAgreements -->
-		<intercept-url pattern="/accounts/*/studentAgreements" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/studentAgreements" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student studentAgreements -->
-		<intercept-url pattern="/myAccount/studentAgreements" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/certifyInfoProvided" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount/report/applicationForm" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/studentAgreements" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/certifyInfoProvided" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
+		<intercept-url pattern="/myAccount/report/applicationForm" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		
 		<!-- =========================================================================== -->
 		<!-- myAccount -->
-		<intercept-url pattern="/myAccount/edit" access="isAuthenticated()" />
-		<intercept-url pattern="/myAccount" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount/edit" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/myAccount" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		
+		<!-- <intercept-url pattern="/myAccount/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/myAccount" access="isAuthenticated()" /> -->
 		
 		<!-- account -->
 		<!-- JUST FOR TESTING PURPOSE; REMOVE  /accounts/** -->
 		<!-- <intercept-url pattern="/accounts/**" method="GET" access="isAuthenticated()" /> -->
 		
-		<intercept-url pattern="/accounts/agents" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/referrers" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/agents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/referrers" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
-		<intercept-url pattern="/accounts/*/associatedUser/new" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/associatedUsers" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*/associatedUser/edit" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/associatedUser/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/associatedUsers" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/associatedUser/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
-		<intercept-url pattern="/accounts/*/edit" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accounts/*/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accounts/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accounts/*/*/*/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accounts/*/*/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accounts/searchAccount" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accounts/accounts/getAccounts" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accounts/getAccounts" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/getAccounts" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accountspage" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/accounts" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*" method="GET" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/account/*" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/account" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/accounts" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/accounts/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/accounts/*/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/accounts/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/accounts/*/*/*/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/accounts/*/*/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/accounts/searchAccount" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/accounts/accounts/getAccounts" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/accounts/getAccounts" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/getAccounts" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/accountspage" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/accounts" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*" method="GET" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/account/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/account" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- =========================================================================== -->
 		<intercept-url pattern="/**" access="denyAll" />
