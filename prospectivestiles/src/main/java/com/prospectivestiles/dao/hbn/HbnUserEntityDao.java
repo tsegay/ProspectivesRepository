@@ -51,6 +51,11 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 			"update userEntity set first_name = ?, last_name = ?, middle_name = ?, email = ?, homePhone = ?, cellPhone = ?, dob = ?, gender = ?, citizenship = ?, ethnicity = ?, ssn = ?, sevisNumber = ?, transferee = ?, heardAboutAcctThru = ? where id = ?";
 	private static final String UPDATE_PASSWORD_SQL =
 			"update userEntity set password = ? where id = ?";
+	private static final String INSERT_USERENTITY_SQL = 
+			"INSERT INTO userEntity"
+			+ " (username, password, first_name, last_name, middle_name, email, homePhone, cellPhone, dob, gender, citizenship, ethnicity, ssn, sevisNumber, transferee, international, heardAboutAcctThru, accept_terms, enabled, marketing_ok)"
+			+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	
 	
 	@Inject private JdbcTemplate jdbcTemplate;
 	
@@ -165,6 +170,21 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 				userEntityId});
 	}
 
+	/**
+	 * Using JDBC to create userEntity
+	 */
+	@Override
+	public void insertUserEntity(UserEntity userEntity) {
+		jdbcTemplate.update(INSERT_USERENTITY_SQL, new Object[] {
+				userEntity.getUsername(), userEntity.getPassword(),
+				userEntity.getFirstName(), userEntity.getLastName(), userEntity.getMiddleName(),
+				userEntity.getEmail(), userEntity.getHomePhone(), userEntity.getCellPhone(), userEntity.getDob(), 
+				userEntity.getGender(), userEntity.getCitizenship(), userEntity.getEthnicity(), userEntity.getSsn(), 
+				userEntity.getSevisNumber(), userEntity.isTransferee(), userEntity.isInternational(), 
+				userEntity.getHeardAboutAcctThru(), userEntity.getAcceptTerms(), userEntity.isEnabled(), userEntity.isMarketingOk()
+			});
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserEntity> findAll(int page, int pageSize) {
@@ -302,6 +322,27 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		
 		return isAdmin;
 	}
+	
+	/**
+	 * To find if a user is an ROLE_ADMISSION or ROLE_ADMISSION_ASSIST
+	 * AO - Admission Officer
+	 */
+	@Override
+	public boolean hasRoleAdmissionOrAssist(long userEntityId) {
+		boolean isAO = false;
+		UserEntity userEntity = find(userEntityId);
+		Set<Role> roles = userEntity.getRoles();
+		
+		for (Role role : roles) {
+			// if role is ROLE_ADMISSION or ROLE_ADMISSION_ASSIST return true else false
+			if (role.getId() == 11 || role.getId() == 12) {
+				System.out.println("############## role: " + role.getName());
+				isAO = true;
+			}
+		}
+		
+		return isAO;
+	}
 
 	/**
 	 * To get evaluations by status, eg 'admitted' students
@@ -338,6 +379,8 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 				.list();
 		
 	}
+
+
 	
 	
 }

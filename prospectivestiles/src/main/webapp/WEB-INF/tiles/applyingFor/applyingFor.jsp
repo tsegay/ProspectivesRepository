@@ -87,10 +87,6 @@ insert the term and program of study to the userEntity using jdbc
 	        <form:form action="${applyingForUrl}" modelAttribute="userEntity" role="form" class = "form-horizontal">
 	            <div class = "modal-header">
 	                <h4>Select Term and Program of Study you are applying for</h4>
-	                <%-- userEntity.id
-	                <c:if test="${userEntity.id > 0}">
-	                	<c:out value="${userEntity.id}" />
-	                </c:if> --%>
 	            </div>
 	            <div class = "modal-body">
 	            
@@ -115,15 +111,12 @@ insert the term and program of study to the userEntity using jdbc
 					    </div>
 					</div>
 					<div class="form-group row">
-						<!-- <label for="term" class="col-sm-3 control-label">programOfStudies</label> -->
 						<label for="programOfStudies" class="col-sm-2 control-label">
 							<spring:message code="applyingFor.label.programOfStudies" />
 							<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
 						</label>
 					    <div class="col-sm-5">
 					      <form:select path="programOfStudy.id">
-							   <%-- <form:option value="NONE" label="--- Select ---"/> --%>
-							   <%-- <form:options items="${terms}" /> --%>
 							   <c:forEach var="programOfStudy" items="${programOfStudies}">
 							   		<form:option value="${programOfStudy.id}" label="${programOfStudy.name}"/>
 							   </c:forEach>

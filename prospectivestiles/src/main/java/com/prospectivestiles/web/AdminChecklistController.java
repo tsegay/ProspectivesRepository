@@ -32,6 +32,11 @@ import com.prospectivestiles.service.ChecklistService;
 import com.prospectivestiles.service.UserEntityService;
 
 /**
+ * DISCONTINUED USING THIS CLASS. 
+ * WILL USE IN FUTURE. 
+ * Eg. When assistant creates checklist and AO reveiws files, then have to use checklist and evaluation classes.
+ * 
+ * 
  * The url to get the form and post the form are the same. 
  * eg. "/accounts/{userEntityId}/checklist/new"
  * Advantage: when a user submit a form with error the post url will be displayed in the url,
@@ -102,7 +107,7 @@ public class AdminChecklistController {
 	}
 	
 	@RequestMapping(value = "/accounts/{userEntityId}/checklist/new", method = RequestMethod.GET)
-	public String getNewEvaluationForm(@PathVariable("userEntityId") Long userEntityId,
+	public String getNewChecklistForm(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
 		
 		// ##### LOGGING #########
@@ -244,6 +249,8 @@ public class AdminChecklistController {
 	// ======================================
 	
 	/**
+	 * Not using this method. I am using the evaluationState instead.
+	 * 
 	 * accounts.jsp page has a list of all the accounts.
 	 * Next to every account, display num of completed checklist.
 	 * eg 4/8. 4 items complete or notrequired value out of the total 8 items

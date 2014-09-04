@@ -138,7 +138,423 @@ public class AdminPDFReportGenerator {
 			document.add(paragraph);
 			
 			paragraph = new Paragraph();
-			paragraph.add(new Paragraph("Admissions Counselor Evaluation Report", h1Font));
+			paragraph.add(new Paragraph("Admissions Counselor Applicant's Evaluation Report", h1Font));
+			paragraph.setSpacingAfter(20);
+			paragraph.setAlignment(Element.ALIGN_CENTER);
+			document.add(paragraph);
+			
+			/**
+			 * table no border to display student info at the upper part of the page
+			 */
+			PdfPTable table = new PdfPTable(2);
+			table.setWidthPercentage(75);
+			table.setWidths(new int[]{1, 2});
+			table.setHorizontalAlignment(Element.ALIGN_LEFT);
+			PdfPCell cell = new PdfPCell();
+
+			// row 1, cell 1
+			cell = new PdfPCell(new Phrase("Student Name: ", normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+//			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//			cell.setPadding(8);
+			table.addCell(cell);
+			
+			// row 1, cell 2
+			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getFullName(), normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 1
+			cell = new PdfPCell(new Phrase("Email Address: ", normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+
+			// row 1, cell 2
+			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getEmail(), normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			
+			// row 1, cell 1
+			cell = new PdfPCell(new Phrase("Phone Number: ", normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 2
+			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getCellPhone(), normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 1
+			cell = new PdfPCell(new Phrase("Quarter: ", normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 2
+			if (userEntityService.getUserEntity(userEntityId).getTerm() != null) {
+				cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getTerm().getName(), normalFont));
+			} else {
+				cell = new PdfPCell(new Phrase(" XXXXXXXXXXX ", normalFont));
+			}
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 1
+			cell = new PdfPCell(new Phrase("Program of Study: ", normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 2
+			if (userEntityService.getUserEntity(userEntityId).getProgramOfStudy() != null) {
+				cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName(), normalFont));
+			} else {
+				cell = new PdfPCell(new Phrase(" XXXXXXXXXXX ", normalFont));
+			}
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			String dobString = new String("");
+			if (userEntityService.getUserEntity(userEntityId).getDob() != null) {
+				SimpleDateFormat formatDob = new SimpleDateFormat("MM-dd-YYYY");
+				dobString = formatDob.format(userEntityService.getUserEntity(userEntityId).getDob());
+			} 
+			// row 1, cell 1
+			cell = new PdfPCell(new Phrase("Date of Birth: ", normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 2
+			cell = new PdfPCell(new Phrase(dobString, normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 1
+			cell = new PdfPCell(new Phrase("Student Status: ", normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 2
+			String studentStatus;
+			if (userEntityService.getUserEntity(userEntityId).isInternational()) {
+				studentStatus = "International";
+			} else {
+				studentStatus = "Domestic";
+			}
+			cell = new PdfPCell(new Phrase(studentStatus, normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 1
+			cell = new PdfPCell(new Phrase("Country of Citizenship: ", normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 2
+			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getCitizenship(), normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			/**
+			 * Display home address only
+			 */
+			paragraph = new Paragraph();
+			Address address = addressService.getAddressByUserEntityIdAndAddressType(userEntityId, AddressType.HOME_ADDRESS);
+			if (address != null) {
+				if (address.getAddress1() != null) {
+					paragraph.add(new Chunk(address.getAddress1(), normalFont) + ", ");
+				}
+				if (address.getAddress2() != null) {
+					paragraph.add(new Chunk(address.getAddress2(), normalFont) + ", ");
+				}
+				if (address.getCity() != null) {
+					paragraph.add(new Chunk(address.getCity(), normalFont) + ", ");
+				}
+				if (address.getState() != null) {
+					paragraph.add(new Chunk(address.getState(), normalFont) + " ");
+				}
+				if (address.getZipcode() != null) {
+					paragraph.add(new Chunk(address.getZipcode(), normalFont) + ", ");
+				}
+				if (address.getCountry() != null) {
+					paragraph.add(new Chunk(address.getCountry(),  normalFont));
+				}
+			}
+			// row 1, cell 1
+			cell = new PdfPCell(new Phrase("Home Address: ", normalFont));
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+			
+			// row 1, cell 2
+			cell = new PdfPCell(paragraph);
+			cell.setBorder(Rectangle.NO_BORDER);
+			table.addCell(cell);
+						
+			
+			document.add(table);
+			
+			
+			/**
+			 * For line spacing
+			 */
+			paragraph = new Paragraph(" ");
+			paragraph.setSpacingAfter(10);
+			document.add(paragraph);
+			
+			paragraph = new Paragraph();
+			paragraph.setSpacingAfter(20);
+//			paragraph.add(new Paragraph("Admissions Granted: ", normalBoldFont));
+			paragraph.add(new Chunk("Admission Granted: ", normalBoldFont));
+			if (userEntityService.getUserEntity(userEntityId).getAccountState().equalsIgnoreCase("admitted")) {
+				paragraph.add(new Chunk("YES", normalFont));
+			} else {
+				paragraph.add(new Chunk("NO", normalFont));
+			}
+			document.add(paragraph);
+			
+			/**
+			 * List all evaluation results for valid and not-required items
+			 * You can only generate evaluation report once all the requirements are met
+			 */
+//			paragraph = new Paragraph();
+//			paragraph.setSpacingAfter(10);
+//			paragraph.add(new Paragraph("Applicant's Documents Checklist", normalBoldFont));
+//			document.add(paragraph);
+//			
+//			paragraph = new Paragraph();
+//			paragraph.setSpacingAfter(15);
+//			/**
+//			 * use if stmt to check if eval = null
+//			 */
+////			paragraph.add(new Paragraph(eval.getStudentQualification()));
+////			paragraph.add(new Paragraph(""));
+////			document.add(paragraph);
+//			
+//			if (eval != null) {
+//				
+//				/**
+//				 * table no border to display evaluation list items in a data definition type
+//				 */
+//				PdfPTable table2 = new PdfPTable(2);
+//				table2.setWidthPercentage(75);
+//				table2.setWidths(new int[]{2, 3});
+//				table2.setHorizontalAlignment(Element.ALIGN_CENTER);
+//				PdfPCell cell2 = new PdfPCell();
+//
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("Application Fee: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getApplicationFee(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("Bank Statement: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getBankStmt(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("Diplome: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getDiplome(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("Financial Affidavit: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getFinancialAffidavit(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("F1 Visa: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getF1Visa(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("I20: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getI20(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("Passport: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getPassport(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("Application Form: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getApplicationForm(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("Enrollment Agreement: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getEnrollmentAgreement(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("Grievance Policy: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getGrievancePolicy(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				// row 1, cell 1
+//				cell2 = new PdfPCell(new Phrase("Recommendation Letter: ", normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				// row 1, cell 2
+//				cell2 = new PdfPCell(new Phrase(eval.getRecommendationLetter(), normalFont));
+//				cell2.setBorder(Rectangle.NO_BORDER);
+//				table2.addCell(cell2);
+//				
+//				document.add(table2);
+//				
+//			}
+			
+			paragraph = new Paragraph();
+			paragraph.setSpacingAfter(20);
+			paragraph.add(new Paragraph("Admissions Couselor Report: ", normalBoldFont));
+			document.add(paragraph);
+			
+			paragraph = new Paragraph();
+			paragraph.setSpacingAfter(20);
+			paragraph.add(new Paragraph(eval.getAdmnOfficerReport()));
+			document.add(paragraph);
+			
+			paragraph = new Paragraph();
+			paragraph.setSpacingAfter(20);
+			paragraph.add(new Phrase("Admissions Couselor: ", normalBoldFont));
+			paragraph.add(new Phrase(admissionOfficerName, normalUnderline));
+			document.add(paragraph);
+			
+			paragraph = new Paragraph();
+			paragraph.setSpacingAfter(20);
+			
+			String dateAdmittedString = new String("");
+			SimpleDateFormat formatDateAdmitted = new SimpleDateFormat("MM-dd-YYYY");
+			if (eval.getDateAdmitted() != null) {
+				dateAdmittedString = formatDateAdmitted.format(eval.getDateAdmitted());
+			} 
+			
+			paragraph.add(new Phrase("Date: ", normalBoldFont));
+			paragraph.add(new Phrase(dateAdmittedString, normalUnderline));
+			document.add(paragraph);
+			
+			paragraph = new Paragraph();
+			paragraph.setSpacingAfter(20);
+			
+			Date now = new Date();
+			String nowString = new String("");
+			SimpleDateFormat format = new SimpleDateFormat("MM-dd-YYYY");
+			nowString = format.format(now);
+			
+			paragraph.add(new Paragraph("Report generated by: " + admissionOfficerName + " on " + nowString, smallFont));
+			document.add(paragraph);
+			
+			document.close();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		try {
+			FileCopyUtils.copy(out.toByteArray(), response.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		response.setHeader("Content-Type", "application/pdf");
+		/**
+		 * set the header Content-disposition to inline to render pdf inline instead of prompting a download window
+		 */
+		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		try {
+			response.flushBuffer();
+			response.getOutputStream().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@RequestMapping(value = "/admin/report/{userEntityId}/checklist", method = RequestMethod.GET)
+	public void checklistReport(@PathVariable("userEntityId") Long userEntityId,
+			HttpServletResponse response, 
+			HttpServletRequest request,
+			Model model) {
+		/**
+		 * use if stmt to check if eval = null
+		 */
+		Evaluation eval = evaluationService.getEvaluationByUserEntityId(userEntityId);
+		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
+		String admissionOfficerName = null;
+		if (associatedUser != null) {
+			
+			if (associatedUser.getAdmissionOfficer() != null) {
+				admissionOfficerName = associatedUser.getAdmissionOfficer().getFullName();
+			} else {
+				admissionOfficerName = associatedUser.getAdmissionOfficer().getFullName();
+			}
+			
+		}
+		
+		Document document = new Document();
+
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		try {
+			
+			PdfWriter writer = PdfWriter.getInstance(document, out);
+			// add header and footer before document.open()
+		    TableHeader event = new TableHeader();
+	        writer.setPageEvent(event);
+		    /*open document*/
+			document.open();
+			
+			addMetaData(document);
+//			addContent(document);
+			
+			Paragraph paragraph = new Paragraph(" ");
+			paragraph.setSpacingAfter(20);
+			document.add(paragraph);
+			
+			paragraph = new Paragraph();
+			paragraph.add(new Paragraph("Applicant's Documents Checklist", h1Font));
 			paragraph.setSpacingAfter(20);
 			paragraph.setAlignment(Element.ALIGN_CENTER);
 			document.add(paragraph);
@@ -306,7 +722,7 @@ public class AdminPDFReportGenerator {
 			 */
 			paragraph = new Paragraph();
 			paragraph.setSpacingAfter(10);
-			paragraph.add(new Paragraph("Student Qualification", normalBoldFont));
+			paragraph.add(new Paragraph("Checklist", normalBoldFont));
 			document.add(paragraph);
 			
 			paragraph = new Paragraph();
@@ -439,46 +855,6 @@ public class AdminPDFReportGenerator {
 				
 			}
 			
-			paragraph = new Paragraph();
-			paragraph.setSpacingAfter(20);
-			paragraph.add(new Paragraph("Admissions Couselor Report: ", normalBoldFont));
-			document.add(paragraph);
-			
-			paragraph = new Paragraph();
-			paragraph.setSpacingAfter(20);
-			paragraph.add(new Paragraph(eval.getAdmnOfficerReport()));
-			document.add(paragraph);
-			
-			paragraph = new Paragraph();
-			paragraph.setSpacingAfter(20);
-			paragraph.add(new Phrase("Admissions Couselor: ", normalBoldFont));
-			paragraph.add(new Phrase(admissionOfficerName, normalUnderline));
-			document.add(paragraph);
-			
-			paragraph = new Paragraph();
-			paragraph.setSpacingAfter(20);
-			
-			String dateAdmittedString = new String("");
-			SimpleDateFormat formatDateAdmitted = new SimpleDateFormat("MM-dd-YYYY");
-			if (eval.getDateAdmitted() != null) {
-				dateAdmittedString = formatDateAdmitted.format(eval.getDateAdmitted());
-			} 
-			
-			paragraph.add(new Phrase("Admitted on: ", normalBoldFont));
-			paragraph.add(new Phrase(dateAdmittedString, normalUnderline));
-			document.add(paragraph);
-			
-			paragraph = new Paragraph();
-			paragraph.setSpacingAfter(20);
-			
-			Date now = new Date();
-			String nowString = new String("");
-			SimpleDateFormat format = new SimpleDateFormat("MM-dd-YYYY");
-			nowString = format.format(now);
-			
-			paragraph.add(new Paragraph("Report generated by: " + admissionOfficerName + " on " + nowString, smallFont));
-			document.add(paragraph);
-			
 			document.close();
 		} catch (DocumentException e) {
 			e.printStackTrace();
@@ -507,7 +883,8 @@ public class AdminPDFReportGenerator {
 			HttpServletRequest request,
 			Model model) {
 		
-		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
+//		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
+		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
 		ArrayList<String> missingDocuments = new ArrayList<String>();
 		UserEntity currentAdmissionOfficer = getUserEntityFromSecurityContext();
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
@@ -525,42 +902,42 @@ public class AdminPDFReportGenerator {
 		/**
 		 * if user has no checklist created, you can't generate missing documents report
 		 */
-		if (checklist != null) {
-		
-			if (checklist.getF1Visa().equalsIgnoreCase("incomplete")) {
+		if (evaluation != null) {
+			
+			if (evaluation.getF1Visa().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("F1 Visa");
 			}
-			if (checklist.getBankStmt().equalsIgnoreCase("incomplete")) {
-				missingDocuments.add("BankStmt");
+			if (evaluation.getBankStmt().equalsIgnoreCase("incomplete")) {
+				missingDocuments.add("Bank Statement");
 			}
-			if (checklist.getI20().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getI20().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("I20");
 			}
-			if (checklist.getPassport().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getPassport().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Passport");
 			}
-			if (checklist.getFinancialAffidavit().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getFinancialAffidavit().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Financial Affidavit");
 			}
-			if (checklist.getApplicationFee().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getApplicationFee().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Application Fee");
 			}
-			if (checklist.getApplicationForm().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getApplicationForm().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Application Form");
 			}
-			if (checklist.getEnrollmentAgreement().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getEnrollmentAgreement().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Enrollment Agreement");
 			}
-			if (checklist.getGrievancePolicy().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getGrievancePolicy().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Grievance Policy");
 			}
-			if (checklist.getRecommendationLetter().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getRecommendationLetter().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Recommendation Letter");
 			}
-			if (checklist.getTranscript().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getTranscript().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Transcript");
 			}
-			if (checklist.getDiplome().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getDiplome().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Diplome");
 			}
 		

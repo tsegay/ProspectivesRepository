@@ -1,8 +1,13 @@
 package com.prospectivestiles.web;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.Random;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -48,6 +53,11 @@ public class UserEntityController {
 		});
 	}
 	
+	// ======================================
+	// =    Student to create account            =
+	// ======================================
+	
+	
 	@RequestMapping(value = "/registrationform", method = RequestMethod.GET)
 	public String getRegistrationForm(Model model) {
 		System.out.println("####### registrationform displayed");
@@ -55,6 +65,14 @@ public class UserEntityController {
 		return "registrationform";
 	}
 	
+	/**
+	 * UPDATE METHOD, postRegisterUserForm USED FOR AO TO CREATE ACCOUNTS.
+	 * THIS METHOD IS ONLY FOR APPLICANTS
+	 * 
+	 * @param form
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value = "/registrationform", method = RequestMethod.POST)
 	public String postRegistrationForm(
 			@ModelAttribute("userEntity") @Valid UserEntity form,
@@ -105,7 +123,8 @@ public class UserEntityController {
 			} else {
 				if (!result.hasErrors()) {
 					// When admission officer created a user account, redirect to profile page of the new user
-					if (userEntityService.hasRoleAdmin(currentUser.getId())) {
+//					if (userEntityService.hasRoleAdmin(currentUser.getId())) {
+					if (userEntityService.hasRoleAdmissionOrAssist(currentUser.getId())) {
 //					System.out.println("######## currentUser: " + currentUser.getFullName());
 						log.debug("####### debug: " + currentUser.getFullName() + " creating an account ");
 						log.info("####### info: " + currentUser.getFullName() + " creating an account ");
@@ -121,8 +140,99 @@ public class UserEntityController {
 	}
 	
 	// ======================================
+	// =    Admission Officer to create a student's account            =
+	// ======================================
+	
+	/**
+	 * For an AO to create a student's account
+	 * @return
+	 */
+	
+	@RequestMapping(value = "/registerUser", method = RequestMethod.GET)
+	public String getRegisterUserForm(Model model) {
+		System.out.println("####### registerUser displayed");
+		
+		UserEntity userEntity = new UserEntity();
+		userEntity.setUsername("placeholder" + randomNumber());
+		userEntity.setPassword("placeholder");
+		userEntity.setConfirmPassword("placeholder");
+		userEntity.setAcceptTerms(true);
+		model.addAttribute("userEntity", userEntity);
+		return "registerUser";
+	}
+	
+	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
+	public String postRegisterUserForm(
+			@ModelAttribute("userEntity") @Valid UserEntity form,
+			BindingResult result) {
+		
+		log.debug("####### debug AO creating an account");
+		log.info("######## info AO creating an account");
+		
+		
+		/**
+		 * When applicant first create an account it is defaulted to PENDING state
+		 */
+		form.setAccountState("pending");
+		
+		
+//		form.setUsername(form.getFirstName() + randomNumber());
+//		form.setConfirmPassword("password2");
+		form.setPassword("password2"); // replace with randomString
+		form.setAcceptTerms(false);
+		form.setEnabled(true);
+		form.setMarketingOk(true);
+		
+		userEntityService.insertUserEntity(form, result);
+//		userEntityService.createUserEntity(form, result);
+		
+		/**
+		 * After an admissionOfficer created the account, 
+		 * redirect user to the profile page of the newly registered student
+		 * 
+		 * getUserEntityFromSecurityContext returns null when user not authenticated
+		 */
+			UserEntity currentUser = getUserEntityFromSecurityContext();
+			if (currentUser != null) {
+				if (!result.hasErrors()) {
+					// When admission officer created a user account, redirect to profile page of the new user
+					if (userEntityService.hasRoleAdmissionOrAssist(currentUser.getId())) {
+//					System.out.println("######## currentUser: " + currentUser.getFullName());
+						log.debug("####### debug: " + currentUser.getFullName() + " creating an account ");
+						log.info("####### info: " + currentUser.getFullName() + " creating an account ");
+						
+						UserEntity createdAccount = userEntityService.getUserEntityByUsername(form.getUsername());
+						return "redirect:/accounts/" + createdAccount.getId();
+					}
+					
+				}
+			}
+		
+		return (result.hasErrors() ? "registerUser" : "welcome");
+	}
+	
+	
+	// ======================================
 	// =                         =
 	// ======================================
+	
+	public int randomNumber() {
+//		SecureRandom rand = new SecureRandom();
+//		return new BigInteger(130, rand).toString(32);
+	    int START = 100;
+	    int END = 1000;
+	    Random random = new Random();
+	    
+	    long range = (long)END - (long)START + 1;
+	    long fraction = (long)(range * random.nextDouble());
+	    int randomNumber =  (int)(fraction + START); 
+	    return randomNumber;
+	}
+	
+	public String randomString() {
+		SecureRandom rand = new SecureRandom();
+		return new BigInteger(130, rand).toString(32);
+	}
 	
 	private UserEntity getUserEntityFromSecurityContext() {
 		SecurityContext securityCtx = SecurityContextHolder.getContext();

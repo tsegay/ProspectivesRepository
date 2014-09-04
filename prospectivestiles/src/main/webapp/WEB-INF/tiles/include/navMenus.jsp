@@ -17,6 +17,7 @@
 	<c:url var="reportsUrl" value="/accounts/${userEntity.id}/reports" />
 	<c:url var="applicationFormUrl" value="/admin/report/${userEntity.id}/applicationForm" />
 	<c:url var="missingDocumentsUrl" value="/accounts/${userEntity.id}/reports/missingDocuments" />
+	<c:url var="checklistReportUrl" value="/accounts/${userEntity.id}/reports/checklistReport" />
 	<c:url var="evaluationReportUrl" value="/accounts/${userEntity.id}/reports/evaluationReport" />
 	<c:url var="acceptanceLetterUrl" value="/accounts/${userEntity.id}/reports/acceptanceLetter" />
 	<c:url var="reviewUrl" value="/accounts/${userEntity.id}/studentAgreements" />
@@ -53,15 +54,15 @@
 			    <li><a href="#">One more separated link</a></li>
 			  </ul>
 			</li> --%>
-			<li id="applyingfor-li">
+			<%-- <li id="applyingfor-li">
 				<a href="${applyingForUrl}">ApplyingFor</a>
-			</li>
+			</li> --%>
 			<li id="education-li">
 				<a href="${educationUrl}">Educational background</a>
 			</li>
-			<li id="standardtests-li">
+			<%-- <li id="standardtests-li">
 				<a href="${standardTestsUrl}">StandardTest</a>
-			</li>
+			</li> --%>
 			<li id="uploadedfiles-li">
 				<a href="${uploadedFilesUrl}">Documents</a>
 			</li>
@@ -71,17 +72,18 @@
 		</sec:authorize>
 		<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 		
-			<li id="checklist-li">
+			<%-- <li id="checklist-li">
 				<a href="${checklistUrl}">Checklist</a>
-			</li>
+			</li> --%>
 			<li id="evaluation-li">
-				<a href="${evaluationUrl}">Evaluation</a>
+				<a href="${evaluationUrl}">Checklist & Evaluation</a>
 			</li>
 			<li id="reports-li" class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown">Reports<span class="caret"></span></a>
 			  <ul class="dropdown-menu">
 			    <li id="reports-applicationForm-li"><a href="${applicationFormUrl}" target="_blank">Application Form</a></li>
 			    <li id="reports-missing-li"><a href="${missingDocumentsUrl}">Missing Documents</a></li>
+			    <li id="reports-evaluation-li"><a href="${checklistReportUrl}">Checklist Report</a></li>
 			    <li id="reports-evaluation-li"><a href="${evaluationReportUrl}">Evaluation Report</a></li>
 			    <li id="reports-acceptance-li"><a href="${acceptanceLetterUrl}">Acceptance Letter</a></li>
 			    <!-- <li><a href="#">Link</a></li>

@@ -142,7 +142,7 @@
 		    </div>
         </div>
         
-        <div class="form-group row">
+        <%-- <div class="form-group row">
 			<label for="attendedFrom" class="col-sm-2 control-label">
 				<spring:message code="instituteForm.label.attendedFrom" />
 				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
@@ -153,9 +153,9 @@
 		    <div class="col-sm-5">
 		    	<form:errors class="errormsg" path="attendedFrom" htmlEscape="false" />
 		    </div>
-		</div>
+		</div> --%>
 		
-        <div class="form-group row">
+        <%-- <div class="form-group row">
 			<label for="attendedTo" class="col-sm-2 control-label">
 				<spring:message code="instituteForm.label.attendedTo" />
 				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
@@ -166,7 +166,7 @@
 		    <div class="col-sm-5">
 		    	<form:errors class="errormsg" path="attendedTo" htmlEscape="false" />
 		    </div>
-		</div>
+		</div> --%>
 		
         <div class="form-group row">
 			<label for="graduationDate" class="col-sm-2 control-label">

@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
@@ -33,12 +34,106 @@
 	</div>
 </sec:authorize>
 
-<h1>HighSchool</h1>
+<h3>Standard Test</h3>
+
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+	<c:url var="newStandardTestUrl" value="/accounts/${userEntity.id}/standardTest/new" />
+</sec:authorize>
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+	<c:url var="newStandardTestUrl" value="/myAccount/standardTest/new" />
+</sec:authorize>
+		
+<p>If you took any standard test like TOEFL or IELTS, please fill in the form. </p>
+
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">	
+	<h5>
+		<a href="${newStandardTestUrl}">Add New Standard Test</a>
+	</h5>
+</sec:authorize>
+
+<c:choose>
+	<c:when test="${empty standardTests}">
+		<p>No StandardTest.</p>
+	</c:when>
+	<c:otherwise>
+
+		<div class="table-responsive">
+			<table class="table table-hover table-striped">
+				<tr>
+					<th>Id</th>
+					<th>name</th>
+					<th>score</th>
+					<th>validTill</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+	
+				<c:forEach var="standardTest" items="${standardTests}">
+				
+				 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+					<c:url var="editStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/edit" />
+					<c:url var="deleteStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/delete" />
+				</sec:authorize>
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+					<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/edit" />
+					<c:url var="deleteStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/delete" />
+				</sec:authorize>
+				
+				<tr>
+					<td><c:out value="${standardTest.id}"></c:out>
+					</td>
+					<td><c:out value="${standardTest.name}"></c:out></td>
+					<td><c:out value="${standardTest.score}"></c:out></td>
+					<td>
+					<fmt:formatDate var="validTillString" value="${standardTest.validTill}" pattern="MM-dd-yyyy" />
+					<c:out value="${validTillString}" />
+					</td>
+					<td>
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+							<a href="${editStandardTestUrl}" class="btn btn-primary btn-md">Edit</a>
+						</sec:authorize>
+					</td>
+					<td>
+						<!-- Button trigger modal -->
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+							<a data-toggle="modal" data-remote="${deleteStandardTestUrl}" data-target="#deleteStandardTestModal" 
+								class="btn btn-danger btn-sm">Delete</a><br><br>
+						</sec:authorize>
+						
+						<!-- delete address Modal -->
+						<div class="modal fade" id="deleteStandardTestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class = "modal-content">
+						    
+							</div>
+						  </div>
+						</div>
+						
+					</td>
+				</tr>
+								
+				</c:forEach>
+	
+			</table>
+		</div>
+	</c:otherwise>
+</c:choose>
+
+
+<!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
+
+
+<hr style="border:2px solid #A4A4A4;">
+<h3>High School</h3>
+
+<p>
+Applicants applying for a Certificate, a Bachelor or an Associates Degree are required to provide information about their High School.
+</p>
 
 <sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<h3>
+	<h5>
 		<a href="${newHighSchoolUrl}">Add New High School</a>
-	</h3>
+	</h5>
 </sec:authorize>
 	
 
@@ -75,21 +170,16 @@
 				<c:forEach var="highSchool" items="${highSchools}">
 				
 				 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-					<%-- <c:url var="highSchoolUrl"	value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}" /> --%>
 					<c:url var="editHighSchoolUrl" value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}/edit" />
 					<c:url var="deleteHighSchoolUrl" value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}/delete" />
 				</sec:authorize>
 				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
-					<%-- <c:url var="highSchoolUrl"	value="/myAccount/highSchool/${highSchool.id}" /> --%>
 					<c:url var="editHighSchoolUrl" value="/myAccount/highSchool/${highSchool.id}/edit" />
 					<c:url var="deleteHighSchoolUrl" value="/myAccount/highSchool/${highSchool.id}/delete" />
 				</sec:authorize>
 				
 				<tr>
 					<td><c:out value="${highSchool.id}"></c:out></td>
-					<%-- <td>
-						<a href="${highSchoolUrl}"><c:out value="${highSchool.name}"></c:out></a>
-					</td> --%>
 					<td><c:out value="${highSchool.name}"></c:out></td>
 					<td><c:out value="${highSchool.state}"></c:out></td>
 					<td><c:out value="${highSchool.country}"></c:out></td>
@@ -116,9 +206,6 @@
 						  </div>
 						</div>
 						
-						<%-- <form id="deleteForm" action="${deleteHighSchoolUrl}" method="post">
-							<div><input type="submit" value="DELETE" /></div>
-						</form> --%>
 					</td>
 				</tr>
 								
@@ -129,13 +216,20 @@
 	</c:otherwise>
 </c:choose>
 
+<!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 
+<hr style="border:2px solid #A4A4A4;">
 
-<h1>Institute</h1>
+<h3>Institute</h3>
+
+<p>
+Applicants applying for a Masters or Post Masters Degree are required to provide information about Institutes attended in the past.
+</p>
+
 <sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<h3>
+	<h5>
 		<a href="${newInstituteUrl}">Add New Institute</a>
-	</h3>
+	</h5>
 </sec:authorize>
 
 

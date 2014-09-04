@@ -121,71 +121,13 @@ public class StudentApplyingForController {
 		userEntityService.updateTerm(userEntity.getId(), origUserEntity.getTerm().getId());
 		userEntityService.updateProgramOfStudy(userEntity.getId(), origUserEntity.getProgramOfStudy().getId());
 		
-		
-		
-		return "redirect:/myAccount/applyingFor";
+		/**
+		 * I am dropping the applyingFor page. merging that page in the account page
+		 */
+		return "redirect:/myAccount";
+//		return "redirect:/myAccount/applyingFor";
 	}
 	
-	
-	
-	// ======================================
-	// =                         =
-	// ======================================
-	
-	/**
-	 * Look at AdminController
-	 */
-//	@RequestMapping(value = "/myAccount/applyingFor/edit", method = RequestMethod.GET)
-//	public String editApplyingFor(@PathVariable("programOfStudyId") Long programOfStudyId, 
-//			@PathVariable("termId") Long termId, 
-//			Model model) {
-//		UserEntity userEntity = getUserEntityFromSecurityContext();	
-//		
-//		ProgramOfStudy programOfStudy = programOfStudyService.getProgramOfStudy(programOfStudyId);
-//		Term term = termService.getTerm(termId);
-//		
-//		model.addAttribute("origProgramOfStudy", programOfStudy);
-//		model.addAttribute(programOfStudy);
-//		model.addAttribute("origTerm", term);
-//		model.addAttribute(term);
-//		
-//		return "editAddress";
-//	}
-	/**
-	 * Look at AdminController
-	 */
-//	@RequestMapping(value = "/myAccount/applyingFor/edit", method = RequestMethod.POST)
-//	public String editApplyingFor(@PathVariable("addressId") Long addressId,
-//			@ModelAttribute @Valid Address origAddress, 
-//			BindingResult result,
-//			Model model) {
-//		
-//		UserEntity userEntity = getUserEntityFromSecurityContext();
-//		Address address = getAddressValidateUserEntityId(userEntity.getId(), addressId);
-//
-//		if (result.hasErrors()) {
-////			log.debug("Validation Error in Institute form");
-//			model.addAttribute("originalAddress", origAddress);
-//			return "editAddress";
-//		}
-//
-////		log.debug("Message validated; updating message subject and text");
-//		address.setAddress1(origAddress.getAddress1());
-//		address.setAddress2(origAddress.getAddress2());
-//		address.setCity(origAddress.getCity());
-//		addressService.updateAddress(address);
-//		
-//		return "redirect:/myAccount/applyingFor";
-//	}
-	
-	
-//	@RequestMapping(value = "/myAccount/applyingFor/{addressId}/delete", method = RequestMethod.POST)
-//	public String deleteApplyingFor(@PathVariable("addressId") Long addressId)
-//			throws IOException {
-//		UserEntity userEntity = getUserEntityFromSecurityContext();
-//		addressService.delete(getAddressValidateUserEntityId(userEntity.getId(), addressId));
-//		return "redirect:/myAccount/applyingFor";
-//	}
 	
 	
 	// ======================================

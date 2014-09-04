@@ -122,7 +122,7 @@
 		    </div>
         </div>
         
-		<div class="form-group row">
+		<%-- <div class="form-group row">
 			<label for="attendedFrom" class="col-sm-2 control-label">
 				<spring:message code="highSchoolForm.label.attendedFrom" />
 				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
@@ -133,9 +133,9 @@
 		    <div class="col-sm-5">
 		    	<form:errors class="errormsg" path="attendedFrom" htmlEscape="false" />
 		    </div>
-		</div>
+		</div> --%>
 		
-		<div class="form-group row">
+		<%-- <div class="form-group row">
 			<label for="attendedTo" class="col-sm-2 control-label">
 				<spring:message code="highSchoolForm.label.attendedTo" />
 				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
@@ -146,7 +146,7 @@
 		    <div class="col-sm-5">
 		    	<form:errors class="errormsg" path="attendedTo" htmlEscape="false" />
 		    </div>
-		</div>
+		</div> --%>
 		
         <%-- <fmt:formatDate value="${highSchool.attendedFrom}" var="attendedFromString" pattern="dd/MM/yyyy" />
         <div class="form-group row">

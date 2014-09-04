@@ -52,6 +52,12 @@ public class StudentStandardTestController {
 	// =  =
 	// ======================================
 
+	/**
+	 * NOT USING THIS METHOD ANYMORE, MERGING standardTests PAGE IN educations page
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/myAccount/standardTests", method = RequestMethod.GET)
 	public String getStandardTests(Model model) {
 
@@ -103,7 +109,11 @@ public class StudentStandardTestController {
 		standardTest.setCreatedBy(userEntity);
 		standardTestService.createStandardTest(standardTest);
 
-		return "redirect:/myAccount/standardTests";
+		/**
+		 * I am dropping the standardTests page. merging that page in the educations page
+		 */
+		return "redirect:/myAccount/educations";
+//		return "redirect:/myAccount/standardTests";
 	}
 
 	// ======================================
@@ -150,7 +160,8 @@ public class StudentStandardTestController {
 
 		standardTestService.updateStandardTest(standardTest);
 
-		return "redirect:/myAccount/standardTests";
+		return "redirect:/myAccount/educations";
+//		return "redirect:/myAccount/standardTests";
 	}
 
 	/*
@@ -178,7 +189,8 @@ public class StudentStandardTestController {
 		StandardTest standardTest = getStandardTestsValidateUserEntityId(userEntity.getId(), standardTestId);
 		standardTestService.delete(standardTest);
 
-		return "redirect:/myAccount/standardTests";
+		return "redirect:/myAccount/educations";
+//		return "redirect:/myAccount/standardTests";
 	}
 
 	// ======================================

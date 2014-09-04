@@ -41,6 +41,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
+/**
+ * When removing @Column annotations, update queries like INSERT_USERENTITY_SQL, 
+ * as the field names in db is name_name for some and nameName for others.
+ * @author danielanenia
+ *
+ */
+
 @NamedQueries({
 	@NamedQuery(
     		name = "findUserEntityByUsername",

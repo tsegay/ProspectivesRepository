@@ -24,7 +24,13 @@ public class Education extends BaseEntity {
 	private String state;
 	private String zip;
 	private String city;
+	/**
+	 * Dean wanted this removed. To Be Removed!
+	 */
 	private Date attendedFrom;
+	/**
+	 * Dean wanted this removed. To Be Removed!
+	 */
 	private Date attendedTo;
 	
 	
@@ -91,14 +97,14 @@ public class Education extends BaseEntity {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	@NotNull
+//	@NotNull
 	public Date getAttendedFrom() {
 		return attendedFrom;
 	}
 	public void setAttendedFrom(Date attendedFrom) {
 		this.attendedFrom = attendedFrom;
 	}
-	@NotNull
+//	@NotNull
 	public Date getAttendedTo() {
 		return attendedTo;
 	}

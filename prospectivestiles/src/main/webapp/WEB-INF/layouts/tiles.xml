@@ -57,6 +57,12 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/registrationform.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="registerUser" extends="prospectivestiles.base">
+		<put-attribute name="title" value="registerUser page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/registerUser.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="registrationok" extends="prospectivestiles.base">
 		<put-attribute name="title" value="registrationok page"></put-attribute>
 		<put-attribute name="navMenu" value=""></put-attribute>
@@ -492,6 +498,11 @@
 	<definition name="evaluationReport" extends="prospectivestiles.base">
 		<put-attribute name="title" value="evaluationReport page"></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/reports/evaluationReport.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="checklistReport" extends="prospectivestiles.base">
+		<put-attribute name="title" value="checklistReport page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/reports/checklistReport.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="acceptanceLetter" extends="prospectivestiles.base">

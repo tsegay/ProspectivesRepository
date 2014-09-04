@@ -31,7 +31,17 @@ public interface UserEntityService {
 	void updateTerm(long userEntityId, long termId);
 	void updateProgramOfStudy(long userEntityId, long programOfStudyId);
 	void updateAccountState(long userEntityId, String accountState);
+	/**
+	 * To update a userEntity
+	 * @param userEntityId
+	 * @param userEntity
+	 */
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
+	/**
+	 * To create new userEntity
+	 * @param userEntity
+	 */
+	void insertUserEntity(UserEntity userEntity, Errors errors);
 	void updatePassword(long userEntityId, String password);
 
 	List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize);
@@ -47,6 +57,7 @@ public interface UserEntityService {
 	long countByRole(long roleID);
 	long countByRoles(List<Long> rolesList);
 	boolean hasRoleAdmin(long userEntityId);
+	boolean hasRoleAdmissionOrAssist(long userEntityId);
 	
 	List<UserEntity> findUserEntitiesByAccountState(String accountState);
 	long countByAccountState(String accountState);

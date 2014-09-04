@@ -1,8 +1,11 @@
 package com.prospectivestiles.service.impl;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -212,9 +215,53 @@ public class UserEntityServiceImpl implements UserEntityService {
 	public void insertIntoUserEntity(long userEntityId, UserEntity userEntity) {
 		
 		userEntityDao.insertIntoUserEntity(userEntityId, userEntity);
+	}
+	
+	/**
+	 * Using JDBC to update userEntity
+	 * If use hibernate persistence, the form is not validates as the agreeTerms must be 'true'
+	 * Only, student can make the agreement. AO can't fill in this field.
+	 * When AO creates an account for an applicant.
+	 * Auto generate unique username for the applicant.
+	 * Make sure the email is not already taken too.
+	 * 
+	 */
+	@Override
+	@Transactional(readOnly = false)
+	public void insertUserEntity(UserEntity userEntity, Errors errors) {
+		userEntity.setUsername(generateUniqueUsername(userEntity.getFirstName()));
+		validateEmail(userEntity.getEmail(), errors);
+		userEntityDao.insertUserEntity(userEntity);
 		
 	}
-
+	
+	/**
+	 * When AO creates an account for an applicant.
+	 * Auto generate username for the applicant.
+	 * Format the username as: firstName + a 3-digit number.
+	 * Make sure the username is not already taken.
+	 * @param firstName
+	 * @return
+	 */
+	private String generateUniqueUsername(String firstName) {
+		String username = firstName + randomNumber();
+		System.out.println("firstName + randomNumber(): " + username);
+		while (userEntityDao.findByUsername(username) != null) {
+			System.out.println("username taken: " + username);
+			username = firstName + randomNumber();
+		}
+		System.out.println("returning username: " + username);
+		return username;
+	}
+	
+//	private int generateUniqueUsername(int n) {
+//		int num = n + randomNumber();
+//		while (num % 2 == 0) {
+//			num = n + randomNumber();
+//		}
+//		return num;
+//	}
+	
 	@Override
 	public List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize) {
 		return userEntityDao.findAll(page, pageSize);
@@ -247,13 +294,6 @@ public class UserEntityServiceImpl implements UserEntityService {
 		return userEntityDao.countByRole(roleID);
 	}
 
-	/**
-	 * To find if a user is an admin
-	 */
-	@Override
-	public boolean hasRoleAdmin(long userEntityId) {
-		return userEntityDao.hasRoleAdmin(userEntityId);
-	}
 
 	@Override
 	public List<UserEntity> findUserEntitiesByAccountState(String accountState) {
@@ -276,7 +316,39 @@ public class UserEntityServiceImpl implements UserEntityService {
 		return userEntityDao.countByRoles(rolesList);
 	}
 
+	/**
+	 * To find if a user is an admin
+	 */
+	@Override
+	public boolean hasRoleAdmin(long userEntityId) {
+		return userEntityDao.hasRoleAdmin(userEntityId);
+	}
+
+	@Override
+	public boolean hasRoleAdmissionOrAssist(long userEntityId) {
+		return userEntityDao.hasRoleAdmissionOrAssist(userEntityId);
+	}
+
+
+
+
+	public int randomNumber() {
+//		SecureRandom rand = new SecureRandom();
+//		return new BigInteger(130, rand).toString(32);
+	    int START = 100;
+	    int END = 1000;
+	    Random random = new Random();
+	    
+	    long range = (long)END - (long)START + 1;
+	    long fraction = (long)(range * random.nextDouble());
+	    int randomNumber =  (int)(fraction + START); 
+	    return randomNumber;
+	}
 	
+	public String randomString() {
+		SecureRandom rand = new SecureRandom();
+		return new BigInteger(130, rand).toString(32);
+	}
 
 	
 	

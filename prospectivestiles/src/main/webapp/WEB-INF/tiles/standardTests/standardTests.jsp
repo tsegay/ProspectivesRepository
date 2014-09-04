@@ -54,26 +54,22 @@
 				<c:forEach var="standardTest" items="${standardTests}">
 				
 				 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-					<%-- <c:url var="standardTestUrl"	value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}" /> --%>
 					<c:url var="editStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/edit" />
 					<c:url var="deleteStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/delete" />
 				</sec:authorize>
 				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
-					<%-- <c:url var="standardTestUrl"	value="/myAccount/standardTest/${standardTest.id}" /> --%>
 					<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/edit" />
 					<c:url var="deleteStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/delete" />
 				</sec:authorize>
 				
 				<tr>
 					<td><c:out value="${standardTest.id}"></c:out>
-						<%-- <a href="${standardTestUrl}"><c:out value="${standardTest.id}"></c:out></a> --%>
 					</td>
 					<td><c:out value="${standardTest.name}"></c:out></td>
 					<td><c:out value="${standardTest.score}"></c:out></td>
 					<td>
 					<fmt:formatDate var="validTillString" value="${standardTest.validTill}" pattern="MM-dd-yyyy" />
 					<c:out value="${validTillString}" />
-					<%-- <c:out value="${standardTest.validTill}"></c:out> --%>
 					</td>
 					<td>
 						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">

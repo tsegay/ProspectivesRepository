@@ -34,7 +34,7 @@
 	</div>
 </sec:authorize>
 
-<h1>Evaluation Form</h1>
+<h1>Checklist</h1>
 
 <form:form action="${newEvaluationsUrl}" modelAttribute="evaluation"
 	role="form" class="form-horizontal">
@@ -47,11 +47,15 @@
 		<div class="col-sm-5">
 			<form:select path="f1Visa" class="form-control">
 				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
-				<form:option value="notreviewed" label="Not Reviewed" />
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+				
+				<%-- <form:option value="notreviewed" label="Not Reviewed" />
 				<form:option value="valid" label="Valid" />
 				<form:option value="notrequired" label="Not Required" />
 				<form:option value="invalid" label="Invalid" />
-				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="incomplete" label="Incomplete" /> --%>
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -65,12 +69,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="bankStmt" class="form-control">
-				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -84,11 +85,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="i20" class="form-control">
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -102,11 +101,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="passport" class="form-control">
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -120,11 +117,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="financialAffidavit" class="form-control">
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -138,11 +133,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="applicationFee" class="form-control">
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -157,11 +150,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="applicationForm" class="form-control">
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -174,11 +165,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="enrollmentAgreement" class="form-control">
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -191,11 +180,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="grievancePolicy" class="form-control">
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -208,11 +195,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="recommendationLetter" class="form-control">
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -228,11 +213,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="transcript" class="form-control">
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -246,11 +229,9 @@
 		</label>
 		<div class="col-sm-5">
 			<form:select path="diplome" class="form-control">
-				<form:option value="notreviewed" label="Not Reviewed" />
-				<form:option value="valid" label="Valid" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="invalid" label="Invalid" />
 				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
 			</form:select>
 		</div>
 		<div class="col-sm-5">
@@ -269,7 +250,13 @@
 			<form:errors class="errormsg" path="studentQualification" htmlEscape="false" />
 		</div>
 	</div> --%>
+
+		
+	<hr>
+		
+	<h1>Applicant Evaluation</h1>
 	
+		
 	<div class="form-group row">
 		<label for="admnOfficerReport" class="col-sm-2 control-label">
 			<spring:message code="evaluationForm.label.admnOfficerReport" />

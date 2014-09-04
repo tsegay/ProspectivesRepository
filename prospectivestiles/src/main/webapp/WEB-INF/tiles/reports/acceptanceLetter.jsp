@@ -59,15 +59,16 @@ I don't think i need all these checklist urls
 						<a href="${acceptanceLetterUrl}" class="btn btn-primary btn-lg" target="_blank">Download</a>
 					</div>
 					
-				<!-- Email MissingDocuments attachment to student -->
-					<div class="col-md-2">
+				<!-- Email acceptanceLetter attachment to student -->
+				
+					<%-- <div class="col-md-2">
 						<c:url var="emailAcceptanceLetter" value="/admin/report/${userEntity.id}/acceptanceLetter/email" />
 						<form action="${emailAcceptanceLetter}" method="post">
 							<div>
 								<input class="btn btn-primary btn-lg" type="submit" value="Email to Student" />
 							</div>
 						</form>
-					</div>
+					</div> --%>
 				</div>
 				
 				<br />

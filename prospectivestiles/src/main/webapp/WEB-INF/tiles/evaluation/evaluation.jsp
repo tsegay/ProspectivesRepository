@@ -24,7 +24,7 @@
 	</div>
 </sec:authorize>
 
-<h1>Evaluation</h1>
+<h1>Checklist</h1>
 
 
 <c:if test="${param.deleted == true}">
@@ -35,6 +35,8 @@
 	<c:url var="newEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/new" />
 	<c:url var="editEvaluationUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/edit" />
 	<c:url var="grantAdmisionUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/grantAdmision" />
+	<c:url var="denyAdmisionUrl" value="/accounts/${userEntity.id}/evaluation/${userEntity.evaluation.id}/denyAdmision" />
+	<c:url var="getEvaluationReport" value="/admin/report/${userEntity.id}/evaluation" />
 </sec:authorize>
 		
 <c:choose>
@@ -45,30 +47,22 @@
 		  Create Evaluation
 		</button> -->
 		<h3>
-			<a href="${newEvaluationUrl}">Start Evaluation</a>
+			<a href="${newEvaluationUrl}">Create Checklist</a>
 		</h3>
 	</c:when>
+					
 	<c:otherwise>
 				
-		<dl class="dl-horizontal">
+		<div class="row">
+		<dl class="dl-horizontal col-md-6">
 		  <dt>Id</dt>
 		  <dd><c:out value="${userEntity.evaluation.id}"></c:out></dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.f1Visa" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.f1Visa == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.f1Visa == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.f1Visa == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.f1Visa == \"notrequired\"}">
@@ -76,29 +70,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.f1Visa == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.f1Visa == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.bankStmt" /></dt>
-		  <%-- <dd><c:out value="${userEntity.evaluation.bankStmt}"></c:out></dd> --%>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.bankStmt == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.bankStmt == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.bankStmt == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.bankStmt == \"notrequired\"}">
@@ -106,28 +89,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.bankStmt == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.bankStmt == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.i20" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.i20 == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.i20 == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.i20 == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.i20 == \"notrequired\"}">
@@ -135,28 +108,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.i20 == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.i20 == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.passport" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.passport == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.passport == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.passport == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.passport == \"notrequired\"}">
@@ -164,28 +127,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.passport == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.passport == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.financialAffidavit" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.financialAffidavit == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.financialAffidavit == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.financialAffidavit == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.financialAffidavit == \"notrequired\"}">
@@ -193,28 +146,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.financialAffidavit == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.financialAffidavit == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.applicationFee" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.applicationFee == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.applicationFee == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.applicationFee == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.applicationFee == \"notrequired\"}">
@@ -222,28 +165,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.applicationFee == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.applicationFee == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.applicationForm" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.applicationForm == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.applicationForm == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.applicationForm == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.applicationForm == \"notrequired\"}">
@@ -251,28 +184,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.applicationForm == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.applicationForm == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.enrollmentAgreement" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"notrequired\"}">
@@ -280,28 +203,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.enrollmentAgreement == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.grievancePolicy" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"notrequired\"}">
@@ -309,28 +222,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.grievancePolicy == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.recommendationLetter" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"notrequired\"}">
@@ -338,28 +241,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.recommendationLetter == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.transcript" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.transcript == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.transcript == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.transcript == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.transcript == \"notrequired\"}">
@@ -367,28 +260,18 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.transcript == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.transcript == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.diplome" /></dt>
 		  <dd>
-		  	<c:if test="${userEntity.evaluation.diplome == \"notreviewed\"}">
-		  		<span class="gray"> 
-		  			Not Reviewed
-		  		</span>
-		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.diplome == \"incomplete\"}">
-		  		<span class="orange"> 
-		  			Incomplete
-		  		</span>
-		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.diplome == \"invalid\"}">
 		  		<span class="red glyphicon glyphicon-remove"> 
-		  			Invalid
+		  			Incomplete
 		  		</span>
 		  	</c:if>
 		  	<c:if test="${userEntity.evaluation.diplome == \"notrequired\"}">
@@ -396,13 +279,35 @@
 		  			Not Required
 		  		</span>
 		  	</c:if>
-		  	<c:if test="${userEntity.evaluation.diplome == \"valid\"}">
+		  	<c:if test="${userEntity.evaluation.diplome == \"complete\"}">
 		  		<span class="green glyphicon glyphicon-ok"> 
-		  			Valid
+		  			Complete
 		  		</span>
 		  	</c:if>
 		  </dd>
-		  
+		</dl>
+		
+		<!-- <div class="col-md-6">
+			<a href="#" class="btn btn-primary btn-md" target="_blank">Print Checkllist</a>
+			<br/><br/>
+			<a href="#" class="btn btn-primary btn-md" target="_blank">Print Missing Documents</a>
+			<br/><br/>
+			<a href="#" class="btn btn-primary btn-md" target="_blank">Email Student Missing Documents</a>
+			<br/><br/>
+			
+		</div> -->
+			
+		</div>
+		<!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
+		
+		<hr style="border:2px solid #A4A4A4;">
+		
+		<h1>Applicant Evaluation</h1>
+		
+		<div class="row">
+		
+		<!-- <dl class="dl-horizontal col-md-6"> -->
+		<dl class="dl-horizontal">
 		  <%-- <dt><spring:message code="evaluationForm.label.studentQualification" /></dt>
 		  <dd><c:out value="${userEntity.evaluation.studentQualification}"></c:out></dd> --%>
 		  
@@ -426,7 +331,6 @@
 		  <dd>
 		  	<fmt:formatDate var="dateLastModifiedString" value="${userEntity.evaluation.dateLastModified}" pattern="MM-dd-yyyy" />
 			<c:out value="${dateLastModifiedString}" />
-		  	<%-- <c:out value="${userEntity.evaluation.dateLastModified}"></c:out> --%>
 		  </dd>
 		  
 		  <dt><spring:message code="evaluationForm.label.lastModifiedBy" /></dt>
@@ -437,21 +341,25 @@
 		  
 		  
 		</dl>
+		<%-- <div class="col-md-6">
+			<a href="${getEvaluationReport}" class="btn btn-primary btn-md" target="_blank">Print Evaluation</a>
+			
+		</div> --%>
+			
+		</div>
 		
 		<br />
 		<br />
 		
 		<!-- Evaluation can't be deleted by any user.  -->
-		<%-- <a data-toggle="modal" href="${editEvaluationUrl}" data-target="#editEvaluationModal" 
-			class="btn btn-primary btn-lg">Edit</a> --%>
 		<a href="${editEvaluationUrl}" class="btn btn-primary btn-sm">Edit</a>
 		<br />
 		<br />	
-		<%-- <form id="deleteForm" action="${deleteEvaluationUrl}" method="post">
-			<div><input type="submit" value="DELETE" /></div>
-		</form> --%>
 		
-		<br />	
+		<!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
+		
+		<hr style="border:2px solid #A4A4A4;">
+			
 		<c:choose>
 			<c:when test="${userEntity.accountState != 'admitted'}">
 				<form id="grantAdmisionForm" action="${grantAdmisionUrl}" method="post">
@@ -459,25 +367,15 @@
 						<input type="submit" class="btn btn-success btn-sm" value="Grant Admision">
 					</div>
 				</form>
-			</c:when>
-			<c:otherwise>Prospective student is admitted</c:otherwise>
-		</c:choose>
-		
-		<%-- <c:choose>
-			<c:when test="${userEntity.evaluation.status != 'admitted'}">
-				<form id="grantAdmisionForm" action="${grantAdmisionUrl}" method="post">
+				<br/><br/>
+				<form id="grantAdmisionForm" action="${denyAdmisionUrl}" method="post">
 					<div>
-						<!-- <input type="submit" value="grantAdmision" /> -->
-						<input type="submit" class="btn btn-success btn-sm" value="Grant Admision">
+						<input type="submit" class="btn btn-danger btn-sm" value="Deny Admision">
 					</div>
 				</form>
 			</c:when>
 			<c:otherwise>Prospective student is admitted</c:otherwise>
-		</c:choose> --%>
-		
-		
-		
-		
+		</c:choose>
 		
 	</c:otherwise>
 </c:choose>

@@ -45,14 +45,17 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	 * @param userEntity
 	 */
 	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
+	/**
+	 * Using JDBC to create userEntity
+	 * @param userEntity
+	 */
+	void insertUserEntity(UserEntity userEntity);
 	void updateAccountState(long userEntityId, String accountState);
 //	void insertAccountState(long userEntityId, AccountState accountState);
 	void updatePassword(long userEntityId, String password);
 	
 	List<UserEntity> findByRole(long roleID);
 	
-	// is the user an admin?
-	boolean hasRoleAdmin(long userEntityId);
 	
 	// used for pagination
 	// put it in dao.java
@@ -65,6 +68,14 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	 */
 	long countByRole(long roleID);
 	long countByRoles(List<Long> rolesList);
+	
+	/**
+	 * is the user an admin?
+	 * @param userEntityId
+	 * @return
+	 */
+	boolean hasRoleAdmin(long userEntityId);
+	boolean hasRoleAdmissionOrAssist(long userEntityId);
 
 	
 }

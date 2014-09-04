@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.HighSchoolService;
 import com.prospectivestiles.service.InstituteService;
+import com.prospectivestiles.service.StandardTestService;
 import com.prospectivestiles.service.UserEntityService;
 
 @Controller
@@ -26,6 +27,9 @@ public class AdminEducationController {
 	@Autowired
 	private UserEntityService userEntityService;
 	
+	@Inject
+	private StandardTestService standardTestService;
+	
 	// ======================================
 	// =             myAccount/educations for highSchool and Institute             =
 	// ======================================	
@@ -38,6 +42,12 @@ public class AdminEducationController {
 		model.addAttribute("institutes", instituteService.getInstitutesByUserEntityId(userEntity.getId()));
 		model.addAttribute("highSchools", highSchoolService.getHighSchoolsByUserEntityId(userEntity.getId()));
 		model.addAttribute("userEntity", userEntity);
+		
+		/**
+		 * load all standardTests for a user
+		 * I am dropping the standardTests page. merging that page in the educations page
+		 */
+		model.addAttribute("standardTests", standardTestService.getStandardTestsByUserEntityId(userEntityId));
 		
 		/*
 		 * I am loading too many entities in the model. What is the limit???

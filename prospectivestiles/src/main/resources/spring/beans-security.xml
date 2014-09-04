@@ -74,6 +74,7 @@
 		<intercept-url pattern="/welcome.jsp" method="GET" access="permitAll" />
 		
 		<intercept-url pattern="/registrationform" access="permitAll" />
+		<intercept-url pattern="/registerUser" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- =========================================================================== -->
 		<!-- Admin console -->
@@ -231,6 +232,7 @@
 		<intercept-url pattern="/accounts/pendingStudents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/evaluationState" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/evaluation/*/grantAdmision" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/evaluation/*/denyAdmision" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/evaluation/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/evaluation/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/evaluation/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
@@ -248,6 +250,7 @@
 		<intercept-url pattern="/accounts/*/evaluation" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" /> -->
 		<intercept-url pattern="/accounts/*/reports/missingDocuments" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/reports/evaluationReport" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/reports/checklistReport" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/reports/acceptanceLetter" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<intercept-url pattern="/admin/report/*/missingDocuments/email" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
@@ -260,6 +263,7 @@
 		
 		<!-- Admin PDF Reports -->
 		<intercept-url pattern="/admin/report/*/applicationForm" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/admin/report/*/checklist" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/admin/report/*/evaluation" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/admin/report/*/missingDocuments" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/admin/report/*/acceptanceLetter" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />

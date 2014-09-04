@@ -39,6 +39,8 @@ import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.AssociatedUserService;
+import com.prospectivestiles.service.ProgramOfStudyService;
+import com.prospectivestiles.service.TermService;
 import com.prospectivestiles.service.UserEntityService;
 
 /**
@@ -62,6 +64,12 @@ public class AdminAccountController {
 	
 	@Inject
 	private AssociatedUserService associatedUserService;
+	
+	@Inject
+	private ProgramOfStudyService programOfStudyService;
+	
+	@Inject
+	private TermService termService;
 	
 	private static final Logger log = LoggerFactory.getLogger(AdminAccountController.class);
 	
@@ -284,6 +292,9 @@ public class AdminAccountController {
 		 */
 		model.addAttribute("userEntity", userEntity);
 		
+		model.addAttribute("terms", termService.getAllTerms());
+		model.addAttribute("programOfStudies", programOfStudyService.getAllProgramOfStudies());
+		
 		return "account";
 	}
 	
@@ -307,6 +318,8 @@ public class AdminAccountController {
 	
 	/**
 	 * @Valid - use validation to validate userEntity
+	 * Why using insertIntoUserEntity()? Checkout and replace with updateUserEntity()
+	 * Has to do with acceptTerms??
 	 */
 //			@ModelAttribute("userEntity") @Valid UserEntity form,
 	@RequestMapping(value="/accounts/{userEntityId}/edit", method = RequestMethod.POST)

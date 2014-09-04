@@ -80,7 +80,7 @@
 							<li><a href="<c:url value='/registrationform'/>">SingUp</a></li>
 						</sec:authorize>
 						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-							<li><a href="<c:url value='/registrationform'/>">SignUp New Applicant</a></li>
+							<li><a href="<c:url value='/registerUser'/>">SignUp New Applicant</a></li>
 						</sec:authorize>
 						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')">
 							<li><a href="<c:url value='/myAccount'/>">MyAccount</a></li>

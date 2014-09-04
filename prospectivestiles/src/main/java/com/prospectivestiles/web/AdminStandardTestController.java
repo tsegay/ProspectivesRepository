@@ -72,6 +72,9 @@ public class AdminStandardTestController {
 	// ======================================
 	/**
 	 * Get all Standard Tests for a student by student id
+	 * 
+	 * NOT USING THIS METHOD ANYMORE, MERGING standardTests PAGE IN educations page
+	 * 
 	 * @param userEntityId
 	 * @param model
 	 * @return
@@ -130,7 +133,11 @@ public class AdminStandardTestController {
 		standardTest.setCreatedBy(currentAdmissionUser);
 		standardTestService.createStandardTest(standardTest);
 		
-		return "redirect:/accounts/{userEntityId}/standardTests";
+		/**
+		 * I am dropping the standardTests page. merging that page in the educations page
+		 */
+//		return "redirect:/accounts/{userEntityId}/standardTests";
+		return "redirect:/accounts/{userEntityId}/educations";
 	}
 	
 	
@@ -173,7 +180,8 @@ public class AdminStandardTestController {
 		
 		standardTestService.updateStandardTest(standardTest);
 		
-		return "redirect:/accounts/{userEntityId}/standardTests";
+		return "redirect:/accounts/{userEntityId}/educations";
+//		return "redirect:/accounts/{userEntityId}/standardTests";
 	}
 	
 	/*
@@ -197,7 +205,8 @@ public class AdminStandardTestController {
 			@PathVariable("standardTestId") Long standardTestId)
 			throws IOException {
 		standardTestService.delete(getStandardTestValidateUserEntityId(userEntityId, standardTestId));
-		return "redirect:/accounts/{userEntityId}/standardTests";
+		return "redirect:/accounts/{userEntityId}/educations";
+//		return "redirect:/accounts/{userEntityId}/standardTests";
 	}
 	
 	

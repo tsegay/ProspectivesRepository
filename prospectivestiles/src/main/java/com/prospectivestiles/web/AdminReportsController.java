@@ -50,11 +50,17 @@ public class AdminReportsController {
 	// =             reports             =
 	// ======================================
 	
+	/**
+	 * Not using the Checklist class any longer.
+	 * Get missing documents from the Evaluation class
+	 * 
+	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/reports/missingDocuments", method = RequestMethod.GET)
 	public String getMissingDocuments(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
 		
-		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
+//		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
+		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
 		ArrayList<String> missingDocuments = new ArrayList<String>();
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
 		String admissionOfficerName = null;
@@ -71,42 +77,42 @@ public class AdminReportsController {
 		/**
 		 * if user has no checklist created, you can't generate missing documents report
 		 */
-		if (checklist != null) {
+		if (evaluation != null) {
 		
-			if (checklist.getF1Visa().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getF1Visa().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("F1 Visa");
 			}
-			if (checklist.getBankStmt().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getBankStmt().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Bank Statement");
 			}
-			if (checklist.getI20().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getI20().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("I20");
 			}
-			if (checklist.getPassport().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getPassport().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Passport");
 			}
-			if (checklist.getFinancialAffidavit().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getFinancialAffidavit().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Financial Affidavit");
 			}
-			if (checklist.getApplicationFee().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getApplicationFee().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Application Fee");
 			}
-			if (checklist.getApplicationForm().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getApplicationForm().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Application Form");
 			}
-			if (checklist.getEnrollmentAgreement().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getEnrollmentAgreement().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Enrollment Agreement");
 			}
-			if (checklist.getGrievancePolicy().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getGrievancePolicy().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Grievance Policy");
 			}
-			if (checklist.getRecommendationLetter().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getRecommendationLetter().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Recommendation Letter");
 			}
-			if (checklist.getTranscript().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getTranscript().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Transcript");
 			}
-			if (checklist.getDiplome().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getDiplome().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Diplome");
 			}
 		
@@ -133,23 +139,24 @@ public class AdminReportsController {
 		Map<String, Object> evaluationReportSummary = new HashMap<String, Object>();
 		
 		/**
-		 * if user has no checklist created, you can't generate missing documents report
+		 * if user has no evaluation created, you can't generate missing documents report
 		 */
 		if (evaluation != null) {
 			
 			if (
-			(evaluation.getApplicationFee().equalsIgnoreCase("valid") || evaluation.getApplicationFee().equalsIgnoreCase("notrequired")) &&  
-			(evaluation.getApplicationForm().equalsIgnoreCase("valid") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) &&  
-			(evaluation.getEnrollmentAgreement().equalsIgnoreCase("valid") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) &&  
-			(evaluation.getGrievancePolicy().equalsIgnoreCase("valid") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&  
-			(evaluation.getRecommendationLetter().equalsIgnoreCase("valid") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) &&  
-			(evaluation.getBankStmt().equalsIgnoreCase("valid") || evaluation.getBankStmt().equalsIgnoreCase("notrequired")) && 
-			(evaluation.getDiplome().equalsIgnoreCase("valid") || evaluation.getDiplome().equalsIgnoreCase("notrequired")) && 
-			(evaluation.getF1Visa().equalsIgnoreCase("valid") || evaluation.getF1Visa().equalsIgnoreCase("notrequired")) && 
-			(evaluation.getFinancialAffidavit().equalsIgnoreCase("valid") || evaluation.getFinancialAffidavit().equalsIgnoreCase("notrequired")) && 
-			(evaluation.getI20().equalsIgnoreCase("valid") || evaluation.getI20().equalsIgnoreCase("notrequired")) && 
-			(evaluation.getPassport().equalsIgnoreCase("valid") || evaluation.getPassport().equalsIgnoreCase("notrequired")) && 
-			(evaluation.getTranscript().equalsIgnoreCase("valid") || evaluation.getTranscript().equalsIgnoreCase("notrequired"))) {
+			(evaluation.getApplicationFee().equalsIgnoreCase("complete") || evaluation.getApplicationFee().equalsIgnoreCase("notrequired")) &&  
+			(evaluation.getApplicationForm().equalsIgnoreCase("complete") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) &&  
+			(evaluation.getEnrollmentAgreement().equalsIgnoreCase("complete") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) &&  
+			(evaluation.getGrievancePolicy().equalsIgnoreCase("complete") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&  
+			(evaluation.getRecommendationLetter().equalsIgnoreCase("complete") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) &&  
+			(evaluation.getBankStmt().equalsIgnoreCase("complete") || evaluation.getBankStmt().equalsIgnoreCase("notrequired")) && 
+			(evaluation.getDiplome().equalsIgnoreCase("complete") || evaluation.getDiplome().equalsIgnoreCase("notrequired")) && 
+			(evaluation.getF1Visa().equalsIgnoreCase("complete") || evaluation.getF1Visa().equalsIgnoreCase("notrequired")) && 
+			(evaluation.getFinancialAffidavit().equalsIgnoreCase("complete") || evaluation.getFinancialAffidavit().equalsIgnoreCase("notrequired")) && 
+			(evaluation.getI20().equalsIgnoreCase("complete") || evaluation.getI20().equalsIgnoreCase("notrequired")) && 
+			(evaluation.getPassport().equalsIgnoreCase("complete") || evaluation.getPassport().equalsIgnoreCase("notrequired")) && 
+			(evaluation.getTranscript().equalsIgnoreCase("complete") || evaluation.getTranscript().equalsIgnoreCase("notrequired"))) {
+				
 				evaluationReportSummary.put("admnOfficerReport",evaluation.getAdmnOfficerReport());
 //				evaluationReportSummary.put("studentQualification",evaluation.getStudentQualification());
 				evaluationReportSummary.put("dateLastModified",evaluation.getDateLastModified());
@@ -174,6 +181,23 @@ public class AdminReportsController {
 		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
 		
 		return "evaluationReport";
+	}
+	
+	
+	@RequestMapping(value = "/accounts/{userEntityId}/reports/checklistReport", method = RequestMethod.GET)
+	public String getChecklistReport(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		
+		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
+		
+		model.addAttribute("evaluation", evaluation);
+		/**
+		 * pass userEntity to the page. Else if you try to navigate to other pages from missingDocuments for eg to evaluation
+		 * the url will not find the userEntity id --> accounts//evaluations instead of accounts/4/evaluations for eg.
+		 */
+		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
+		
+		return "checklistReport";
 	}
 	
 	/**

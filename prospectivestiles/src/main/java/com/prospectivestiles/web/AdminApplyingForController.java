@@ -40,10 +40,13 @@ public class AdminApplyingForController {
 	// =             applyingFor             =
 	// ======================================
 	
-	/*
+	/**
 	 * user can't delete term or program of study but they can change it.
 	 * I am using the same method to create and edit the term and program of study to
 	 * insert the term and program of study to the userEntity using jdbc
+	 * 
+	 * 1. Update the term and program of study using the getApplyingFor()
+	 * By displaying alternating button labels Add/Update 
 	 */
 	
 	
@@ -53,9 +56,6 @@ public class AdminApplyingForController {
 		
 		model.addAttribute("terms", termService.getAllTerms());
 		model.addAttribute("programOfStudies", programOfStudyService.getAllProgramOfStudies());
-		/**
-		 * The modelAttribute "emergencyContact" for the form to add new emergencyContact
-		 */
 		
 		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
 		
@@ -75,53 +75,14 @@ public class AdminApplyingForController {
 		userEntityService.updateTerm(userEntityId, origUserEntity.getTerm().getId());
 		userEntityService.updateProgramOfStudy(userEntityId, origUserEntity.getProgramOfStudy().getId());
 		
-		
-		return "redirect:/accounts/{userEntityId}/applyingFor";
+		/**
+		 * I am dropping the applyingFor page. merging that page in the account page
+		 */
+		return "redirect:/accounts/{userEntityId}";
+//		return "redirect:/accounts/{userEntityId}/applyingFor";
 	}
 	
-//	@RequestMapping(value = "/accounts/{userEntityId}/applyingFor/edit", method = RequestMethod.GET)
-//	public String editApplyingFor(@PathVariable("userEntityId") Long userEntityId,
-//			@PathVariable("programOfStudyId") Long programOfStudyId, 
-//			@PathVariable("termId") Long termId,
-//			Model model) {
-//		ProgramOfStudy programOfStudy = programOfStudyService.getProgramOfStudy(programOfStudyId);
-//		Term term = termService.getTerm(termId);
-//		
-//		model.addAttribute("origProgramOfStudy", programOfStudy);
-//		model.addAttribute(programOfStudy);
-//		model.addAttribute("origTerm", term);
-//		model.addAttribute(term);
-//		return "editAddress";
-//		
-//	}
 	
-	
-	/**
-	 * Update this for the Term and ProgramOfStudy
-	 * 1. Update the term and program of study using the getApplyingFor()
-	 * By displaying alternating button labels Add/Update 
-	 * 2. Use the method below
-	 */
-//	@RequestMapping(value = "/accounts/{userEntityId}/applyingFor/edit", method = RequestMethod.POST)
-//	public String editApplyingFor(@PathVariable("userEntityId") Long userEntityId,
-//			@ModelAttribute UserEntity origUserEntity,
-//			BindingResult result,
-//			Model model) {
-//		
-//		/**
-//		 * Get the termId, programOfStudyId and userEntityId
-//		 * Update this fields in the UserEntity.
-//		 * Use JdbcTemplate and create method to update this fields 
-//		 */
-//		if (result.hasErrors()) {
-//			model.addAttribute("origUserEntity", origUserEntity);
-//			return "editApplyingFor";
-//		}
-//		userEntityService.insertTerm(userEntityId, origUserEntity.getTerm().getId());
-//		userEntityService.insertProgramOfStudy(userEntityId, origUserEntity.getProgramOfStudy().getId());
-//				
-//		return "redirect:/accounts/{userEntityId}/applyingFor";
-//	}
 	
 	
 	/**
@@ -130,16 +91,6 @@ public class AdminApplyingForController {
 	 * I have to create a field enrolled. After a students application is complete and student is admittted.
 	 * then when student get enrolled in class, insert value to the enrolled field.
 	 */
-//	@RequestMapping(value = "/accounts/{userEntityId}/applyingFor/delete", method = RequestMethod.POST)
-//	public String deleteApplyingFor(@PathVariable("userEntityId") Long userEntityId,
-//			@PathVariable("programOfStudyId") Long programOfStudyId, 
-//			@PathVariable("termId") Long termId)
-//			throws IOException {
-//		
-//		// Call a method to delete values from the term and and programOfStudy fields in the UserEntity table.
-//		
-//		return "redirect:/accounts/{userEntityId}/applyingFor";
-//	}
 	
 	
 	// ======================================

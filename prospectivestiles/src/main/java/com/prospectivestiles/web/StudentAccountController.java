@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
+import com.prospectivestiles.service.ProgramOfStudyService;
+import com.prospectivestiles.service.TermService;
 import com.prospectivestiles.service.UserEntityService;
 
 @Controller
@@ -34,6 +36,12 @@ public class StudentAccountController {
 	
 	@Inject
 	private AddressService addressService;
+	
+	@Inject
+	private ProgramOfStudyService programOfStudyService;
+	
+	@Inject
+	private TermService termService;
 	
 	/*
 	 * Use @InitBinder to fix the following error
@@ -95,6 +103,12 @@ public class StudentAccountController {
 		 * Maybe, I just need the Full Name of the user or userId
 		 */
 		model.addAttribute("userEntity", userEntity);
+		
+		/**
+		 * this return all terms. i need term for a student
+		 */
+		model.addAttribute("terms", termService.getAllTerms());
+		model.addAttribute("programOfStudies", programOfStudyService.getAllProgramOfStudies());
 		
 		return "userAccount";
 	}
