@@ -65,47 +65,46 @@ public class UserEntityServiceImpl implements UserEntityService {
 		return valid;
 	}
 	
-	
-	private void validateUsername(String username, Errors errors) {
-//		UserEntity u = userEntityDao.findByUsername(username);
-		if (userEntityDao.findByUsername(username) != null) {
-			log.info("Validation failed: duplicate username");
-			errors.rejectValue("username", "error.duplicate", new String[] { username }, null);
-		}
+	/**
+	 * Use @Transactional(readOnly = false) or exception thrown is:
+	 * org.springframework.dao.TransientDataAccessResourceException: 
+	 * PreparedStatementCallback; SQL [update userEntity set accountState = ? where accountState = ?]; 
+	 * Connection is read-only. Queries leading to data modification are not allowed; nested exception is java.sql.SQLException: 
+	 * Connection is read-only. 
+	 */
+	@Override
+	@Transactional(readOnly = false)
+	public void insertIntoUserEntity(long userEntityId, UserEntity userEntity) {
+		userEntityDao.insertIntoUserEntity(userEntityId, userEntity);
 	}
 	
 	/**
-	 * When creating a new account, check the email address doesn't exist in the db
-	 * Email address should be unique
-	 * @param email
-	 * @param errors
+	 * Using JDBC to update userEntity
+	 * If use hibernate persistence, the form is not validates as the agreeTerms must be 'true'
+	 * Only, student can make the agreement. AO can't fill in this field.
+	 * When AO creates an account for an applicant.
+	 * Auto generate unique username for the applicant.
+	 * Make sure the email is not already taken too.
+	 * 
 	 */
-	private void validateEmail(String email, Errors errors) {
-//		List<UserEntity> users = userEntityDao.findByEmail(email);
-//		users.isEmpty();
-//		if (userEntityDao.findByEmail(email) != null) {
-		System.out.println("validating email: " + email);
-		System.out.println("Users: " + userEntityDao.findByEmail(email).size());
-		if (!userEntityDao.findByEmail(email).isEmpty()) {
-			System.out.println("inside !userEntityDao.findByEmail(email).isEmpty()");
-			log.info("Validation failed: duplicate email");
-			errors.rejectValue("email", "error.duplicateemail", new String[] { email }, null);
+	@Override
+	@Transactional(readOnly = false)
+	public void insertUserEntity(UserEntity userEntity, Errors errors) {
+		userEntity.setPassword(randomString().substring(0, 8));
+		userEntity.setUsername(generateUniqueUsername(userEntity.getFirstName()));
+		
+		/**
+		 * If email is available then persist user
+		 * When Admission Officer creates a user account: acceptTerms should not be 'true'. 
+		 * ONLY applicant can agree to terms by him/herself
+		 */
+		if (validateEmail2(userEntity.getEmail(), errors)) {
+			userEntity.setAcceptTerms(false);
+			userEntityDao.insertUserEntity(userEntity);
 		}
 	}
 	
-	/**
-	 * Checks that the password and confirm password matches
-	 * @param password
-	 * @param confirmPassword
-	 * @param errors
-	 */
-	private void validatePassword(String password, String confirmPassword, Errors errors) {
-		if (!password.equals(confirmPassword)) {
-			log.info("Validation failed: password doesn't match confirmPassword");
-			errors.rejectValue("username", "error.mismatch.userEntity.password", new String[] { password }, null);
-		}
-	}
-	
+
 	/**
 	 * Fetches a userEntity by its id. 
 	 * Initalizing the collection using Hibernate.initialize(obj)
@@ -203,65 +202,6 @@ public class UserEntityServiceImpl implements UserEntityService {
 	}
 	
 
-	/**
-	 * Use @Transactional(readOnly = false) or exception thrown is:
-	 * org.springframework.dao.TransientDataAccessResourceException: 
-	 * PreparedStatementCallback; SQL [update userEntity set accountState = ? where accountState = ?]; 
-	 * Connection is read-only. Queries leading to data modification are not allowed; nested exception is java.sql.SQLException: 
-	 * Connection is read-only. 
-	 */
-	@Override
-	@Transactional(readOnly = false)
-	public void insertIntoUserEntity(long userEntityId, UserEntity userEntity) {
-		
-		userEntityDao.insertIntoUserEntity(userEntityId, userEntity);
-	}
-	
-	/**
-	 * Using JDBC to update userEntity
-	 * If use hibernate persistence, the form is not validates as the agreeTerms must be 'true'
-	 * Only, student can make the agreement. AO can't fill in this field.
-	 * When AO creates an account for an applicant.
-	 * Auto generate unique username for the applicant.
-	 * Make sure the email is not already taken too.
-	 * 
-	 */
-	@Override
-	@Transactional(readOnly = false)
-	public void insertUserEntity(UserEntity userEntity, Errors errors) {
-		userEntity.setUsername(generateUniqueUsername(userEntity.getFirstName()));
-		validateEmail(userEntity.getEmail(), errors);
-		userEntityDao.insertUserEntity(userEntity);
-		
-	}
-	
-	/**
-	 * When AO creates an account for an applicant.
-	 * Auto generate username for the applicant.
-	 * Format the username as: firstName + a 3-digit number.
-	 * Make sure the username is not already taken.
-	 * @param firstName
-	 * @return
-	 */
-	private String generateUniqueUsername(String firstName) {
-		String username = firstName + randomNumber();
-		System.out.println("firstName + randomNumber(): " + username);
-		while (userEntityDao.findByUsername(username) != null) {
-			System.out.println("username taken: " + username);
-			username = firstName + randomNumber();
-		}
-		System.out.println("returning username: " + username);
-		return username;
-	}
-	
-//	private int generateUniqueUsername(int n) {
-//		int num = n + randomNumber();
-//		while (num % 2 == 0) {
-//			num = n + randomNumber();
-//		}
-//		return num;
-//	}
-	
 	@Override
 	public List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize) {
 		return userEntityDao.findAll(page, pageSize);
@@ -329,9 +269,97 @@ public class UserEntityServiceImpl implements UserEntityService {
 		return userEntityDao.hasRoleAdmissionOrAssist(userEntityId);
 	}
 
+	private void validateUsername(String username, Errors errors) {
+//		UserEntity u = userEntityDao.findByUsername(username);
+		if (userEntityDao.findByUsername(username) != null) {
+			log.info("Validation failed: duplicate username");
+			errors.rejectValue("username", "error.duplicate", new String[] { username }, null);
+		}
+	}
+	
+	/**
+	 * When creating a new account, check the email address doesn't exist in the db
+	 * Email address should be unique
+	 * @param email
+	 * @param errors
+	 */
+	private void validateEmail(String email, Errors errors) {
+//		List<UserEntity> users = userEntityDao.findByEmail(email);
+//		users.isEmpty();
+//		if (userEntityDao.findByEmail(email) != null) {
+		System.out.println("validating email: " + email);
+		System.out.println("Users: " + userEntityDao.findByEmail(email).size());
+		if (!userEntityDao.findByEmail(email).isEmpty()) {
+			System.out.println("inside !userEntityDao.findByEmail(email).isEmpty()");
+			log.info("Validation failed: duplicate email");
+			errors.rejectValue("email", "error.duplicateemail", new String[] { email }, null);
+		}
+	}
+	
+	
+	/**
+	 * Testing this method.
+	 * when inserting userentity and the email already exists, 
+	 * "email exist" err msg displayed on form page, but user is saved in DB. shouldn't be.
+	 * 
+	 * @param email
+	 * @param errors
+	 * @return 'true' is email is available, 'false' is email is not available
+	 */
+	private boolean validateEmail2(String email, Errors errors) {
+		System.out.println("validating email: " + email);
+		System.out.println("Users: " + userEntityDao.findByEmail(email).size());
+		boolean returnValue = true;
+		if (!userEntityDao.findByEmail(email).isEmpty()) {
+			System.out.println("inside !userEntityDao.findByEmail(email).isEmpty()");
+			log.info("Validation failed: duplicate email");
+			returnValue = false;
+			errors.rejectValue("email", "error.duplicateemail", new String[] { email }, null);
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * Checks that the password and confirm password matches
+	 * @param password
+	 * @param confirmPassword
+	 * @param errors
+	 */
+	private void validatePassword(String password, String confirmPassword, Errors errors) {
+		if (!password.equals(confirmPassword)) {
+			log.info("Validation failed: password doesn't match confirmPassword");
+			errors.rejectValue("username", "error.mismatch.userEntity.password", new String[] { password }, null);
+		}
+	}
+	
 
-
-
+	/**
+	 * When AO creates an account for an applicant.
+	 * Auto generate username for the applicant.
+	 * Format the username as: firstName + a 3-digit number.
+	 * Make sure the username is not already taken.
+	 * @param firstName
+	 * @return
+	 */
+	private String generateUniqueUsername(String firstName) {
+		String username = firstName + randomNumber();
+		System.out.println("firstName + randomNumber(): " + username);
+		while (userEntityDao.findByUsername(username) != null) {
+			System.out.println("username taken: " + username);
+			username = firstName + randomNumber();
+		}
+		System.out.println("returning username: " + username);
+		return username;
+	}
+	
+//	private int generateUniqueUsername(int n) {
+//		int num = n + randomNumber();
+//		while (num % 2 == 0) {
+//			num = n + randomNumber();
+//		}
+//		return num;
+//	}
+	
 	public int randomNumber() {
 //		SecureRandom rand = new SecureRandom();
 //		return new BigInteger(130, rand).toString(32);

@@ -309,7 +309,15 @@ public class AdminAccountController {
 		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/edit on " + now);
 		// ##### END LOGGING #########
 		
-		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		/**
+		 * If the user hasn't agreed to the terms
+		 * Then make is true to pass validation,
+		 * then revert it to the original value of false in the post method.
+		 */
+		if (!userEntity.getAcceptTerms()) {
+			userEntity.setAcceptTerms(true);
+		}
 		model.addAttribute("originalUserEntity", userEntity);
 		model.addAttribute(userEntity);
 		
@@ -318,7 +326,7 @@ public class AdminAccountController {
 	
 	/**
 	 * @Valid - use validation to validate userEntity
-	 * Why using insertIntoUserEntity()? Checkout and replace with updateUserEntity()
+	 * Why using insertIntoUserEntity() Checkout and replace with updateUserEntity()
 	 * Has to do with acceptTerms??
 	 */
 //			@ModelAttribute("userEntity") @Valid UserEntity form,
@@ -354,6 +362,22 @@ public class AdminAccountController {
 			
 		} else {
 			System.out.println("######## result.hasErrors(): false" );
+		}
+		
+		/**
+		 * Check if user has already agreed to the terms.
+		 * get acceptTerms value form the DB.
+		 * If user has accepted terms, leave it as it is.
+		 * 
+		 * Else,
+		 * If account was created by AO, and not yet updated by the student. 
+		 * then the acceptTerms is stil in false.
+		 * To pass validation acceptTerms is set to true in the GET method.
+		 * Now, revert it back to False.
+		 * 
+		 */
+		if (!userEntityService.getUserEntity(userEntityId).getAcceptTerms()) {
+			userEntity.setAcceptTerms(false);
 		}
 		
 		userEntityService.insertIntoUserEntity(userEntity.getId(), origUserEntity);

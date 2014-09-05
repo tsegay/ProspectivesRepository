@@ -91,6 +91,10 @@ public class UserEntity implements UserDetails {
 	private String countryOfBirth;
 	private String ethnicity;
 	private String sevisNumber;
+	/**
+	 * acceptTerms represents the privacy policy!!
+	 * if acceptTerms=true it means the student has read the privacy policy
+	 */
 	private boolean marketingOk = true, acceptTerms = false, enabled = true;
 	private Date dateCreated;
 	private Date dob;

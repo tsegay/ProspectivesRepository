@@ -156,6 +156,11 @@ public class UserEntityController {
 		userEntity.setUsername("placeholder" + randomNumber());
 		userEntity.setPassword("placeholder");
 		userEntity.setConfirmPassword("placeholder");
+		/**
+		 * When you load the registration form. set the acceptTerms "true".
+		 * If AO regsiters a student, the student must have signed a form 
+		 * stating the applicant has read the privacy policy and that the applicant agrees with it.
+		 */
 		userEntity.setAcceptTerms(true);
 		model.addAttribute("userEntity", userEntity);
 		return "registerUser";
@@ -164,7 +169,8 @@ public class UserEntityController {
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public String postRegisterUserForm(
 			@ModelAttribute("userEntity") @Valid UserEntity form,
-			BindingResult result) {
+			BindingResult result,
+			Model model) {
 		
 		log.debug("####### debug AO creating an account");
 		log.info("######## info AO creating an account");
@@ -174,41 +180,52 @@ public class UserEntityController {
 		 * When applicant first create an account it is defaulted to PENDING state
 		 */
 		form.setAccountState("pending");
-		
-		
 //		form.setUsername(form.getFirstName() + randomNumber());
-//		form.setConfirmPassword("password2");
-		form.setPassword("password2"); // replace with randomString
-		form.setAcceptTerms(false);
+		form.setPassword("placeholder"); // replace with randomString
+//		form.setAcceptTerms(false);
 		form.setEnabled(true);
 		form.setMarketingOk(true);
 		
+		if (result.hasErrors()) {
+//			System.out.println("############## result.hasErrors() after form submission");
+			System.out.println("############## result.hasErrors() after form submission: " + result.toString());
+
+//			System.out.println("############## username: " + form.getUsername());
+//			System.out.println("############## getPassword: " + form.getPassword());
+//			System.out.println("############## isEnabled: " + form.isEnabled());
+//			System.out.println("############## isMarketingOk: " + form.isMarketingOk());
+//			System.out.println("############## getAcceptTerms before: " + form.getAcceptTerms());
+			
+//			form.setUsername("placeholder" + randomNumber());
+//			form.setPassword("placeholder");
+//			form.setConfirmPassword("placeholder");
+//			form.setAcceptTerms(true);
+//			form.setEnabled(true);
+//			form.setMarketingOk(true);
+			model.addAttribute("userEntity", form);
+			System.out.println("############## getAcceptTerms after: " + form.getAcceptTerms());
+			return "registerUser";
+		}
+		
 		userEntityService.insertUserEntity(form, result);
 //		userEntityService.createUserEntity(form, result);
+		
+		if (result.hasErrors()) {
+			System.out.println("############## result.hasErrors() after insertUserEntity(form, result): " + result.toString());
+			model.addAttribute("userEntity", form);
+			return "registerUser";
+		}
 		
 		/**
 		 * After an admissionOfficer created the account, 
 		 * redirect user to the profile page of the newly registered student
 		 * 
 		 * getUserEntityFromSecurityContext returns null when user not authenticated
+		 * NOT REQUIRED to check user aunthentication, the url and method is only available to RoleAdmissionOrAssist
 		 */
-			UserEntity currentUser = getUserEntityFromSecurityContext();
-			if (currentUser != null) {
-				if (!result.hasErrors()) {
-					// When admission officer created a user account, redirect to profile page of the new user
-					if (userEntityService.hasRoleAdmissionOrAssist(currentUser.getId())) {
-//					System.out.println("######## currentUser: " + currentUser.getFullName());
-						log.debug("####### debug: " + currentUser.getFullName() + " creating an account ");
-						log.info("####### info: " + currentUser.getFullName() + " creating an account ");
-						
-						UserEntity createdAccount = userEntityService.getUserEntityByUsername(form.getUsername());
-						return "redirect:/accounts/" + createdAccount.getId();
-					}
-					
-				}
-			}
-		
-		return (result.hasErrors() ? "registerUser" : "welcome");
+		UserEntity createdAccount = userEntityService.getUserEntityByUsername(form.getUsername());
+		return "redirect:/accounts/" + createdAccount.getId();
+			
 	}
 	
 	
