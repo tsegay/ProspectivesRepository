@@ -139,8 +139,11 @@ public class UserEntityController {
 		return (result.hasErrors() ? "registrationform" : "welcome");
 	}
 	
+	
 	// ======================================
-	// =    Admission Officer to create a student's account            =
+	// =    Admission Officer to create a student's account
+	// acceptTerms = true => 
+	// when applicant sign the application form, then they agree to the privacy policy
 	// ======================================
 	
 	/**
@@ -154,11 +157,11 @@ public class UserEntityController {
 		
 		UserEntity userEntity = new UserEntity();
 		userEntity.setUsername("placeholder" + randomNumber());
-		userEntity.setPassword("placeholder");
-		userEntity.setConfirmPassword("placeholder");
+		userEntity.setPassword("placeholder" + randomNumber());
+		userEntity.setConfirmPassword("placeholder" + randomNumber());
 		/**
 		 * When you load the registration form. set the acceptTerms "true".
-		 * If AO regsiters a student, the student must have signed a form 
+		 * If AO registers an applicant, the applicant must have signed a form 
 		 * stating the applicant has read the privacy policy and that the applicant agrees with it.
 		 */
 		userEntity.setAcceptTerms(true);
@@ -186,8 +189,11 @@ public class UserEntityController {
 		form.setEnabled(true);
 		form.setMarketingOk(true);
 		
+		/**
+		 * When the form is submitted validate the submitted data,
+		 * Check firstName, lastName and email are valid data: validate against hibernate validation by annotations
+		 */
 		if (result.hasErrors()) {
-//			System.out.println("############## result.hasErrors() after form submission");
 			System.out.println("############## result.hasErrors() after form submission: " + result.toString());
 
 //			System.out.println("############## username: " + form.getUsername());
@@ -196,20 +202,18 @@ public class UserEntityController {
 //			System.out.println("############## isMarketingOk: " + form.isMarketingOk());
 //			System.out.println("############## getAcceptTerms before: " + form.getAcceptTerms());
 			
-//			form.setUsername("placeholder" + randomNumber());
-//			form.setPassword("placeholder");
-//			form.setConfirmPassword("placeholder");
-//			form.setAcceptTerms(true);
-//			form.setEnabled(true);
-//			form.setMarketingOk(true);
 			model.addAttribute("userEntity", form);
-			System.out.println("############## getAcceptTerms after: " + form.getAcceptTerms());
 			return "registerUser";
 		}
 		
-		userEntityService.insertUserEntity(form, result);
-//		userEntityService.createUserEntity(form, result);
+//		userEntityService.insertUserEntity(form, result);
+		userEntityService.createUserEntityAsAO(form, result);
 		
+		/**
+		 * After you try to persist data to DB,
+		 * If form data is not valid, due to duplicate email, the createUserEntityAsAO() will throw an error msg
+		 * 
+		 */
 		if (result.hasErrors()) {
 			System.out.println("############## result.hasErrors() after insertUserEntity(form, result): " + result.toString());
 			model.addAttribute("userEntity", form);
@@ -227,6 +231,96 @@ public class UserEntityController {
 		return "redirect:/accounts/" + createdAccount.getId();
 			
 	}
+	
+//	// ======================================
+//	// =    Admission Officer to create a student's account using JDBC and acceptTerms = false
+//	// 		here the admission officer is not marking the acceptTerms as true, applicant will do it on his/her own=
+//	// ======================================
+//	
+//	/**
+//	 * For an AO to create a student's account
+//	 * @return
+//	 */
+//	
+//	@RequestMapping(value = "/registerUser", method = RequestMethod.GET)
+//	public String getRegisterUserForm(Model model) {
+//		System.out.println("####### registerUser displayed");
+//		
+//		UserEntity userEntity = new UserEntity();
+//		userEntity.setUsername("placeholder" + randomNumber());
+//		userEntity.setPassword("placeholder");
+//		userEntity.setConfirmPassword("placeholder");
+//		/**
+//		 * When you load the registration form. set the acceptTerms "true".
+//		 * If AO regsiters a student, the student must have signed a form 
+//		 * stating the applicant has read the privacy policy and that the applicant agrees with it.
+//		 */
+//		userEntity.setAcceptTerms(true);
+//		model.addAttribute("userEntity", userEntity);
+//		return "registerUser";
+//	}
+//	
+//	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
+//	public String postRegisterUserForm(
+//			@ModelAttribute("userEntity") @Valid UserEntity form,
+//			BindingResult result,
+//			Model model) {
+//		
+//		log.debug("####### debug AO creating an account");
+//		log.info("######## info AO creating an account");
+//		
+//		
+//		/**
+//		 * When applicant first create an account it is defaulted to PENDING state
+//		 */
+//		form.setAccountState("pending");
+////		form.setUsername(form.getFirstName() + randomNumber());
+//		form.setPassword("placeholder"); // replace with randomString
+////		form.setAcceptTerms(false);
+//		form.setEnabled(true);
+//		form.setMarketingOk(true);
+//		
+//		if (result.hasErrors()) {
+////			System.out.println("############## result.hasErrors() after form submission");
+//			System.out.println("############## result.hasErrors() after form submission: " + result.toString());
+//
+////			System.out.println("############## username: " + form.getUsername());
+////			System.out.println("############## getPassword: " + form.getPassword());
+////			System.out.println("############## isEnabled: " + form.isEnabled());
+////			System.out.println("############## isMarketingOk: " + form.isMarketingOk());
+////			System.out.println("############## getAcceptTerms before: " + form.getAcceptTerms());
+//			
+////			form.setUsername("placeholder" + randomNumber());
+////			form.setPassword("placeholder");
+////			form.setConfirmPassword("placeholder");
+////			form.setAcceptTerms(true);
+////			form.setEnabled(true);
+////			form.setMarketingOk(true);
+//			model.addAttribute("userEntity", form);
+//			System.out.println("############## getAcceptTerms after: " + form.getAcceptTerms());
+//			return "registerUser";
+//		}
+//		
+//		userEntityService.insertUserEntity(form, result);
+////		userEntityService.createUserEntity(form, result);
+//		
+//		if (result.hasErrors()) {
+//			System.out.println("############## result.hasErrors() after insertUserEntity(form, result): " + result.toString());
+//			model.addAttribute("userEntity", form);
+//			return "registerUser";
+//		}
+//		
+//		/**
+//		 * After an admissionOfficer created the account, 
+//		 * redirect user to the profile page of the newly registered student
+//		 * 
+//		 * getUserEntityFromSecurityContext returns null when user not authenticated
+//		 * NOT REQUIRED to check user aunthentication, the url and method is only available to RoleAdmissionOrAssist
+//		 */
+//		UserEntity createdAccount = userEntityService.getUserEntityByUsername(form.getUsername());
+//		return "redirect:/accounts/" + createdAccount.getId();
+//			
+//	}
 	
 	
 	// ======================================

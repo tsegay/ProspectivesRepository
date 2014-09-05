@@ -314,10 +314,13 @@ public class AdminAccountController {
 		 * If the user hasn't agreed to the terms
 		 * Then make is true to pass validation,
 		 * then revert it to the original value of false in the post method.
+		 * 
+		 * NOT USING THIS: If AO is filled the web form for applicant, 
+		 * the applicant has already signed the agreement on paper.
 		 */
-		if (!userEntity.getAcceptTerms()) {
-			userEntity.setAcceptTerms(true);
-		}
+//		if (!userEntity.getAcceptTerms()) {
+//			userEntity.setAcceptTerms(true);
+//		}
 		model.addAttribute("originalUserEntity", userEntity);
 		model.addAttribute(userEntity);
 		
@@ -375,10 +378,14 @@ public class AdminAccountController {
 		 * To pass validation acceptTerms is set to true in the GET method.
 		 * Now, revert it back to False.
 		 * 
+		 * 
+		 * NOT USING THIS: If AO is filled the web form for applicant, 
+		 * the applicant has already signed the agreement on paper.
+		 * 
 		 */
-		if (!userEntityService.getUserEntity(userEntityId).getAcceptTerms()) {
-			userEntity.setAcceptTerms(false);
-		}
+//		if (!userEntityService.getUserEntity(userEntityId).getAcceptTerms()) {
+//			userEntity.setAcceptTerms(false);
+//		}
 		
 		userEntityService.insertIntoUserEntity(userEntity.getId(), origUserEntity);
 		

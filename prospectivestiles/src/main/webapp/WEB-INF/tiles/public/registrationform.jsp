@@ -82,7 +82,7 @@
 	<hr style="border-bottom: groove;"/>
 	
 	<div class="form-group checkbox row">
-		<label for="international" class="col-sm-5 control-label label-pad">Check if you are an international student</label>
+		<label for="international" class="col-sm-5 control-label label-pad">Check if you are an <strong>international</strong> student</label>
 	    <div class="col-sm-2">
 	    	<form:checkbox class="form-control" id="international" path="international" />
 	    </div>
@@ -92,7 +92,7 @@
 	</div>
 	
 	<div class="form-group checkbox row">
-		<label for="transferee" class="col-sm-5 control-label label-pad">Check if you are transferring in from another college</label>
+		<label for="transferee" class="col-sm-5 control-label label-pad">Check if you are <strong>transferring in</strong> from another college</label>
 	    <div class="col-sm-2">
 	    	<form:checkbox class="form-control" id="transferee" path="transferee" />
 	    </div>
@@ -126,12 +126,12 @@
 	</div>
 	
 	
-    <div class = "form-group row">
+<%--     <div class = "form-group row">
      	<div class = "col-sm-10 label-pad" id="privacyPolicy">
      		<spring:message code="account.label.privacyPolicy" />
      	</div>
      	<label for="privacyPolicy" class="col-sm-2 control-label">&nbsp;</label>
-    </div>
+    </div> --%>
     
     <div class = "form-group row">
      	<label class="col-sm-2 control-label">&nbsp;</label>

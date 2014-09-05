@@ -27,7 +27,7 @@
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 
-<h1 class="page-header">Applicant Personal Information</h1>
+<h3 class="page-header">Applicant Personal Information</h3>
 
 <div class="row">
 	<dl class="dl-horizontal col-md-6">
@@ -180,7 +180,7 @@
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 
-<h1>Term and Program of Study</h1>
+<h3>Term and Program of Study</h3>
 <br><br>
 
 <!-- if student has selected the term and program of study, show his selection and hide the add button
@@ -299,7 +299,7 @@ insert the term and program of study to the userEntity using jdbc
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 
 
-<h2>Administrative Use</h2>
+<h3>Administrative Use</h3>
 
 <c:choose>
 	<c:when test="${empty associatedUsers}">
@@ -342,7 +342,7 @@ insert the term and program of study to the userEntity using jdbc
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 
-<h1>Addresses</h1>
+<h3>Addresses</h3>
 <hr />
 
 <!-- 
@@ -440,9 +440,9 @@ I need this to push down the h3 below from mixing with the addresses -->
 	<c:url var="newAddressUrl" value="/myAccount/address/new" />
 </sec:authorize>
 
-<h3>
+<h5>
 	<a href="${newAddressUrl}">Add New Address</a>
-</h3>
+</h5>
 
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->

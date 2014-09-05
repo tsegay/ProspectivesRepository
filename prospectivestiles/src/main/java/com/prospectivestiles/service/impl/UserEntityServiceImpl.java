@@ -39,7 +39,6 @@ public class UserEntityServiceImpl implements UserEntityService {
 		
 	@Transactional(readOnly = false)	
 	public boolean createUserEntity(UserEntity userEntity, Errors errors) {
-		
 		validateUsername(userEntity.getUsername(), errors);
 		validateEmail(userEntity.getEmail(), errors);
 		validatePassword(userEntity.getPassword(), userEntity.getConfirmPassword(), errors);
@@ -64,6 +63,33 @@ public class UserEntityServiceImpl implements UserEntityService {
 		}
 		return valid;
 	}
+	
+	/**
+	 * TO replace insertUserEntity(): If this works, remove the method insertUserEntity().
+	 * 
+	 * When AO creates an account for an applicant.
+	 * Auto generate unique username for the applicant.
+	 * Make sure the email is not already taken too.
+	 * 
+	 */
+	@Override
+	@Transactional(readOnly = false)
+	public void createUserEntityAsAO(UserEntity userEntity, Errors errors) {
+		userEntity.setPassword(randomString().substring(0, 8));
+		userEntity.setUsername(generateUniqueUsername(userEntity.getFirstName()));
+		
+		/**
+		 * If email is available then persist user
+		 * When Admission Officer creates a user account: acceptTerms should not be 'true'. 
+		 * ONLY applicant can agree to terms by him/herself
+		 */
+		if (validateEmail2(userEntity.getEmail(), errors)) {
+//			userEntity.setAcceptTerms(false);
+//			userEntityDao.insertUserEntity(userEntity);
+			userEntityDao.createUserEntity(userEntity);
+		}
+	}
+	
 	
 	/**
 	 * Use @Transactional(readOnly = false) or exception thrown is:
@@ -280,13 +306,13 @@ public class UserEntityServiceImpl implements UserEntityService {
 	/**
 	 * When creating a new account, check the email address doesn't exist in the db
 	 * Email address should be unique
+	 * 
+	 * MERGE validateEmail() and validateEmail2()
+	 * 
 	 * @param email
 	 * @param errors
 	 */
 	private void validateEmail(String email, Errors errors) {
-//		List<UserEntity> users = userEntityDao.findByEmail(email);
-//		users.isEmpty();
-//		if (userEntityDao.findByEmail(email) != null) {
 		System.out.println("validating email: " + email);
 		System.out.println("Users: " + userEntityDao.findByEmail(email).size());
 		if (!userEntityDao.findByEmail(email).isEmpty()) {
@@ -296,11 +322,11 @@ public class UserEntityServiceImpl implements UserEntityService {
 		}
 	}
 	
-	
 	/**
-	 * Testing this method.
 	 * when inserting userentity and the email already exists, 
-	 * "email exist" err msg displayed on form page, but user is saved in DB. shouldn't be.
+	 * "email exist" err msg displayed on form page
+	 * 
+	 * MERGE validateEmail() and validateEmail2()
 	 * 
 	 * @param email
 	 * @param errors

@@ -63,6 +63,11 @@ public class HomeController {
 		return "termsOfService";
 	}
 	
+	@RequestMapping("/privacyAndPolicyStatement")
+	public String showPrivacyAndPolicyStatement() {
+		return "privacyAndPolicyStatement";
+	}
+	
 	@RequestMapping("/privacyPolicy")
 	public String showPrivacyPolicy() {
 		return "privacyPolicy";

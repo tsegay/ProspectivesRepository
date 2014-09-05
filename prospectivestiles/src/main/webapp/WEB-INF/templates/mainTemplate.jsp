@@ -63,7 +63,7 @@
 		<div class="navbar navbar-inverse navbar-static-top">
 			<div>
 
-				<a href="<c:url value='/welcome'/>" class="navbar-brand">Prospectives</a>
+				<a href="<c:url value='/welcome'/>" class="navbar-brand">Admission Processing System</a>
 
 				<button class="navbar-toggle" data-toggle="collapse"
 					data-target=".navHeaderCollapse">

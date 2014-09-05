@@ -9,7 +9,7 @@
 
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
-		<div class="panel-heading">Welcome to Summer 2014</div>
+		<div class="panel-heading">Welcome to Fall 2014</div>
 		<!-- <div class="panel-body">
 		  <p>Welcome to Summer 2014</p>
 		</div> -->
@@ -42,6 +42,7 @@
 			<sec:authorize access="isAuthenticated()">
 				<li class="list-group-item"><a href="<c:url value='#'/>">Enrollment Agreement</a></li>
 				<li class="list-group-item"><a href="<c:url value='#'/>">Grievance Policy</a></li>
+				<li class="list-group-item"><a href="<c:url value='/privacyAndPolicyStatement'/>">Privacy and Policy Statement</a></li>
 			</sec:authorize>
 			
 		</ul>

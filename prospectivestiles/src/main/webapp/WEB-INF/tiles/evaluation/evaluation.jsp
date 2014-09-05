@@ -352,7 +352,7 @@
 		<br />
 		
 		<!-- Evaluation can't be deleted by any user.  -->
-		<a href="${editEvaluationUrl}" class="btn btn-primary btn-sm">Edit</a>
+		<a href="${editEvaluationUrl}" class="btn btn-primary btn-sm">Edit Checkist & Evaluation</a>
 		<br />
 		<br />	
 		

@@ -63,4 +63,6 @@ public interface UserEntityService {
 	long countByAccountState(String accountState);
 	List<UserEntity> findByEmail(String email);
 
+	void createUserEntityAsAO(UserEntity userEntity, Errors errors);
+
 }
