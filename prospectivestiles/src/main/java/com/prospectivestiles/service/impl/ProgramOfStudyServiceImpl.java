@@ -32,12 +32,11 @@ public class ProgramOfStudyServiceImpl implements ProgramOfStudyService {
 		return programOfStudyDao.findAll();
 	}
 
-//	@Override
-//	public List<ProgramOfStudy> getProgramOfStudiesByUserEntityId(
-//			long userEntityId) {
-//		return programOfStudyDao.getProgramOfStudiesByUserEntityId(userEntityId);
-//	}
-
+	@Override
+	public ProgramOfStudy findByName(String name) {
+		return programOfStudyDao.findByName(name);
+	}
+	
 	@Override
 	public void createProgramOfStudy(ProgramOfStudy programOfStudy) {
 		programOfStudyDao.create(programOfStudy);
@@ -63,15 +62,8 @@ public class ProgramOfStudyServiceImpl implements ProgramOfStudyService {
 		programOfStudyDao.delete(programOfStudy);
 	}
 
-	/**
-	 * FOR TESTING PURPOSE
-	 */
-	/*@Override
-	public void updateProgramOfStudyZipCode(long programOfStudyId,
-			String zipcode) {
-		
-	}*/
-	
+
+
 	
 
 }

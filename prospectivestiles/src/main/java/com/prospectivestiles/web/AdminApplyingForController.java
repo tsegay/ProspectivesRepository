@@ -71,9 +71,11 @@ public class AdminApplyingForController {
 			return "newApplyingForForm";
 		}
 
-//		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
-		userEntityService.updateTerm(userEntityId, origUserEntity.getTerm().getId());
-		userEntityService.updateProgramOfStudy(userEntityId, origUserEntity.getProgramOfStudy().getId());
+//		userEntityService.updateTerm(userEntityId, origUserEntity.getTerm().getId());
+//		userEntityService.updateProgramOfStudy(userEntityId, origUserEntity.getProgramOfStudy().getId());
+		
+		userEntityService.updateUserEntityTermAndProgram(userEntityId, 
+				origUserEntity.getTerm().getId(), origUserEntity.getProgramOfStudy().getId());
 		
 		/**
 		 * I am dropping the applyingFor page. merging that page in the account page

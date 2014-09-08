@@ -1,13 +1,17 @@
 package com.prospectivestiles.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -16,6 +20,11 @@ import javax.persistence.Table;
 @NamedQuery(name = "findRoleByName", query = "from Role where name= :name")
 //public class Role implements GrantedAuthority {
 public class Role implements Serializable {
+	
+	// ======================================
+    // =             Attributes             =
+    // ======================================
+	
 	/**
 	 * 
 	 */
@@ -23,6 +32,11 @@ public class Role implements Serializable {
 	private Long id;
 	private String name;
 	/*private Set<Permission> permissions = new HashSet<Permission>();*/
+	private Collection<UserEntity> listOfUserEntity = new ArrayList<UserEntity>();
+	
+	// ======================================
+    // =          Getters & Setters         =
+    // ======================================
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,6 +49,18 @@ public class Role implements Serializable {
 	public String getName() { return name; }
 
 	public void setName(String name) { this.name = name; }
+	
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+	public Collection<UserEntity> getListOfUserEntity() {
+		return listOfUserEntity;
+	}
+	public void setListOfUserEntity(Collection<UserEntity> listOfUserEntity) {
+		this.listOfUserEntity = listOfUserEntity;
+	}
+
+	// ======================================
+    // =                   =
+    // ======================================
 	
 	/*@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(

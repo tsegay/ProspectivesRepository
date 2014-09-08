@@ -15,20 +15,6 @@ import com.prospectivestiles.domain.Term;
 @Repository
 public class HbnTermDao extends AbstractHbnDao<Term> implements TermDao {
 
-	@Inject private JdbcTemplate jdbcTemplate;
-	
-	private static final String FIND_ADDRESS1_SQL =
-			"select address1 from address where id = ?";
-	private static final String UPDATE_ZIPCODE_SQL =
-			"update address set zipcode = ? where id = ?";
-	
-
-	public String findAddress1ById(String username) {
-		return jdbcTemplate.queryForObject(
-				FIND_ADDRESS1_SQL, new Object[] { username }, String.class);
-	}
-
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Term> getTermsByUserEntityId(long userEntityId) {
@@ -40,13 +26,14 @@ public class HbnTermDao extends AbstractHbnDao<Term> implements TermDao {
 		
 		return terms;
 	}
-	
-	/**
-	 * FOR TESTING PURPOSE
-	 */
-	/*public void updateZipCode(long addressId, String zipcode) {
-		//jdbcTemplate.update(UPDATE_PASSWORD_SQL, encPassword, account.getUsername());
-		jdbcTemplate.update(UPDATE_ZIPCODE_SQL, zipcode, addressId);
+
+
+	@Override
+	public Term findByName(String name) {
+		return (Term) getSession()
+				.getNamedQuery("findTermByName")
+				.setParameter("name", name)
+				.uniqueResult();
 	}
-*/
+	
 }

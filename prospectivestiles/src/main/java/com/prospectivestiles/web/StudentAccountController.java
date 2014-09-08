@@ -140,18 +140,19 @@ public class StudentAccountController {
 		
 		if (result.hasErrors()) {
 			System.out.println("######## result.hasErrors(): true" );
-//			model.addAttribute("origUserEntity", origUserEntity);
 			
 			origUserEntity.setId(userEntity.getId());
 			model.addAttribute("userEntity", origUserEntity);
 			
-//			model.addAttribute(userEntity);
 			return "editMyAccount";
 		} else {
 			System.out.println("######## result.hasErrors(): false");
 		}
 		
-		userEntityService.insertIntoUserEntity(userEntity.getId(), origUserEntity);
+//		userEntityService.insertIntoUserEntity(userEntity.getId(), origUserEntity);
+		
+		origUserEntity.setId(userEntity.getId());
+		userEntityService.updateUserEntity(origUserEntity);
 		
 		return "redirect:/myAccount";
 	}

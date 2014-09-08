@@ -8,6 +8,7 @@ public interface ProgramOfStudyService {
 	
 	ProgramOfStudy getProgramOfStudy(long id);
 	List<ProgramOfStudy> getAllProgramOfStudies();
+	ProgramOfStudy findByName(String name);
 //	List<ProgramOfStudy> getProgramOfStudiesByUserEntityId(long userEntityId);
 	void createProgramOfStudy(ProgramOfStudy programOfStudy);
 	void updateProgramOfStudy(ProgramOfStudy programOfStudy);

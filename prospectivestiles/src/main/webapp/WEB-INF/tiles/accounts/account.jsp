@@ -143,10 +143,11 @@
 	
 		<dt><spring:message code="account.label.roles" /></dt>
 		<dd>
-			<c:forEach var="role" items="${userEntity.roles}">
+		<c:out value="${userEntity.role.name}" />
+			<%-- <c:forEach var="role" items="${userEntity.roles}">
 				<c:out value="${role.name}" />
 				<br />
-			</c:forEach>
+			</c:forEach> --%>
 		</dd>
 		
 	</dl>

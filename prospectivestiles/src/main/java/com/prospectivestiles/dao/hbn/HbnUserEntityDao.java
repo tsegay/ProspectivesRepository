@@ -41,21 +41,11 @@ import com.prospectivestiles.domain.UserEntity;
 public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements UserEntityDao {
 	
 	private static final Logger log = LoggerFactory.getLogger(HbnUserEntityDao.class);
-	private static final String UPDATE_TERM_SQL =
-			"update userEntity set term_id = ? where id = ?";
-	private static final String UPDATE_PROGRAMOFSTUDY_SQL =
-			"update userEntity set programOfStudy_id = ? where id = ?";
-	private static final String UPDATE_ACCOUNTSTATE_SQL =
-			"update userEntity set accountState = ? where id = ?";
-	private static final String UPDATE_USERENTITY_SQL = 
-			"update userEntity set first_name = ?, last_name = ?, middle_name = ?, email = ?, homePhone = ?, cellPhone = ?, dob = ?, gender = ?, citizenship = ?, ethnicity = ?, ssn = ?, sevisNumber = ?, transferee = ?, heardAboutAcctThru = ? where id = ?";
-	private static final String UPDATE_PASSWORD_SQL =
-			"update userEntity set password = ? where id = ?";
-	private static final String INSERT_USERENTITY_SQL = 
-			"INSERT INTO userEntity"
-			+ " (username, password, first_name, last_name, middle_name, email, homePhone, cellPhone, dob, gender, citizenship, ethnicity, ssn, sevisNumber, transferee, international, heardAboutAcctThru, accept_terms, enabled, marketing_ok)"
-			+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	
+	/**
+	 * NOT USING THIS IN ANY CONTROLLER -- REMOVE
+	 */
+//	private static final String UPDATE_PASSWORD_SQL =
+//			"update userEntity set password = ? where id = ?";
 	
 	@Inject private JdbcTemplate jdbcTemplate;
 	
@@ -123,67 +113,25 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		return userEntity.getPassword();
 	}
 
-	@Override
-	public void updateTerm(long userEntityId, long termId) {
-		jdbcTemplate.update(UPDATE_TERM_SQL, termId, userEntityId);
-				
-	}
 
-	@Override
-	public void updateProgramOfStudy(long userEntityId, long programOfStudyId) {
-		jdbcTemplate.update(UPDATE_PROGRAMOFSTUDY_SQL, programOfStudyId, userEntityId);
-	}
 	
-	@Override
-	public void updateAccountState(long userEntityId, String accountState) {
-		jdbcTemplate.update(UPDATE_ACCOUNTSTATE_SQL, accountState, userEntityId);
-		
-	}
+//	@Override
+//	public void updatePassword(long userEntityId, String password) {
+//		log.info("Updating password for: ", userEntityId);
+//		System.out.println("########### Updating password for: " + userEntityId);
+//		System.out.println("Raw Password is: {}" + password);
+//		
+//		log.info("Updating password");
+//		String encPassword = passwordEncoder.encodePassword(password, null);
+//		if (encPassword != null) {
+//			System.out.println("Encrypting password: {}" + encPassword);
+//		}
+//		
+//		jdbcTemplate.update(UPDATE_PASSWORD_SQL, encPassword, userEntityId);
+//		
+//	}
 	
-	@Override
-	public void updatePassword(long userEntityId, String password) {
-		log.info("Updating password for: ", userEntityId);
-		System.out.println("########### Updating password for: " + userEntityId);
-		System.out.println("Raw Password is: {}" + password);
-		
-		log.info("Updating password");
-		String encPassword = passwordEncoder.encodePassword(password, null);
-		if (encPassword != null) {
-			System.out.println("Encrypting password: {}" + encPassword);
-		}
-		
-		jdbcTemplate.update(UPDATE_PASSWORD_SQL, encPassword, userEntityId);
-		
-//		System.out.println("Password after userEntity created. Should be encrypted: {}" + userEntity.getPassword());
-	}
-	
-	/**
-	 * Using JDBC to update userEntity
-	 */
-	@Override
-	public void insertIntoUserEntity(long userEntityId, UserEntity userEntity) {
-		jdbcTemplate.update(UPDATE_USERENTITY_SQL, new Object[] {
-				userEntity.getFirstName(), userEntity.getLastName(), userEntity.getMiddleName(),
-				userEntity.getEmail(), userEntity.getHomePhone(), userEntity.getCellPhone(), userEntity.getDob(), 
-				userEntity.getGender(), userEntity.getCitizenship(), userEntity.getEthnicity(), userEntity.getSsn(), 
-				userEntity.getSevisNumber(), userEntity.isTransferee(), userEntity.getHeardAboutAcctThru(),
-				userEntityId});
-	}
 
-	/**
-	 * Using JDBC to create userEntity
-	 */
-	@Override
-	public void insertUserEntity(UserEntity userEntity) {
-		jdbcTemplate.update(INSERT_USERENTITY_SQL, new Object[] {
-				userEntity.getUsername(), userEntity.getPassword(),
-				userEntity.getFirstName(), userEntity.getLastName(), userEntity.getMiddleName(),
-				userEntity.getEmail(), userEntity.getHomePhone(), userEntity.getCellPhone(), userEntity.getDob(), 
-				userEntity.getGender(), userEntity.getCitizenship(), userEntity.getEthnicity(), userEntity.getSsn(), 
-				userEntity.getSevisNumber(), userEntity.isTransferee(), userEntity.isInternational(), 
-				userEntity.getHeardAboutAcctThru(), userEntity.getAcceptTerms(), userEntity.isEnabled(), userEntity.isMarketingOk()
-			});
-	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -193,7 +141,8 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		 * I want to get all students with the status below only, not admin users
 		 * 6 - ROLE_STUDENT_PENDING, 7 - ROLE_STUDENT_INPROCESS, 8 - ROLE_STUDENT_COMPLETE, 9 - ROLE_STUDENT_ADMITTED
 		 */
-		String hql = "SELECT u FROM UserEntity u INNER JOIN u.roles r WHERE r.id = 6 OR r.id = 7 OR r.id = 8 OR r.id = 9 ORDER BY u.lastName ASC";
+//		String hql = "SELECT u FROM UserEntity u INNER JOIN u.roles r WHERE r.id = 6 OR r.id = 7 OR r.id = 8 OR r.id = 9 ORDER BY u.lastName ASC";
+		String hql = "SELECT u FROM UserEntity u WHERE role_id = 6 OR role_id = 7 OR role_id = 8 OR role_id = 9 ORDER BY u.lastName ASC";
 		Query query = getSession().createQuery(hql);
 		// setFirst should be set with the index of the first element in the page, 
 		// something like page * pageSize
@@ -264,7 +213,8 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	@Override
 	public long countByRole(long roleID) {
 		return (Long) getSession()
-			.createQuery("SELECT count(*) FROM UserEntity u INNER JOIN u.roles r WHERE r.id = :roleID ORDER BY u.lastName ASC")
+//			.createQuery("SELECT count(*) FROM UserEntity u INNER JOIN u.roles r WHERE r.id = :roleID ORDER BY u.lastName ASC")
+			.createQuery("SELECT count(*) FROM UserEntity u WHERE role_id = :roleID ORDER BY u.lastName ASC")
 			.setParameter("roleID", roleID)
 			.uniqueResult();
 	}
@@ -280,13 +230,16 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	@Override
 	public long countByRoles(List<Long> rolesList) {
 		
-		String query = "SELECT count(*) FROM UserEntity u INNER JOIN u.roles r WHERE";
+//		String query = "SELECT count(*) FROM UserEntity u INNER JOIN u.roles r WHERE";
+		String query = "SELECT count(*) FROM UserEntity u WHERE";
 		
 		for (int i = 0; i < rolesList.size(); i++) {
 			if (i == rolesList.size() - 1) {
-				query = query + " r.id = :roleID" + i;
+//				query = query + " r.id = :roleID" + i;
+				query = query + " role_id = :roleID" + i;
 			} else {
-				query = query + " r.id = :roleID" + i + " OR";
+//				query = query + " r.id = :roleID" + i + " OR";
+				query = query + " role_id = :roleID" + i + " OR";
 			}
 		}
 		
@@ -310,15 +263,26 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	public boolean hasRoleAdmin(long userEntityId) {
 		boolean isAdmin = false;
 		UserEntity userEntity = find(userEntityId);
-		Set<Role> roles = userEntity.getRoles();
+		/**
+		 * changing roles to role, m-to-1 mapping
+		 */
 		
-		for (Role role : roles) {
-			// if role is admin return true else false
-			if (role.getId() == 2) {
-				System.out.println("############## role: " + role.getName());
-				isAdmin = true;
-			}
+		Role role = userEntity.getRole();
+		
+		if (role.getId() == 2) {
+			System.out.println("############## role: " + role.getName());
+			isAdmin = true;
 		}
+		
+//		Set<Role> roles = userEntity.getRoles();
+//		
+//		for (Role role : roles) {
+//			// if role is admin return true else false
+//			if (role.getId() == 2) {
+//				System.out.println("############## role: " + role.getName());
+//				isAdmin = true;
+//			}
+//		}
 		
 		return isAdmin;
 	}
@@ -331,14 +295,12 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	public boolean hasRoleAdmissionOrAssist(long userEntityId) {
 		boolean isAO = false;
 		UserEntity userEntity = find(userEntityId);
-		Set<Role> roles = userEntity.getRoles();
 		
-		for (Role role : roles) {
-			// if role is ROLE_ADMISSION or ROLE_ADMISSION_ASSIST return true else false
-			if (role.getId() == 11 || role.getId() == 12) {
-				System.out.println("############## role: " + role.getName());
-				isAO = true;
-			}
+		// if role is ROLE_ADMISSION or ROLE_ADMISSION_ASSIST return true else false
+		Role role = userEntity.getRole();
+		if (role.getId() == 11 || role.getId() == 12) {
+			System.out.println("############## role: " + role.getName());
+			isAO = true;
 		}
 		
 		return isAO;
@@ -380,8 +342,68 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		
 	}
 
+	@Override
+	public UserEntity findById(long userEntityId) {
+		return (UserEntity) getSession()
+				.getNamedQuery("findUserEntityById")
+				.setParameter("id", userEntityId)
+				.uniqueResult();
+//		return (UserEntity) getSession().get(UserEntity.class, userEntityId);
+	}
 
+//	private static final String UPDATE_TERM_SQL =
+//	"update userEntity set term_id = ? where id = ?";
+//private static final String UPDATE_PROGRAMOFSTUDY_SQL =
+//	"update userEntity set programOfStudy_id = ? where id = ?";
+//private static final String UPDATE_ACCOUNTSTATE_SQL =
+//	"update userEntity set accountState = ? where id = ?";
+//private static final String UPDATE_USERENTITY_SQL = 
+//	"update userEntity set first_name = ?, last_name = ?, middle_name = ?, email = ?, homePhone = ?, cellPhone = ?, dob = ?, gender = ?, citizenship = ?, ethnicity = ?, ssn = ?, sevisNumber = ?, transferee = ?, heardAboutAcctThru = ? where id = ?";
+
+//	@Override
+//	public void updateTerm(long userEntityId, long termId) {
+//		jdbcTemplate.update(UPDATE_TERM_SQL, termId, userEntityId);
+//				
+//	}
+//
+//	@Override
+//	public void updateProgramOfStudy(long userEntityId, long programOfStudyId) {
+//		jdbcTemplate.update(UPDATE_PROGRAMOFSTUDY_SQL, programOfStudyId, userEntityId);
+//	}
 	
+//	@Override
+//	public void updateAccountState(long userEntityId, String accountState) {
+//		jdbcTemplate.update(UPDATE_ACCOUNTSTATE_SQL, accountState, userEntityId);
+//		
+//	}
+	
+	/**
+	 * Using JDBC to update userEntity
+	 */
+//	@Override
+//	public void insertIntoUserEntity(long userEntityId, UserEntity userEntity) {
+//		jdbcTemplate.update(UPDATE_USERENTITY_SQL, new Object[] {
+//				userEntity.getFirstName(), userEntity.getLastName(), userEntity.getMiddleName(),
+//				userEntity.getEmail(), userEntity.getHomePhone(), userEntity.getCellPhone(), userEntity.getDob(), 
+//				userEntity.getGender(), userEntity.getCitizenship(), userEntity.getEthnicity(), userEntity.getSsn(), 
+//				userEntity.getSevisNumber(), userEntity.isTransferee(), userEntity.getHeardAboutAcctThru(),
+//				userEntityId});
+//	}
+
+//	/**
+//	 * Using JDBC to create userEntity
+//	 */
+//	@Override
+//	public void insertUserEntity(UserEntity userEntity) {
+//		jdbcTemplate.update(INSERT_USERENTITY_SQL, new Object[] {
+//				userEntity.getUsername(), userEntity.getPassword(),
+//				userEntity.getFirstName(), userEntity.getLastName(), userEntity.getMiddleName(),
+//				userEntity.getEmail(), userEntity.getHomePhone(), userEntity.getCellPhone(), userEntity.getDob(), 
+//				userEntity.getGender(), userEntity.getCitizenship(), userEntity.getEthnicity(), userEntity.getSsn(), 
+//				userEntity.getSevisNumber(), userEntity.isTransferee(), userEntity.isInternational(), 
+//				userEntity.getHeardAboutAcctThru(), userEntity.getAcceptTerms(), userEntity.isEnabled(), userEntity.isMarketingOk()
+//			});
+//	}
 	
 }
 

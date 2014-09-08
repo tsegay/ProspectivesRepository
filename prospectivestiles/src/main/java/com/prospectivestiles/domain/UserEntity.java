@@ -53,9 +53,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 	@NamedQuery(
     		name = "findUserEntityByUsername",
     		query = "from UserEntity where username = :username"),
+//	@NamedQuery(
+//    		name = "findUserEntitiesByRole",
+//    		query = "select u from UserEntity u inner join u.roles r where r.id = :roleID"),
 	@NamedQuery(
     		name = "findUserEntitiesByRole",
-    		query = "select u from UserEntity u inner join u.roles r where r.id = :roleID"),
+    		query = "from UserEntity where role_id = :roleID"),
+	@NamedQuery(
+    		name = "findUserEntityById",
+    		query = "from UserEntity where id = :id"),
 	@NamedQuery(
     		name = "findUserEntitiesByStatus",
     		query = "FROM UserEntity WHERE accountState = :accountState"),
@@ -120,8 +126,10 @@ public class UserEntity implements UserDetails {
 	
 	/**
 	 * CHANGE THIS TO ONE-TO-ONE.
+	 * this also changes roles reference in getAuthorities()
 	 */
-	private Set<Role> roles = new HashSet<Role>();
+//	private Set<Role> roles = new HashSet<Role>();
+	private Role role;
 	
 	@JsonIgnore
 	private Checklist checklist;
@@ -134,7 +142,7 @@ public class UserEntity implements UserDetails {
 	@JsonIgnore
 	private Collection<Address> listOfAddresses = new ArrayList<Address>();
 	@JsonIgnore
-	private UploadedFiles uploadedFiles;
+	private Collection<UploadedFiles> uploadedFiles;
 	@JsonIgnore
 	private Collection<EmergencyContact> listOfEmergencyContacts = new ArrayList<EmergencyContact>();
 	@JsonIgnore
@@ -242,15 +250,23 @@ public class UserEntity implements UserDetails {
 
 	public void setEnabled(boolean enabled) { this.enabled = enabled; }
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-		name = "userEntity_role",
-		joinColumns = { @JoinColumn(name = "userEntity_id") },
-		inverseJoinColumns = { @JoinColumn(name = "role_id") })
-	public Set<Role> getRoles() { return roles; }
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(
+//		name = "userEntity_role",
+//		joinColumns = { @JoinColumn(name = "userEntity_id") },
+//		inverseJoinColumns = { @JoinColumn(name = "role_id") })
+//	public Set<Role> getRoles() { return roles; }
+//	
+//	public void setRoles(Set<Role> roles) { this.roles = roles; }
 	
-	public void setRoles(Set<Role> roles) { this.roles = roles; }
-	
+	@JsonIgnore
+	@ManyToOne
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	@Column(name = "date_created")
 	public Date getDateCreated() { return dateCreated; }
@@ -417,11 +433,11 @@ public class UserEntity implements UserDetails {
 		this.listOfAddresses = listOfAddresses;
 	}
 	@JsonIgnore
-	@OneToOne(mappedBy = "userEntity", cascade = CascadeType.ALL)
-	public UploadedFiles getUploadedFiles() {
+	@OneToMany(mappedBy="userEntity")
+	public Collection<UploadedFiles> getUploadedFiles() {
 		return uploadedFiles;
 	}
-	public void setUploadedFiles(UploadedFiles uploadedFiles) {
+	public void setUploadedFiles(Collection<UploadedFiles> uploadedFiles) {
 		this.uploadedFiles = uploadedFiles;
 	}
 	@JsonIgnore
@@ -496,10 +512,14 @@ public class UserEntity implements UserDetails {
 	@Transient
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
+//		GrantedAuthority authorities = new GrantedAuthorityImpl(getRole().getName());
+		
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		for (Role role : getRoles()) {
-			authorities.add(new GrantedAuthorityImpl(role.getName()));
-		}
+		authorities.add(new GrantedAuthorityImpl(getRole().getName()));
+		
+//		for (Role role : getRoles()) {
+//			authorities.add(new GrantedAuthorityImpl(role.getName()));
+//		}
 		return authorities;
 	}
 	

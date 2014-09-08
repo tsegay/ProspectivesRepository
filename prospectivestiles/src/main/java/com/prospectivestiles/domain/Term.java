@@ -18,10 +18,7 @@ import javax.persistence.OneToMany;
  * Can't use findProgramOfStudiesByUserEntityId
  */
 @Entity
-/*@NamedQueries(
-		@NamedQuery(name = "findTermsByUserEntityId", 
-		query = "FROM Term WHERE userEntity.id = :id")
-		)*/
+@NamedQuery(name = "findTermByName", query = "from Term where name= :name")
 public class Term extends BaseEntity implements Serializable {
 	
 	// ======================================

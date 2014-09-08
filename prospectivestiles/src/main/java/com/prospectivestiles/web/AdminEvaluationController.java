@@ -3,8 +3,10 @@ package com.prospectivestiles.web;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -26,11 +28,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.prospectivestiles.dao.RoleDao;
 import com.prospectivestiles.domain.AccountState;
 import com.prospectivestiles.domain.AssociatedUser;
 import com.prospectivestiles.domain.Checklist;
 import com.prospectivestiles.domain.EmergencyContact;
 import com.prospectivestiles.domain.Evaluation;
+import com.prospectivestiles.domain.Role;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AssociatedUserService;
 import com.prospectivestiles.service.EvaluationService;
@@ -54,6 +58,8 @@ public class AdminEvaluationController {
 	private EvaluationService evaluationService;
 	@Inject
 	private AssociatedUserService associatedUserService;
+	
+	@Inject private RoleDao roleDao;
 	
 	private static final Logger log = LoggerFactory.getLogger(AdminEvaluationController.class);
 	
@@ -164,15 +170,22 @@ public class AdminEvaluationController {
 				(evaluation.getGrievancePolicy().equalsIgnoreCase("complete") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&
 				(evaluation.getRecommendationLetter().equalsIgnoreCase("complete") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) 
 			) {
+			
 			/**
 			 * If all evaluation items are complete or notrequired change accountState to "COMPLETE"
+			 * When accountState of an applicant change the role should also change
 			 */
-			userEntityService.updateAccountState(userEntityId, "complete");
+			userEntityService.updateUserEntityRole(userEntityId,"complete","ROLE_STUDENT_COMPLETE");
+			
+			
 		} else {
+			
 			/**
 			 * If all evaluation items are not complete or notrequired make accountState to "INPROCESS"
+			 * When accountState of an applicant change the role should also change
 			 */
-			userEntityService.updateAccountState(userEntityId, "inprocess");
+			userEntityService.updateUserEntityRole(userEntityId, "inprocess", "ROLE_STUDENT_INPROCESS");
+			
 		}
 		
 		evaluationService.createEvaluation(evaluation);
@@ -279,13 +292,16 @@ public class AdminEvaluationController {
 				) {
 				/**
 				 * If all evaluation items are complete or notrequired change accountState to "COMPLETE"
+				 * When accountState of an applicant change the role should also change
 				 */
-				userEntityService.updateAccountState(userEntityId, "complete");
+				userEntityService.updateUserEntityRole(userEntityId, "complete", "ROLE_STUDENT_COMPLETE");
 			} else {
 				/**
 				 * If all evaluation items are not complete or notrequired make accountState to "INPROCESS"
+				 * When accountState of an applicant change the role should also change
 				 */
-				userEntityService.updateAccountState(userEntityId, "inprocess");
+
+				userEntityService.updateUserEntityRole(userEntityId, "inprocess", "ROLE_STUDENT_INPROCESS");
 			}
 		
 		}
@@ -323,7 +339,7 @@ public class AdminEvaluationController {
 		/**
 		 * When a student is admitted change accountState to "ADMITTED"
 		 */
-		userEntityService.updateAccountState(userEntityId, "admitted");
+		userEntityService.updateUserEntityRole(userEntityId, "admitted", "ROLE_STUDENT_ADMITTED");
 		evaluationService.updateEvaluation(evaluation);
 		
 		
@@ -364,7 +380,7 @@ public class AdminEvaluationController {
 		/**
 		 * When a student is admitted change accountState to "ADMITTED"
 		 */
-		userEntityService.updateAccountState(userEntityId, "denied");
+		userEntityService.updateUserEntityRole(userEntityId, "denied", "ROLE_STUDENT_DENIED");
 		evaluationService.updateEvaluation(evaluation);
 		
 		return "redirect:/accounts/{userEntityId}/evaluations";

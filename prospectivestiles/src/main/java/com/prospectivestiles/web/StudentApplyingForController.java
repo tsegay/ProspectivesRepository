@@ -118,8 +118,11 @@ public class StudentApplyingForController {
 		 * I need to use JDBC to insert data to tables
 		 */
 		
-		userEntityService.updateTerm(userEntity.getId(), origUserEntity.getTerm().getId());
-		userEntityService.updateProgramOfStudy(userEntity.getId(), origUserEntity.getProgramOfStudy().getId());
+//		userEntityService.updateTerm(userEntity.getId(), origUserEntity.getTerm().getId());
+//		userEntityService.updateProgramOfStudy(userEntity.getId(), origUserEntity.getProgramOfStudy().getId());
+		
+		userEntityService.updateUserEntityTermAndProgram(userEntity.getId(), 
+				origUserEntity.getTerm().getId(), origUserEntity.getProgramOfStudy().getId());
 		
 		/**
 		 * I am dropping the applyingFor page. merging that page in the account page

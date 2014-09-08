@@ -3,12 +3,14 @@ package com.prospectivestiles.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -28,7 +30,11 @@ public class UploadedFiles extends BaseEntity implements Serializable {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5094090988464565522L;
+	/**
+	 * 
+	 */
+
 	// ======================================
     // =             Attributes             =
     // ======================================
@@ -116,7 +122,7 @@ public class UploadedFiles extends BaseEntity implements Serializable {
 		this.fileUploaded = fileUploaded;
 	}
 	
-	@OneToOne
+	@ManyToOne
 	public UserEntity getUserEntity() {
 		return userEntity;
 	}

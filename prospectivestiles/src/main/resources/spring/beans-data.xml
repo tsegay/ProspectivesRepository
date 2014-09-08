@@ -14,7 +14,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/prosptiles"
+<!-- 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/prosptiles"
+		resource-ref="true" /> -->
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/prospectives"
 		resource-ref="true" />
 	
 	<!-- for using jdbc to query data -->
@@ -26,6 +28,7 @@
 		<prop key="hibernate.show_sql">true</prop>
 		<!-- <prop key="hibernate.format_sql">true</prop> -->
 		<prop key="hibernate.hbm2ddl.auto">update</prop>
+<!-- 		<prop key="hibernate.hbm2ddl.auto">create-drop</prop> -->
 	</util:properties>
 
 	<bean id="sessionFactory"

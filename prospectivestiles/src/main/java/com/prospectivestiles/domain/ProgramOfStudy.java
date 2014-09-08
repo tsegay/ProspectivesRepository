@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.LazyCollection;
@@ -20,10 +21,7 @@ import org.hibernate.annotations.LazyCollectionOption;
  * Can't use findProgramOfStudiesByUserEntityId
  */
 @Entity
-/*@NamedQueries(
-		@NamedQuery(name = "findProgramOfStudiesByUserEntityId", 
-		query = "FROM ProgramOfStudy WHERE userEntity.id = :id")
-		)*/
+@NamedQuery(name = "findProgramOfStudyByName", query = "from ProgramOfStudy where name= :name")
 public class ProgramOfStudy extends BaseEntity implements Serializable {
 
 	/**

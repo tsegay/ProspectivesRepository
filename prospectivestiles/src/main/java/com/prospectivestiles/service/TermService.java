@@ -8,6 +8,7 @@ public interface TermService {
 	
 	Term getTerm(long id);
 	List<Term> getAllTerms();
+	Term findByName(String name);
 	List<Term> getTermsByUserEntityId(long userEntityId);
 	void createTerm(Term term);
 	void updateTerm(Term term);

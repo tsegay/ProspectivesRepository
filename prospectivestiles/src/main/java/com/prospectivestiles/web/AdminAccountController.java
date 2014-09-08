@@ -327,12 +327,6 @@ public class AdminAccountController {
 		return "editAccount";
 	}
 	
-	/**
-	 * @Valid - use validation to validate userEntity
-	 * Why using insertIntoUserEntity() Checkout and replace with updateUserEntity()
-	 * Has to do with acceptTerms??
-	 */
-//			@ModelAttribute("userEntity") @Valid UserEntity form,
 	@RequestMapping(value="/accounts/{userEntityId}/edit", method = RequestMethod.POST)
 	public String editAccount(
 			@PathVariable("userEntityId") long userEntityId, 
@@ -349,22 +343,15 @@ public class AdminAccountController {
 		System.out.println("sysout " + currentUserFullName + " viewing /accounts/userEntityId/edit on " + now);
 		// ##### END LOGGING #########
 		
-		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
-		
 		if (result.hasErrors()) {
 //			log.debug("Validation Error in HighSchool form");
-			System.out.println("######## result.hasErrors(): true" );
 			System.out.println("######## getErrorCount: " + result.getErrorCount());
 			System.out.println("######## getAllErrors: " + result.getAllErrors());
 			System.out.println("######## toString: " + result.toString());
-//			model.addAttribute("originalUserEntity", userEntity);
 			origUserEntity.setId(userEntityId);
 			model.addAttribute("userEntity", origUserEntity);
-//			model.addAttribute("userEntity", userEntity);
 			return "editAccount";
 			
-		} else {
-			System.out.println("######## result.hasErrors(): false" );
 		}
 		
 		/**
@@ -387,18 +374,26 @@ public class AdminAccountController {
 //			userEntity.setAcceptTerms(false);
 //		}
 		
-		userEntityService.insertIntoUserEntity(userEntity.getId(), origUserEntity);
+		/**
+		 * Why origUserEntity has no id set
+		 * When persisting without setting the id: err msg = The given object has a null identifier
+		 * If i do origUserEntity.setId(userEntityId); and persist this origUserEntity
+		 * the fields in DB which are not displayed in the form are set to null
+		 * Eg. dateCreated, createdBy in DB will be set to null, losing creator's data
+		 * 
+		 * Solution: get entity from DB and pass the values that are updated in the form and persist it.
+		 * Another option is to set all the other fields are hidden fields in the form
+		 */
+
+		origUserEntity.setId(userEntityId);
+		userEntityService.updateUserEntity(origUserEntity);
 		
 		return "redirect:/accounts/{userEntityId}";
-//		return "redirect:/account";
 	}
 	
 	/**
-	 * NO DELETE METHOD FOR STUDENTS
-	 * @return
+	 * NO DELETE METHOD
 	 */
-	/*@RequestMapping(value = "/myAccount/delete", method = RequestMethod.POST)
-	public String deleteMyAccount(){}*/
 	
 	
 	// ======================================

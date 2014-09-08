@@ -10,8 +10,6 @@ import com.prospectivestiles.domain.UserEntity;
 
 public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	
-	// ##################
-//	findEvaluationsByStatus
 	/**
 	 * to find users by their status. eg admitted students, inprocess students etc
 	 * used in pages: admittedStudents.jsp, completeStudents.jsp, inprocessStudents.jsp
@@ -19,51 +17,33 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	 * @return
 	 */
 	List<UserEntity> findUserEntitiesByAccountState(String accountState);
-//	List<Evaluation> findEvaluationsByStatus(String status);
 	long countByAccountState(String accountState);
-	
-	// ##################
 	
 	void createUserEntity(UserEntity userEntity);
 	
 	UserEntity findByUsername(String username);
+	UserEntity findById(long userEntityId);
 	/**
-	 * This method returns list of email because email is not a unique field
-	 * Make email a unique field using the method validateEmail in UserEntityServiceImpl
+	 * Email is a unique field, this should not return a list
 	 */
 	List<UserEntity> findByEmail(String email);
 
 	String getPasswordByUsername(String username);
 	
-	
-	void updateTerm(long userEntityId, long termId);
-	
-	void updateProgramOfStudy(long userEntityId, long programOfStudyId);
 	/**
-	 * Using JDBC to update userEntity
-	 * @param userEntityId
-	 * @param userEntity
+	 * used for pagination
+	 * put it in dao.java
+	 * @param page
+	 * @param pageSize
+	 * @return
 	 */
-	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
-	/**
-	 * Using JDBC to create userEntity
-	 * @param userEntity
-	 */
-	void insertUserEntity(UserEntity userEntity);
-	void updateAccountState(long userEntityId, String accountState);
-//	void insertAccountState(long userEntityId, AccountState accountState);
-	void updatePassword(long userEntityId, String password);
-	
-	List<UserEntity> findByRole(long roleID);
-	
-	
-	// used for pagination
-	// put it in dao.java
 	List<UserEntity> findAll(int page, int pageSize);
 
 	List<UserEntity> findAll(int page, int pageSize, String filter, boolean asc);
 
-	/*
+	List<UserEntity> findByRole(long roleID);
+	
+	/**
 	 * To count all students or admins
 	 */
 	long countByRole(long roleID);
@@ -76,6 +56,25 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	 */
 	boolean hasRoleAdmin(long userEntityId);
 	boolean hasRoleAdmissionOrAssist(long userEntityId);
+	
+//	void updateTerm(long userEntityId, long termId);
+//	void updateProgramOfStudy(long userEntityId, long programOfStudyId);
+//	/**
+//	 * Using JDBC to update userEntity
+//	 * @param userEntityId
+//	 * @param userEntity
+//	 */
+//	void insertIntoUserEntity(long userEntityId, UserEntity userEntity);
+//	/**
+//	 * Using JDBC to create userEntity
+//	 * @param userEntity
+//	 */
+//	void insertUserEntity(UserEntity userEntity);
+//	void updateAccountState(long userEntityId, String accountState);
+//	void insertAccountState(long userEntityId, AccountState accountState);
+//	void updatePassword(long userEntityId, String password);
+	
+
 
 	
 }

@@ -17,11 +17,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 
+import com.prospectivestiles.dao.ProgramOfStudyDao;
 import com.prospectivestiles.dao.RoleDao;
+import com.prospectivestiles.dao.TermDao;
 import com.prospectivestiles.dao.UserEntityDao;
 import com.prospectivestiles.domain.AccountState;
 import com.prospectivestiles.domain.Notification;
+import com.prospectivestiles.domain.ProgramOfStudy;
 import com.prospectivestiles.domain.Role;
+import com.prospectivestiles.domain.Term;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.NotificationService;
 import com.prospectivestiles.service.UserEntityService;
@@ -34,9 +38,19 @@ public class UserEntityServiceImpl implements UserEntityService {
 	
 	@Inject private UserEntityDao userEntityDao;
 	@Inject private RoleDao roleDao;
-	@Inject
-	private NotificationService notificationService;
-		
+	@Inject private NotificationService notificationService;
+	@Inject private TermDao termDao;
+	@Inject private ProgramOfStudyDao programOfStudyDao;
+	
+	/**
+	 * When a user created an account.
+	 * Check username is available. no 2 users can have same username
+	 * Check email is available. no 2 users can have same email
+	 * Check password and confirm password match
+	 * Then give the applicant the default Role: 'ROLE_STUDENT_PENDING'
+	 * Save the user account
+	 * Create a notification for Admins that a new account is created.
+	 */
 	@Transactional(readOnly = false)	
 	public boolean createUserEntity(UserEntity userEntity, Errors errors) {
 		validateUsername(userEntity.getUsername(), errors);
@@ -49,10 +63,9 @@ public class UserEntityServiceImpl implements UserEntityService {
 		boolean valid = !errors.hasErrors();
 		
 		if (valid) {
-			Set<Role> roles = new HashSet<Role>();
-			roles.add(roleDao.findByName("ROLE_STUDENT_PENDING"));
-//			roles.add(roleDao.findByName("ROLE_USER"));
-			userEntity.setRoles(roles);
+			Role role = roleDao.findByName("ROLE_STUDENT_PENDING");
+			userEntity.setRole(role);
+			
 			userEntityDao.createUserEntity(userEntity);
 			/*
 			 * After a user account is successfully created I want to create a notification
@@ -84,49 +97,10 @@ public class UserEntityServiceImpl implements UserEntityService {
 		 * ONLY applicant can agree to terms by him/herself
 		 */
 		if (validateEmail2(userEntity.getEmail(), errors)) {
-//			userEntity.setAcceptTerms(false);
-//			userEntityDao.insertUserEntity(userEntity);
+			Role role = roleDao.findByName("ROLE_STUDENT_PENDING");
+			userEntity.setRole(role);
+			
 			userEntityDao.createUserEntity(userEntity);
-		}
-	}
-	
-	
-	/**
-	 * Use @Transactional(readOnly = false) or exception thrown is:
-	 * org.springframework.dao.TransientDataAccessResourceException: 
-	 * PreparedStatementCallback; SQL [update userEntity set accountState = ? where accountState = ?]; 
-	 * Connection is read-only. Queries leading to data modification are not allowed; nested exception is java.sql.SQLException: 
-	 * Connection is read-only. 
-	 */
-	@Override
-	@Transactional(readOnly = false)
-	public void insertIntoUserEntity(long userEntityId, UserEntity userEntity) {
-		userEntityDao.insertIntoUserEntity(userEntityId, userEntity);
-	}
-	
-	/**
-	 * Using JDBC to update userEntity
-	 * If use hibernate persistence, the form is not validates as the agreeTerms must be 'true'
-	 * Only, student can make the agreement. AO can't fill in this field.
-	 * When AO creates an account for an applicant.
-	 * Auto generate unique username for the applicant.
-	 * Make sure the email is not already taken too.
-	 * 
-	 */
-	@Override
-	@Transactional(readOnly = false)
-	public void insertUserEntity(UserEntity userEntity, Errors errors) {
-		userEntity.setPassword(randomString().substring(0, 8));
-		userEntity.setUsername(generateUniqueUsername(userEntity.getFirstName()));
-		
-		/**
-		 * If email is available then persist user
-		 * When Admission Officer creates a user account: acceptTerms should not be 'true'. 
-		 * ONLY applicant can agree to terms by him/herself
-		 */
-		if (validateEmail2(userEntity.getEmail(), errors)) {
-			userEntity.setAcceptTerms(false);
-			userEntityDao.insertUserEntity(userEntity);
 		}
 	}
 	
@@ -137,9 +111,16 @@ public class UserEntityServiceImpl implements UserEntityService {
 	 */
 	@Override
 	public UserEntity getUserEntity(long userEntityId) {
-		UserEntity userEntity = userEntityDao.find(userEntityId);
+		/**
+		 * Replacing find() inherited from AbstractHbnDao by findById in userEntityDao
+		 * nested exception is org.hibernate.HibernateException: More than one row with the given identifier was found:
+		 * Can't create eval or open page for user like: id=4
+		 */
+//		UserEntity userEntity = userEntityDao.find(userEntityId);
+		UserEntity userEntity = userEntityDao.findById(userEntityId);
 		if (userEntity != null) { 
-			Hibernate.initialize(userEntity.getRoles()); 
+//			Hibernate.initialize(userEntity.getRoles()); 
+			Hibernate.initialize(userEntity.getRole()); 
 			/**
 			 * failed to lazily initialize a collection of role: com.prospectivestiles.domain.UserEntity.listOfProgramOfStudy, no session or session was closed
 			 * Lazy exceptions occur when you fetch an object typically containing a collection which is lazily loaded, and try to access that collection.
@@ -153,7 +134,10 @@ public class UserEntityServiceImpl implements UserEntityService {
 	// For recipe 6.6
 	public UserEntity getUserEntityByUsername(String username) {
 		UserEntity userEntity = userEntityDao.findByUsername(username);
-		if (userEntity != null) { Hibernate.initialize(userEntity.getRoles()); }
+		if (userEntity != null) { 
+//			Hibernate.initialize(userEntity.getRoles()); 
+			Hibernate.initialize(userEntity.getRole()); 
+		}
 		return userEntity;
 	}
 
@@ -170,64 +154,119 @@ public class UserEntityServiceImpl implements UserEntityService {
 		return userEntityDao.findAll();
 	}
 
-	/**
-	 * This didn't work for me.
-	 * So, I used JDBC method below.
-	 */
+	@Transactional
 	@Override
 	public void updateUserEntity(UserEntity userEntity) {
-		
-		UserEntity userEntityToUpdate = userEntityDao.find(userEntity.getId());
-		
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^ UserEntityServiceImpl called: ");
 		
+		/**
+		 * userEntityDao.find(userEntity.getId()) is crashing, let me try to get user by username. next update this method in UEdao insteado of inheriting dao
+		 */
+		UserEntity userEntityToUpdate = userEntityDao.find(userEntity.getId());
 		
-		userEntityToUpdate.setUsername(userEntity.getUsername());
-		userEntityToUpdate.setEmail(userEntity.getEmail());
-		userEntityToUpdate.setEnabled(userEntity.isEnabled());
-		userEntityToUpdate.setFirstName(userEntity.getFirstName());
-		userEntityToUpdate.setLastName(userEntity.getLastName());
-		userEntityToUpdate.setGender(userEntity.getGender());
-		userEntityToUpdate.setAcceptTerms(userEntity.getAcceptTerms());
-		userEntityToUpdate.setPassword(userEntity.getPassword());
-		userEntityToUpdate.setMarketingOk(userEntity.isMarketingOk());
+		
+//		userEntityToUpdate.setAcceptTerms(userEntity.getAcceptTerms());
+//		userEntityToUpdate.setAccountState(userEntity.getAccountState());
+		userEntityToUpdate.setCellPhone(userEntity.getCellPhone());
+		userEntityToUpdate.setCitizenship(userEntity.getCitizenship());
+//		userEntity.setCountryOfBirth(userEntity.getCountryOfBirth());
 		Date now = new Date();
 		userEntityToUpdate.setDateLastModified(now);
+		userEntityToUpdate.setDob(userEntity.getDob());
+		userEntityToUpdate.setEmail(userEntity.getEmail());
+//		userEntityToUpdate.setEnabled(userEntity.isEnabled());
+		userEntityToUpdate.setEthnicity(userEntity.getEthnicity());
+		userEntityToUpdate.setFirstName(userEntity.getFirstName());
+		userEntityToUpdate.setGender(userEntity.getGender());
+		userEntityToUpdate.setHeardAboutAcctThru(userEntity.getHeardAboutAcctThru());
+		userEntityToUpdate.setHomePhone(userEntity.getHomePhone());
+		userEntityToUpdate.setInternational(userEntity.isInternational());
+		userEntityToUpdate.setLastName(userEntity.getLastName());
+		userEntityToUpdate.setMarketingOk(userEntity.isMarketingOk());
+		userEntityToUpdate.setMiddleName(userEntity.getMiddleName());
+//		userEntityToUpdate.setPassword(userEntity.getPassword());
+		userEntityToUpdate.setSevisNumber(userEntity.getSevisNumber());
+		userEntityToUpdate.setSsn(userEntity.getSsn());
+		userEntityToUpdate.setTransferee(userEntity.isTransferee());
+		userEntityToUpdate.setUsername(userEntity.getUsername());
+		
+		
+		
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^ UserEntityServiceImpl called ID: " + userEntityToUpdate.getId());
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^ UserEntityServiceImpl called userEntityToUpdate.Gender: " + userEntityToUpdate.getGender());
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^ UserEntityServiceImpl called userEntity.Gender: " + userEntity.getGender());
 		
 		userEntityDao.update(userEntityToUpdate);
 		
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^ UserEntityServiceImpl called userEntityToUpdate.Gender: " + userEntityToUpdate.getGender());
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^ UserEntityServiceImpl called userEntity.Gender: " + userEntity.getGender());
+
 	}
+	
+	/**
+	 * When you create or update Evaluation, 
+	 * userEntity.accountState and userEntity.role should be updated too.
+	 * @param userEntityId
+	 * @param accountState
+	 * @param roleName
+	 */
+	@Transactional
+	@Override
+	public void updateUserEntityRole(Long userEntityId, String accountState,
+			String roleName) {
+		// Find User
+		UserEntity userEntity = userEntityDao.findById(userEntityId);
+		Role role = roleDao.findByName(roleName);
+		// Update user role
+		userEntity.setRole(role);
+		// Update AccountState of user
+		userEntity.setAccountState(accountState);
+		userEntityDao.update(userEntity);
+		
+	}
+	
 	@Override
 	public void delete(UserEntity userEntity) {
 		userEntityDao.delete(userEntity);
 	}
 
+	/**
+	 * To update term and program of study for an applicant
+	 * @param userEntityId
+	 * @param accountState
+	 * @param roleName
+	 */
+	@Transactional
 	@Override
-	@Transactional(readOnly = false)
-	public void updateTerm(long userEntityId, long termId) {
-		userEntityDao.updateTerm(userEntityId, termId);
+	public void updateUserEntityTermAndProgram(Long userEntityId, long termId,
+			long programId) {
+		// Find User, term, program
+		UserEntity userEntity = userEntityDao.findById(userEntityId);
+		Term term = termDao.find(termId);
+		ProgramOfStudy programOfStudy = programOfStudyDao.find(programId);
+		// Update user term and program
+		userEntity.setTerm(term);
+		userEntity.setProgramOfStudy(programOfStudy);
+		userEntityDao.update(userEntity);
 	}
-
+	
+	
+	/**
+	 * Used by class ResetPasswordEntityServiceImpl for users to reset their password
+	 * @param userEntityId
+	 * @param password
+	 */
+	@Transactional
 	@Override
-	@Transactional(readOnly = false)
-	public void updateProgramOfStudy(long userEntityId, long programOfStudyId) {
-		userEntityDao.updateProgramOfStudy(userEntityId, programOfStudyId);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public void updateAccountState(long userEntityId, String accountState) {
-		userEntityDao.updateAccountState(userEntityId, accountState);
+	public void updateUserEntityPassword(Long userEntityId, String password) {
+		// Find User by ID
+		UserEntity userEntity = userEntityDao.findById(userEntityId);
+		// Update  user password
+		userEntity.setPassword(password);
+		userEntityDao.update(userEntity);
 		
 	}
 	
-	@Override
-	public void updatePassword(long userEntityId, String password) {
-		userEntityDao.updatePassword(userEntityId, password);
-		
-	}
-	
-
 	@Override
 	public List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize) {
 		return userEntityDao.findAll(page, pageSize);
@@ -271,6 +310,11 @@ public class UserEntityServiceImpl implements UserEntityService {
 		return userEntityDao.countByAccountState(accountState);
 	}
 
+	@Override
+	public UserEntity findById(long userEntityId) {
+		return userEntityDao.findById(userEntityId);
+	}
+	
 	@Override
 	public List<UserEntity> findByEmail(String email) {
 		return userEntityDao.findByEmail(email);
@@ -403,6 +447,72 @@ public class UserEntityServiceImpl implements UserEntityService {
 		SecureRandom rand = new SecureRandom();
 		return new BigInteger(130, rand).toString(32);
 	}
+
+
+	
+//	/**
+//	 * Use @Transactional(readOnly = false) or exception thrown is:
+//	 * org.springframework.dao.TransientDataAccessResourceException: 
+//	 * PreparedStatementCallback; SQL [update userEntity set accountState = ? where accountState = ?]; 
+//	 * Connection is read-only. Queries leading to data modification are not allowed; nested exception is java.sql.SQLException: 
+//	 * Connection is read-only. 
+//	 */
+//	@Override
+//	@Transactional(readOnly = false)
+//	public void insertIntoUserEntity(long userEntityId, UserEntity userEntity) {
+//		userEntityDao.insertIntoUserEntity(userEntityId, userEntity);
+//	}
+	
+//	/**
+//	 * Using JDBC to update userEntity
+//	 * If use hibernate persistence, the form is not validates as the agreeTerms must be 'true'
+//	 * Only, student can make the agreement. AO can't fill in this field.
+//	 * When AO creates an account for an applicant.
+//	 * Auto generate unique username for the applicant.
+//	 * Make sure the email is not already taken too.
+//	 * 
+//	 */
+//	@Override
+//	@Transactional(readOnly = false)
+//	public void insertUserEntity(UserEntity userEntity, Errors errors) {
+//		userEntity.setPassword(randomString().substring(0, 8));
+//		userEntity.setUsername(generateUniqueUsername(userEntity.getFirstName()));
+//		
+//		/**
+//		 * If email is available then persist user
+//		 * When Admission Officer creates a user account: acceptTerms should not be 'true'. 
+//		 * ONLY applicant can agree to terms by him/herself
+//		 */
+//		if (validateEmail2(userEntity.getEmail(), errors)) {
+//			userEntity.setAcceptTerms(false);
+//			userEntityDao.insertUserEntity(userEntity);
+//		}
+//	}
+	
+//	@Override
+//	@Transactional(readOnly = false)
+//	public void updateTerm(long userEntityId, long termId) {
+//		userEntityDao.updateTerm(userEntityId, termId);
+//	}
+//
+//	@Override
+//	@Transactional(readOnly = false)
+//	public void updateProgramOfStudy(long userEntityId, long programOfStudyId) {
+//		userEntityDao.updateProgramOfStudy(userEntityId, programOfStudyId);
+//	}
+
+//	@Override
+//	@Transactional(readOnly = false)
+//	public void updateAccountState(long userEntityId, String accountState) {
+//		userEntityDao.updateAccountState(userEntityId, accountState);
+//		
+//	}
+	
+//	@Override
+//	public void updatePassword(long userEntityId, String password) {
+//		userEntityDao.updatePassword(userEntityId, password);
+//		
+//	}
 
 	
 	

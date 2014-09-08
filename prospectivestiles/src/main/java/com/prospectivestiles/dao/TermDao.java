@@ -7,7 +7,8 @@ import com.prospectivestiles.domain.Term;
 public interface TermDao extends Dao<Term> {
 
 	List<Term> getTermsByUserEntityId(long userEntityId);
-//	void updateZipCode(long addressId, String zipcode);
+	Term findByName(String name);
+	
 //	void insertTerm(Term term);
 
 }

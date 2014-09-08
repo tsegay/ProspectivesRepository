@@ -39,7 +39,7 @@
 <div id="navmenu">
 	<ul class="nav nav-tabs">
 		<sec:authorize access="isAuthenticated()">
-			<li id="personal-li active">
+			<li id="personal-li" class="active">
 				<a href="${myAccount}">Profile</a>
 			</li>
 			<%-- <li id="personal-li" class="dropdown active">
@@ -66,7 +66,7 @@
 			<li id="uploadedfiles-li">
 				<a href="${uploadedFilesUrl}">Documents</a>
 			</li>
-			<li id="applicationForm-li">
+			<li id="review-li">
 				<a href="${reviewUrl}">Review & Accept</a>
 			</li>
 		</sec:authorize>
@@ -83,7 +83,7 @@
 			  <ul class="dropdown-menu">
 			    <li id="reports-applicationForm-li"><a href="${applicationFormUrl}" target="_blank">Application Form</a></li>
 			    <li id="reports-missing-li"><a href="${missingDocumentsUrl}">Missing Documents</a></li>
-			    <li id="reports-evaluation-li"><a href="${checklistReportUrl}">Checklist Report</a></li>
+			    <li id="reports-checklist-li"><a href="${checklistReportUrl}">Checklist Report</a></li>
 			    <li id="reports-evaluation-li"><a href="${evaluationReportUrl}">Evaluation Report</a></li>
 			    <li id="reports-acceptance-li"><a href="${acceptanceLetterUrl}">Acceptance Letter</a></li>
 			    <!-- <li><a href="#">Link</a></li>

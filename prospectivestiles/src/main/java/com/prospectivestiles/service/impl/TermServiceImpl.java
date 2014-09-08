@@ -28,6 +28,10 @@ public class TermServiceImpl implements TermService {
 		return termDao.findAll();
 	}
 	@Override
+	public Term findByName(String name) {
+		return termDao.findByName(name);
+	}
+	@Override
 	public List<Term> getTermsByUserEntityId(long userEntityId) {
 		return termDao.getTermsByUserEntityId(userEntityId);
 	}
@@ -58,15 +62,6 @@ public class TermServiceImpl implements TermService {
 		termDao.delete(term);
 	}
 
-	/**
-	 * FOR TESTING PURPOSE
-	 */
-//	@Override
-//	public void updateTermZipCode(long termId, String zipcode) {
-//	}
 
-	
-	
-	
 
 }

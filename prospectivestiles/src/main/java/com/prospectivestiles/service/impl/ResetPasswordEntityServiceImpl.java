@@ -210,7 +210,8 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 			 */
 			List<UserEntity> testuserEntities = userEntityService.findByEmail(origResetPasswordEntity.getEmail());
 			Long userEntityId = testuserEntities.get(0).getId();
-			userEntityService.updatePassword(userEntityId, origResetPasswordEntity.getPassword());
+			userEntityService.updateUserEntityPassword(userEntityId, origResetPasswordEntity.getPassword());
+//			userEntityService.updatePassword(userEntityId, origResetPasswordEntity.getPassword());
 			/*
 			 * After a user account is successfully created I want to create a notification
 			 * I need to create an enum NotificationType: message, uploadedDoc, statusChanged, updatedProfile, ...
