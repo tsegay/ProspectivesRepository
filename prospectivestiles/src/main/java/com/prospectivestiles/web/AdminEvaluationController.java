@@ -342,8 +342,6 @@ public class AdminEvaluationController {
 		userEntityService.updateUserEntityRole(userEntityId, "admitted", "ROLE_STUDENT_ADMITTED");
 		evaluationService.updateEvaluation(evaluation);
 		
-		
-		
 		return "redirect:/accounts/{userEntityId}/evaluations";
 		
 	}

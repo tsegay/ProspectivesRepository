@@ -320,6 +320,15 @@ public class UserEntityServiceImpl implements UserEntityService {
 		return userEntityDao.findByEmail(email);
 	}
 
+	@Override
+	public List<UserEntity> getAccountsByTermStatusState(long termId, boolean status, String accountState) {
+		return userEntityDao.getAccountsByTermStatusState(termId, status, accountState);
+	}
+	
+	@Override
+	public long countAccountsByTermStatusState(long termId, boolean status, String accountState) {
+		return userEntityDao.countAccountsByTermStatusState(termId, status, accountState);
+	}
 
 	@Override
 	public long countByRoles(List<Long> rolesList) {

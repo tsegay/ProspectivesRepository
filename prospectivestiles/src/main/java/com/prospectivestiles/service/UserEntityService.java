@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.validation.Errors;
 
 import com.prospectivestiles.domain.AccountState;
+import com.prospectivestiles.domain.Term;
 import com.prospectivestiles.domain.UserEntity;
 
 public interface UserEntityService {
@@ -64,6 +65,12 @@ public interface UserEntityService {
 			long programName);
 
 	void updateUserEntityPassword(Long userEntityId, String password);
+
+	List<UserEntity> getAccountsByTermStatusState(long termId, boolean status,
+			String accountState);
+
+	long countAccountsByTermStatusState(long termId, boolean status,
+			String accountState);
 	
 //	void updateUE(UserEntity userEntity);
 //	void updateTerm(long userEntityId, long termId);

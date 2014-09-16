@@ -19,6 +19,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,6 +61,7 @@ import com.prospectivestiles.service.HighSchoolService;
 import com.prospectivestiles.service.InstituteService;
 import com.prospectivestiles.service.StandardTestService;
 import com.prospectivestiles.service.StudentAgreementService;
+import com.prospectivestiles.service.TermService;
 import com.prospectivestiles.service.UserEntityService;
 import com.prospectivestiles.util.TableHeader;
 
@@ -84,7 +87,8 @@ public class AdminPDFReportGenerator {
 	private StandardTestService standardTestService;
 	@Inject
 	private StudentAgreementService studentAgreementService;
-
+	@Inject
+	private TermService termService;
 	
 	private static String FILE = "path-to-file";
 	private static Font h1Font = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
@@ -1741,99 +1745,155 @@ public class AdminPDFReportGenerator {
 	}
 	
 	
-//    /**
-//     * Inner class to add a table as header.
-//     */
-//    class TableHeader extends PdfPageEventHelper {
-//        /** The header text. */
-//        String header = "American College of Commerce and Technology";
-//        /** The template with the total number of pages. */
-//        PdfTemplate total;
-// 
-//        /**
-//         * Allows us to change the content of the header.
-//         * @param header The new header String
-//         */
-//        public void setHeader(String header) {
-//            this.header = header;
-//        }
-// 
-//        /**
-//         * Creates the PdfTemplate that will hold the total number of pages.
-//         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onOpenDocument(
-//         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
-//         */
-//        public void onOpenDocument(PdfWriter writer, Document document) {
-//            total = writer.getDirectContent().createTemplate(30, 16);
-//        }
-// 
-//        /**
-//         * Adds a header to every page
-//         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onEndPage(
-//         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
-//         */
-//        public void onEndPage(PdfWriter writer, Document document) {
-//            PdfPTable table = new PdfPTable(2);
-//            try {
-////                table.setWidths(new int[]{24, 24, 2});
-//                table.setWidths(new int[]{25, 25});
-//                table.setTotalWidth(527);
-//                table.setLockedWidth(true);
-//                
-//                table.getDefaultCell().setFixedHeight(20);
-//                table.getDefaultCell().setBorder(Rectangle.BOTTOM);
-//                table.addCell(header);
-//                
-//                table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
-//                table.getDefaultCell().setBorder(Rectangle.BOTTOM);
-//                table.addCell(new Phrase("www.acct2day.org"));
-//                
-////                PdfPCell cell = new PdfPCell(Image.getInstance(total));
-////                PdfPCell cell = new PdfPCell(new Phrase("www.acct2day.org"));
-////                cell.setBorder(Rectangle.BOTTOM);
-////                table.addCell(cell);
-//                
-//                table.writeSelectedRows(0, -1, 34, 813, writer.getDirectContent());
-//            }
-//            catch(DocumentException de) {
-//                throw new ExceptionConverter(de);
-//            }
-//            
-//            PdfPTable table2 = new PdfPTable(3);
-//            try {
-//            	table2.setWidths(new int[]{24, 24, 2});
-//            	table2.setTotalWidth(527);
-//            	table2.setLockedWidth(true);
-//            	
-//            	table2.getDefaultCell().setFixedHeight(20);
-//            	table2.getDefaultCell().setBorder(Rectangle.TOP);
-//            	table2.addCell("Printed: " + new Date());
-//            	
-//            	table2.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
-//            	table2.addCell(String.format("Page %d of", writer.getPageNumber()));
-//            	
-//            	PdfPCell cell = new PdfPCell(Image.getInstance(total));
-//            	cell.setBorder(Rectangle.TOP);
-//            	table2.addCell(cell);
-//            	
-//            	table2.writeSelectedRows(0, -1, 34, 50, writer.getDirectContent());
-//            }
-//            catch(DocumentException de) {
-//            	throw new ExceptionConverter(de);
-//            }
-//        }
-// 
-//        /**
-//         * Fills out the total number of pages before the document is closed.
-//         * @see com.itextpdf.text.pdf.PdfPageEventHelper#onCloseDocument(
-//         *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
-//         */
-//        public void onCloseDocument(PdfWriter writer, Document document) {
-//            ColumnText.showTextAligned(total, Element.ALIGN_LEFT,
-//                    new Phrase(String.valueOf(writer.getPageNumber() - 1)),
-//                    2, 2, 0);
-//        }
-//    }
+	@RequestMapping(value = "/accounts/getAccountsByTermStatusState", method = RequestMethod.POST)
+	public void postAccountsByTermStatusState(
+			HttpServletResponse response, 
+			HttpServletRequest request,
+			@ModelAttribute UserEntity origUserEntity, 
+			BindingResult result, 
+			Model model) {
+		
+		java.util.List<UserEntity> selectedUsers = userEntityService.getAccountsByTermStatusState(
+				origUserEntity.getTerm().getId(), origUserEntity.isInternational(), origUserEntity.getAccountState());
+		long count = userEntityService.countAccountsByTermStatusState(
+				origUserEntity.getTerm().getId(), origUserEntity.isInternational(), origUserEntity.getAccountState());
+		String termName = termService.getTerm(origUserEntity.getTerm().getId()).getName();
+		
+		Document document = new Document(PageSize.A4, 36, 36, 54, 54);
+
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		try {
+//			PdfWriter.getInstance(document, out);
+			PdfWriter writer = PdfWriter.getInstance(document, out);
+			// add header and footer before document.open()
+		    
+		    TableHeader event = new TableHeader();
+	        writer.setPageEvent(event);
+		    
+		    /*open document*/
+			document.open();
+
+			addMetaData(document);
+			
+			Paragraph paragraph = new Paragraph();
+			paragraph.add(new Paragraph("Prospective Students Report", h1Font));
+			paragraph.setSpacingBefore(20);
+			paragraph.setSpacingAfter(20);
+			paragraph.setAlignment(Element.ALIGN_CENTER);
+			document.add(paragraph);
+			
+			paragraph = new Paragraph();
+			paragraph.add(new Phrase("Term: " + termName, normalBoldFont));
+//			paragraph.add(new Phrase(": " + origUserEntity.getTerm().getName()));
+			document.add(paragraph);
+			
+			paragraph = new Paragraph();
+			paragraph.add(new Phrase("F-1 Status: ", normalBoldFont));
+			if (origUserEntity.isInternational()) {
+				paragraph.add(new Phrase("International"));
+			} else {
+				paragraph.add(new Phrase("Domestic"));
+			}
+			document.add(paragraph);
+			
+			paragraph = new Paragraph();
+			paragraph.add(new Phrase("Application Status: ", normalBoldFont));
+			paragraph.add(new Phrase(origUserEntity.getAccountState()));
+			document.add(paragraph);
+			
+			paragraph = new Paragraph();
+			paragraph.add(new Paragraph("Total: " + count, normalBoldFont));
+//			paragraph.add(new Paragraph(": " + count));
+			paragraph.setSpacingAfter(20);
+			document.add(paragraph);
+			
+			PdfPTable table = new PdfPTable(4);
+			table.setWidthPercentage(100);
+
+			// row 1, cell 1
+			paragraph = new Paragraph();
+			paragraph.add(new Phrase("Last Name: ", normalBoldFont));
+			PdfPCell cell = new PdfPCell(paragraph);
+			cell.setPadding(8);
+			table.addCell(cell);
+			// row 1, cell 2
+			paragraph = new Paragraph();
+			paragraph.add(new Phrase("First Name: ", normalBoldFont));
+			cell = new PdfPCell(paragraph);
+			cell.setPadding(8);
+			table.addCell(cell);
+			// row 1, cell 3
+			paragraph = new Paragraph();
+			paragraph.add(new Phrase("F-1 Status: ", normalBoldFont));
+			cell = new PdfPCell(paragraph);
+			cell.setPadding(8);
+			table.addCell(cell);
+			
+			// row 1, cell 4
+			paragraph = new Paragraph();
+			paragraph.add(new Phrase("Application Status: ", normalBoldFont));
+			cell = new PdfPCell(paragraph);
+			cell.setPadding(8);
+			table.addCell(cell);
+			
+			
+			if (selectedUsers != null) {
+				for (UserEntity userEntity : selectedUsers) {
+					// row 2, cell 1
+					paragraph = new Paragraph();
+					paragraph.add(new Phrase(userEntity.getLastName(), smallFont));
+					cell = new PdfPCell(paragraph);
+					cell.setPadding(8);
+					table.addCell(cell);
+					// row 2, cell 2
+					paragraph = new Paragraph();
+					paragraph.add(new Phrase(userEntity.getFirstName(), smallFont));
+					cell = new PdfPCell(paragraph);
+					cell.setPadding(8);
+					table.addCell(cell);
+					// row 2, cell 3
+					paragraph = new Paragraph();
+					if (userEntity.isInternational()) {
+						paragraph.add(new Phrase("International", smallFont));
+					} else {
+						paragraph.add(new Phrase("Domestic", smallFont));
+					}
+					cell = new PdfPCell(paragraph);
+					cell.setPadding(8);
+					table.addCell(cell);
+					// row 2, cell 4
+					paragraph = new Paragraph();
+					paragraph.add(new Phrase(userEntity.getAccountState(), smallFont));
+					cell = new PdfPCell(paragraph);
+					cell.setPadding(8);
+					table.addCell(cell);
+				}
+			}
+			
+
+			
+			document.add(table);
+			
+			document.close();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		try {
+			FileCopyUtils.copy(out.toByteArray(), response.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		response.setHeader("Content-Type", "application/pdf");
+		/*set the header Content-disposition to inline to render pdf inline instead of prompting a download window*/
+		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		try {
+			response.flushBuffer();
+			response.getOutputStream().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
     
 	
 	/*
@@ -1992,4 +2052,97 @@ public class AdminPDFReportGenerator {
 		return userEntity;
 	}
 
+//  /**
+//  * Inner class to add a table as header.
+//  */
+// class TableHeader extends PdfPageEventHelper {
+//     /** The header text. */
+//     String header = "American College of Commerce and Technology";
+//     /** The template with the total number of pages. */
+//     PdfTemplate total;
+//
+//     /**
+//      * Allows us to change the content of the header.
+//      * @param header The new header String
+//      */
+//     public void setHeader(String header) {
+//         this.header = header;
+//     }
+//
+//     /**
+//      * Creates the PdfTemplate that will hold the total number of pages.
+//      * @see com.itextpdf.text.pdf.PdfPageEventHelper#onOpenDocument(
+//      *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+//      */
+//     public void onOpenDocument(PdfWriter writer, Document document) {
+//         total = writer.getDirectContent().createTemplate(30, 16);
+//     }
+//
+//     /**
+//      * Adds a header to every page
+//      * @see com.itextpdf.text.pdf.PdfPageEventHelper#onEndPage(
+//      *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+//      */
+//     public void onEndPage(PdfWriter writer, Document document) {
+//         PdfPTable table = new PdfPTable(2);
+//         try {
+////             table.setWidths(new int[]{24, 24, 2});
+//             table.setWidths(new int[]{25, 25});
+//             table.setTotalWidth(527);
+//             table.setLockedWidth(true);
+//             
+//             table.getDefaultCell().setFixedHeight(20);
+//             table.getDefaultCell().setBorder(Rectangle.BOTTOM);
+//             table.addCell(header);
+//             
+//             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
+//             table.getDefaultCell().setBorder(Rectangle.BOTTOM);
+//             table.addCell(new Phrase("www.acct2day.org"));
+//             
+////             PdfPCell cell = new PdfPCell(Image.getInstance(total));
+////             PdfPCell cell = new PdfPCell(new Phrase("www.acct2day.org"));
+////             cell.setBorder(Rectangle.BOTTOM);
+////             table.addCell(cell);
+//             
+//             table.writeSelectedRows(0, -1, 34, 813, writer.getDirectContent());
+//         }
+//         catch(DocumentException de) {
+//             throw new ExceptionConverter(de);
+//         }
+//         
+//         PdfPTable table2 = new PdfPTable(3);
+//         try {
+//         	table2.setWidths(new int[]{24, 24, 2});
+//         	table2.setTotalWidth(527);
+//         	table2.setLockedWidth(true);
+//         	
+//         	table2.getDefaultCell().setFixedHeight(20);
+//         	table2.getDefaultCell().setBorder(Rectangle.TOP);
+//         	table2.addCell("Printed: " + new Date());
+//         	
+//         	table2.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
+//         	table2.addCell(String.format("Page %d of", writer.getPageNumber()));
+//         	
+//         	PdfPCell cell = new PdfPCell(Image.getInstance(total));
+//         	cell.setBorder(Rectangle.TOP);
+//         	table2.addCell(cell);
+//         	
+//         	table2.writeSelectedRows(0, -1, 34, 50, writer.getDirectContent());
+//         }
+//         catch(DocumentException de) {
+//         	throw new ExceptionConverter(de);
+//         }
+//     }
+//
+//     /**
+//      * Fills out the total number of pages before the document is closed.
+//      * @see com.itextpdf.text.pdf.PdfPageEventHelper#onCloseDocument(
+//      *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+//      */
+//     public void onCloseDocument(PdfWriter writer, Document document) {
+//         ColumnText.showTextAligned(total, Element.ALIGN_LEFT,
+//                 new Phrase(String.valueOf(writer.getPageNumber() - 1)),
+//                 2, 2, 0);
+//     }
+// }
 }

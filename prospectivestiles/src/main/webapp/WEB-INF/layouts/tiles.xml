@@ -156,6 +156,20 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/referrers.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="searchAccountsByTermStatusState" extends="prospectivestiles.base">
+		<put-attribute name="title" value="admin page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/searchApplicantsByTermStatusState.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="applicantsByTermStatusState" extends="prospectivestiles.base">
+		<put-attribute name="title" value="admin page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/applicantsByTermStatusState.jsp"></put-attribute>
+	</definition>
+	
+	
+	
 	<!-- <definition name="editAccount" template="/WEB-INF/templates/modalTemplate.jsp">
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value=""></put-attribute>

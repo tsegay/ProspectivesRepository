@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.AssociatedUser;
 import com.prospectivestiles.domain.Evaluation;
+import com.prospectivestiles.domain.Term;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.UserEntity;
@@ -399,7 +400,24 @@ public class AdminAccountController {
 	// ======================================
 	// =                         =
 	// ======================================
+
+	@RequestMapping(value = "/accounts/getAccountsByTermStatusState", method = RequestMethod.GET)
+	public String getAccountsByTermStatusState(Model model) {
+		List<Term> terms = termService.getAllTerms();
+		System.out.println("####### getAccountsByTermStatusState displayed");
+		model.addAttribute("userEntity", new UserEntity());
+		model.addAttribute("terms", terms);
+		return "searchAccountsByTermStatusState";
+	}
 	
+
+	/**
+	 * 
+	 * POST method is in AdminPDFReportGenerator.postAccountsByTermStatusState
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/accounts/admittedStudents", method = RequestMethod.GET)
 	public String getAdmittedStudents(Model model) {
 		

@@ -34,7 +34,7 @@
 				<th>Date of Birth</th>
 				<th>Email</th>
 				<th>Checklist</th>
-				<th>Evaluation</th>
+				<!-- <th>Evaluation</th> -->
 				<th>Status</th>
 			</tr>
 		</thead>
@@ -327,10 +327,11 @@
 				var emailTd = document.createElement("td");
 				emailTd.appendChild(document.createTextNode(user.email));
 				
+				/* Removing the checklist class for now. Using evaluatin only. But label it as checklist. */
 				/* Create <td> */
-				var checklistTd = document.createElement("td");
+				/* var checklistTd = document.createElement("td");
 				checklistTd.setAttribute("id", "checklist-td" + user.id);
-				checklistState(user.id);
+				checklistState(user.id); */
 				
 				
 				/* Create <td> */
@@ -348,7 +349,7 @@
 			userTr.appendChild(lastnameTd);
 			userTr.appendChild(dobTd);
 			userTr.appendChild(emailTd);
-			userTr.appendChild(checklistTd);
+			/* userTr.appendChild(checklistTd); */
 			userTr.appendChild(evaluationTd);
 			userTr.appendChild(statusTd);
 			

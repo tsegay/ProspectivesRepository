@@ -52,16 +52,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NamedQueries({
 	@NamedQuery(
     		name = "findUserEntityByUsername",
-    		query = "from UserEntity where username = :username"),
-//	@NamedQuery(
-//    		name = "findUserEntitiesByRole",
-//    		query = "select u from UserEntity u inner join u.roles r where r.id = :roleID"),
+    		query = "FROM UserEntity WHERE username = :username"),
 	@NamedQuery(
-    		name = "findUserEntitiesByRole",
-    		query = "from UserEntity where role_id = :roleID"),
+    		name = "findAccountsByTermStatusState",
+    		query = "SELECT u FROM UserEntity u INNER JOIN u.term t WHERE t.id = :tId AND u.international = :international AND u.accountState = :accountState ORDER BY u.lastName ASC"),
+	@NamedQuery(
+			name = "countAccountsByTermStatusState",
+			query = "SELECT count(*) FROM UserEntity u INNER JOIN u.term t WHERE t.id = :tId AND u.international = :international AND u.accountState = :accountState ORDER BY u.lastName ASC"),
+	@NamedQuery(
+			name = "findUserEntitiesByRole",
+			query = "FROM UserEntity WHERE role_id = :roleID"),
 	@NamedQuery(
     		name = "findUserEntityById",
-    		query = "from UserEntity where id = :id"),
+    		query = "FROM UserEntity WHERE id = :id"),
 	@NamedQuery(
     		name = "findUserEntitiesByStatus",
     		query = "FROM UserEntity WHERE accountState = :accountState"),
@@ -122,6 +125,9 @@ public class UserEntity implements UserDetails {
 	 * How did you hear about ACCT?
 	 */
 	private String heardAboutAcctThru;
+	/**
+	 * Values are: pending, inprocess, complete, admitted, denied, enrolled
+	 */
 	private String accountState;
 	
 	/**

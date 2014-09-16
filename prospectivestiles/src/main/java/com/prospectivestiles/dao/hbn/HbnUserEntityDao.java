@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
@@ -132,7 +133,9 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 //	}
 	
 
-	
+	/**
+	 * USE @NamedQuery, REMMOVE sql stmt
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserEntity> findAll(int page, int pageSize) {
@@ -154,7 +157,31 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		return results;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserEntity> getAccountsByTermStatusState(long termId, boolean status, String accountState) {
+		List<UserEntity> results = (List<UserEntity>) getSession()
+				.getNamedQuery("findAccountsByTermStatusState")
+				.setParameter("tId", termId)
+				.setParameter("international", status)
+				.setParameter("accountState", accountState)
+				.list();
+		return results;
+	}
+	
+	@Override
+	public long countAccountsByTermStatusState(long termId, boolean status, String accountState) {
+		return (long) getSession()
+				.getNamedQuery("countAccountsByTermStatusState")
+				.setParameter("tId", termId)
+				.setParameter("international", status)
+				.setParameter("accountState", accountState)
+				.uniqueResult();
+	}
+	
 	/**
+	 * USE @NamedQuery, REMMOVE sql stmt
+	 * 
 	 * Used for searching users on the accounts page
 	 */
 	@SuppressWarnings("unchecked")
@@ -209,7 +236,11 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 				.list();
 	}
 	
-	/*I want to count students only, not admin users*/
+	/**
+	 * USE @NamedQuery, REMMOVE sql stmt
+	 * 
+	 * I want to count students only, not admin users
+	 */
 	@Override
 	public long countByRole(long roleID) {
 		return (Long) getSession()
@@ -220,6 +251,8 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	}
 	
 	/**
+	 * USE @NamedQuery, REMMOVE sql stmt
+	 * 
 	 * To get the count of users based on their roles. 
 	 * Eg. all student with role ROLE_STUDENT_PENDING, ROLE_STUDENT_INPROCESS etc
 	 * 
@@ -320,6 +353,8 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 
 
 	/**
+	 * USE @NamedQuery, REMMOVE sql stmt
+	 * 
 	 * I want to count prospective students by their status
 	 * Eg. admitted students
 	 */

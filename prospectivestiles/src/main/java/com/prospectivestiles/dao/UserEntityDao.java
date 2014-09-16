@@ -56,6 +56,10 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	 */
 	boolean hasRoleAdmin(long userEntityId);
 	boolean hasRoleAdmissionOrAssist(long userEntityId);
+	List<UserEntity> getAccountsByTermStatusState(long termId, boolean status,
+			String accountState);
+	long countAccountsByTermStatusState(long termId, boolean status,
+			String accountState);
 	
 //	void updateTerm(long userEntityId, long termId);
 //	void updateProgramOfStudy(long userEntityId, long programOfStudyId);

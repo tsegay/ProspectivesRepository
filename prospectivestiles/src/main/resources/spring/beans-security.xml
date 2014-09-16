@@ -244,11 +244,6 @@
 		<!-- Student evaluations -->
 		
 		<!-- Admin reports -->
-		<!-- <intercept-url pattern="/accounts/*/evaluation/*/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
-		<intercept-url pattern="/accounts/*/evaluation/*/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
-		<intercept-url pattern="/accounts/*/evaluation/new" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
-		<intercept-url pattern="/accounts/*/evaluation/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
-		<intercept-url pattern="/accounts/*/evaluation" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" /> -->
 		<intercept-url pattern="/accounts/*/reports/missingDocuments" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/reports/evaluationReport" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/reports/checklistReport" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
@@ -323,6 +318,8 @@
 		<!-- account -->
 		<!-- JUST FOR TESTING PURPOSE; REMOVE  /accounts/** -->
 		<!-- <intercept-url pattern="/accounts/**" method="GET" access="isAuthenticated()" /> -->
+		
+		<intercept-url pattern="/accounts/getAccountsByTermStatusState" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<intercept-url pattern="/accounts/agents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/referrers" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
