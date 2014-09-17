@@ -135,7 +135,6 @@ public class AdminPDFReportGenerator {
 			document.open();
 			
 			addMetaData(document);
-//			addContent(document);
 			
 			Paragraph paragraph = new Paragraph(" ");
 			paragraph.setSpacingAfter(20);
@@ -156,107 +155,45 @@ public class AdminPDFReportGenerator {
 			table.setHorizontalAlignment(Element.ALIGN_LEFT);
 			PdfPCell cell = new PdfPCell();
 
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Student Name: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-//			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-//			cell.setPadding(8);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Student Name: ", userEntityService.getUserEntity(userEntityId).getFullName());
 			
-			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getFullName(), normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Email Address: ", userEntityService.getUserEntity(userEntityId).getEmail());
 			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Email Address: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-
-			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getEmail(), normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Phone Number: ", userEntityService.getUserEntity(userEntityId).getCellPhone());
 			
-			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Phone Number: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getCellPhone(), normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Quarter: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 2
+			String termName;
 			if (userEntityService.getUserEntity(userEntityId).getTerm() != null) {
-				cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getTerm().getName(), normalFont));
+				termName = userEntityService.getUserEntity(userEntityId).getTerm().getName();
 			} else {
-				cell = new PdfPCell(new Phrase(" XXXXXXXXXXX ", normalFont));
+				termName = " XXXXXXXXXXX ";
 			}
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Quarter: ", termName);
 			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Program of Study: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 2
+			String programName;
 			if (userEntityService.getUserEntity(userEntityId).getProgramOfStudy() != null) {
-				cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName(), normalFont));
+				programName = userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName();
 			} else {
-				cell = new PdfPCell(new Phrase(" XXXXXXXXXXX ", normalFont));
+				programName = " XXXXXXXXXXX ";
 			}
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Program of Study: ", programName);
 			
 			String dobString = new String("");
 			if (userEntityService.getUserEntity(userEntityId).getDob() != null) {
 				SimpleDateFormat formatDob = new SimpleDateFormat("MM-dd-YYYY");
 				dobString = formatDob.format(userEntityService.getUserEntity(userEntityId).getDob());
 			} 
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Date of Birth: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Date of Birth: ", dobString);
 			
-			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(dobString, normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Student Status: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 2
 			String studentStatus;
 			if (userEntityService.getUserEntity(userEntityId).isInternational()) {
 				studentStatus = "International";
 			} else {
 				studentStatus = "Domestic";
 			}
-			cell = new PdfPCell(new Phrase(studentStatus, normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Student Status: ", studentStatus);
 			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Country of Citizenship: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Country of Citizenship: ", userEntityService.getUserEntity(userEntityId).getCitizenship());
 			
-			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getCitizenship(), normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
 			
 			/**
 			 * Display home address only
@@ -306,7 +243,6 @@ public class AdminPDFReportGenerator {
 			
 			paragraph = new Paragraph();
 			paragraph.setSpacingAfter(20);
-//			paragraph.add(new Paragraph("Admissions Granted: ", normalBoldFont));
 			paragraph.add(new Chunk("Admission Granted: ", normalBoldFont));
 			if (userEntityService.getUserEntity(userEntityId).getAccountState().equalsIgnoreCase("admitted")) {
 				paragraph.add(new Chunk("YES", normalFont));
@@ -315,144 +251,6 @@ public class AdminPDFReportGenerator {
 			}
 			document.add(paragraph);
 			
-			/**
-			 * List all evaluation results for valid and not-required items
-			 * You can only generate evaluation report once all the requirements are met
-			 */
-//			paragraph = new Paragraph();
-//			paragraph.setSpacingAfter(10);
-//			paragraph.add(new Paragraph("Applicant's Documents Checklist", normalBoldFont));
-//			document.add(paragraph);
-//			
-//			paragraph = new Paragraph();
-//			paragraph.setSpacingAfter(15);
-//			/**
-//			 * use if stmt to check if eval = null
-//			 */
-////			paragraph.add(new Paragraph(eval.getStudentQualification()));
-////			paragraph.add(new Paragraph(""));
-////			document.add(paragraph);
-//			
-//			if (eval != null) {
-//				
-//				/**
-//				 * table no border to display evaluation list items in a data definition type
-//				 */
-//				PdfPTable table2 = new PdfPTable(2);
-//				table2.setWidthPercentage(75);
-//				table2.setWidths(new int[]{2, 3});
-//				table2.setHorizontalAlignment(Element.ALIGN_CENTER);
-//				PdfPCell cell2 = new PdfPCell();
-//
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("Application Fee: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getApplicationFee(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("Bank Statement: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getBankStmt(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("Diplome: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getDiplome(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("Financial Affidavit: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getFinancialAffidavit(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("F1 Visa: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getF1Visa(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("I20: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getI20(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("Passport: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getPassport(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("Application Form: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getApplicationForm(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("Enrollment Agreement: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getEnrollmentAgreement(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("Grievance Policy: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getGrievancePolicy(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				// row 1, cell 1
-//				cell2 = new PdfPCell(new Phrase("Recommendation Letter: ", normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				// row 1, cell 2
-//				cell2 = new PdfPCell(new Phrase(eval.getRecommendationLetter(), normalFont));
-//				cell2.setBorder(Rectangle.NO_BORDER);
-//				table2.addCell(cell2);
-//				
-//				document.add(table2);
-//				
-//			}
 			
 			paragraph = new Paragraph();
 			paragraph.setSpacingAfter(20);
@@ -551,7 +349,6 @@ public class AdminPDFReportGenerator {
 			document.open();
 			
 			addMetaData(document);
-//			addContent(document);
 			
 			Paragraph paragraph = new Paragraph(" ");
 			paragraph.setSpacingAfter(20);
@@ -572,107 +369,44 @@ public class AdminPDFReportGenerator {
 			table.setHorizontalAlignment(Element.ALIGN_LEFT);
 			PdfPCell cell = new PdfPCell();
 
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Student Name: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-//			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-//			cell.setPadding(8);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Student Name: ", userEntityService.getUserEntity(userEntityId).getFullName());
 			
-			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getFullName(), normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Email Address: ", userEntityService.getUserEntity(userEntityId).getEmail());
 			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Email Address: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-
-			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getEmail(), normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Phone Number: ", userEntityService.getUserEntity(userEntityId).getCellPhone());
 			
-			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Phone Number: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getCellPhone(), normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Quarter: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 2
+			String termName;
 			if (userEntityService.getUserEntity(userEntityId).getTerm() != null) {
-				cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getTerm().getName(), normalFont));
+				termName = userEntityService.getUserEntity(userEntityId).getTerm().getName();
 			} else {
-				cell = new PdfPCell(new Phrase(" XXXXXXXXXXX ", normalFont));
+				termName = " XXXXXXXXXXX ";
 			}
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Quarter: ", termName);
 			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Program of Study: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 2
+			String programName;
 			if (userEntityService.getUserEntity(userEntityId).getProgramOfStudy() != null) {
-				cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName(), normalFont));
+				programName = userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName();
 			} else {
-				cell = new PdfPCell(new Phrase(" XXXXXXXXXXX ", normalFont));
+				programName = " XXXXXXXXXXX ";
 			}
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Program of Study: ", programName);
 			
 			String dobString = new String("");
 			if (userEntityService.getUserEntity(userEntityId).getDob() != null) {
 				SimpleDateFormat formatDob = new SimpleDateFormat("MM-dd-YYYY");
 				dobString = formatDob.format(userEntityService.getUserEntity(userEntityId).getDob());
 			} 
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Date of Birth: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Date of Birth: ", dobString);
 			
-			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(dobString, normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Student Status: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 2
 			String studentStatus;
 			if (userEntityService.getUserEntity(userEntityId).isInternational()) {
 				studentStatus = "International";
 			} else {
 				studentStatus = "Domestic";
 			}
-			cell = new PdfPCell(new Phrase(studentStatus, normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Student Status: ", studentStatus);
 			
-			// row 1, cell 1
-			cell = new PdfPCell(new Phrase("Country of Citizenship: ", normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
-			
-			// row 1, cell 2
-			cell = new PdfPCell(new Phrase(userEntityService.getUserEntity(userEntityId).getCitizenship(), normalFont));
-			cell.setBorder(Rectangle.NO_BORDER);
-			table.addCell(cell);
+			createNoBorderTableRow(table, "Country of Citizenship: ", userEntityService.getUserEntity(userEntityId).getCitizenship());
 			
 			/**
 			 * Display home address only
@@ -699,6 +433,7 @@ public class AdminPDFReportGenerator {
 					paragraph.add(new Chunk(address.getCountry(),  normalFont));
 				}
 			}
+			
 			// row 1, cell 1
 			cell = new PdfPCell(new Phrase("Home Address: ", normalFont));
 			cell.setBorder(Rectangle.NO_BORDER);
@@ -731,12 +466,6 @@ public class AdminPDFReportGenerator {
 			
 			paragraph = new Paragraph();
 			paragraph.setSpacingAfter(15);
-			/**
-			 * use if stmt to check if eval = null
-			 */
-//			paragraph.add(new Paragraph(eval.getStudentQualification()));
-//			paragraph.add(new Paragraph(""));
-//			document.add(paragraph);
 			
 			if (eval != null) {
 				
@@ -746,114 +475,19 @@ public class AdminPDFReportGenerator {
 				PdfPTable table2 = new PdfPTable(2);
 				table2.setWidthPercentage(75);
 				table2.setWidths(new int[]{2, 3});
-				table2.setHorizontalAlignment(Element.ALIGN_CENTER);
-				PdfPCell cell2 = new PdfPCell();
+				table2.setHorizontalAlignment(Element.ALIGN_LEFT);
 
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("Application Fee: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getApplicationFee(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("Bank Statement: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getBankStmt(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("Diplome: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getDiplome(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("Financial Affidavit: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getFinancialAffidavit(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("F1 Visa: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getF1Visa(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("I20: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getI20(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("Passport: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getPassport(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("Application Form: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getApplicationForm(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("Enrollment Agreement: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getEnrollmentAgreement(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("Grievance Policy: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getGrievancePolicy(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				// row 1, cell 1
-				cell2 = new PdfPCell(new Phrase("Recommendation Letter: ", normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
-				
-				// row 1, cell 2
-				cell2 = new PdfPCell(new Phrase(eval.getRecommendationLetter(), normalFont));
-				cell2.setBorder(Rectangle.NO_BORDER);
-				table2.addCell(cell2);
+				createTableRow(table2, "Application Fee: ", eval.getApplicationFee());
+				createTableRow(table2, "Bank Statement: ", eval.getBankStmt());
+				createTableRow(table2, "Diplome: ", eval.getDiplome());
+				createTableRow(table2, "Financial Affidavit: ", eval.getFinancialAffidavit());
+				createTableRow(table2, "F1 Visa: ", eval.getF1Visa());
+				createTableRow(table2, "I20: ", eval.getI20());
+				createTableRow(table2, "Passport: ", eval.getPassport());
+				createTableRow(table2, "Application Form: ", eval.getApplicationForm());
+				createTableRow(table2, "Enrollment Agreement: ", eval.getEnrollmentAgreement());
+				createTableRow(table2, "Grievance Policy: ", eval.getGrievancePolicy());
+				createTableRow(table2, "Recommendation Letter: ", eval.getRecommendationLetter());
 				
 				document.add(table2);
 				
@@ -879,6 +513,36 @@ public class AdminPDFReportGenerator {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static void createTableRow(PdfPTable table, String label, String value){
+		PdfPCell cell = new PdfPCell();
+		
+		// row 1, cell 1
+		cell = new PdfPCell(new Phrase(label, normalFont));
+//		cell.setBorder(Rectangle.NO_BORDER);
+		table.addCell(cell);
+		
+		// row 1, cell 2
+		cell = new PdfPCell(new Phrase(value, normalFont));
+//		cell.setBorder(Rectangle.NO_BORDER);
+		table.addCell(cell);
+	}
+	
+	private static void createNoBorderTableRow(PdfPTable table, String label, String value){
+		PdfPCell cell = new PdfPCell();
+
+		// row 1, cell 1
+		cell = new PdfPCell(new Phrase(label, normalFont));
+		cell.setBorder(Rectangle.NO_BORDER);
+//		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//		cell.setPadding(8);
+		table.addCell(cell);
+		
+		// row 1, cell 2
+		cell = new PdfPCell(new Phrase(value, normalFont));
+		cell.setBorder(Rectangle.NO_BORDER);
+		table.addCell(cell);
 	}
 	
 	@RequestMapping(value = "/admin/report/{userEntityId}/missingDocuments", method = RequestMethod.GET)
@@ -2051,6 +1715,8 @@ public class AdminPDFReportGenerator {
 		UserEntity userEntity = (UserEntity) auth.getPrincipal();
 		return userEntity;
 	}
+	
+
 
 //  /**
 //  * Inner class to add a table as header.
