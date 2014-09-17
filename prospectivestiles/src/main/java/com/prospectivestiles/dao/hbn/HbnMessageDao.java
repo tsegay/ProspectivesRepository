@@ -16,7 +16,11 @@ import com.prospectivestiles.domain.UserEntity;
 public class HbnMessageDao extends AbstractHbnDao<Message> implements
 		MessageDao {
 	
-	/*overide the findAll in AbstractHbnDao as i want to sort messages by dateCreated*/
+	/**
+	 * overide the findAll in AbstractHbnDao as i want to sort messages by dateCreated
+	 * 
+	 * USE @NamedQuery, REMMOVE sql stmt
+	 */
 	@Override
 	public List<Message> findAll() {
 		

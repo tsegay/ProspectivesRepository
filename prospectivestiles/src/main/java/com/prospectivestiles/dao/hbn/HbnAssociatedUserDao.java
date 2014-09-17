@@ -39,7 +39,9 @@ public class HbnAssociatedUserDao extends AbstractHbnDao<AssociatedUser> impleme
 		return associatedUser;
 	}
 	
-	
+	/**
+	 * USE @NamedQuery, REMMOVE sql stmt
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AssociatedUser> findAllAgents() {
