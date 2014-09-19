@@ -119,8 +119,10 @@ public class AdminEmailReportController {
 		try{
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 	 
-			helper.setFrom("daniel2advance@gmail.com");
+//			helper.setFrom("daniel2advance@gmail.com");
+			helper.setFrom("prospectives@acct2day.org");
 			helper.setTo(student.getEmail());
+			helper.setCc("prospectives.backup@acct2day.org");
 			helper.setSubject("missingDocuments");
 			helper.setText("Find attached the missingDocuments...");
 	 
@@ -155,7 +157,8 @@ public class AdminEmailReportController {
 		/**
 		 * get the missing documents list for the applicant
 		 */
-		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
+		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
+//		Checklist checklist = checklistService.getChecklistByUserEntityId(userEntityId);
 		ArrayList<String> missingDocuments = new ArrayList<String>();
 		UserEntity currentAdmissionOfficer = getUserEntityFromSecurityContext();
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
@@ -171,42 +174,42 @@ public class AdminEmailReportController {
 		/**
 		 * if user has no checklist created, you can't generate missing documents report
 		 */
-		if (checklist != null) {
+		if (evaluation != null) {
 			
-			if (checklist.getF1Visa().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getF1Visa().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("F1 Visa");
 			}
-			if (checklist.getBankStmt().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getBankStmt().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("BankStmt");
 			}
-			if (checklist.getI20().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getI20().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("I20");
 			}
-			if (checklist.getPassport().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getPassport().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Passport");
 			}
-			if (checklist.getFinancialAffidavit().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getFinancialAffidavit().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Financial Affidavit");
 			}
-			if (checklist.getApplicationFee().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getApplicationFee().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Application Fee");
 			}
-			if (checklist.getApplicationForm().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getApplicationForm().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Application Form");
 			}
-			if (checklist.getEnrollmentAgreement().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getEnrollmentAgreement().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Enrollment Agreement");
 			}
-			if (checklist.getGrievancePolicy().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getGrievancePolicy().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Grievance Policy");
 			}
-			if (checklist.getRecommendationLetter().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getRecommendationLetter().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Recommendation Letter");
 			}
-			if (checklist.getTranscript().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getTranscript().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Transcript");
 			}
-			if (checklist.getDiplome().equalsIgnoreCase("incomplete")) {
+			if (evaluation.getDiplome().equalsIgnoreCase("incomplete")) {
 				missingDocuments.add("Diplome");
 			}
 			
@@ -349,8 +352,10 @@ public class AdminEmailReportController {
 		try{
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 	 
-			helper.setFrom("daniel2advance@gmail.com");
+//			helper.setFrom("daniel2advance@gmail.com");
+			helper.setFrom("prospectives@acct2day.org");
 			helper.setTo(student.getEmail());
+			helper.setCc("prospectives.backup@acct2day.org");
 			helper.setSubject("Acceptance Letter");
 			helper.setText("Find attached a copy of your acceptance letter to ACCT...");
 	 

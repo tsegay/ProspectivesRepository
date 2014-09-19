@@ -285,6 +285,13 @@
 		  		</span>
 		  	</c:if>
 		  </dd>
+		  
+		  <dt><spring:message code="evaluationForm.label.sourceOfMoney" /></dt>
+		  <dd><c:out value="${userEntity.evaluation.sourceOfMoney}"></c:out></dd>
+		  
+		  <dt><spring:message code="evaluationForm.label.amountOfMoney" /></dt>
+		  <dd><c:out value="${userEntity.evaluation.amountOfMoney}"></c:out></dd>
+		  
 		</dl>
 		
 		<!-- <div class="col-md-6">
@@ -308,8 +315,6 @@
 		
 		<!-- <dl class="dl-horizontal col-md-6"> -->
 		<dl class="dl-horizontal">
-		  <%-- <dt><spring:message code="evaluationForm.label.studentQualification" /></dt>
-		  <dd><c:out value="${userEntity.evaluation.studentQualification}"></c:out></dd> --%>
 		  
 		  <dt><spring:message code="evaluationForm.label.admnOfficerReport" /></dt>
 		  <dd><c:out value="${userEntity.evaluation.admnOfficerReport}"></c:out></dd>

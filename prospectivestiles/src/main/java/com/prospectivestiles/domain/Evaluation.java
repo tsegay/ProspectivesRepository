@@ -49,6 +49,11 @@ public class Evaluation extends BaseEntity implements Serializable {
 	private String grievancePolicy;
 	private String recommendationLetter;
 	/**
+	 * Sources of money are: Family, Personal
+	 */
+	private String sourceOfMoney;
+	private String amountOfMoney;
+	/**
 	 * remarks and comments in the evaluation process
 	 */
 	private String notes;
@@ -177,6 +182,18 @@ public class Evaluation extends BaseEntity implements Serializable {
 	}
 	public void setRecommendationLetter(String recommendationLetter) {
 		this.recommendationLetter = recommendationLetter;
+	}
+	public String getSourceOfMoney() {
+		return sourceOfMoney;
+	}
+	public void setSourceOfMoney(String sourceOfMoney) {
+		this.sourceOfMoney = sourceOfMoney;
+	}
+	public String getAmountOfMoney() {
+		return amountOfMoney;
+	}
+	public void setAmountOfMoney(String amountOfMoney) {
+		this.amountOfMoney = amountOfMoney;
 	}
 	@Size(max=255)
 	public String getNotes() {

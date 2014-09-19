@@ -48,6 +48,8 @@ public class EvaluationServiceImpl implements EvaluationService {
 		Evaluation evaluationToUpdate = evaluationDao.find(evaluation.getId());
 		
 		evaluationToUpdate.setBankStmt(evaluation.getBankStmt());
+		evaluationToUpdate.setSourceOfMoney(evaluation.getSourceOfMoney());
+		evaluationToUpdate.setAmountOfMoney(evaluation.getAmountOfMoney());
 		evaluationToUpdate.setF1Visa(evaluation.getF1Visa());
 		evaluationToUpdate.setI20(evaluation.getI20());
 		evaluationToUpdate.setNotes(evaluation.getNotes());

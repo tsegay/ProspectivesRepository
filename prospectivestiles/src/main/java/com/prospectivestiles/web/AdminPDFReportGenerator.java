@@ -479,8 +479,10 @@ public class AdminPDFReportGenerator {
 
 				createTableRow(table2, "Application Fee: ", eval.getApplicationFee());
 				createTableRow(table2, "Bank Statement: ", eval.getBankStmt());
-				createTableRow(table2, "Diplome: ", eval.getDiplome());
 				createTableRow(table2, "Financial Affidavit: ", eval.getFinancialAffidavit());
+				createTableRow(table2, "Source of Money: ", eval.getSourceOfMoney());
+				createTableRow(table2, "Amount of Money: ", eval.getAmountOfMoney());
+				createTableRow(table2, "Diplome: ", eval.getDiplome());
 				createTableRow(table2, "F1 Visa: ", eval.getF1Visa());
 				createTableRow(table2, "I20: ", eval.getI20());
 				createTableRow(table2, "Passport: ", eval.getPassport());

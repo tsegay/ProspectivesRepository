@@ -248,6 +248,8 @@ public class AdminEvaluationController {
 		
 		
 		evaluation.setBankStmt(origEvaluation.getBankStmt());
+		evaluation.setSourceOfMoney(origEvaluation.getSourceOfMoney());
+		evaluation.setAmountOfMoney(origEvaluation.getAmountOfMoney());
 		evaluation.setF1Visa(origEvaluation.getF1Visa());
 		evaluation.setI20(origEvaluation.getI20());
 		evaluation.setNotes(origEvaluation.getNotes());

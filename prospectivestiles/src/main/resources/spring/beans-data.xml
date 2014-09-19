@@ -56,8 +56,24 @@
 		</property>
 	</bean> -->	
 	
-	<!-- Configure the mailSender bean and specify the email details for the Gmail SMTP server. -->	
+	<!-- Configure the mailSender bean and specify the email details for the 1and1 SMTP server. -->	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.1and1.com" /><!-- auth.smtp.1and1.co.uk -->
+		<property name="port" value="587" />
+		<property name="username" value="prospectives@acct2day.org" />
+		<property name="password" value="Protection@569" />
+	 
+		<property name="javaMailProperties">
+		   <props>
+	       	      <prop key="mail.smtp.auth">true</prop>
+	       	      <prop key="mail.smtp.starttls.enable">true</prop>
+	       	      <prop key="mail.smtp.ssl.trust">smtp.1and1.com</prop>
+	       	   </props>
+		</property>
+	</bean>
+	
+	<!-- Configure the mailSender bean and specify the email details for the Gmail SMTP server. -->	
+	<!-- <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="daniel2advance@gmail.com" />
@@ -70,7 +86,7 @@
 	       	      <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
 	       	   </props>
 		</property>
-	</bean>
+	</bean> -->
 	 
 
 	<context:component-scan base-package="com.prospectivestiles.dao.hbn" />

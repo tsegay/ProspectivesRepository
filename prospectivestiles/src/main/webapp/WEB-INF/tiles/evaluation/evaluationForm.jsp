@@ -79,6 +79,52 @@
 		</div>
 	</div>
 
+
+	<div class="form-group row">
+		<label for="financialAffidavit" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.financialAffidavit" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="financialAffidavit" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="financialAffidavit" htmlEscape="false" />
+		</div>
+	</div>
+	
+	
+	<div class="form-group row">
+		<label for="sourceOfMoney" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.sourceOfMoney" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="sourceOfMoney" class="form-control">
+				<form:option value="NONE" label="--- Select ---" />
+				<form:option value="family" label="Family" />
+				<form:option value="personal" label="Personal" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="sourceOfMoney" htmlEscape="false" />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="amountOfMoney" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.amountOfMoney" />
+		</label>
+		<div class="col-sm-5">
+			<form:input path="amountOfMoney" class="form-control" />
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="amountOfMoney" htmlEscape="false" />
+		</div>
+	</div>
+	
 	<div class="form-group row">
 		<label for="i20" class="col-sm-2 control-label">
 			<spring:message code="evaluationForm.label.i20" />
@@ -108,22 +154,6 @@
 		</div>
 		<div class="col-sm-5">
 			<form:errors class="errormsg" path="passport" htmlEscape="false" />
-		</div>
-	</div>
-
-	<div class="form-group row">
-		<label for="financialAffidavit" class="col-sm-2 control-label">
-			<spring:message code="evaluationForm.label.financialAffidavit" />
-		</label>
-		<div class="col-sm-5">
-			<form:select path="financialAffidavit" class="form-control">
-				<form:option value="incomplete" label="Incomplete" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="complete" label="Complete" />
-			</form:select>
-		</div>
-		<div class="col-sm-5">
-			<form:errors class="errormsg" path="financialAffidavit" htmlEscape="false" />
 		</div>
 	</div>
 

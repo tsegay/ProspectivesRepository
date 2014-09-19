@@ -173,8 +173,10 @@ public class AdminMessageController {
 		 * notificationService.createNotificationJDBC("message", student.getFullName() + " sent a message", student.getId(), new Date());
 		*/
 		SimpleMailMessage mail = new SimpleMailMessage();
-		mail.setFrom("daniel2advance@gmail.com");
+//		mail.setFrom("daniel2advance@gmail.com");
+		mail.setFrom("prospectives@acct2day.org");
 		mail.setTo(student.getEmail());
+		mail.setCc("prospectives.backup@acct2day.org");
 		mail.setSubject(subject);
 		mail.setText(text);
 		

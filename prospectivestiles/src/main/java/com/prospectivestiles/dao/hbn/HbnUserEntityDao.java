@@ -171,7 +171,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	
 	@Override
 	public long countAccountsByTermStatusState(long termId, boolean status, String accountState) {
-		return (long) getSession()
+		return (Long) getSession()
 				.getNamedQuery("countAccountsByTermStatusState")
 				.setParameter("tId", termId)
 				.setParameter("international", status)
@@ -283,7 +283,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 			q.setParameter("roleID"+i, rolesList.get(i));
 		}
 		
-		return (long) q.uniqueResult();
+		return (Long) q.uniqueResult();
 		
 	}
 	
