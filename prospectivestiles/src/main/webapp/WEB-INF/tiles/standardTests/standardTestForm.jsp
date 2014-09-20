@@ -8,12 +8,14 @@
 
 
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" />
+	<%-- <c:url var="standardTestsUrl" value="/accounts/${userEntity.id}/standardTests" /> --%>
 	<c:url var="newStandardTestsUrl" value="/accounts/${userEntity.id}/standardTest/new" />
+	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
 </sec:authorize>
 <sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
-	<c:url var="standardTestsUrl" value="/myAccount/standardTests" />
+	<%-- <c:url var="standardTestsUrl" value="/myAccount/standardTests" /> --%>
 	<c:url var="newStandardTestsUrl" value="/myAccount/standardTest/new" />
+	<c:url var="educationUrl" value="/myAccount/educations" />
 </sec:authorize>
 
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
@@ -109,7 +111,7 @@
 			<!-- submit calls the post method standardTestsUrl -->
 			<input class="btn btn-primary" type="submit" value="Save"></input> 
 			<!-- cancel calls returns to the all tests page -->
-			<a class="btn btn-default" href="${standardTestsUrl}">Cancel</a>
+			<a class="btn btn-default" href="${educationUrl}">Cancel</a>
 		</div>
 	</div>
 

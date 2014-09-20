@@ -8,11 +8,6 @@
 	
 	<!-- <welcome-file-list>
 		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list> -->
 	
 	<!-- <error-page>
@@ -29,6 +24,10 @@
 		</param-value>
 	</context-param>
 	
+	<!-- <meta http-equiv="refresh" 
+	content="#{session.maxInactiveInterval};
+	url=#{facesContext.externalContext.requestContextPath}/mainMenu.html" /> -->
+	
 	<!-- <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -41,9 +40,9 @@
 	<!-- <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		classpath:com/caveofprogramming/spring/web/config/dao-context.xml
-		classpath:com/caveofprogramming/spring/web/config/service-context.xml
-		classpath:com/caveofprogramming/spring/web/config/security-context.xml
+		classpath:com/prospectivestiles/spring/web/config/dao-context.xml
+		classpath:com/prospectivestiles/spring/web/config/service-context.xml
+		classpath:com/prospectivestiles/spring/web/config/security-context.xml
 		</param-value>
 	</context-param> -->
 	
@@ -88,83 +87,9 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<!-- <session-config>
+	<session-config>
 		<session-timeout>2</session-timeout>
-		
-	</session-config> -->
-	
-	<!-- ###### for primefaces -->
-	
-	
-	<!-- <context-param>
-	    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
-	    <param-value>/WEB-INF/springsecurity.taglib.xml</param-value>
-	</context-param> -->
-
-	<!-- hold all spring configurations -->
-	
-	<!-- file etnestions hold all jsf views -->
-	<!-- <context-param>
-		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-		<param-value>.xhtml</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>facelets.DEVELOPMENT</param-name>
-		<param-value>true</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
-		<param-value>1</param-value>
-	</context-param> -->
-	
-	<!-- responsible for resources -->
-	
-	<!-- <servlet>
-		<servlet-name>Resources Servlet</servlet-name>
-		<servlet-class>org.springframework.js.resource.ResourceServlet</servlet-class>
-		<load-on-startup>0</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Resources Servlet</servlet-name>
-		<url-pattern>/resources/*</url-pattern>
-	</servlet-mapping> -->
-	 
-	
-
-	<!-- <servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.jsf</url-pattern>
-	</servlet-mapping> -->
-	
-	<!-- encoding filters -->
-	<!-- <filter>
-		<filter-name>charEncodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>charEncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
-
-	
+	</session-config>
 	
 	
 </web-app>

@@ -364,9 +364,35 @@
 		<!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 		
 		<hr style="border:2px solid #A4A4A4;">
+		
+		<%-- <c:if test="${userEntity.accountState == \"admitted\"}">
+	  		Prospective student is admitted
+	  	</c:if>
+		<c:if test="${userEntity.accountState == \"denied\"}">
+	  		Prospective student admission is denied. Restart application.
+	  	</c:if> --%>
 			
 		<c:choose>
-			<c:when test="${userEntity.accountState != 'admitted'}">
+			<c:when test="${userEntity.accountState == 'admitted'}">
+				Prospective student application for admission is GRANTED.
+			</c:when>
+			<c:when test="${userEntity.accountState == 'denied'}">
+				Prospective student application for admission is DENIED.
+			</c:when>
+			<c:otherwise>
+				<form id="grantAdmisionForm" action="${grantAdmisionUrl}" method="post">
+					<div>
+						<input type="submit" class="btn btn-success btn-sm" value="Grant Admision">
+					</div>
+				</form>
+				<br/><br/>
+				<form id="grantAdmisionForm" action="${denyAdmisionUrl}" method="post">
+					<div>
+						<input type="submit" class="btn btn-danger btn-sm" value="Deny Admision">
+					</div>
+				</form>
+			</c:otherwise>
+			<%-- <c:when test="${userEntity.accountState != 'admitted'}">
 				<form id="grantAdmisionForm" action="${grantAdmisionUrl}" method="post">
 					<div>
 						<input type="submit" class="btn btn-success btn-sm" value="Grant Admision">
@@ -379,7 +405,7 @@
 					</div>
 				</form>
 			</c:when>
-			<c:otherwise>Prospective student is admitted</c:otherwise>
+			<c:otherwise>Prospective student is admitted</c:otherwise> --%>
 		</c:choose>
 		
 	</c:otherwise>

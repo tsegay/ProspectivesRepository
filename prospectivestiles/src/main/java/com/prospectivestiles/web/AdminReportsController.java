@@ -133,6 +133,7 @@ public class AdminReportsController {
 	public String getEvaluationReport(@PathVariable("userEntityId") Long userEntityId,
 			Model model) {
 		
+		UserEntity student = userEntityService.getUserEntity(userEntityId);
 		Evaluation evaluation = evaluationService.getEvaluationByUserEntityId(userEntityId);
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
 //		ArrayList<String> evaluationReportSummary = new ArrayList<String>();
@@ -170,6 +171,21 @@ public class AdminReportsController {
 					
 				}
 				
+			} else {
+				if (student.getAccountState().equalsIgnoreCase("denied")) {
+					
+					evaluationReportSummary.put("admnOfficerReport",evaluation.getAdmnOfficerReport());
+					evaluationReportSummary.put("dateLastModified",evaluation.getDateLastModified());
+						
+					if (associatedUser != null) {
+						if (associatedUser.getAdmissionOfficer() != null) {
+							evaluationReportSummary.put("admissionOfficerName",associatedUser.getAdmissionOfficer().getFullName());
+						} else {
+							evaluationReportSummary.put("admissionOfficerName","None");
+						}
+						
+					}
+				}
 			}
 		}
 		
@@ -178,7 +194,7 @@ public class AdminReportsController {
 		 * pass userEntity to the page. Else if you try to navigate to other pages from missingDocuments for eg to evaluation
 		 * the url will not find the userEntity id --> accounts//evaluations instead of accounts/4/evaluations for eg.
 		 */
-		model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
+		model.addAttribute("userEntity", student);
 		
 		return "evaluationReport";
 	}

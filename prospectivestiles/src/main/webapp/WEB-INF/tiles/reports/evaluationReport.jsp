@@ -31,12 +31,11 @@ check why I am using this checlist urls
  -->
  
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<!-- checklistUrl name is already used. look up -->
-	<%-- <c:url var="checklistUrl"	value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" /> --%>
 	<c:url var="editChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}" />
 	<c:url var="deleteChecklistUrl" value="/accounts/${userEntity.id}/checklist/${userEntity.checklist.id}/delete" />
 	
 	<c:url var="getEvaluationReport" value="/admin/report/${userEntity.id}/evaluation" />
+	
 </sec:authorize>
 <sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<c:url var="editChecklistUrl" value="/myAccount/checklist/${userEntity.checklist.id}" />
