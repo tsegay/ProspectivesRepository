@@ -51,6 +51,8 @@ public class AdminMessageController {
 	@Inject
 	private NotificationService notificationService;
 
+//	public static final String EMAIL_SENDER = "test.prospectives@acct2day.org";
+//	public static final String EMAIL_CC = "test.prospectives.backup@acct2day.org";
 	
 	// ======================================
 	// =                JSON        =
@@ -174,9 +176,9 @@ public class AdminMessageController {
 		*/
 		SimpleMailMessage mail = new SimpleMailMessage();
 //		mail.setFrom("daniel2advance@gmail.com");
-		mail.setFrom("prospectives@acct2day.org");
+		mail.setFrom(Message.EMAIL_SENDER);
+		mail.setBcc(Message.EMAIL_BCC);
 		mail.setTo(student.getEmail());
-		mail.setCc("prospectives.backup@acct2day.org");
 		mail.setSubject(subject);
 		mail.setText(text);
 		

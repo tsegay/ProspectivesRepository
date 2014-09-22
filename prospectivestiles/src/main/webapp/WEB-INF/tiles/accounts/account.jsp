@@ -140,7 +140,8 @@
 		<dd>
 			<c:out value="${userEntity.accountState}" />
 		</dd>
-	
+		
+		<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 		<dt><spring:message code="account.label.roles" /></dt>
 		<dd>
 		<c:out value="${userEntity.role.name}" />
@@ -149,6 +150,12 @@
 				<br />
 			</c:forEach> --%>
 		</dd>
+		</sec:authorize>
+		
+<%-- 		<dt>Password:</dt>
+		<dd>
+			<a href="${updatePassword}">Change Password</a>
+		</dd> --%>
 		
 	</dl>
 </div>

@@ -24,6 +24,21 @@
 	</dl>
 </div>
 
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+	<c:url var="userEntityUrl"	value="/myAccount" />
+	<c:url var="editAccountUrl" value="/myAccount/edit" />
+	<c:url var="deleteUserEntityUrl" value="/myAccount/delete" />
+	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
+	<c:url var="updatePassword"	value="/myAccount/changePassword" />
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
+	<c:url var="newAddressUrl" value="/myAccount/address/new" />
+</sec:authorize>
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+	<c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" />
+</sec:authorize>
+
+
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 
@@ -32,10 +47,10 @@
 <div class="row">
 	<dl class="dl-horizontal col-md-6">
 	
-		<dt><spring:message code="account.label.id" /></dt>
+		<%-- <dt><spring:message code="account.label.id" /></dt>
 		<dd>
 			<c:out value="${userEntity.id}" />
-		</dd>
+		</dd> --%>
 		
 		<dt><spring:message code="account.label.firstName" /></dt>
 		<dd>
@@ -119,6 +134,11 @@
 			<c:out value="${userEntity.sevisNumber}" />
 		</dd>
 		
+		<dt>Password:</dt>
+		<dd>
+			<a href="${updatePassword}">Change Password</a>
+		</dd>
+		
 	</dl>
 </div>
 <div class="row">
@@ -131,14 +151,7 @@
 </div>
 
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-</sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<c:url var="userEntityUrl"	value="/myAccount" />
-	<c:url var="editAccountUrl" value="/myAccount/edit" />
-	<c:url var="deleteUserEntityUrl" value="/myAccount/delete" />
-	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
-</sec:authorize>
+
 
 
 <sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
@@ -359,13 +372,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 I need this to push down the h3 below from mixing with the addresses -->
 <div class="row"></div>
 
-<%-- <sec:authorize access="hasRole('ROLE_ADMIN')"> --%>
-<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" />
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
-	<c:url var="newAddressUrl" value="/myAccount/address/new" />
-</sec:authorize>
+
 
 <sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<h5>

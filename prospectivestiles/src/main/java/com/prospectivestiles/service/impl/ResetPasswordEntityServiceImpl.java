@@ -23,6 +23,7 @@ import org.springframework.validation.Errors;
 import com.prospectivestiles.dao.ResetPasswordEntityDao;
 import com.prospectivestiles.dao.UserEntityDao;
 import com.prospectivestiles.domain.Employer;
+import com.prospectivestiles.domain.Message;
 import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.ResetPasswordEntity;
 import com.prospectivestiles.domain.Role;
@@ -36,6 +37,8 @@ import com.prospectivestiles.service.UserEntityService;
 public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityService {
 
 	private static final Logger log = LoggerFactory.getLogger(UserEntityServiceImpl.class);
+//	public static final String EMAIL_SENDER = "test.prospectives@acct2day.org";
+//	public static final String EMAIL_CC = "test.prospectives.backup@acct2day.org";
 	
 //	@Inject private UserEntityDao userEntityDao;
 	
@@ -119,8 +122,8 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 			
 			Date now = new Date();
 			Date expirationDate = new Date();
-			// The expiration date is decremented by the number of days the link stays active
-			expirationDate.setTime(now.getTime() - 1 * 24 * 60 * 60 * 1000);
+			// Set the expiration date
+			expirationDate.setTime(now.getTime() + 1 * 24 * 60 * 60 * 1000);
 			
 			
 			String resetKey = randomString();
@@ -144,7 +147,8 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 	private void sendEmail(ResetPasswordEntity resetPasswordEntity,String url){
 		
 		SimpleMailMessage mail = new SimpleMailMessage();
-		mail.setFrom("daniel2advance@gmail.com");
+		mail.setFrom(Message.EMAIL_SENDER);
+		mail.setBcc(Message.EMAIL_BCC);
 		mail.setTo(resetPasswordEntity.getEmail());
 		mail.setSubject("Reset password");
 		String emailBody = "You're receiving this e-mail because you requested a password reset "
@@ -190,11 +194,13 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 	    return rand;
 	}
 
+	/**
+	 * Resetting Password via ForgotPassword. When user forgot password.
+	 */
 	@Override
 	@Transactional(readOnly = false)	
 	public void updatePassword(ResetPasswordEntity origResetPasswordEntity,
 			Errors errors) {
-		// TODO Auto-generated method stub
 		
 		validatePassword(origResetPasswordEntity.getPassword(), origResetPasswordEntity.getConfirmPassword(), errors);
 		
@@ -211,17 +217,34 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 			List<UserEntity> testuserEntities = userEntityService.findByEmail(origResetPasswordEntity.getEmail());
 			Long userEntityId = testuserEntities.get(0).getId();
 			userEntityService.updateUserEntityPassword(userEntityId, origResetPasswordEntity.getPassword());
-//			userEntityService.updatePassword(userEntityId, origResetPasswordEntity.getPassword());
-			/*
-			 * After a user account is successfully created I want to create a notification
-			 * I need to create an enum NotificationType: message, uploadedDoc, statusChanged, updatedProfile, ...
-			*/
-			Notification notification = new Notification("########## password resetted", testuserEntities.get(0).getFullName() + " reset password", testuserEntities.get(0));
-			notificationService.createNotification(notification);
+//			Notification notification = new Notification("########## password resetted", testuserEntities.get(0).getFullName() + " reset password", testuserEntities.get(0));
+//			notificationService.createNotification(notification);
 		}
 //		return valid;
 		
 	}
+	
+	/**
+	 * Changing Password after logged in. If anyone want to change password.
+	 */
+	@Override
+	public void changeMyPassword(Long userEntityId, ResetPasswordEntity origResetPasswordEntity, Errors errors) {
+		
+		validatePassword(origResetPasswordEntity.getPassword(), origResetPasswordEntity.getConfirmPassword(), errors);
+		
+		System.out.println("########## userEntity.getPassword(): " + origResetPasswordEntity.getPassword());
+		System.out.println("########## userEntity.getConfirmPassword(): " + origResetPasswordEntity.getConfirmPassword());
+		System.out.println("########## userEntity.getEmail(): " + origResetPasswordEntity.getEmail());
+		
+		boolean valid = !errors.hasErrors();
+		
+		if (valid) {
+			userEntityService.updateUserEntityPassword(userEntityId, origResetPasswordEntity.getPassword());
+		}
+		
+	}
+	
+	
 	
 	private void validatePassword(String password, String confirmPassword, Errors errors) {
 		if (!password.equals(confirmPassword)) {
@@ -229,5 +252,7 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 			errors.rejectValue("password", "error.mismatch.resetPasswordEntity.password", new String[] { password }, null);
 		}
 	}
+
+
 
 }

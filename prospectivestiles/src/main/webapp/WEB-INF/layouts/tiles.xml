@@ -45,6 +45,16 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/newPassword.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="changePassword" extends="prospectivestiles.base">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/changePassword.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="linkExpired" extends="prospectivestiles.base">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/linkExpired.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="denied" extends="prospectivestiles.base">
 		<put-attribute name="title" value="Login"></put-attribute>
 		<put-attribute name="navMenu" value=""></put-attribute>

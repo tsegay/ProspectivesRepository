@@ -18,5 +18,7 @@ public interface ResetPasswordEntityService {
 	void saveResetPasswordEntityAndSendEmail(ResetPasswordEntity resetPasswordEntity,String url);
 	void updatePassword(ResetPasswordEntity origResetPasswordEntity,
 			Errors errors);
+	void changeMyPassword(Long userEntityId, ResetPasswordEntity origResetPasswordEntity,
+			Errors errors);
 
 }

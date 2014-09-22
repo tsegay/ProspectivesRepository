@@ -73,6 +73,9 @@ public class AdminEmailReportController {
 	@Inject
 	private JavaMailSender javaMailSender;
 	
+//	public static final String EMAIL_SENDER = "test.prospectives@acct2day.org";
+//	public static final String EMAIL_CC = "test.prospectives.backup@acct2day.org";
+	
 	private static String FILE = "path-to-file";
 	private static Font h1Font = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 	private static Font h2Font = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
@@ -120,9 +123,9 @@ public class AdminEmailReportController {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 	 
 //			helper.setFrom("daniel2advance@gmail.com");
-			helper.setFrom("prospectives@acct2day.org");
+			helper.setFrom(Message.EMAIL_SENDER);
 			helper.setTo(student.getEmail());
-			helper.setCc("prospectives.backup@acct2day.org");
+			helper.setBcc(Message.EMAIL_BCC);
 			helper.setSubject("missingDocuments");
 			helper.setText("Find attached the missingDocuments...");
 	 
@@ -353,9 +356,9 @@ public class AdminEmailReportController {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 	 
 //			helper.setFrom("daniel2advance@gmail.com");
-			helper.setFrom("prospectives@acct2day.org");
+			helper.setFrom(Message.EMAIL_SENDER);
 			helper.setTo(student.getEmail());
-			helper.setCc("prospectives.backup@acct2day.org");
+			helper.setBcc(Message.EMAIL_BCC);
 			helper.setSubject("Acceptance Letter");
 			helper.setText("Find attached a copy of your acceptance letter to ACCT...");
 	 

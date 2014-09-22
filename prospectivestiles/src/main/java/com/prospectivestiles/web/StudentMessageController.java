@@ -50,6 +50,9 @@ public class StudentMessageController {
 	@Inject
 	private NotificationService notificationService;
 	
+//	public static final String EMAIL_SENDER = "test.prospectives@acct2day.org";
+//	public static final String EMAIL_CC = "test.prospectives.backup@acct2day.org";
+	
 	// ======================================
 	// =                JSON        =
 	// ======================================
@@ -156,8 +159,11 @@ public class StudentMessageController {
 		notificationService.createNotification(notification);
 
 		SimpleMailMessage mail = new SimpleMailMessage();
-		mail.setFrom("daniel2advance@gmail.com");
-		mail.setTo(student.getEmail());
+		// Sender is the student
+		mail.setFrom(student.getEmail());
+		// recipient is admission officer
+		mail.setTo(Message.EMAIL_SENDER);
+		mail.setBcc(Message.EMAIL_BCC);
 		mail.setSubject(subject);
 		mail.setText(text);
 		

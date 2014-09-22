@@ -1,9 +1,14 @@
 package com.prospectivestiles.web;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +31,10 @@ public class ResetPasswordController {
 	@Inject
 	private ResetPasswordEntityService resetPasswordEntityService;
 
+	// ======================================
+	// =             Resetting Password via ForgotPassword. When user forgot password.
+	// ======================================
+	
 	/**
 	 * When user clicks on forgot password link, this controller is called
 	 * this redirects to the resetPasswordRequest.jsp page, where user enters his/her email address
@@ -80,8 +89,12 @@ public class ResetPasswordController {
 	
 	/**
 	 * When a user clicks on the link in his/her email, this method is called
-	 * This loads the resetPasswordEntity by the id passed in the url parameter, and loads it to the model
+	 * This loads the resetPasswordEntity by the id passed in the url parameter, 
+	 * If the link hasn't expired
+	 * loads it to the model
 	 * and returns the newPassword.jsp that prompts user to enter new password, confirm and submit
+	 * If the link has expired return linkExpired page
+	 * 
 	 * @param model
 	 * @param resetPasswordEntityId
 	 * @param resetKey
@@ -96,12 +109,26 @@ public class ResetPasswordController {
 
 		ResetPasswordEntity resetPasswordEntity = resetPasswordEntityService.getResetPasswordEntity(resetPasswordEntityId);
 		
-		System.out.println("resetPasswordEntity.getId: " + resetPasswordEntity.getId());
-		System.out.println("resetPasswordEntity.getEmail: " + resetPasswordEntity.getEmail());
+		Date now = new Date();
+		String returnPage;
+		if(now.compareTo(resetPasswordEntity.getExpireDate()) > 0){
+			// now comes after getExpireDate -- so expiredDate is in the past
+			
+			System.out.println("############### reset password link has expired.");
+			
+			returnPage = "linkExpired";
+			
+		} else {
+			System.out.println("############### reset password link hasn't expired yet.");
+			System.out.println("resetPasswordEntity.getId: " + resetPasswordEntity.getId());
+			System.out.println("resetPasswordEntity.getEmail: " + resetPasswordEntity.getEmail());
+			
+			model.addAttribute("resetPasswordEntity", resetPasswordEntity);
+			
+			returnPage = "newPassword";
+		}
 		
-		model.addAttribute("resetPasswordEntity", resetPasswordEntity);
-		
-		return "newPassword";
+		return returnPage;
 	}
 
 	/**
@@ -138,12 +165,52 @@ public class ResetPasswordController {
 		resetPasswordEntityService.updateResetPasswordEntity(origResetPasswordEntity);
 		resetPasswordEntityService.updatePassword(origResetPasswordEntity, result);
 		
-//		userEntityService.updatePassword(origResetPasswordEntity, result);
-//		resetPasswordEntityService.updatePassword(origResetPasswordEntity, result);
 		
 		return (result.hasErrors() ? "newPassword" : "redirect:/welcome");
 		
 //		return "redirect:/welcome";
 	}
+	
+	// ======================================
+	// =  Changing Password after logged in. If anyone want to change password.         =
+	// ======================================
 
+	@RequestMapping(value = "/myAccount/changePassword", method = RequestMethod.GET)
+	public String updatePassword(Model model){
+		
+		ResetPasswordEntity resetPasswordEntity = new ResetPasswordEntity();
+		model.addAttribute("resetPasswordEntity", resetPasswordEntity);
+		
+		return "changePassword";
+		
+	}
+	
+	@RequestMapping(value = "/myAccount/changePassword", method = RequestMethod.POST)
+	public String updatePassword(
+			Model model,
+			@ModelAttribute @Valid ResetPasswordEntity origResetPasswordEntity,
+			BindingResult result) {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("resetPasswordEntity", origResetPasswordEntity);
+			return "changePassword";
+		}
+		
+		System.out.println("Password: " + origResetPasswordEntity.getPassword());
+		System.out.println("Confirm password: " + origResetPasswordEntity.getConfirmPassword());
+		
+//		userEntityService.updateUserEntityPassword(getUserEntityFromSecurityContext().getId(), origResetPasswordEntity.getPassword());
+		resetPasswordEntityService.changeMyPassword(getUserEntityFromSecurityContext().getId(), origResetPasswordEntity, result);
+		
+		return (result.hasErrors() ? "changePassword" : "redirect:/myAccount");
+		
+	}
+	
+	private UserEntity getUserEntityFromSecurityContext() {
+		SecurityContext securityCtx = SecurityContextHolder.getContext();
+		Authentication auth = securityCtx.getAuthentication();
+		UserEntity userEntity =  (UserEntity) auth.getPrincipal();
+		return userEntity;
+	}
+	
 }

@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -41,6 +42,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 	@Inject private NotificationService notificationService;
 	@Inject private TermDao termDao;
 	@Inject private ProgramOfStudyDao programOfStudyDao;
+	@Inject private PasswordEncoder passwordEncoder;
 	
 	/**
 	 * When a user created an account.
@@ -262,7 +264,11 @@ public class UserEntityServiceImpl implements UserEntityService {
 		// Find User by ID
 		UserEntity userEntity = userEntityDao.findById(userEntityId);
 		// Update  user password
-		userEntity.setPassword(password);
+		
+		String encPassword = passwordEncoder.encodePassword(password, null);
+		userEntity.setPassword(encPassword);
+		
+//		userEntity.setPassword(password);
 		userEntityDao.update(userEntity);
 		
 	}
@@ -407,7 +413,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 	private void validatePassword(String password, String confirmPassword, Errors errors) {
 		if (!password.equals(confirmPassword)) {
 			log.info("Validation failed: password doesn't match confirmPassword");
-			errors.rejectValue("username", "error.mismatch.userEntity.password", new String[] { password }, null);
+			errors.rejectValue("password", "error.mismatch.userEntity.password", new String[] { password }, null);
 		}
 	}
 	

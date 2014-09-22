@@ -44,10 +44,10 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 <div class="row">
 	<dl class="dl-horizontal col-md-6">
 	
-		<dt><spring:message code="account.label.id" /></dt>
+		<%-- <dt><spring:message code="account.label.id" /></dt>
 		<dd>
 			<c:out value="${userEntity.id}" />
-		</dd>
+		</dd> --%>
 		
 		<dt><spring:message code="account.label.firstName" /></dt>
 		<dd>
@@ -198,7 +198,7 @@ I need this to push down the content below from mixing with the addresses -->
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
 				<tr>
-					<th>Id</th>
+					<!-- <th>Id</th> -->
 					<th>Name</th>
 					<th>State</th>
 					<th>Country</th>
@@ -216,7 +216,7 @@ I need this to push down the content below from mixing with the addresses -->
 				<c:forEach var="highSchool" items="${highSchools}">
 				
 				<tr>
-					<td><c:out value="${highSchool.id}"></c:out></td>
+					<%-- <td><c:out value="${highSchool.id}"></c:out></td> --%>
 					<td><c:out value="${highSchool.name}"></c:out></td>
 					<td><c:out value="${highSchool.state}"></c:out></td>
 					<td><c:out value="${highSchool.country}"></c:out></td>
@@ -243,7 +243,7 @@ I need this to push down the content below from mixing with the addresses -->
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
 				<tr>
-					<th>Id</th>
+					<!-- <th>Id</th> -->
 					<th>Name</th>
 					<th>programOfStudy</th>
 					<th>levelOfStudy</th>
@@ -262,7 +262,7 @@ I need this to push down the content below from mixing with the addresses -->
 				<c:forEach var="institute" items="${institutes}">
 				
 				<tr>
-						<td><c:out value="${institute.id}"></c:out></td>
+						<%-- <td><c:out value="${institute.id}"></c:out></td> --%>
 						<td><c:out value="${institute.name}"></c:out></td>
 						<td><c:out value="${institute.programOfStudy}"></c:out></td>
 						<td><c:out value="${institute.levelOfStudy}"></c:out></td>
@@ -289,7 +289,7 @@ I need this to push down the content below from mixing with the addresses -->
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
 				<tr>
-					<th>Id</th>
+					<!-- <th>Id</th> -->
 					<th>name</th>
 					<th>score</th>
 					<th>validTill</th>
@@ -297,8 +297,8 @@ I need this to push down the content below from mixing with the addresses -->
 	
 				<c:forEach var="standardTest" items="${standardTests}">
 				<tr>
-					<td><c:out value="${standardTest.id}"></c:out>
-					</td>
+					<%-- <td><c:out value="${standardTest.id}"></c:out>
+					</td> --%>
 					<td><c:out value="${standardTest.name}"></c:out></td>
 					<td><c:out value="${standardTest.score}"></c:out></td>
 					<td>

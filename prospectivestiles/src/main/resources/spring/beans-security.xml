@@ -22,23 +22,12 @@
 			authentication-failure-url="/login?failed=true"
 			default-target-url="/welcome" />
 		<remember-me />
-		<!-- <logout logout-success-url="/welcome" /> -->
-		<logout invalidate-session="true" logout-success-url="/welcome" />
-		<session-management invalid-session-url="/login">
-            <concurrency-control max-sessions="1"
-                expired-url="/login" />
-        </session-management>
+		<logout logout-success-url="/welcome" />
 		
 		<!-- 
 		***Source: http://www.journaldev.com/2736/spring-mvc-security-example-using-in-memory-userdetailsservice-and-jdbc-authentication
-		<form-login login-page="/login" authentication-failure-url="/denied"
-            username-parameter="username" password-parameter="password"
-            default-target-url="/home" />
-		<logout invalidate-session="true" logout-success-url="/login"
-            logout-url="/j_spring_security_logout" />
-            
-        <access-denied-handler error-page="/denied"/>
-        <session-management invalid-session-url="/login">
+		<logout invalidate-session="true" logout-success-url="/welcome" />
+		<session-management invalid-session-url="/login">
             <concurrency-control max-sessions="1"
                 expired-url="/login" />
         </session-management> -->
@@ -329,6 +318,7 @@
 		
 		<!-- =========================================================================== -->
 		<!-- myAccount -->
+		<intercept-url pattern="/myAccount/changePassword" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/myAccount/edit" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/myAccount" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		

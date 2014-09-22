@@ -60,7 +60,7 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.1and1.com" /><!-- auth.smtp.1and1.co.uk -->
 		<property name="port" value="587" />
-		<property name="username" value="prospectives@acct2day.org" />
+		<property name="username" value="test.prospectives@acct2day.org" />
 		<property name="password" value="Protection@569" />
 	 
 		<property name="javaMailProperties">

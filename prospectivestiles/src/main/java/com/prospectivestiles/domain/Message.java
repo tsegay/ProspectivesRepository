@@ -42,6 +42,10 @@ public class Message extends BaseEntity implements Serializable {
 //	private int messagesCount;
 //	private Date lastMessageDate;
 	
+	public static final String EMAIL_SENDER = "test.prospectives@acct2day.org";
+	public static final String EMAIL_BCC = "test.prospectives.backup@acct2day.org";
+	
+	
 	// ======================================
     // =            Constructors            =
     // ======================================
