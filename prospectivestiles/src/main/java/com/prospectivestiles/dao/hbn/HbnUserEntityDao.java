@@ -251,6 +251,17 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	}
 	
 	/**
+	 * I need this to get the latest id number in the userEntity table. 
+	 * I use the id to create the studentId.
+	 */
+	@Override
+	public long getMaxId() {
+		return (Long) getSession()
+			.createQuery("SELECT MAX(id) FROM UserEntity")
+			.uniqueResult();
+	}
+	
+	/**
 	 * USE @NamedQuery, REMMOVE sql stmt
 	 * 
 	 * To get the count of users based on their roles. 

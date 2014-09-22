@@ -89,7 +89,10 @@ public class UserEntity implements UserDetails {
 	public static final UserEntity USERENTITY = new UserEntity("anonymous");
 	
 	private Long id;
-//	private Long studentId;
+	/**
+	 * Every applicant will have a unique ID format YY-#### eg. 14-1001
+	 */
+	private String applicantId;
 	private String username, firstName, lastName, middleName, email;
 	private String password;
 	private String confirmPassword;
@@ -181,6 +184,13 @@ public class UserEntity implements UserDetails {
 	@SuppressWarnings("unused")
 	public void setId(Long id) { this.id = id; }
 //	private void setId(Long id) { this.id = id; }
+	
+	public String getApplicantId() {
+		return applicantId;
+	}
+	public void setApplicantId(String applicantId) {
+		this.applicantId = applicantId;
+	}
 	
 	@NotNull
 	@Size(min = 1, max = 50)

@@ -31,9 +31,9 @@
 
 <div class="row">
 	<dl class="dl-horizontal col-md-6">
-		<dt><spring:message code="account.label.id" /></dt>
+		<dt><spring:message code="account.label.applicantId" /></dt>
 		<dd>
-			<c:out value="${userEntity.id}" />
+			<c:out value="${userEntity.applicantId}" />
 		</dd>
 		
 		<dt><spring:message code="account.label.firstName" /></dt>

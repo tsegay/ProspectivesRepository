@@ -60,6 +60,7 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 			String accountState);
 	long countAccountsByTermStatusState(long termId, boolean status,
 			String accountState);
+	long getMaxId();
 	
 //	void updateTerm(long userEntityId, long termId);
 //	void updateProgramOfStudy(long userEntityId, long programOfStudyId);

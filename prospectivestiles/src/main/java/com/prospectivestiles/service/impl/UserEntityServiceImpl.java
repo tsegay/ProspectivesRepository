@@ -2,6 +2,7 @@ package com.prospectivestiles.service.impl;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -67,6 +68,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 		if (valid) {
 			Role role = roleDao.findByName("ROLE_STUDENT_PENDING");
 			userEntity.setRole(role);
+			userEntity.setApplicantId(generateApplicantId());
 			
 			userEntityDao.createUserEntity(userEntity);
 			/*
@@ -101,11 +103,31 @@ public class UserEntityServiceImpl implements UserEntityService {
 		if (validateEmail2(userEntity.getEmail(), errors)) {
 			Role role = roleDao.findByName("ROLE_STUDENT_PENDING");
 			userEntity.setRole(role);
+			userEntity.setApplicantId(generateApplicantId());
 			
 			userEntityDao.createUserEntity(userEntity);
 		}
 	}
 	
+	private String generateApplicantId(){
+		// get the latest userentity id, to get id for next account add 1
+		Long maxId = userEntityDao.getMaxId() + 1;
+		Calendar now = Calendar.getInstance();   // Gets the current date and time.
+		int yr = now.get(Calendar.YEAR);       // Returns the actual year as an int.
+		String yrAsStr = String.valueOf(yr).substring(2);
+		String studentId = null;
+		// I need the studentId format as YY-####
+		if (maxId < 10) {
+			studentId = yrAsStr + "-100" + maxId;
+		} else if (maxId < 100) {
+			studentId = yrAsStr + "-10" + maxId;
+		} else if (maxId < 1000) {
+			studentId = yrAsStr + "-1" + maxId;
+		} else {
+			studentId = yrAsStr + maxId;
+		}
+		return studentId;
+	}
 
 	/**
 	 * Fetches a userEntity by its id. 
