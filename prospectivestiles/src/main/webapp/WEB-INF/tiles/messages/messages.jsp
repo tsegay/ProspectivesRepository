@@ -85,8 +85,7 @@
 	<c:url var="postMessageUrl" value="/accounts/${userEntity.id}/sendmessage" />
 	<%-- <c:url value="/accounts/' + studentId + '/sendmessage"/> --%>
 </sec:authorize>
-<%-- <sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')"> --%>
-<sec:authorize access="isAuthenticated()">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED', 'ROLE_STUDENT_DENIED')">
 	<c:url var="getMessagesUrl" value="/myAccount/getmessages" />
 	<c:url var="postMessageUrl" value="/myAccount/sendmessage" />
 </sec:authorize>
