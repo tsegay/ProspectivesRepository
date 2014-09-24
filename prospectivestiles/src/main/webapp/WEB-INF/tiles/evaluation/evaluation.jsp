@@ -41,7 +41,7 @@
 		
 <c:choose>
 	<c:when test="${empty evaluations}">
-		<p>No Evaluation.</p>
+		<p class="red">No Checklist.</p>
 		<!-- Button trigger modal -->
 		<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEvaluationModal">
 		  Create Evaluation

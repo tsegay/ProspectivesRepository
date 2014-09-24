@@ -511,8 +511,8 @@ public class AdminAccountController {
 		
 		AssociatedUser associatedUser = new AssociatedUser();
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
-		// get all admission counsellors and pass it to the model
-		List<UserEntity> admissionCounselors = userEntityService.findByRole(2);
+		// get all admission counsellors and pass it to the model, ROLE_ADMISSION=12
+		List<UserEntity> admissionCounselors = userEntityService.findByRole(12);
 		
 		associatedUser.setStudent(userEntity);
 		
@@ -593,7 +593,8 @@ public class AdminAccountController {
 		
 		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
 		AssociatedUser associatedUser = associatedUserService.getAssociatedUserByUserEntityId(userEntityId);
-		List<UserEntity> admissionCounselors = userEntityService.findByRole(2);
+		// get all admission counsellors and pass it to the model, ROLE_ADMISSION=12
+		List<UserEntity> admissionCounselors = userEntityService.findByRole(12);
 		
 		/*To avoid NullPointerException when admissionOfficer is not set for the associatedUser*/
 		if (associatedUser.getAdmissionOfficer() != null) {

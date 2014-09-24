@@ -9,7 +9,7 @@
 <div class="well" style="text-align: center;">Welcome to American College of Commerce and Technology!</div>
 
 <div class = "page-header">
-    <h2>INTERNATIONAL STUDENTS <small>Posted on March 2014</small></h2>
+    <h2>INTERNATIONAL STUDENTS <!-- <small>Posted on March 2014</small> --></h2>
 </div>
 
 <h3>Admission checklist</h3>

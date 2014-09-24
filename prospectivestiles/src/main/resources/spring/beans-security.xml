@@ -52,6 +52,8 @@
 		<intercept-url pattern="/images/**" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		
+		<intercept-url pattern="/paymentPage" access="isAuthenticated()" />
+		
 		<!-- =========================================================================== -->
 		<!-- ###############  TESTING PURPOSE ONLY #################### -->
 		<!-- =========================================================================== -->

@@ -53,7 +53,7 @@
 
 <c:choose>
 	<c:when test="${empty standardTests}">
-		<p>No StandardTest.</p>
+		<p class="red">No StandardTest.</p>
 	</c:when>
 	<c:otherwise>
 
@@ -143,7 +143,7 @@ Applicants applying for a Certificate, a Bachelor or an Associates Degree are re
 
 <c:choose>
 	<c:when test="${empty highSchools}">
-		<p>No High School.</p>
+		<p class="red">No High School.</p>
 	</c:when>
 	<c:otherwise>
 
@@ -235,7 +235,7 @@ Applicants applying for a Masters or Post Masters Degree are required to provide
 
 <c:choose>
 	<c:when test="${empty institutes}">
-		<p>No Institute.</p>
+		<p class="red">No Institute.</p>
 	</c:when>
 	<c:otherwise>
 

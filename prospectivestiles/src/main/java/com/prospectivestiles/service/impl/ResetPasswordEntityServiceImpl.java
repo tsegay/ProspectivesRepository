@@ -152,7 +152,7 @@ public class ResetPasswordEntityServiceImpl implements ResetPasswordEntityServic
 		mail.setTo(resetPasswordEntity.getEmail());
 		mail.setSubject("Reset password");
 		String emailBody = "You're receiving this e-mail because you requested a password reset "
-				+ "for your user account at example.com. "
+				+ "for your online application user account at the American College of Commerce and Technology. "
 				+ "Please go to the following page and choose a new password: " 
 				+ url + "/" + resetPasswordEntity.getId() 
 				+ "/" + resetPasswordEntity.getResetKey();

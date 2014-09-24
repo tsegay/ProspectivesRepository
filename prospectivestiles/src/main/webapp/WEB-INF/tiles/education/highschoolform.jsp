@@ -147,6 +147,7 @@
 			</label>
 			<div class = "col-sm-10">
 				<form:checkbox id="diplome" path="diplome" />
+				Check the box if you got your High School diplome
 			</div>
 		</div>
 		
@@ -157,6 +158,7 @@
 			</label>
 			<div class = "col-sm-10">
 				<form:checkbox id="gED" path="gED" />
+				Check the box if you got your GED
 			</div>
 		</div>
         

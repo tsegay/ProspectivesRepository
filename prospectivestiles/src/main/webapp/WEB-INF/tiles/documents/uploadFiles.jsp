@@ -68,7 +68,7 @@
 
 <c:choose>
 	<c:when test="${empty files}">
-		<p>No uploaded files.</p>
+		<p class="red">No uploaded files.</p>
 	</c:when>
 	<c:otherwise>
 		<h3>You have uploaded these files:</h3>

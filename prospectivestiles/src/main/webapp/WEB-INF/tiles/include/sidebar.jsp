@@ -44,6 +44,7 @@
 				<li class="list-group-item"><a target="_blank" href="<c:url value='/resources/docs/EnrollmentAgreement.pdf'/>">Enrollment Agreement</a></li>
 				<li class="list-group-item"><a target="_blank" href="<c:url value='/resources/docs/GrievanceProcedure.pdf'/>">Grievance Policy</a></li>
 				<li class="list-group-item"><a href="<c:url value='/privacyAndPolicyStatement'/>">Privacy and Policy Statement</a></li>
+				<li class="list-group-item"><a href="<c:url value='/paymentPage'/>">Pay Application Fee</a></li>
 			</sec:authorize>
 			
 		</ul>

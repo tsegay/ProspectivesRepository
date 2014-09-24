@@ -93,6 +93,11 @@
 		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/privacyAndPolicyStatement.jsp"></put-attribute>
 	</definition>
+	<definition name="paymentPage" extends="prospectivestiles.base">
+		<put-attribute name="title" value="payments page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/public/paymentPage.jsp"></put-attribute>
+	</definition>
 	
 	
 	<!-- ====================== Admin ====================================== -->

@@ -200,7 +200,7 @@ insert the term and program of study to the userEntity using jdbc
 
 <c:choose>
 	<c:when test="${empty userEntity.term}">
-		<p>No Term and Program of Study selected.</p>
+		<p class="red">No Term and Program of Study selected.</p>
 		
 		<!-- Button trigger modal -->
 		<p>Select term and program of study you are applying for:</p> <br />
@@ -364,7 +364,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 <c:choose>
 	<c:when test="${empty addresses}">
-		<p>No Address.</p>
+		<p class="red">No Address.</p>
 	</c:when>
 	<c:otherwise>
 		<c:forEach var="address" items="${addresses}">

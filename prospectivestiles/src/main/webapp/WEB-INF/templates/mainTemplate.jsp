@@ -93,10 +93,10 @@
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Social Media <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Twitter</a></li>
-								<li><a href="#">Facebook</a></li>
+								<li><a href="https://www.facebook.com/AmericanCollegeOfCommerceAndTechnology">Facebook</a></li>
+								<!-- <li><a href="#">Twitter</a></li>
 								<li><a href="#">Google+</a></li>
-								<li><a href="#">Instagram</a></li>
+								<li><a href="#">Instagram</a></li> -->
 							</ul></li>
 						<!-- <li><a href="#">Contact</a></li> -->
 
