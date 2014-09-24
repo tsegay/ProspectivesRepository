@@ -7,7 +7,6 @@ import java.util.Random;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,13 +22,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.prospectivestiles.domain.Notification;
 import com.prospectivestiles.domain.UserEntity;
-import com.prospectivestiles.service.NotificationService;
 import com.prospectivestiles.service.UserEntityService;
 
 
@@ -66,7 +62,7 @@ public class UserEntityController {
 	}
 	
 	/**
-	 * UPDATE METHOD, postRegisterUserForm USED FOR AO TO CREATE ACCOUNTS.
+	 * UPDATE METHOD, postRegisterUserForm USED FOR APPLICANTS TO CREATE ACCOUNTS.
 	 * THIS METHOD IS ONLY FOR APPLICANTS
 	 * 
 	 * @param form

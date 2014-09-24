@@ -1,11 +1,17 @@
 package com.prospectivestiles.web;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +23,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.ResetPasswordEntity;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.ResetPasswordEntityService;
@@ -25,6 +30,11 @@ import com.prospectivestiles.service.UserEntityService;
 
 @Controller
 public class ResetPasswordController {
+	
+	private static final Logger log = LoggerFactory.getLogger(UserEntityController.class);
+	@Inject
+	@Qualifier("authenticationManager")
+	private AuthenticationManager authMgr;
 
 	@Inject
 	private UserEntityService userEntityService;
@@ -166,9 +176,31 @@ public class ResetPasswordController {
 		resetPasswordEntityService.updatePassword(origResetPasswordEntity, result);
 		
 		
-		return (result.hasErrors() ? "newPassword" : "redirect:/welcome");
+		/**
+		 * After user successfully resetted his/her password, automatically login the user
+		 */
+		List<UserEntity> currentUsers = userEntityService.findByEmail(resetPasswordEntity.getEmail());
+		UserEntity currentUser = null;
+		if (currentUsers != null) {
+			currentUser = currentUsers.get(0);
+			
+//			System.out.println("######## currentUser: " + currentUser);
+			log.debug("####### debug: " + currentUser.getUsername() + " creating an account");
+			log.info("####### info: " + currentUser.getUsername() + " creating an account");
+			
+			if (!result.hasErrors()) {
+				
+				Authentication authRequest =
+						new UsernamePasswordAuthenticationToken(currentUser.getUsername(), origResetPasswordEntity.getPassword());
+				Authentication authResult = authMgr.authenticate(authRequest);
+				SecurityContextHolder.getContext().setAuthentication(authResult);
+				
+			}
+			
+		}
 		
-//		return "redirect:/welcome";
+		return (result.hasErrors() ? "newPassword" : "redirect:/myAccount");
+		
 	}
 	
 	// ======================================
