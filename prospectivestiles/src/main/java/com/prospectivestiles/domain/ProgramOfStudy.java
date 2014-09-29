@@ -32,7 +32,6 @@ public class ProgramOfStudy extends BaseEntity implements Serializable {
     // =             Attributes             =
     // ======================================
 	
-//	private long id;
 	private String name;
 	private String shortName;
 	private String description;
@@ -60,13 +59,6 @@ public class ProgramOfStudy extends BaseEntity implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 
-	/*@Id @GeneratedValue
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}*/
 	public String getName() {
 		return name;
 	}

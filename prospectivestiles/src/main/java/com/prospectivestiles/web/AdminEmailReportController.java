@@ -493,7 +493,7 @@ public class AdminEmailReportController {
 					paragraph.add(new Chunk(address.getZipcode(), normalFont) + ", ");
 				}
 				if (address.getCountry() != null) {
-					paragraph.add(new Chunk(address.getCountry(),  normalFont));
+					paragraph.add(new Chunk(address.getCountry().getName(),  normalFont));
 				}
 				document.add(paragraph);
 			}

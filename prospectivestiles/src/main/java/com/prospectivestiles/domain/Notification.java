@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "notification")
 @NamedQueries(
 @NamedQuery(name = "findNotificationsByUserEntityId", 
 query = "FROM Notification WHERE student.id = :id")
@@ -26,12 +25,13 @@ public class Notification extends BaseEntity {
     // ======================================	
 	
 	
-//	private long id;
 	// type of notice: message, status of application, change in personal info, uploaded file etc
 	private String type;
 	// Eg. John Smith sent a message, John Smith uploaded a file
 	private String notice;
-	/*private Date dateCreated;*/
+	/**
+	 * Why this?? There is dateLastModified in parent class.
+	 */
 	private Date dateModified;
 	// use this one to hide the visible from view
 	private boolean visible = true;
@@ -63,16 +63,6 @@ public class Notification extends BaseEntity {
     // =          Getters & Setters         =
     // ======================================
 
-
-
-	/*@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}*/
 	@Size(max=100)
 	public String getNotice() {
 		return notice;
@@ -86,12 +76,6 @@ public class Notification extends BaseEntity {
 	public void setType(String type) {
 		this.type = type;
 	}
-	/*public Date getDateCreated() {
-		return dateCreated;
-	}
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}*/
 	public Date getDateModified() {
 		return dateModified;
 	}
@@ -105,21 +89,15 @@ public class Notification extends BaseEntity {
 		this.visible = visible;
 	}
 	@ManyToOne
-	@JoinColumn(name = "studentId")
+//	@JoinColumn(name = "studentId")
 	public UserEntity getStudent() {
 		return student;
 	}
 	public void setStudent(UserEntity student) {
 		this.student = student;
 	}
-	/*public boolean isRead() {
-		return read;
-	}
-	public void setRead(boolean read) {
-		this.read = read;
-	}*/
 	@ManyToOne
-	@JoinColumn(name = "readById")
+//	@JoinColumn(name = "readById")
 	public UserEntity getReadBy() {
 		return readBy;
 	}

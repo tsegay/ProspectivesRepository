@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @NamedQuery(
 		name = "findHighSchoolsByUserEntityId",
@@ -20,8 +22,6 @@ public class HighSchool extends Education {
 	private Date diplomeAwardedDate;
 	private boolean gED;
 	private Date gEDAwardedDate;
-//	@ManyToOne
-//	private ProStudent proStudentHighSchool = new ProStudent();
 	private UserEntity userEntity = new UserEntity();
 	
 	// ======================================
@@ -31,11 +31,11 @@ public class HighSchool extends Education {
 	public HighSchool() {
 		super();
 	}
-	public HighSchool(String name, String country, String state, String zip,
+	public HighSchool(String name, Country country, String state, String zip,
 			String city, Date attendedFrom, Date attendedTo) {
 		super(name, country, state, zip, city, attendedFrom, attendedTo);
 	}
-	public HighSchool(String name, String country, String state, String zip,
+	public HighSchool(String name, Country country, String state, String zip,
 			String city, Date attendedFrom, Date attendedTo, boolean diplome,
 			Date diplomeAwardedDate, boolean gED, Date gEDAwardedDate) {
 		super(name, country, state, zip, city, attendedFrom, attendedTo);
@@ -80,6 +80,6 @@ public class HighSchool extends Education {
 	public void setUserEntity(UserEntity userEntity) {
 		this.userEntity = userEntity;
 	}
-	
+
 
 }

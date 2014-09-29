@@ -34,6 +34,7 @@ import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.Message;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
+import com.prospectivestiles.service.CountryService;
 import com.prospectivestiles.service.UserEntityService;
 
 /**
@@ -55,6 +56,8 @@ public class AdminAddressController {
 	
 	@Inject
 	private AddressService addressService;
+	@Inject
+	private CountryService countryService;
 	
 	private static final Logger log = LoggerFactory.getLogger(AdminAddressController.class);
 	
@@ -104,6 +107,7 @@ public class AdminAddressController {
 		
 		model.addAttribute(address);
 		model.addAttribute(userEntity);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "newAddressForm";
 	}
@@ -128,6 +132,7 @@ public class AdminAddressController {
 		
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 			return "newAddressForm";
 //			return "addresses";
 		}
@@ -157,6 +162,7 @@ public class AdminAddressController {
 		model.addAttribute("originalAddress", address);
 		model.addAttribute(address);
 		model.addAttribute(userEntity);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "editAddress";
 	}
@@ -190,6 +196,7 @@ public class AdminAddressController {
 //			model.addAttribute("originalAddress", origAddress);
 			model.addAttribute("address", origAddress);
 			model.addAttribute(userEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 //			model.addAttribute("userEntity", userEntityService.getUserEntity(userEntityId));
 			return "editAddress";
 		}
@@ -241,73 +248,6 @@ public class AdminAddressController {
 		return "redirect:/accounts/{userEntityId}";
 	}
 	
-	// ======================================
-	// =                JSON        =
-	// ======================================
-	
-	/*@RequestMapping(value = "/json/accounts/{userEntityId}/addresses", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> getAddressesForJSON(@PathVariable("userEntityId") Long userEntityId,
-			Model model) {
-		
-		List<Address> addresses = null;
-		if (userEntityId == null) {
-			addresses = new ArrayList<Address>();
-		} else {
-			addresses = addressService.getAddressesByUserEntityId(userEntityId);
-		}
-		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("addresses", addresses);
-		data.put("number", addresses.size());
-		return data;
-		
-	}*/
-	/**
-	 * @requestBody - this enables you to get data in the appropriate data type
-	 * going to receive the @RequestBody data from javascript or jquery post
-	 * The map data is what the jquery sendMessage sent
-	 */
-	/*@RequestMapping(value = "/json/accounts/{userEntityId}/addresses", method = RequestMethod.POST, produces="application/json")
-	@ResponseBody
-	public Map<String, Object> sendAddressJSON(@PathVariable("userEntityId") Long userEntityId,
-			@RequestBody Map<String, Object> data) {
-		System.out.println("############## sendAddressJSON called....");
-		
-//		AddressType addressType = (AddressType) data.get("addressType");
-		String address1 = (String) data.get("address1");
-		String address2 = (String) data.get("address2");
-		String city = (String) data.get("city");
-		String state = (String) data.get("state");
-		String zipcode = (String) data.get("zipcode");
-		String country = (String) data.get("country");
-//		Integer target = (Integer) data.get("target");
-		
-		System.out.println(address1 + " , " + address2 + " , " + city);
-		
-		Address address = new Address();
-//		address.setAddressType(addressType);
-		address.setAddress1(address1);
-		address.setAddress2(address2);
-		address.setCity(city);
-		address.setState(state);
-		address.setZipcode(zipcode);
-		address.setCountry(country);
-		address.setUserEntity(userEntityService.getUserEntity(userEntityId));
-		
-		try {
-			addressService.createAddress(address);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// a map that is going to be actual value to return, 
-		// the actual json value that we return to javascript
-		Map<String, Object> returnVal = new HashMap<String, Object>();
-		returnVal.put("success", true);
-//		returnVal.put("target", target);
-		return returnVal;
-	}*/
 	
 	// ======================================
 	// =                        =

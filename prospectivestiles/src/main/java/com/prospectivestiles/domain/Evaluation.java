@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "evaluation")
 @NamedQueries({
 	@NamedQuery(
     		name = "findEvaluationByUserEntityId",
@@ -237,7 +236,6 @@ public class Evaluation extends BaseEntity implements Serializable {
 		this.dateAdmitted = dateAdmitted;
 	}
 	@OneToOne
-	@JoinColumn(name="admittedBy")
 	public UserEntity getAdmittedBy() {
 		return admittedBy;
 	}

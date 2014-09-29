@@ -60,7 +60,7 @@
 	<hr style="border-bottom: groove;"/>
 	
 	<div class="form-group checkbox row">
-		<label for="international" class="col-sm-5 control-label label-pad">Check if applicant is an <strong>international</strong> student</label>
+		<label for="international" class="col-sm-5 control-label label-pad"><strong>International</strong> student</label>
 	    <div class="col-sm-2">
 	    	<form:checkbox class="form-control" id="international" path="international" />
 	    </div>
@@ -70,7 +70,7 @@
 	</div>
 	
 	<div class="form-group checkbox row">
-		<label for="transferee" class="col-sm-5 control-label label-pad">Check if applicant is <strong>transferring in</strong> from another college</label>
+		<label for="transferee" class="col-sm-5 control-label label-pad"><strong>Transferring in</strong> from another college</label>
 	    <div class="col-sm-2">
 	    	<form:checkbox class="form-control" id="transferee" path="transferee" />
 	    </div>

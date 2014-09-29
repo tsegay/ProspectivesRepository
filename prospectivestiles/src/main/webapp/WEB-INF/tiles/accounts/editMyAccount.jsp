@@ -136,8 +136,14 @@
 				<spring:message code="account.label.citizenship" />
 			</label>
 			<div class="col-sm-5">
-				<form:input class="form-control" path="citizenship"
-					placeholder="Your citizenship" />
+				<form:select path="citizenship.id">
+				    <c:forEach var="c" items="${countries}">
+				   		<form:option value="${c.id}" label="${c.name}"/>
+				   </c:forEach>
+				</form:select>
+				
+				<%-- <form:input class="form-control" path="citizenship"
+					placeholder="Your citizenship" /> --%>
 			</div>
 			<div class="col-sm-5">
 				<form:errors class="errormsg" path="citizenship" htmlEscape="false" />

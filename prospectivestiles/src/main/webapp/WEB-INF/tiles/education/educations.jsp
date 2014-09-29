@@ -63,7 +63,7 @@
 					<!-- <th>Id</th> -->
 					<th>name</th>
 					<th>score</th>
-					<th>validTill</th>
+					<!-- <th>validTill</th> -->
 					<th>Edit</th>
 					<th>Delete</th>
 				</tr>
@@ -84,10 +84,10 @@
 					</td> --%>
 					<td><c:out value="${standardTest.name}"></c:out></td>
 					<td><c:out value="${standardTest.score}"></c:out></td>
-					<td>
+					<%-- <td>
 					<fmt:formatDate var="validTillString" value="${standardTest.validTill}" pattern="MM-dd-yyyy" />
 					<c:out value="${validTillString}" />
-					</td>
+					</td> --%>
 					<td>
 						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 							<a href="${editStandardTestUrl}" class="btn btn-primary btn-sm">Edit</a>
@@ -182,7 +182,7 @@ Applicants applying for a Certificate, a Bachelor or an Associates Degree are re
 					<%-- <td><c:out value="${highSchool.id}"></c:out></td> --%>
 					<td><c:out value="${highSchool.name}"></c:out></td>
 					<td><c:out value="${highSchool.state}"></c:out></td>
-					<td><c:out value="${highSchool.country}"></c:out></td>
+					<td><c:out value="${highSchool.country.name}"></c:out></td>
 					<td><c:out value="${highSchool.diplome}"></c:out></td>
 					<td><c:out value="${highSchool.gED}"></c:out></td>
 					<td>
@@ -282,7 +282,7 @@ Applicants applying for a Masters or Post Masters Degree are required to provide
 						<td><c:out value="${institute.programOfStudy}"></c:out></td>
 						<td><c:out value="${institute.levelOfStudy}"></c:out></td>
 						<td><c:out value="${institute.state}"></c:out></td>
-						<td><c:out value="${institute.country}"></c:out></td>
+						<td><c:out value="${institute.country.name}"></c:out></td>
 						<td>
 							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 								<a href="${editInstituteUrl}" class="btn btn-primary btn-sm">Edit</a>

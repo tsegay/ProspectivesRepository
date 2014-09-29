@@ -28,11 +28,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.prospectivestiles.domain.Address;
+import com.prospectivestiles.domain.Country;
 import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.Message;
 import com.prospectivestiles.domain.ProgramOfStudy;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
+import com.prospectivestiles.service.CountryService;
 import com.prospectivestiles.service.UserEntityService;
 
 /*
@@ -50,7 +52,8 @@ public class StudentAddressController {
 	
 	@Autowired
 	private UserEntityService userEntityService;
-	
+	@Inject
+	private CountryService countryService;
 	
 	// ======================================
 	// =             myAccount addresses             =
@@ -90,6 +93,7 @@ public class StudentAddressController {
 		address.setUserEntity(userEntity);
 		model.addAttribute(address);
 		model.addAttribute(userEntity);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "newAddressForm";
 	}
@@ -104,12 +108,11 @@ public class StudentAddressController {
 		if (result.hasErrors()) {
 			System.out.println("######## StudentAddressController.postNewAddressForm result.hasErrors(): true" );
 			model.addAttribute(userEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 //			this is for modal
 //			return "redirect:/myAccount/addresses";
 			return "newAddressForm";
-		} else {
-			System.out.println("######## StudentAddressController.postNewAddressForm result.hasErrors(): false" );
-		}
+		} 
 //		/*
 //		 * get userEntity from URL >>>>> if logged in as admin
 //		 * get userEntity from Session >>>>>>> if logged in as student
@@ -146,6 +149,7 @@ public class StudentAddressController {
 		
 		model.addAttribute("originalAddress", address);
 		model.addAttribute(address);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "editAddress";
 	}
@@ -165,6 +169,7 @@ public class StudentAddressController {
 			origAddress.setUserEntity(userEntity);
 			model.addAttribute("address", origAddress);
 			model.addAttribute(userEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 //			model.addAttribute("originalAddress", origAddress);
 			return "editAddress";
 		}

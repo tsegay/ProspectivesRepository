@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.service.CountryService;
 import com.prospectivestiles.service.HighSchoolService;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -71,6 +72,9 @@ public class AdminHighSchoolController {
 	@Autowired
 	private UserEntityService userEntityService;
 	
+	@Inject
+	private CountryService countryService;
+	
 	private static final Logger log = LoggerFactory.getLogger(AdminHighSchoolController.class);
 	
 	/*
@@ -99,6 +103,7 @@ public class AdminHighSchoolController {
 	
 	/**
 	 * New highSchool form to add highSchool
+	 * Add all the countries to the form, so user can select the country from a dropdown list in the form
 	 * @param userEntityId
 	 * @param model
 	 * @return
@@ -115,6 +120,8 @@ public class AdminHighSchoolController {
 		
 		model.addAttribute(highSchool);
 		model.addAttribute(userEntity);
+		model.addAttribute("countries", countryService.getAllCountries());
+		
 		log.info("######## 1b");
 		return "newHighSchoolForm";
 	}
@@ -131,6 +138,7 @@ public class AdminHighSchoolController {
 
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 			return "newHighSchoolForm";
 		}
 		
@@ -175,6 +183,7 @@ public class AdminHighSchoolController {
 		model.addAttribute("originalHighSchool", highSchool);
 		model.addAttribute(highSchool);
 		model.addAttribute(userEntity);
+		model.addAttribute("countries", countryService.getAllCountries());
 		log.info("######## 4b");
 		return "editHighSchool";
 	}
@@ -200,6 +209,7 @@ public class AdminHighSchoolController {
 			model.addAttribute("highSchool", origHighSchool);
 //			model.addAttribute("originalHighSchool", origHighSchool);
 			model.addAttribute(userEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 			return "editHighSchool";
 //			return "accounts/editHighSchoolFail";
 		}

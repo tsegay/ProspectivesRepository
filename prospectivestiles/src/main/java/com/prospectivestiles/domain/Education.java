@@ -6,9 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -18,9 +21,8 @@ public class Education extends BaseEntity {
     // =             Attributes             =
     // ======================================
 	
-//	private long id;
 	private String name;
-	private String country;
+	private Country country;
 	private String state;
 	private String zip;
 	private String city;
@@ -39,7 +41,7 @@ public class Education extends BaseEntity {
     // =            Constructors            =
     // ======================================
 
-	public Education(String name, String country, String state, String zip,
+	public Education(String name, Country country, String state, String zip,
 			String city, Date attendedFrom, Date attendedTo) {
 		this.name = name;
 		this.country = country;
@@ -56,13 +58,6 @@ public class Education extends BaseEntity {
     // =          Getters & Setters         =
     // ======================================
 
-	/*@Id @GeneratedValue
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}*/
 	@NotNull
 	@Size(min = 1, max = 50)
 	public String getName() {
@@ -72,11 +67,11 @@ public class Education extends BaseEntity {
 		this.name = name;
 	}
 	@NotNull
-	@Size(min = 1, max = 50)
-	public String getCountry() {
+	@ManyToOne
+	public Country getCountry() {
 		return country;
 	}
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 	public String getState() {

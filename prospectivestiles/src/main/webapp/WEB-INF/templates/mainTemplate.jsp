@@ -24,7 +24,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/datepicker.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" />
 	<!-- END datepicker css -->
-	
+
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css" />
 	
 	<tiles:insertAttribute name="includes"></tiles:insertAttribute>
@@ -164,8 +164,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script> --%>
 
-		
-		
+
 	<!-- Twitter Bootstrap to add 'active' class to li in Master page 
 	http://stackoverflow.com/questions/20117985/twitter-bootstrap-add-active-class-to-li-in-master-page-->	
 	<!-- <script>

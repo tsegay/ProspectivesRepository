@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "checklist")
 @NamedQueries(
 		@NamedQuery(name = "findChecklistByUserEntityId", 
 		query = "FROM Checklist WHERE userEntity.id = :id")
@@ -27,7 +26,6 @@ public class Checklist extends BaseEntity implements Serializable {
     // =             Attributes             =
     // ======================================
 
-//	private long id;
 	private String f1Visa;
 	private String i20;
 	private String bankStmt;
@@ -65,13 +63,6 @@ public class Checklist extends BaseEntity implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 	
-	/*@Id @GeneratedValue
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}*/
 	public String getF1Visa() {
 		return f1Visa;
 	}

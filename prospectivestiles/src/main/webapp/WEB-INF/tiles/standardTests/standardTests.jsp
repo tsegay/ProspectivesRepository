@@ -46,7 +46,7 @@
 					<th>Id</th>
 					<th>name</th>
 					<th>score</th>
-					<th>validTill</th>
+					<!-- <th>validTill</th> -->
 					<th>Edit</th>
 					<th>Delete</th>
 				</tr>
@@ -67,10 +67,10 @@
 					</td>
 					<td><c:out value="${standardTest.name}"></c:out></td>
 					<td><c:out value="${standardTest.score}"></c:out></td>
-					<td>
+					<%-- <td>
 					<fmt:formatDate var="validTillString" value="${standardTest.validTill}" pattern="MM-dd-yyyy" />
 					<c:out value="${validTillString}" />
-					</td>
+					</td> --%>
 					<td>
 						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 							<a href="${editStandardTestUrl}" class="btn btn-primary btn-md">Edit</a>

@@ -5,11 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
-<%-- <c:set var="accountsPath" value="/accounts" /> --%>
-
-<%-- <c:set var="user" value="${highSchool.userEntity}" /> --%>
-
-<%-- <c:url var="highSchoolFormUrl" value="/accounts/${user.id}/highSchool" /> --%>
 
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="highSchoolFormUrl" value="/accounts/${userEntity.id}/highSchool/new" />
@@ -94,7 +89,17 @@
 				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
 			</label>
 			<div class = "col-sm-5">
-				<form:input path="country" class = "form-control" id = "country" placeholder = "Your Country"/>
+			
+				<%-- <form:select path="term.id"> --%>
+				<%-- <form:select path="aoId"> --%>
+				<form:select path="country.id">
+				    <c:forEach var="c" items="${countries}">
+				   		<form:option value="${c.id}" label="${c.name}"/>
+				   </c:forEach>
+				</form:select>
+			
+				<%-- <form:input path="country" class = "form-control" id = "country" placeholder = "Your Country"/> --%>
+			
 			</div>
 			<div class="col-sm-5">
 		    	<form:errors class="errormsg" path="country" htmlEscape="false" />
@@ -207,6 +212,8 @@
 		$('#attendedTo').datepicker();
 		$('#diplomeAwardedDate').datepicker();
 		$('#gEDAwardedDate').datepicker();
+		
+		
 	});
  </script>		
           

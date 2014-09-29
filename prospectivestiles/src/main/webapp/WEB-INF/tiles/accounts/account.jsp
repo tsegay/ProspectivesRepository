@@ -108,7 +108,7 @@
 		
 		<dt><spring:message code="account.label.citizenship" /></dt>
 		<dd>
-			<c:out value="${userEntity.citizenship}" />
+			<c:out value="${userEntity.citizenship.name}" />
 		</dd>
 		
 		<dt><spring:message code="account.label.ethnicity" /></dt>
@@ -392,7 +392,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 				</c:if>
 				<c:out value="${address.city}" />, <c:out value="${address.state}" /> <c:out value="${address.zipcode}" />
 				<br>
-				<c:out value="${address.country}" />
+				<c:out value="${address.country.name}" />
 				<!-- <br> <abbr title="Phone">P:</abbr> (123) 456-7890<br> <a
 					href="mailto:#">first.last@example.com</a><br> -->
 				<br><br>

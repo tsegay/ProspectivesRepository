@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
+import com.prospectivestiles.service.CountryService;
 import com.prospectivestiles.service.ProgramOfStudyService;
 import com.prospectivestiles.service.TermService;
 import com.prospectivestiles.service.UserEntityService;
@@ -42,6 +43,9 @@ public class StudentAccountController {
 	
 	@Inject
 	private TermService termService;
+	
+	@Inject
+	private CountryService countryService;
 	
 	/*
 	 * Use @InitBinder to fix the following error
@@ -124,6 +128,7 @@ public class StudentAccountController {
 		
 		model.addAttribute("originalUserEntity", userEntity);
 		model.addAttribute(userEntity);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "editMyAccount";
 	}
@@ -143,6 +148,7 @@ public class StudentAccountController {
 			
 			origUserEntity.setId(userEntity.getId());
 			model.addAttribute("userEntity", origUserEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 			
 			return "editMyAccount";
 		} else {

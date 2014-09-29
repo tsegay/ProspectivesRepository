@@ -40,6 +40,7 @@ import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.AssociatedUserService;
+import com.prospectivestiles.service.CountryService;
 import com.prospectivestiles.service.ProgramOfStudyService;
 import com.prospectivestiles.service.TermService;
 import com.prospectivestiles.service.UserEntityService;
@@ -71,6 +72,9 @@ public class AdminAccountController {
 	
 	@Inject
 	private TermService termService;
+	
+	@Inject
+	private CountryService countryService;
 	
 	private static final Logger log = LoggerFactory.getLogger(AdminAccountController.class);
 	
@@ -324,6 +328,7 @@ public class AdminAccountController {
 //		}
 		model.addAttribute("originalUserEntity", userEntity);
 		model.addAttribute(userEntity);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "editAccount";
 	}
@@ -351,6 +356,7 @@ public class AdminAccountController {
 			System.out.println("######## toString: " + result.toString());
 			origUserEntity.setId(userEntityId);
 			model.addAttribute("userEntity", origUserEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 			return "editAccount";
 			
 		}

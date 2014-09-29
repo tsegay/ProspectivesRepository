@@ -11,10 +11,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
-/*@NamedQueries(
-		@NamedQuery(name = "employer.findEmployersByStuId", 
-		query = "SELECT e FROM Employer e WHERE e.proStudent.id = :id")
-		)*/
 @Entity
 @NamedQueries(
 		@NamedQuery(name = "findEmployersByUserEntityId", 
@@ -30,9 +26,6 @@ public class Employer extends BaseEntity implements Serializable {
     // =             Attributes             =
     // ======================================
 	
-	
-//	private long id;
-//	private boolean employed;
 	private String employerName;
 	private String companyName;
 	private Date employedFrom;
@@ -60,19 +53,6 @@ public class Employer extends BaseEntity implements Serializable {
 	// =          Getters & Setters         =
 	// ======================================
 	
-	/*@Id @GeneratedValue
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}*/
-//	public boolean isEmployed() {
-//		return employed;
-//	}
-//	public void setEmployed(boolean employed) {
-//		this.employed = employed;
-//	}
 	public String getEmployerName() {
 		return employerName;
 	}

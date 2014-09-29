@@ -29,13 +29,10 @@ public class Term extends BaseEntity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4261787246010488602L;
-//	private long id;
 	private String name;
 	private Date startDate;
 	private Date endDate;
 	private int duration; // in weeks
-//	@OneToMany(mappedBy = "term", cascade = CascadeType.ALL)
-//	private Collection<ProStudent> proStudentsList = new ArrayList<>();
 	private Collection<UserEntity> listOfUserEntity = new ArrayList<UserEntity>();
 	
 	// ======================================
@@ -58,13 +55,6 @@ public class Term extends BaseEntity implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 
-	/*@Id @GeneratedValue
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}*/
 	public String getName() {
 		return name;
 	}

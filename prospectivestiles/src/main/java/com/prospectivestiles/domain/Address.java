@@ -36,7 +36,7 @@ public class Address extends BaseEntity implements Serializable  {
 	private String city;
 	private String state;
 	private String zipcode;
-	private String country;
+	private Country country;
 	private UserEntity userEntity = new UserEntity();
 	
 	// ======================================
@@ -47,7 +47,7 @@ public class Address extends BaseEntity implements Serializable  {
 	}
 	
 	public Address(String address1, String address2, String city,
-			String state, String zipcode, String country) {
+			String state, String zipcode, Country country) {
 		this.address1 = address1;
 		this.address2 = address2;
 		this.city = city;
@@ -112,12 +112,12 @@ public class Address extends BaseEntity implements Serializable  {
 		this.zipcode = zipcode;
 	}
 	
-	@Size(min = 2, max = 50)
-	public String getCountry() {
+	@NotNull
+	@ManyToOne
+	public Country getCountry() {
 		return country;
 	}
-
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 	

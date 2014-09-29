@@ -16,7 +16,6 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "role")
 @NamedQuery(name = "findRoleByName", query = "from Role where name= :name")
 //public class Role implements GrantedAuthority {
 public class Role implements Serializable {
@@ -40,7 +39,7 @@ public class Role implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+//	@Column(name = "id")
 	public Long getId() { return id; }
 	
 	@SuppressWarnings("unused")

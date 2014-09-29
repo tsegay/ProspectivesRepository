@@ -61,11 +61,11 @@
 			</label>
 			<div class="col-sm-5">
 				<form:select path="addressType" class="form-control">
-					<form:option value="HOME_ADDRESS" label="HOME_ADDRESS" />
-					<form:option value="WORK_ADDRESS" label="WORK_ADDRESS" />
-					<form:option value="MAILING_ADDRESS" label="MAILING_ADDRESS" />
+					<form:option value="HOME_ADDRESS" label="Home Address" />
+					<form:option value="WORK_ADDRESS" label="Work Address" />
+					<form:option value="MAILING_ADDRESS" label="Mailing Address" />
 					<form:option value="FOREIGN_COUNTRY_ADDRESS"
-						label="FOREIGN_COUNTRY_ADDRESS" />
+						label="Foreign Country Address" />
 				</form:select>
 			</div>
 			<div class="col-sm-5">
@@ -156,8 +156,13 @@
 			</label>
 			
 			<div class="col-sm-5">
-				<form:input path="country" class="form-control"
-					placeholder="Your country" />
+				<form:select path="country.id">
+				    <c:forEach var="c" items="${countries}">
+				   		<form:option value="${c.id}" label="${c.name}"/>
+				   </c:forEach>
+				</form:select>
+				<%-- <form:input path="country" class="form-control"
+					placeholder="Your country" /> --%>
 			</div>
 			<div class="col-sm-5">
 				<form:errors class="errormsg" path="country" htmlEscape="false" />

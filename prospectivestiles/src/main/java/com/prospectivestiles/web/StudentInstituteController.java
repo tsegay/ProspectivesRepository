@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.Institute;
 import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.service.CountryService;
 import com.prospectivestiles.service.HighSchoolService;
 import com.prospectivestiles.service.InstituteService;
 import com.prospectivestiles.service.UserEntityService;
@@ -51,6 +52,9 @@ public class StudentInstituteController {
 	
 	@Autowired
 	private UserEntityService userEntityService;
+	
+	@Inject
+	private CountryService countryService;
 	
 	/*
 	 * Use @InitBinder to fix the following error
@@ -98,14 +102,16 @@ public class StudentInstituteController {
 		Institute institute = new Institute();
 		institute.setUserEntity(userEntity);
 		model.addAttribute(institute);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "newInstituteForm";
 	}
 	
 	@RequestMapping(value = "/myAccount/institute/new", method = RequestMethod.POST)
-	public String postNewInstituteForm(@ModelAttribute @Valid Institute institute, BindingResult result) {
+	public String postNewInstituteForm(@ModelAttribute @Valid Institute institute, Model model, BindingResult result) {
 
 		if (result.hasErrors()) {
+			model.addAttribute("countries", countryService.getAllCountries());
 			return "newInstituteForm";
 		}
 
@@ -134,6 +140,7 @@ public class StudentInstituteController {
 		
 		model.addAttribute("originalInstitute", institute);
 		model.addAttribute(institute);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "editInstitute";
 	}
@@ -153,6 +160,7 @@ public class StudentInstituteController {
 			origInstitute.setUserEntity(userEntity);
 			model.addAttribute(userEntity);
 			model.addAttribute("institute", origInstitute);
+			model.addAttribute("countries", countryService.getAllCountries());
 //			model.addAttribute("originalInstitute", origInstitute);
 			return "editInstitute";
 //			return "accounts/editHighSchoolFail";

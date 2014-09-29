@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.prospectivestiles.domain.Address;
 import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.service.CountryService;
 import com.prospectivestiles.service.HighSchoolService;
 import com.prospectivestiles.service.UserEntityService;
 
@@ -43,6 +44,9 @@ public class StudentHighSchoolController {
 	
 	@Autowired
 	private UserEntityService userEntityService;
+	
+	@Inject
+	private CountryService countryService;
 	
 	/*
 	 * Use @InitBinder to fix the following error
@@ -83,6 +87,7 @@ public class StudentHighSchoolController {
 		highSchool.setUserEntity(userEntity);
 		model.addAttribute(highSchool);
 		model.addAttribute(userEntity);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "newHighSchoolForm";
 	}
@@ -94,6 +99,7 @@ public class StudentHighSchoolController {
 		
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 			return "newHighSchoolForm";
 		}
 
@@ -120,6 +126,7 @@ public class StudentHighSchoolController {
 		
 		model.addAttribute("originalHighSchool", highSchool);
 		model.addAttribute(highSchool);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "editHighSchool";
 	}
@@ -140,6 +147,7 @@ public class StudentHighSchoolController {
 			model.addAttribute("highSchool", origHighSchool);
 //			model.addAttribute("originalHighSchool", origHighSchool);
 			model.addAttribute(userEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 			return "editHighSchool";
 //			return "accounts/editHighSchoolFail";
 		}

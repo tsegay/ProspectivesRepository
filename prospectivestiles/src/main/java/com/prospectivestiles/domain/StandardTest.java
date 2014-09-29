@@ -17,7 +17,6 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "standardTest")
 @NamedQueries(
 		@NamedQuery(name = "findStandardTestsByUserEntityId", 
 		query = "FROM StandardTest WHERE userEntity.id = :id")
@@ -73,7 +72,11 @@ public class StandardTest extends BaseEntity implements Serializable {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	@NotNull
+	/**
+	 * For now, removed the validDate from the Form
+	 * @return
+	 */
+//	@NotNull
 //	@DateTimeFormat
 	public Date getValidTill() {
 		return validTill;

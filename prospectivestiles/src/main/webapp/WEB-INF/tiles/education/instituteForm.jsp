@@ -96,7 +96,12 @@
 				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
 			</label>
 			<div class = "col-sm-5">
-				<form:input path="country" class = "form-control" id = "country" placeholder = "Your Country"/>
+				<form:select path="country.id">
+				    <c:forEach var="c" items="${countries}">
+				   		<form:option value="${c.id}" label="${c.name}"/>
+				   </c:forEach>
+				</form:select>
+				<%-- <form:input path="country" class = "form-control" id = "country" placeholder = "Your Country"/> --%>
 			</div>
 			<div class="col-sm-5">
 		    	<form:errors class="errormsg" path="country" htmlEscape="false" />
@@ -116,6 +121,29 @@
 		    </div>
         </div>
         
+        
+		<div class="form-group row">
+			<!-- <label for="levelOfStudy" class="col-sm-2 control-label">levelOfStudy</label> -->
+			<label for="levelOfStudy" class="col-sm-2 control-label">
+				<spring:message code="instituteForm.label.levelOfStudy" />
+			</label>
+			<div class = "col-sm-5">
+				<form:select path="levelOfStudy" class="form-control">
+					<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+					<form:option value="HIGHSCHOOL" label="High School" />
+					<form:option value="CERTIFICATE" label="Certificate" />
+					<form:option value="ASSOCIATES_OF_ARTS" label="Associate of Arts" />
+					<form:option value="BACHELOR" label="Bachelor" />
+					<form:option value="MASTERS" label="Masters" />
+					<form:option value="POST_MASTERS" label="Post Masters" />
+				</form:select>
+				<%-- <form:input path="levelOfStudy" class = "form-control" id = "levelOfStudy" placeholder = "Your levelOfStudy"/> --%>
+			</div>
+			<div class="col-sm-5">
+		    	<form:errors class="errormsg" path="levelOfStudy" htmlEscape="false" />
+		    </div>
+        </div>
+        
 		<div class="form-group row">
 			<!-- <label for="programOfStudy" class="col-sm-2 control-label">programOfStudy</label> -->
 			<label for="programOfStudy" class="col-sm-2 control-label">
@@ -126,19 +154,6 @@
 			</div>
 			<div class="col-sm-5">
 		    	<form:errors class="errormsg" path="programOfStudy" htmlEscape="false" />
-		    </div>
-        </div>
-        
-		<div class="form-group row">
-			<!-- <label for="levelOfStudy" class="col-sm-2 control-label">levelOfStudy</label> -->
-			<label for="levelOfStudy" class="col-sm-2 control-label">
-				<spring:message code="instituteForm.label.levelOfStudy" />
-			</label>
-			<div class = "col-sm-5">
-				<form:input path="levelOfStudy" class = "form-control" id = "levelOfStudy" placeholder = "Your levelOfStudy"/>
-			</div>
-			<div class="col-sm-5">
-		    	<form:errors class="errormsg" path="levelOfStudy" htmlEscape="false" />
 		    </div>
         </div>
         

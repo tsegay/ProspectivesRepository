@@ -34,7 +34,6 @@ public class Message extends BaseEntity implements Serializable {
 	private String text;
 	// use this one to block messages
 	private boolean visible = true;
-//	private Date dateModified;
 	
 	private UserEntity student;
 	private UserEntity admissionOfficer;
@@ -94,16 +93,9 @@ public class Message extends BaseEntity implements Serializable {
 		this.visible = visible;
 	}
 
-//	public Date getDateModified() {
-//		return dateModified;
-//	}
-//	public void setDateModified(Date dateModified) {
-//		this.dateModified = dateModified;
-//	}
-	
 	@ManyToOne
 //	@JoinColumn(name = "author_id", nullable = false)
-	@JoinColumn(name = "student_id")
+//	@JoinColumn(name = "student_id")
 	public UserEntity getStudent() {
 		return student;
 	}
@@ -114,7 +106,7 @@ public class Message extends BaseEntity implements Serializable {
 	
 	@ManyToOne
 //	@JoinColumn(name = "author_id", nullable = false)
-	@JoinColumn(name = "admissionOfficer_id")
+//	@JoinColumn(name = "admissionOfficer_id")
 	public UserEntity getAdmissionOfficer() {
 		return admissionOfficer;
 	}

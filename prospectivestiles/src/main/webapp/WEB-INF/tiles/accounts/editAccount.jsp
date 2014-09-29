@@ -115,8 +115,13 @@
 				<spring:message code="account.label.gender" />
 			</label>
 			<div class="col-sm-5">
-				<form:input class="form-control" path="gender"
-					placeholder="Your gender" />
+				<form:select path="gender" class="form-control">
+					<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+					<form:option value="MALE" label="Male" />
+					<form:option value="FEMALE" label="Female" />
+				</form:select>
+				<%-- <form:input class="form-control" path="gender"
+					placeholder="Your gender" /> --%>
 			</div>
 			<div class="col-sm-5">
 				<form:errors class="errormsg" path="gender" htmlEscape="false" />
@@ -141,8 +146,15 @@
 				<spring:message code="account.label.citizenship" />
 			</label>
 			<div class="col-sm-5">
-				<form:input class="form-control" path="citizenship"
-					placeholder="Your citizenship" />
+				<form:select path="citizenship.id">
+				    <c:forEach var="c" items="${countries}">
+				   		<form:option value="${c.id}" label="${c.name}"/>
+				   </c:forEach>
+				</form:select>
+				
+				<%-- <form:input class="form-control" path="citizenship"
+					placeholder="Your citizenship" /> --%>
+				<%-- <form:select path="citizenship" id="citizenship" class="form-control bfh-countries"></form:select> --%>
 			</div>
 			<div class="col-sm-5">
 				<form:errors class="errormsg" path="citizenship" htmlEscape="false" />
@@ -155,8 +167,16 @@
 				<spring:message code="account.label.ethnicity" />
 			</label>
 			<div class="col-sm-5">
-				<form:input class="form-control" path="ethnicity"
-					placeholder="Your ethnicity" />
+				<form:select path="ethnicity" class="form-control">
+					<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+					<form:option value="WHITE" label="White" />
+					<form:option value="HISPANIC" label="Hispanic" />
+					<form:option value="BLACK_OR_AFRICAN_AMERICAN" label="Black/African American" />
+					<form:option value="ASIAN_PACIFIC_ISLANDER" label="Asian/Pacific Islander" />
+					<form:option value="NATIVE_AMERICAN_OR_ALASKAN" label="Native American/Alaskan" />
+				</form:select>
+				<%-- <form:input class="form-control" path="ethnicity"
+					placeholder="Your ethnicity" /> --%>
 			</div>
 			<div class="col-sm-5">
 				<form:errors class="errormsg" path="ethnicity" htmlEscape="false" />
@@ -263,10 +283,29 @@
 
 </form:form>
 <!-- datepicker http://bootstrap-datepicker.readthedocs.org/en/release/ -->
+
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+	<c:url var="getCitizenshipUrl" value="/accounts/${userEntity.id}/getmessages" />
+</sec:authorize>
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED', 'ROLE_STUDENT_DENIED')">
+	<c:url var="getCitizenshipUrl" value="/myAccount/getmessages" />
+</sec:authorize>
+
+
 <script>
+
 	$(function (){
 		$('#dob').datepicker({
 			format : 'mm/dd/yyyy'
 		});
 	});
+
+/* 	function onLoad(){
+		$('#dob').datepicker({
+			format : 'mm/dd/yyyy'
+		});
+		$('#citizenship').bfhcountries({country: '${userEntity.citizenship}'});
+	}
+	$(document).ready(onLoad); */
+	
  </script>

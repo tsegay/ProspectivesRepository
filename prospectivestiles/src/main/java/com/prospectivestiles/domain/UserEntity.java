@@ -73,7 +73,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 			query = "FROM UserEntity WHERE email = :email"),
 }) 
 @Entity
-@Table(name = "userEntity")
 @SuppressWarnings("serial")
 public class UserEntity implements UserDetails {
 	/**
@@ -99,9 +98,11 @@ public class UserEntity implements UserDetails {
 	private String homePhone;
 	private String cellPhone;
 	private String ssn;
-	private String citizenship;
+	private Country citizenship;
+//	private String citizenship;
 	private String countryOfBirth;
-	private String ethnicity;
+	private Ethnicity ethnicity;
+//	private String ethnicity;
 	private String sevisNumber;
 	/**
 	 * acceptTerms represents the privacy policy!!
@@ -177,7 +178,7 @@ public class UserEntity implements UserDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+//	@Column(name = "id")
 	public Long getId() { return id; }
 	
 	// why is this private???
@@ -194,26 +195,26 @@ public class UserEntity implements UserDetails {
 	
 	@NotNull
 	@Size(min = 1, max = 50)
-	@Column(name = "username")
+//	@Column(name = "username")
 	public String getUsername() { return username; }
 
 	public void setUsername(String username) { this.username = username; }
 	
 	@NotNull
 	@Size(min = 1, max = 50)
-	@Column(name = "first_name")
+//	@Column(name = "first_name")
 	public String getFirstName() { return firstName; }
 
 	public void setFirstName(String firstName) { this.firstName = firstName; }
 	
 	@NotNull
 	@Size(min = 1, max = 50)
-	@Column(name = "last_name")
+//	@Column(name = "last_name")
 	public String getLastName() { return lastName; }
 
 	public void setLastName(String lastName) { this.lastName = lastName; }
 	
-	@Column(name = "middle_name")
+//	@Column(name = "middle_name")
 	public String getMiddleName() {
 		return middleName;
 	}
@@ -226,14 +227,14 @@ public class UserEntity implements UserDetails {
 	@NotNull
 	@Size(min = 6, max = 50)
 	@Email
-	@Column(name = "email")
+//	@Column(name = "email")
 	public String getEmail() { return email; }
 
 	public void setEmail(String email) { this.email = email; }
 	
 	@NotNull
 	@Size(min = 6, max = 70)
-	@Column(name = "password")
+//	@Column(name = "password")
 	public String getPassword() {
 		return password;
 	}
@@ -250,18 +251,18 @@ public class UserEntity implements UserDetails {
 		this.confirmPassword = confirmPassword;
 	}
 
-	@Column(name = "marketing_ok")
+//	@Column(name = "marketing_ok")
 	public boolean isMarketingOk() { return marketingOk; }
 	
 	public void setMarketingOk(boolean marketingOk) { this.marketingOk = marketingOk; }
 	
 	@AssertTrue(message = "{userEntity.acceptTerms.assertTrue.message}")
-	@Column(name = "accept_terms")
+//	@Column(name = "accept_terms")
 	public boolean getAcceptTerms() { return acceptTerms; }
 	
 	public void setAcceptTerms(boolean acceptTerms) { this.acceptTerms = acceptTerms; }
 	
-	@Column(name = "enabled")
+//	@Column(name = "enabled")
 	public boolean isEnabled() { return enabled; }
 
 	public void setEnabled(boolean enabled) { this.enabled = enabled; }
@@ -284,7 +285,7 @@ public class UserEntity implements UserDetails {
 		this.role = role;
 	}
 
-	@Column(name = "date_created")
+//	@Column(name = "date_created")
 	public Date getDateCreated() { return dateCreated; }
 	
 	public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
@@ -372,11 +373,12 @@ public class UserEntity implements UserDetails {
 		this.ssn = ssn;
 	}
 
-	public String getCitizenship() {
+	@NotNull
+	@ManyToOne
+	public Country getCitizenship() {
 		return citizenship;
 	}
-
-	public void setCitizenship(String citizenship) {
+	public void setCitizenship(Country citizenship) {
 		this.citizenship = citizenship;
 	}
 
@@ -388,13 +390,19 @@ public class UserEntity implements UserDetails {
 		this.countryOfBirth = countryOfBirth;
 	}
 
-	public String getEthnicity() {
+	public Ethnicity getEthnicity() {
 		return ethnicity;
 	}
-
-	public void setEthnicity(String ethnicity) {
+	public void setEthnicity(Ethnicity ethnicity) {
 		this.ethnicity = ethnicity;
 	}
+//	public String getEthnicity() {
+//		return ethnicity;
+//	}
+//
+//	public void setEthnicity(String ethnicity) {
+//		this.ethnicity = ethnicity;
+//	}
 
 	public String getSevisNumber() {
 		return sevisNumber;

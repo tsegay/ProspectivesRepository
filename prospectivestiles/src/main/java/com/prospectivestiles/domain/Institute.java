@@ -17,10 +17,9 @@ public class Institute extends Education {
 	// ======================================
 
 	private String programOfStudy;
-	private String levelOfStudy;
+	private LevelOfStudy levelOfStudy;
+//	private String levelOfStudy;
 	private Date graduationDate;
-//	@ManyToOne
-//	private ProStudent proStudentInstitute = new ProStudent();
 	private UserEntity userEntity = new UserEntity();
 	
 	// ======================================
@@ -30,13 +29,13 @@ public class Institute extends Education {
 	public Institute() {
 		super();
 	}
-	public Institute(String name, String country, String state, String zip,
+	public Institute(String name, Country country, String state, String zip,
 			String city, Date attendedFrom, Date attendedTo) {
 		super(name, country, state, zip, city, attendedFrom, attendedTo);
 	}
-	public Institute(String name, String country, String state, String zip,
+	public Institute(String name, Country country, String state, String zip,
 			String city, Date attendedFrom, Date attendedTo,
-			String programOfStudy, String levelOfStudy, Date graduationDate) {
+			String programOfStudy, LevelOfStudy levelOfStudy, Date graduationDate) {
 		super(name, country, state, zip, city, attendedFrom, attendedTo);
 		this.programOfStudy = programOfStudy;
 		this.levelOfStudy = levelOfStudy;
@@ -53,10 +52,10 @@ public class Institute extends Education {
 	public void setProgramOfStudy(String programOfStudy) {
 		this.programOfStudy = programOfStudy;
 	}
-	public String getLevelOfStudy() {
+	public LevelOfStudy getLevelOfStudy() {
 		return levelOfStudy;
 	}
-	public void setLevelOfStudy(String levelOfStudy) {
+	public void setLevelOfStudy(LevelOfStudy levelOfStudy) {
 		this.levelOfStudy = levelOfStudy;
 	}
 	public Date getGraduationDate() {

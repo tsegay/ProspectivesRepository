@@ -20,7 +20,6 @@ import javax.persistence.Transient;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
-@Table(name = "uploadedFiles")
 @NamedQueries(
 		@NamedQuery(name = "findUploadedFilesByUserEntityId", 
 		query = "FROM UploadedFiles WHERE userEntity.id = :id")
@@ -39,7 +38,6 @@ public class UploadedFiles extends BaseEntity implements Serializable {
     // =             Attributes             =
     // ======================================
 	
-//	private Long id;
 	// file name, actual name of the file
 	private String fileName;
 	// file size
@@ -56,7 +54,6 @@ public class UploadedFiles extends BaseEntity implements Serializable {
 	
 	private UserEntity userEntity;
 	
-//	private Date dateCreated;
 	
 	// ======================================
     // =            Constructors            =
@@ -69,15 +66,6 @@ public class UploadedFiles extends BaseEntity implements Serializable {
     // =          Getters & Setters         =
     // ======================================
 	
-	/*@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}*/
 
 	public String getFileName() {
 		return fileName;
@@ -131,13 +119,4 @@ public class UploadedFiles extends BaseEntity implements Serializable {
 	}
 
 
-//	public Date getDateCreated() {
-//		return dateCreated;
-//	}
-//
-//
-//	public void setDateCreated(Date dateCreated) {
-//		this.dateCreated = dateCreated;
-//	}
-	
 }

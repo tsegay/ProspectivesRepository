@@ -16,7 +16,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "associatedUser")
 @NamedQueries(
 		@NamedQuery(name = "findAssociatedUserByUserEntityId", 
 		query = "FROM AssociatedUser WHERE student.id = :id")
@@ -65,7 +64,7 @@ public class AssociatedUser extends BaseEntity implements Serializable {
     // ======================================
 	
 	@OneToOne
-	@JoinColumn(name="student")
+//	@JoinColumn(name="student")
 	public UserEntity getStudent() {
 		return student;
 	}
@@ -75,7 +74,7 @@ public class AssociatedUser extends BaseEntity implements Serializable {
 
 //	@OneToOne(cascade = CascadeType.ALL)
 	@OneToOne
-	@JoinColumn(name="admissionOfficer")
+//	@JoinColumn(name="admissionOfficer")
 //	@JoinColumn(name="admissionOfficer", unique=false, nullable=true, insertable=true, updatable=true)
 	public UserEntity getAdmissionOfficer() {
 		return admissionOfficer;

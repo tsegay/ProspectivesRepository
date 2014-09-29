@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.Institute;
 import com.prospectivestiles.domain.UserEntity;
+import com.prospectivestiles.service.CountryService;
 import com.prospectivestiles.service.HighSchoolService;
 import com.prospectivestiles.service.InstituteService;
 import com.prospectivestiles.service.UserEntityService;
@@ -51,6 +52,9 @@ public class AdminInstituteController {
 	
 	@Autowired
 	private UserEntityService userEntityService;
+	
+	@Inject
+	private CountryService countryService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -99,6 +103,7 @@ public class AdminInstituteController {
 		
 		model.addAttribute(institute);
 		model.addAttribute(userEntity);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "newInstituteForm";
 	}
@@ -112,6 +117,7 @@ public class AdminInstituteController {
 				
 		if (result.hasErrors()) {
 			model.addAttribute(userEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 //			model.addAttribute(institute);
 			return "newInstituteForm";
 		}
@@ -141,6 +147,7 @@ public class AdminInstituteController {
 		model.addAttribute("originalInstitute", institute);
 		model.addAttribute(institute);
 		model.addAttribute(userEntity);
+		model.addAttribute("countries", countryService.getAllCountries());
 		
 		return "editInstitute";
 	}
@@ -161,6 +168,7 @@ public class AdminInstituteController {
 			origInstitute.setUserEntity(userEntityService.getUserEntity(userEntityId));
 			model.addAttribute("institute", origInstitute);
 			model.addAttribute(userEntity);
+			model.addAttribute("countries", countryService.getAllCountries());
 //			model.addAttribute("originalInstitute", origInstitute);
 			return "editInstitute";
 //			return "accounts/editInstituteFail";
