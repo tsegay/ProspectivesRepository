@@ -100,7 +100,7 @@ public class UserEntity implements UserDetails {
 	private String ssn;
 	private Country citizenship;
 //	private String citizenship;
-	private String countryOfBirth;
+	private Country countryOfBirth;
 	private Ethnicity ethnicity;
 //	private String ethnicity;
 	private String sevisNumber;
@@ -373,7 +373,6 @@ public class UserEntity implements UserDetails {
 		this.ssn = ssn;
 	}
 
-	@NotNull
 	@ManyToOne
 	public Country getCitizenship() {
 		return citizenship;
@@ -381,12 +380,12 @@ public class UserEntity implements UserDetails {
 	public void setCitizenship(Country citizenship) {
 		this.citizenship = citizenship;
 	}
-
-	public String getCountryOfBirth() {
+	@ManyToOne
+	public Country getCountryOfBirth() {
 		return countryOfBirth;
 	}
 
-	public void setCountryOfBirth(String countryOfBirth) {
+	public void setCountryOfBirth(Country countryOfBirth) {
 		this.countryOfBirth = countryOfBirth;
 	}
 

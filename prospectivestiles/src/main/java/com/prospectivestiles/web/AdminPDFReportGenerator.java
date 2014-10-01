@@ -192,7 +192,11 @@ public class AdminPDFReportGenerator {
 			}
 			createNoBorderTableRow(table, "Student Status: ", studentStatus);
 			
-			createNoBorderTableRow(table, "Country of Citizenship: ", userEntityService.getUserEntity(userEntityId).getCitizenship().getName());
+			String countryName = null;
+			if (userEntityService.getUserEntity(userEntityId).getCitizenship() != null) {
+				countryName = userEntityService.getUserEntity(userEntityId).getCitizenship().getName();
+			}
+			createNoBorderTableRow(table, "Country of Citizenship: ", countryName);
 			
 			
 			/**
@@ -406,7 +410,11 @@ public class AdminPDFReportGenerator {
 			}
 			createNoBorderTableRow(table, "Student Status: ", studentStatus);
 			
-			createNoBorderTableRow(table, "Country of Citizenship: ", userEntityService.getUserEntity(userEntityId).getCitizenship().getName());
+			String countryName = null;
+			if (userEntityService.getUserEntity(userEntityId).getCitizenship() != null) {
+				countryName = userEntityService.getUserEntity(userEntityId).getCitizenship().getName();
+			}
+			createNoBorderTableRow(table, "Country of Citizenship: ", countryName);
 			
 			/**
 			 * Display home address only
@@ -469,27 +477,26 @@ public class AdminPDFReportGenerator {
 			
 			if (eval != null) {
 				
-				/**
-				 * table no border to display evaluation list items in a data definition type
-				 */
-				PdfPTable table2 = new PdfPTable(2);
+				PdfPTable table2 = new PdfPTable(3);
 				table2.setWidthPercentage(75);
-				table2.setWidths(new int[]{2, 3});
+				table2.setWidths(new int[]{3, 2, 2});
 				table2.setHorizontalAlignment(Element.ALIGN_LEFT);
+				
+				createTable3RowsTableHeader(table2, "", "Submitted Documents", "Outstanding Documents");
 
-				createTableRow(table2, "Application Fee: ", eval.getApplicationFee());
-				createTableRow(table2, "Bank Statement: ", eval.getBankStmt());
-				createTableRow(table2, "Financial Affidavit: ", eval.getFinancialAffidavit());
-				createTableRow(table2, "Source of Money: ", eval.getSourceOfMoney());
-				createTableRow(table2, "Amount of Money: ", eval.getAmountOfMoney());
-				createTableRow(table2, "Diplome: ", eval.getDiplome());
-				createTableRow(table2, "F1 Visa: ", eval.getF1Visa());
-				createTableRow(table2, "I20: ", eval.getI20());
-				createTableRow(table2, "Passport: ", eval.getPassport());
-				createTableRow(table2, "Application Form: ", eval.getApplicationForm());
-				createTableRow(table2, "Enrollment Agreement: ", eval.getEnrollmentAgreement());
-				createTableRow(table2, "Grievance Policy: ", eval.getGrievancePolicy());
-				createTableRow(table2, "Recommendation Letter: ", eval.getRecommendationLetter());
+				createTable3Rows(table2, "Application Fee: ", eval.getApplicationFee());
+				createTable3Rows(table2, "Bank Statement: ", eval.getBankStmt());
+				createTable3Rows(table2, "Financial Affidavit: ", eval.getFinancialAffidavit());
+				createTable3Rows(table2, "Diplome: ", eval.getDiplome());
+				createTable3Rows(table2, "F1 Visa: ", eval.getF1Visa());
+				createTable3Rows(table2, "I20: ", eval.getI20());
+				createTable3Rows(table2, "Passport: ", eval.getPassport());
+				createTable3Rows(table2, "Application Form: ", eval.getApplicationForm());
+				createTable3Rows(table2, "Enrollment Agreement: ", eval.getEnrollmentAgreement());
+				createTable3Rows(table2, "Grievance Policy: ", eval.getGrievancePolicy());
+				createTable3Rows(table2, "Recommendation Letter: ", eval.getRecommendationLetter());
+				createTable2RowsColSpan2(table2, "Source of Money: ", eval.getSourceOfMoney());
+				createTable2RowsColSpan2(table2, "Amount of Money: ", eval.getAmountOfMoney());
 				
 				document.add(table2);
 				
@@ -517,19 +524,77 @@ public class AdminPDFReportGenerator {
 		}
 	}
 	
-	private static void createTableRow(PdfPTable table, String label, String value){
+	
+	private static void createTable3RowsTableHeader(PdfPTable table, String label, String value1, String value2){
+		
+		PdfPCell cell = new PdfPCell();
+		
+		// row 1, cell 1
+		cell = new PdfPCell(new Phrase(label,normalBoldFont));
+		table.addCell(cell);
+		
+		// row 1, cell 2
+		cell = new PdfPCell(new Phrase(value1, normalBoldFont));
+		table.addCell(cell);
+		
+		// row 1, cell 3
+		cell = new PdfPCell(new Phrase(value2, normalBoldFont));
+		table.addCell(cell);
+
+	}
+	
+	private static void createTable3Rows(PdfPTable table, String label, String value){
 		PdfPCell cell = new PdfPCell();
 		
 		// row 1, cell 1
 		cell = new PdfPCell(new Phrase(label, normalFont));
-//		cell.setBorder(Rectangle.NO_BORDER);
+		table.addCell(cell);
+		
+		if (value.equalsIgnoreCase("complete")) {
+			// row 1, cell 2
+			cell = new PdfPCell(new Phrase("X", normalFont));
+			table.addCell(cell);
+			// row 1, cell 3
+			cell = new PdfPCell(new Phrase("", normalFont));
+			table.addCell(cell);
+		} else if (value.equalsIgnoreCase("incomplete")) {
+			// row 1, cell 2
+			cell = new PdfPCell(new Phrase("", normalFont));
+			table.addCell(cell);
+			// row 1, cell 3
+			cell = new PdfPCell(new Phrase("X", normalFont));
+			table.addCell(cell);
+		} else {
+			// row 1, cell 2
+			cell = new PdfPCell(new Phrase("", normalFont));
+			table.addCell(cell);
+			// row 1, cell 3
+			cell = new PdfPCell(new Phrase("", normalFont));
+			table.addCell(cell);
+		}
+
+	}
+	
+	private static void createTable2RowsColSpan2(PdfPTable table, String label, String value){
+		PdfPCell cell = new PdfPCell();
+		
+		// row 1, cell 1
+		cell = new PdfPCell(new Phrase(label, normalFont));
 		table.addCell(cell);
 		
 		// row 1, cell 2
 		cell = new PdfPCell(new Phrase(value, normalFont));
-//		cell.setBorder(Rectangle.NO_BORDER);
+		cell.setColspan(2);
+		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		table.addCell(cell);
+		
+//		// row 1, cell 3
+//		cell = new PdfPCell(new Phrase("", normalFont));
+//		table.addCell(cell);
+		
 	}
+	
+	
 	
 	private static void createNoBorderTableRow(PdfPTable table, String label, String value){
 		PdfPCell cell = new PdfPCell();
@@ -923,7 +988,7 @@ public class AdminPDFReportGenerator {
 			cell.setPadding(8);
 			cell.setBorderWidthBottom(2f);
 //	        cell.setBackgroundColor(BaseColor.GRAY);
-	        cell.setGrayFill(0.75f);
+	        cell.setGrayFill(0.95f);
 			table.addCell(cell);
 			
 			// row 2, cell 1
@@ -981,14 +1046,18 @@ public class AdminPDFReportGenerator {
 			// row 3, cell 2
 			paragraph = new Paragraph();
 			paragraph.add(new Phrase("Country of Birth: ", normalBoldFont));
-			paragraph.add(new Phrase(userEntity.getCountryOfBirth(), smallFont));
+			if (userEntity.getCountryOfBirth() != null) {
+				paragraph.add(new Phrase(userEntity.getCountryOfBirth().getName(), smallFont));
+			}
 			cell = new PdfPCell(paragraph);
 			cell.setPadding(8);
 			table.addCell(cell);
 			// row 3, cell 3
 			paragraph = new Paragraph();
 			paragraph.add(new Phrase("Country of Citizenship: ", normalBoldFont));
-			paragraph.add(new Phrase(userEntity.getCitizenship().getName(), smallFont));
+			if (userEntity.getCitizenship() != null) {
+				paragraph.add(new Phrase(userEntity.getCitizenship().getName(), smallFont));
+			}
 			cell = new PdfPCell(paragraph);
 			cell.setPadding(8);
 			table.addCell(cell);
@@ -1080,7 +1149,9 @@ public class AdminPDFReportGenerator {
 				// Address row 2, cell 3
 				paragraph = new Paragraph();
 				paragraph.add(new Phrase("Country: ", normalBoldFont));
-				paragraph.add(new Phrase(address.getCountry().getName(), smallFont));
+				if (address.getCountry() != null) {
+					paragraph.add(new Phrase(address.getCountry().getName(), smallFont));
+				}
 				cell = new PdfPCell(paragraph);
 				cell.setPadding(8);
 //				cell.setBorder(10);
@@ -1134,7 +1205,9 @@ public class AdminPDFReportGenerator {
 				// Address row 2, cell 3
 				paragraph = new Paragraph();
 				paragraph.add(new Phrase("Country: ", normalBoldFont));
-				paragraph.add(new Phrase(mailingAddress.getCountry().getName(), smallFont));
+				if (mailingAddress.getCountry() != null) {
+					paragraph.add(new Phrase(mailingAddress.getCountry().getName(), smallFont));
+				}
 				cell = new PdfPCell(paragraph);
 				cell.setPadding(8);
 //				cell.setBorder(10);
@@ -1167,7 +1240,7 @@ public class AdminPDFReportGenerator {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cell.setPadding(8);
 			cell.setBorderWidthBottom(2f);
-	        cell.setGrayFill(0.75f);
+	        cell.setGrayFill(0.95f);
 			table.addCell(cell);
 						
 			// row 6, cell 1 - span 3
@@ -1198,7 +1271,7 @@ public class AdminPDFReportGenerator {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cell.setPadding(8);
 			cell.setBorderWidthBottom(2f);
-	        cell.setGrayFill(0.75f);
+	        cell.setGrayFill(0.95f);
 			table.addCell(cell);
 			
 			// row HighSchool
@@ -1259,7 +1332,9 @@ public class AdminPDFReportGenerator {
 					// HighSchool row 2, cell 3
 					paragraph = new Paragraph();
 					paragraph.add(new Phrase("Country: ", normalBoldFont));
-					paragraph.add(new Phrase(highSchool.getCountry().getName(), smallFont));
+					if (highSchool.getCountry() != null) {
+						paragraph.add(new Phrase(highSchool.getCountry().getName(), smallFont));
+					}
 					cell = new PdfPCell(paragraph);
 					cell.setPadding(8);
 					cell.setBorder(Rectangle.RIGHT | Rectangle.BOTTOM);
@@ -1274,7 +1349,7 @@ public class AdminPDFReportGenerator {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cell.setPadding(8);
 			cell.setBorderWidthBottom(2f);
-	        cell.setGrayFill(0.75f);
+	        cell.setGrayFill(0.95f);
 			table.addCell(cell);
 			
 			// row Institute
@@ -1294,7 +1369,9 @@ public class AdminPDFReportGenerator {
 					// Institute row 2, cell 1
 					paragraph = new Paragraph();
 					paragraph.add(new Phrase("Level of Study: ", normalBoldFont));
-					paragraph.add(new Phrase(institute.getLevelOfStudy().toString(), smallFont));
+					if (institute.getLevelOfStudy() != null) {
+						paragraph.add(new Phrase(institute.getLevelOfStudy().toString(), smallFont));
+					}
 					cell = new PdfPCell(paragraph);
 					cell.setBorder(Rectangle.LEFT);
 					cell.setPadding(8);
@@ -1342,7 +1419,9 @@ public class AdminPDFReportGenerator {
 					// Institute row 3, cell 3
 					paragraph = new Paragraph();
 					paragraph.add(new Phrase("Country: ", normalBoldFont));
-					paragraph.add(new Phrase(institute.getCountry().getName(), smallFont));
+					if (institute.getCountry() != null) {
+						paragraph.add(new Phrase(institute.getCountry().getName(), smallFont));
+					}
 					cell = new PdfPCell(paragraph);
 					cell.setPadding(8);
 					cell.setBorder(Rectangle.RIGHT | Rectangle.BOTTOM);

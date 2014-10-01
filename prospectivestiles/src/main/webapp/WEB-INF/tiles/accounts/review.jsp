@@ -118,7 +118,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 		
 		<dt><spring:message code="account.label.citizenship" /></dt>
 		<dd>
-			<c:out value="${userEntity.citizenship}" />
+			<c:out value="${userEntity.citizenship.name}" />
 		</dd>
 		
 		<dt><spring:message code="account.label.ethnicity" /></dt>
@@ -153,7 +153,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 				</c:if>
 				<c:out value="${address.city}" />, <c:out value="${address.state}" /> <c:out value="${address.zipcode}" />
 				<br>
-				<c:out value="${address.country}" />
+				<c:out value="${address.country.name}" />
 				<br><br>
 			</address>
 		</c:forEach>
@@ -219,7 +219,7 @@ I need this to push down the content below from mixing with the addresses -->
 					<%-- <td><c:out value="${highSchool.id}"></c:out></td> --%>
 					<td><c:out value="${highSchool.name}"></c:out></td>
 					<td><c:out value="${highSchool.state}"></c:out></td>
-					<td><c:out value="${highSchool.country}"></c:out></td>
+					<td><c:out value="${highSchool.country.name}"></c:out></td>
 					<td><c:out value="${highSchool.diplome}"></c:out></td>
 					<td><c:out value="${highSchool.gED}"></c:out></td>
 				</tr>
@@ -267,7 +267,7 @@ I need this to push down the content below from mixing with the addresses -->
 						<td><c:out value="${institute.programOfStudy}"></c:out></td>
 						<td><c:out value="${institute.levelOfStudy}"></c:out></td>
 						<td><c:out value="${institute.state}"></c:out></td>
-						<td><c:out value="${institute.country}"></c:out></td>
+						<td><c:out value="${institute.country.name}"></c:out></td>
 					</tr>
 				
 				</c:forEach>
@@ -292,7 +292,7 @@ I need this to push down the content below from mixing with the addresses -->
 					<!-- <th>Id</th> -->
 					<th>name</th>
 					<th>score</th>
-					<th>validTill</th>
+					<!-- <th>validTill</th> -->
 				</tr>
 	
 				<c:forEach var="standardTest" items="${standardTests}">
@@ -301,10 +301,10 @@ I need this to push down the content below from mixing with the addresses -->
 					</td> --%>
 					<td><c:out value="${standardTest.name}"></c:out></td>
 					<td><c:out value="${standardTest.score}"></c:out></td>
-					<td>
+					<%-- <td>
 					<fmt:formatDate var="validTillString" value="${standardTest.validTill}" pattern="MM-dd-yyyy" />
 					<c:out value="${validTillString}" />
-					</td>
+					</td> --%>
 				</tr>
 								
 				</c:forEach>

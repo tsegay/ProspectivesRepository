@@ -135,7 +135,7 @@ public class StudentPDFReportGenerator {
 			cell.setPadding(8);
 			cell.setBorderWidthBottom(2f);
 //	        cell.setBackgroundColor(BaseColor.GRAY);
-	        cell.setGrayFill(0.75f);
+	        cell.setGrayFill(0.95f);
 			table.addCell(cell);
 			
 			// row 2, cell 1
@@ -162,6 +162,9 @@ public class StudentPDFReportGenerator {
 			cell.setPadding(8);
 			cell.setBorder(Rectangle.RIGHT);
 			table.addCell(cell);
+			
+			
+			
 			
 			// row 2n, cell 1 - span 3
 			paragraph = new Paragraph();
@@ -193,14 +196,19 @@ public class StudentPDFReportGenerator {
 			// row 3, cell 2
 			paragraph = new Paragraph();
 			paragraph.add(new Phrase("Country of Birth: ", normalBoldFont));
-			paragraph.add(new Phrase(userEntity.getCountryOfBirth(), smallFont));
+			
+			if (userEntity.getCountryOfBirth() != null) {
+				paragraph.add(new Phrase(userEntity.getCountryOfBirth().getName(), smallFont));
+			}
 			cell = new PdfPCell(paragraph);
 			cell.setPadding(8);
 			table.addCell(cell);
 			// row 3, cell 3
 			paragraph = new Paragraph();
 			paragraph.add(new Phrase("Country of Citizenship: ", normalBoldFont));
-			paragraph.add(new Phrase(userEntity.getCitizenship().getName(), smallFont));
+			if (userEntity.getCitizenship() != null) {
+				paragraph.add(new Phrase(userEntity.getCitizenship().getName(), smallFont));
+			}
 			cell = new PdfPCell(paragraph);
 			cell.setPadding(8);
 			table.addCell(cell);
@@ -292,7 +300,9 @@ public class StudentPDFReportGenerator {
 				// Address row 2, cell 3
 				paragraph = new Paragraph();
 				paragraph.add(new Phrase("Country: ", normalBoldFont));
-				paragraph.add(new Phrase(address.getCountry().getName(), smallFont));
+				if (address.getCountry() != null) {
+					paragraph.add(new Phrase(address.getCountry().getName(), smallFont));
+				}
 				cell = new PdfPCell(paragraph);
 				cell.setPadding(8);
 //				cell.setBorder(10);
@@ -346,7 +356,9 @@ public class StudentPDFReportGenerator {
 				// Address row 2, cell 3
 				paragraph = new Paragraph();
 				paragraph.add(new Phrase("Country: ", normalBoldFont));
-				paragraph.add(new Phrase(mailingAddress.getCountry().getName(), smallFont));
+				if (mailingAddress.getCountry() != null) {
+					paragraph.add(new Phrase(mailingAddress.getCountry().getName(), smallFont));
+				}
 				cell = new PdfPCell(paragraph);
 				cell.setPadding(8);
 //				cell.setBorder(10);
@@ -379,7 +391,7 @@ public class StudentPDFReportGenerator {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cell.setPadding(8);
 			cell.setBorderWidthBottom(2f);
-	        cell.setGrayFill(0.75f);
+	        cell.setGrayFill(0.95f);
 			table.addCell(cell);
 						
 			// row 6, cell 1 - span 3
@@ -410,7 +422,7 @@ public class StudentPDFReportGenerator {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cell.setPadding(8);
 			cell.setBorderWidthBottom(2f);
-	        cell.setGrayFill(0.75f);
+	        cell.setGrayFill(0.95f);
 			table.addCell(cell);
 			
 			// row HighSchool
@@ -471,7 +483,9 @@ public class StudentPDFReportGenerator {
 					// HighSchool row 2, cell 3
 					paragraph = new Paragraph();
 					paragraph.add(new Phrase("Country: ", normalBoldFont));
-					paragraph.add(new Phrase(highSchool.getCountry().getName(), smallFont));
+					if (highSchool.getCountry() != null) {
+						paragraph.add(new Phrase(highSchool.getCountry().getName(), smallFont));
+					}
 					cell = new PdfPCell(paragraph);
 					cell.setPadding(8);
 					cell.setBorder(Rectangle.RIGHT | Rectangle.BOTTOM);
@@ -486,7 +500,7 @@ public class StudentPDFReportGenerator {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cell.setPadding(8);
 			cell.setBorderWidthBottom(2f);
-	        cell.setGrayFill(0.75f);
+	        cell.setGrayFill(0.95f);
 			table.addCell(cell);
 			
 			// row Institute
@@ -506,7 +520,9 @@ public class StudentPDFReportGenerator {
 					// Institute row 2, cell 1
 					paragraph = new Paragraph();
 					paragraph.add(new Phrase("Level of Study: ", normalBoldFont));
-					paragraph.add(new Phrase(institute.getLevelOfStudy().name(), smallFont));
+					if (institute.getLevelOfStudy() != null) {
+						paragraph.add(new Phrase(institute.getLevelOfStudy().name(), smallFont));
+					}
 					cell = new PdfPCell(paragraph);
 					cell.setBorder(Rectangle.LEFT);
 					cell.setPadding(8);
@@ -554,7 +570,9 @@ public class StudentPDFReportGenerator {
 					// Institute row 3, cell 3
 					paragraph = new Paragraph();
 					paragraph.add(new Phrase("Country: ", normalBoldFont));
-					paragraph.add(new Phrase(institute.getCountry().getName(), smallFont));
+					if (institute.getCountry() != null) {
+						paragraph.add(new Phrase(institute.getCountry().getName(), smallFont));
+					}
 					cell = new PdfPCell(paragraph);
 					cell.setPadding(8);
 					cell.setBorder(Rectangle.RIGHT | Rectangle.BOTTOM);

@@ -110,8 +110,13 @@
 				<spring:message code="account.label.gender" />
 			</label>
 			<div class="col-sm-5">
-				<form:input class="form-control" path="gender"
-					placeholder="Your gender" />
+				<form:select path="gender" class="form-control">
+					<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+					<form:option value="MALE" label="Male" />
+					<form:option value="FEMALE" label="Female" />
+				</form:select>
+				<%-- <form:input class="form-control" path="gender"
+					placeholder="Your gender" /> --%>
 			</div>
 			<div class="col-sm-5">
 				<form:errors class="errormsg" path="gender" htmlEscape="false" />
@@ -156,8 +161,16 @@
 				<spring:message code="account.label.ethnicity" />
 			</label>
 			<div class="col-sm-5">
-				<form:input class="form-control" path="ethnicity"
-					placeholder="Your ethnicity" />
+				<form:select path="ethnicity" class="form-control">
+					<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+					<form:option value="WHITE" label="White" />
+					<form:option value="HISPANIC" label="Hispanic" />
+					<form:option value="BLACK_OR_AFRICAN_AMERICAN" label="Black/African American" />
+					<form:option value="ASIAN_PACIFIC_ISLANDER" label="Asian/Pacific Islander" />
+					<form:option value="NATIVE_AMERICAN_OR_ALASKAN" label="Native American/Alaskan" />
+				</form:select>
+				<%-- <form:input class="form-control" path="ethnicity"
+					placeholder="Your ethnicity" /> --%>
 			</div>
 			<div class="col-sm-5">
 				<form:errors class="errormsg" path="ethnicity" htmlEscape="false" />

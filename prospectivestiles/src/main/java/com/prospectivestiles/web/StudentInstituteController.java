@@ -107,17 +107,19 @@ public class StudentInstituteController {
 		return "newInstituteForm";
 	}
 	
+	
 	@RequestMapping(value = "/myAccount/institute/new", method = RequestMethod.POST)
-	public String postNewInstituteForm(@ModelAttribute @Valid Institute institute, Model model, BindingResult result) {
-
+	public String postNewInstituteForm(@ModelAttribute @Valid Institute institute, 
+			BindingResult result, Model model) {
+		UserEntity userEntity = getUserEntityFromSecurityContext();
+		
 		if (result.hasErrors()) {
+			model.addAttribute(userEntity);
 			model.addAttribute("countries", countryService.getAllCountries());
 			return "newInstituteForm";
 		}
 
 
-		UserEntity userEntity = getUserEntityFromSecurityContext();
-		
 		institute.setUserEntity(userEntity);
 		institute.setCreatedBy(userEntity);
 		instituteService.createInstitute(institute);
