@@ -90,21 +90,20 @@
         </div>
         
 		<div class="form-group row">
-			<!-- <label for="country" class="col-sm-2 control-label">Country</label> -->
 			<label for="country" class="col-sm-2 control-label">
 				<spring:message code="instituteForm.label.country" />
 				<span class="glyphicon glyphicon-asterisk red-asterisk"></span>
 			</label>
 			<div class = "col-sm-5">
-				<form:select path="country.id">
+				<form:select path="country.id" nullOptionCode="none">
+					<%-- <form:option value="251" label="--- Select ---" /> --%>
 				    <c:forEach var="c" items="${countries}">
 				   		<form:option value="${c.id}" label="${c.name}"/>
 				   </c:forEach>
 				</form:select>
-				<%-- <form:input path="country" class = "form-control" id = "country" placeholder = "Your Country"/> --%>
 			</div>
 			<div class="col-sm-5">
-		    	<form:errors class="errormsg" path="country" htmlEscape="false" />
+		    	<form:errors class="errormsg" path="country.id" htmlEscape="false" />
 		    </div>
         </div>
         
@@ -129,7 +128,7 @@
 			</label>
 			<div class = "col-sm-5">
 				<form:select path="levelOfStudy" class="form-control">
-					<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+					<form:option value="" label="" />
 					<form:option value="HIGHSCHOOL" label="High School" />
 					<form:option value="CERTIFICATE" label="Certificate" />
 					<form:option value="ASSOCIATES_OF_ARTS" label="Associate of Arts" />

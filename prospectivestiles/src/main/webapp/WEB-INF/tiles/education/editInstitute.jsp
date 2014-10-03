@@ -133,7 +133,7 @@
 		</label>
 		<div class = "col-sm-5">
 			<form:select path="levelOfStudy" class="form-control">
-				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+				<form:option value="" label="" />
 				<form:option value="HIGHSCHOOL" label="High School" />
 				<form:option value="CERTIFICATE" label="Certificate" />
 				<form:option value="ASSOCIATES_OF_ARTS" label="Associate of Arts" />

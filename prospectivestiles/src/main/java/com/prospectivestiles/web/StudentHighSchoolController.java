@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -61,6 +62,7 @@ public class StudentHighSchoolController {
 
 	    // true passed to CustomDateEditor constructor means convert empty String to null
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	    
 	}
 	
 	// ======================================

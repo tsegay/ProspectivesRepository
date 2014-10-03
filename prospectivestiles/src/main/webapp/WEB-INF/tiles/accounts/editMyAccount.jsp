@@ -111,7 +111,7 @@
 			</label>
 			<div class="col-sm-5">
 				<form:select path="gender" class="form-control">
-					<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+					<form:option value="" label="" />
 					<form:option value="MALE" label="Male" />
 					<form:option value="FEMALE" label="Female" />
 				</form:select>
@@ -142,16 +142,14 @@
 			</label>
 			<div class="col-sm-5">
 				<form:select path="citizenship.id">
+					<%-- <form:option value="251" label="--- Select ---" /> --%>
 				    <c:forEach var="c" items="${countries}">
 				   		<form:option value="${c.id}" label="${c.name}"/>
 				   </c:forEach>
 				</form:select>
-				
-				<%-- <form:input class="form-control" path="citizenship"
-					placeholder="Your citizenship" /> --%>
 			</div>
 			<div class="col-sm-5">
-				<form:errors class="errormsg" path="citizenship" htmlEscape="false" />
+				<form:errors class="errormsg" path="citizenship.id" htmlEscape="false" />
 			</div>
 		</div>
 	
@@ -162,7 +160,7 @@
 			</label>
 			<div class="col-sm-5">
 				<form:select path="ethnicity" class="form-control">
-					<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+					<form:option value="${null}" label="" />
 					<form:option value="WHITE" label="White" />
 					<form:option value="HISPANIC" label="Hispanic" />
 					<form:option value="BLACK_OR_AFRICAN_AMERICAN" label="Black/African American" />

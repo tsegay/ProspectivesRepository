@@ -6,6 +6,19 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+	<c:url var="editAccountUrl" value="/accounts/${userEntity.id}/edit" />
+	<c:url var="createAssociatedUser" value="/accounts/${userEntity.id}/associatedUser/new" />
+	<c:url var="editAssociatedUser" value="/accounts/${userEntity.id}/associatedUser/edit" />
+	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
+	<c:url var="updateAccountState" value="/accounts/${userEntity.id}/updateAccountState" />
+	<c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" />
+</sec:authorize>
+<%-- <sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
+	<c:url var="newAddressUrl" value="/myAccount/address/new" />
+</sec:authorize> --%>
+
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<div class="well well-sm row">
 		<div class="col-sm-3">
@@ -152,11 +165,37 @@
 		</dd>
 		</sec:authorize>
 		
+		<c:choose>
+			<c:when test="${userEntity.accountState != 'pending'}">
+				<dt></dt>
+				<dd>
+					<%-- <a href="${updateAccountState}">Allow student to make changes</a> --%>
+					<!-- Button trigger modal -->
+					<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+					<a data-toggle="modal" data-remote="${updateAccountState}" data-target="#updateAccountStateModal" 
+						class="btn btn-warning btn-sm">Allow applicant to make changes</a><br><br>
+					</sec:authorize>
+				</dd>
+			</c:when>
+		</c:choose>
+		
+		
+			
+			
+		<!-- delete address Modal -->
+		<div class="modal fade" id="updateAccountStateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class = "modal-content">
+		    
+			</div>
+		  </div>
+		</div>
+		
+
 <%-- 		<dt>Password:</dt>
 		<dd>
 			<a href="${updatePassword}">Change Password</a>
 		</dd> --%>
-		
 	</dl>
 </div>
 <div class="row">
@@ -169,14 +208,7 @@
 </div>
 
 
-<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<c:url var="editAccountUrl" value="/accounts/${userEntity.id}/edit" />
-	<c:url var="createAssociatedUser" value="/accounts/${userEntity.id}/associatedUser/new" />
-	<c:url var="editAssociatedUser" value="/accounts/${userEntity.id}/associatedUser/edit" />
-	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
-</sec:authorize>
+
 
 
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
@@ -440,13 +472,6 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 I need this to push down the h3 below from mixing with the addresses -->
 <div class="row"></div>
 
-<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<c:url var="newAddressUrl"
-		value="/accounts/${userEntity.id}/address/new" />
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
-	<c:url var="newAddressUrl" value="/myAccount/address/new" />
-</sec:authorize>
 
 <h5>
 	<a href="${newAddressUrl}">Add New Address</a>

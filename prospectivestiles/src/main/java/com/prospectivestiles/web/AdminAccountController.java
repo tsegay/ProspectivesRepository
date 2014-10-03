@@ -1,5 +1,6 @@
 package com.prospectivestiles.web;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -395,6 +396,32 @@ public class AdminAccountController {
 		origUserEntity.setId(userEntityId);
 		userEntityService.updateUserEntity(origUserEntity);
 		
+		return "redirect:/accounts/{userEntityId}";
+	}
+	
+	/*
+	 * Using a Modal to delete Address.
+	 * The delete form in the Modal calls this method
+	 */
+	@RequestMapping(value = "/accounts/{userEntityId}/updateAccountState", method = RequestMethod.GET)
+	public String getUpdateAccountState(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		System.out.println("################# updateAccountState");
+		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		
+		model.addAttribute("userEntity", userEntity);
+		
+		return "updateAccountState";
+	}
+	
+	@RequestMapping(value = "/accounts/{userEntityId}/updateAccountState", method = RequestMethod.POST)
+	public String postUpdateAccountState(@PathVariable("userEntityId") Long userEntityId,
+			Model model)
+			throws IOException {
+		System.out.println("################# updateAccountState");
+		
+		userEntityService.updateUserEntityRole(userEntityId, "pending", "ROLE_STUDENT_PENDING");
 		return "redirect:/accounts/{userEntityId}";
 	}
 	

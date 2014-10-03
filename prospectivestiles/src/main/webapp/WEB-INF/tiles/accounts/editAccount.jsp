@@ -12,11 +12,9 @@
 	<c:url var="editAccountUrl" value="/accounts/${userEntity.id}/edit" />
 	<c:url var="deleteAccountUrl" value="" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
-	<%-- <c:url var="accountsUrl" value="/myAccount/accounts" /> --%>
-	<%-- <c:url var="editAccountUrl" value="/myAccount/account/${userEntity.id}" /> --%>
+<%-- <sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
 	<c:url var="deleteAccountUrl" value="" />
-</sec:authorize>
+</sec:authorize> --%>
 
 <h1>Edit Account</h1>
 
@@ -116,7 +114,7 @@
 			</label>
 			<div class="col-sm-5">
 				<form:select path="gender" class="form-control">
-					<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+					<form:option value="" label="" />
 					<form:option value="MALE" label="Male" />
 					<form:option value="FEMALE" label="Female" />
 				</form:select>
@@ -168,7 +166,7 @@
 			</label>
 			<div class="col-sm-5">
 				<form:select path="ethnicity" class="form-control">
-					<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+					<form:option value="" label="" />
 					<form:option value="WHITE" label="White" />
 					<form:option value="HISPANIC" label="Hispanic" />
 					<form:option value="BLACK_OR_AFRICAN_AMERICAN" label="Black/African American" />
@@ -284,12 +282,12 @@
 </form:form>
 <!-- datepicker http://bootstrap-datepicker.readthedocs.org/en/release/ -->
 
-<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+<%-- <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="getCitizenshipUrl" value="/accounts/${userEntity.id}/getmessages" />
 </sec:authorize>
 <sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED', 'ROLE_STUDENT_DENIED')">
 	<c:url var="getCitizenshipUrl" value="/myAccount/getmessages" />
-</sec:authorize>
+</sec:authorize> --%>
 
 
 <script>
