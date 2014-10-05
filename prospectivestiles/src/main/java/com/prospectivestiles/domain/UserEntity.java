@@ -40,6 +40,7 @@ import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -109,6 +110,7 @@ public class UserEntity implements UserDetails {
 	 * if acceptTerms=true it means the student has read the privacy policy
 	 */
 	private boolean marketingOk = true, acceptTerms = false, enabled = true;
+	private boolean visible = true;
 	private Date dateCreated;
 	private Date dob;
 	private String gender;
@@ -276,6 +278,14 @@ public class UserEntity implements UserDetails {
 //	
 //	public void setRoles(Set<Role> roles) { this.roles = roles; }
 	
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
 	@JsonIgnore
 	@ManyToOne
 	public Role getRole() {

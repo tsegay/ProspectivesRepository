@@ -29,7 +29,7 @@ public class ProgramOfStudyServiceImpl implements ProgramOfStudyService {
 
 	@Override
 	public List<ProgramOfStudy> getAllProgramOfStudies() {
-		return programOfStudyDao.findAll();
+		return programOfStudyDao.findAllVisible();
 	}
 
 	@Override

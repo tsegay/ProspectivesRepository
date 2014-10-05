@@ -40,7 +40,7 @@ insert the term and program of study to the userEntity using jdbc
 		<!-- Button trigger modal -->
 		<p>Select term and program of study you are applying for:</p> <br />
 		
-		<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+		<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 			<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#addTermModal">
 			  Select
 			</button>
@@ -67,7 +67,7 @@ insert the term and program of study to the userEntity using jdbc
 		
 		<div class="row">
 			<div class="col-md-2">
-				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 					<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTermModal">
 					  Edit
 					</button>

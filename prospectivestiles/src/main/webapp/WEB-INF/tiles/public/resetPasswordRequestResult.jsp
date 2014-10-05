@@ -8,7 +8,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script>
 
 
-<h1>Reset Password Request Result</h1>
+<h1>Reset Password</h1>
 <br>
 <br>
 

@@ -6,9 +6,8 @@ import com.prospectivestiles.domain.Term;
 
 public interface TermDao extends Dao<Term> {
 
-	List<Term> getTermsByUserEntityId(long userEntityId);
+//	List<Term> getTermsByUserEntityId(long userEntityId);
 	Term findByName(String name);
 	
-//	void insertTerm(Term term);
 
 }

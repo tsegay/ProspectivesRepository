@@ -32,8 +32,6 @@ public class Message extends BaseEntity implements Serializable {
 	
 	private String subject;
 	private String text;
-	// use this one to block messages
-	private boolean visible = true;
 	
 	private UserEntity student;
 	private UserEntity admissionOfficer;
@@ -58,7 +56,6 @@ public class Message extends BaseEntity implements Serializable {
 		UserEntity admissionOfficer) {
 	this.subject = subject;
 	this.text = text;
-	this.visible = visible;
 	this.student = student;
 	this.admissionOfficer = admissionOfficer;
 }
@@ -84,13 +81,6 @@ public class Message extends BaseEntity implements Serializable {
 	}
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	public boolean isVisible() {
-		return visible;
-	}
-	public void setVisible(boolean visible) {
-		this.visible = visible;
 	}
 
 	@ManyToOne

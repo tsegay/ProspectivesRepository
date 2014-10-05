@@ -12,7 +12,7 @@
 	<c:url var="newStandardTestsUrl" value="/accounts/${userEntity.id}/standardTest/new" />
 	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<%-- <c:url var="standardTestsUrl" value="/myAccount/standardTests" /> --%>
 	<c:url var="newStandardTestsUrl" value="/myAccount/standardTest/new" />
 	<c:url var="educationUrl" value="/myAccount/educations" />

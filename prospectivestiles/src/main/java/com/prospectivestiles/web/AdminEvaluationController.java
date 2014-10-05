@@ -421,6 +421,7 @@ public class AdminEvaluationController {
 		
 		int evaluationCount = 0;
 		String evaluationStatus = "pending";
+		evaluationStatus = userEntity.getAccountState();
 		
 		if (evaluation != null) {
 			
@@ -460,7 +461,7 @@ public class AdminEvaluationController {
 			if (evaluation.getRecommendationLetter().equalsIgnoreCase("complete") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) {
 				evaluationCount = evaluationCount + 1;
 			}
-			evaluationStatus = userEntity.getAccountState();
+//			evaluationStatus = userEntity.getAccountState();
 		
 		}
 		

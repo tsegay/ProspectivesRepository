@@ -26,7 +26,7 @@ public class BaseEntity {
 	private Date dateCreated;
 	private UserEntity lastModifiedBy;
 	private Date dateLastModified;
-	
+	private boolean visible = true;
 	
 	
 	// ======================================
@@ -80,6 +80,14 @@ public class BaseEntity {
 	}
 	public void setDateLastModified(Date dateLastModified) {
 		this.dateLastModified = dateLastModified;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 	
 	

@@ -10,7 +10,7 @@
 	<c:url var="newHighSchoolUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/accounts/${userEntity.id}/institute/new" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<c:url var="newHighSchoolUrl" value="/myAccount/highSchool/new" />
 	<c:url var="newInstituteUrl" value="/myAccount/institute/new" />
 </sec:authorize>
@@ -39,13 +39,13 @@
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="newStandardTestUrl" value="/accounts/${userEntity.id}/standardTest/new" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<c:url var="newStandardTestUrl" value="/myAccount/standardTest/new" />
 </sec:authorize>
 		
 <p>If you took any standard test like TOEFL or IELTS, please fill in the form. </p>
 
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">	
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">	
 	<h5>
 		<a href="${newStandardTestUrl}">Add New Standard Test</a>
 	</h5>
@@ -74,7 +74,7 @@
 					<c:url var="editStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/edit" />
 					<c:url var="deleteStandardTestUrl" value="/accounts/${standardTest.userEntity.id}/standardTest/${standardTest.id}/delete" />
 				</sec:authorize>
-				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 					<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/edit" />
 					<c:url var="deleteStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/delete" />
 				</sec:authorize>
@@ -89,13 +89,13 @@
 					<c:out value="${validTillString}" />
 					</td> --%>
 					<td>
-						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 							<a href="${editStandardTestUrl}" class="btn btn-primary btn-sm">Edit</a>
 						</sec:authorize>
 					</td>
 					<td>
 						<!-- Button trigger modal -->
-						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 							<a data-toggle="modal" data-remote="${deleteStandardTestUrl}" data-target="#deleteStandardTestModal" 
 								class="btn btn-danger btn-sm">Delete</a><br><br>
 						</sec:authorize>
@@ -130,7 +130,7 @@
 Applicants applying for a Certificate, a Bachelor or an Associates Degree are required to provide information about their High School.
 </p>
 
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<h5>
 		<a href="${newHighSchoolUrl}">Add New High School</a>
 	</h5>
@@ -173,7 +173,7 @@ Applicants applying for a Certificate, a Bachelor or an Associates Degree are re
 					<c:url var="editHighSchoolUrl" value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}/edit" />
 					<c:url var="deleteHighSchoolUrl" value="/accounts/${highSchool.userEntity.id}/highSchool/${highSchool.id}/delete" />
 				</sec:authorize>
-				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 					<c:url var="editHighSchoolUrl" value="/myAccount/highSchool/${highSchool.id}/edit" />
 					<c:url var="deleteHighSchoolUrl" value="/myAccount/highSchool/${highSchool.id}/delete" />
 				</sec:authorize>
@@ -186,13 +186,13 @@ Applicants applying for a Certificate, a Bachelor or an Associates Degree are re
 					<td><c:out value="${highSchool.diplome}"></c:out></td>
 					<td><c:out value="${highSchool.gED}"></c:out></td>
 					<td>
-						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 							<a href="${editHighSchoolUrl}" class="btn btn-primary btn-sm">Edit</a>
 						</sec:authorize>
 					</td>
 					<td>
 						<!-- Button trigger modal -->
-						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 							<a data-toggle="modal" data-remote="${deleteHighSchoolUrl}" data-target="#deleteHighSchoolModal" 
 								class="btn btn-danger btn-sm">Delete</a><br><br>
 						</sec:authorize>
@@ -226,7 +226,7 @@ Applicants applying for a Certificate, a Bachelor or an Associates Degree are re
 Applicants applying for a Masters or Post Masters Degree are required to provide information about Institutes attended in the past.
 </p>
 
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<h5>
 		<a href="${newInstituteUrl}">Add New Institute</a>
 	</h5>
@@ -267,7 +267,7 @@ Applicants applying for a Masters or Post Masters Degree are required to provide
 					<c:url var="editInstituteUrl" value="/accounts/${institute.userEntity.id}/institute/${institute.id}/edit" />
 					<c:url var="deleteInstituteUrl" value="/accounts/${institute.userEntity.id}/institute/${institute.id}/delete" />
 				</sec:authorize>
-				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 					<%-- <c:url var="instituteUrl"	value="/myAccount/institute/${institute.id}" /> --%>
 					<c:url var="editInstituteUrl" value="/myAccount/institute/${institute.id}/edit" />
 					<c:url var="deleteInstituteUrl" value="/myAccount/institute/${institute.id}/delete" />
@@ -284,13 +284,13 @@ Applicants applying for a Masters or Post Masters Degree are required to provide
 						<td><c:out value="${institute.state}"></c:out></td>
 						<td><c:out value="${institute.country.name}"></c:out></td>
 						<td>
-							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 								<a href="${editInstituteUrl}" class="btn btn-primary btn-sm">Edit</a>
 							</sec:authorize>
 						</td>
 						<td>
 							<!-- Button trigger modal -->
-							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 								<a data-toggle="modal" data-remote="${deleteInstituteUrl}" data-target="#deleteInstituteModal" 
 									class="btn btn-danger btn-sm">Delete</a><br><br>
 							</sec:authorize>

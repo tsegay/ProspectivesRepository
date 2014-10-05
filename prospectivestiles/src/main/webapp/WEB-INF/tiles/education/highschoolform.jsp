@@ -10,7 +10,7 @@
 	<c:url var="highSchoolFormUrl" value="/accounts/${userEntity.id}/highSchool/new" />
 	<c:url var="myEducationUrl" value="/accounts/${userEntity.id}/educations" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<c:url var="highSchoolFormUrl" value="/myAccount/highSchool/new" />
 	<c:url var="myEducationUrl" value="/myAccount/educations" />
 </sec:authorize>	

@@ -10,7 +10,7 @@
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
    	<c:url var="deleteFileUrl" value="/accounts/${userEntity.id}/files/${file.id}/delete" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
    	<c:url var="deleteFileUrl" value="/myAccount/files/${file.id}/delete" />
 </sec:authorize>
 

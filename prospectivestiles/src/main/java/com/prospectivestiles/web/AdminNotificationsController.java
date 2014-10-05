@@ -130,8 +130,8 @@ public class AdminNotificationsController {
 		notification.setVisible(false);
 		notification.setReadOn(new Date());
 		notification.setReadBy(admissionOfficer);
-		notificationService.insertIntoNotificationJDBC(noticeId, notification);
-//		notificationService.updateNotification(notification);
+//		notificationService.insertIntoNotificationJDBC(noticeId, notification);
+		notificationService.updateNotification(notification);
 		
 		/*System.out.println("############# 2 getId: " + notification.getId());
 		System.out.println("############# 2 isVisible: " + notification.isVisible());

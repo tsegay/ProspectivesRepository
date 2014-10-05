@@ -15,17 +15,17 @@ import com.prospectivestiles.domain.Term;
 @Repository
 public class HbnTermDao extends AbstractHbnDao<Term> implements TermDao {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Term> getTermsByUserEntityId(long userEntityId) {
-		Session session = getSession();
-		Query query = session.getNamedQuery("findTermsByUserEntityId");
-		query.setParameter("id", userEntityId);
-		
-		List<Term> terms = query.list();
-		
-		return terms;
-	}
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public List<Term> getTermsByUserEntityId(long userEntityId) {
+//		Session session = getSession();
+//		Query query = session.getNamedQuery("findTermsByUserEntityId");
+//		query.setParameter("id", userEntityId);
+//		
+//		List<Term> terms = query.list();
+//		
+//		return terms;
+//	}
 
 
 	@Override

@@ -76,5 +76,4 @@ public class StudentAgreement extends BaseEntity {
 		this.userEntity = userEntity;
 	}
 
-
 }

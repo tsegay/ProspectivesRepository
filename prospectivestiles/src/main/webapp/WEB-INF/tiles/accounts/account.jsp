@@ -15,9 +15,6 @@
 	<c:url var="updateAccountState" value="/accounts/${userEntity.id}/updateAccountState" />
 	<c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" />
 </sec:authorize>
-<%-- <sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
-	<c:url var="newAddressUrl" value="/myAccount/address/new" />
-</sec:authorize> --%>
 
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<div class="well well-sm row">
@@ -166,7 +163,9 @@
 		</sec:authorize>
 		
 		<c:choose>
-			<c:when test="${userEntity.accountState != 'pending'}">
+	
+			<c:when test="${(userEntity.accountState == 'complete') or (userEntity.accountState == 'admitted') or (userEntity.accountState == 'denied')}">
+			
 				<dt></dt>
 				<dd>
 					<%-- <a href="${updateAccountState}">Allow student to make changes</a> --%>
@@ -404,10 +403,10 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 				<c:url var="editAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}/edit" />
 				<c:url var="deleteAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}/delete" />
 			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
+			<%-- <sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
 				<c:url var="editAddressUrl" value="/myAccount/address/${address.id}/edit" />
 				<c:url var="deleteAddressUrl" value="/myAccount/address/${address.id}/delete" />
-			</sec:authorize>
+			</sec:authorize> --%>
 
 			<address class="col-md-6">
 				<%-- address.id: <c:out value="${address.id}" /> --%>

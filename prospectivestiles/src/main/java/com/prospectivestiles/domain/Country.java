@@ -31,6 +31,7 @@ public class Country implements Serializable {
 	private int iSO3166numeric;
 	private String name;
 	private String continent;
+	private boolean visible = true;
 	
 	// ======================================
     // =            Constructors            =
@@ -86,6 +87,12 @@ public class Country implements Serializable {
 	}
 	public void setContinent(String continent) {
 		this.continent = continent;
+	}
+	public boolean isVisible() {
+		return visible;
+	}
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 	
 

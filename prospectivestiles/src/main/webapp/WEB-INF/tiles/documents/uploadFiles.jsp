@@ -27,7 +27,7 @@
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="saveFileUrl" value="/accounts/${userEntity.id}/saveFile" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<c:url var="saveFileUrl" value="/myAccount/saveFile" />
 </sec:authorize>
 			
@@ -82,7 +82,7 @@
 				<c:url var="donwloadFileUrl" value="/accounts/${userEntity.id}/files/${file.id}" />
 		    	<c:url var="deleteFileUrl" value="/accounts/${userEntity.id}/files/${file.id}/delete" />
 			</sec:authorize>
-			<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+			<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 				<c:url var="donwloadFileUrl" value="/myAccount/files/${file.id}" />
 		    	<c:url var="deleteFileUrl" value="/myAccount/files/${file.id}/delete" />
 			</sec:authorize>
@@ -94,7 +94,7 @@
 		         	<span class="col-md-1"></span>
 		         	
 		         	<!-- Button trigger modal -->
-		         	<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+		         	<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 						<a data-toggle="modal" data-remote="${deleteFileUrl}" data-target="#deleteFileModal" 
 							class="btn btn-danger btn-sm col-md-1 neg-12-margin-top">Delete</a><br><br>
 					</sec:authorize>

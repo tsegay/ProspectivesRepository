@@ -16,7 +16,7 @@
 	<c:url var="editAddressUrl" value="/accounts/${user.id}/address/${address.id}/edit" />
 	<c:url var="deleteAddressUrl" value="/accounts/${user.id}/address/${address.id}/delete" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<c:url var="accountsUrl" value="/myAccount" />
 	<%-- <c:url var="addressesUrl" value="/myAccount/addresses" /> --%>
 	<c:url var="editAddressUrl" value="/myAccount/address/${address.id}/edit" />

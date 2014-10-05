@@ -57,25 +57,6 @@
 		<!-- =========================================================================== -->
 		<!-- ###############  TESTING PURPOSE ONLY #################### -->
 		<!-- =========================================================================== -->
-		<!-- <intercept-url pattern="/accounts/*/testAttachment" access="permitAll" />
-		<intercept-url pattern="/show" access="permitAll" />
-		<intercept-url pattern="/save" access="permitAll" />
-		<intercept-url pattern="/createPDF" access="permitAll" />
-		<intercept-url pattern="/download/*" access="permitAll" />
-		<intercept-url pattern="/createMemPDF" access="permitAll" />
-		<intercept-url pattern="/admin/report/createPDF" access="permitAll" />
-		<intercept-url pattern="/admin/report/download/*" access="permitAll" /> -->
-		
-		<!-- For testing JSON -->
-		<!-- <intercept-url pattern="/json/accounts/messages" access="permitAll" />
-		<intercept-url pattern="/json/accounts/*/sendmessage" access="permitAll" />
-		<intercept-url pattern="/json/accounts/sendmessage" access="permitAll" />
-		<intercept-url pattern="/json/accounts/*/messages" access="permitAll" />
-		<intercept-url pattern="/json/jsonMessages" access="permitAll" />
-		
-		
-		<intercept-url pattern="/json/accounts/*/addresses" access="permitAll" />
-		<intercept-url pattern="/json/**" access="permitAll" /> -->
 		
 		
 		<!-- =========================================================================== -->
@@ -101,9 +82,9 @@
 		<intercept-url pattern="/accounts/*/institutes" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 
 		<!-- Student institute -->
-		<intercept-url pattern="/myAccount/institute/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/institute/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/institute/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/institute/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/institute/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/institute/new" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
 		<intercept-url pattern="/myAccount/institute/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/institute" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/institutes" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
@@ -117,9 +98,9 @@
 		<intercept-url pattern="/accounts/*/highSchools" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 
 		<!-- Student highSchool -->
-		<intercept-url pattern="/myAccount/highSchool/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/highSchool/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/highSchool/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/highSchool/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/highSchool/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/highSchool/new" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
 		<intercept-url pattern="/myAccount/highSchool/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/highSchool" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/highSchools" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
@@ -133,9 +114,9 @@
 		<intercept-url pattern="/accounts/*/addresses" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student addresses -->
-		<intercept-url pattern="/myAccount/address/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/address/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/address/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/address/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/address/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/address/new" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
 		<intercept-url pattern="/myAccount/address/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/address" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/addresses" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
@@ -157,9 +138,9 @@
 		<intercept-url pattern="/accounts/*/employers" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student employers -->
-		<intercept-url pattern="/myAccount/employer/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/employer/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/employer/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/employer/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/employer/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/employer/new" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
 		<intercept-url pattern="/myAccount/employer/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/employer" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/employers" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
@@ -173,9 +154,9 @@
 		<intercept-url pattern="/accounts/*/emergencyContacts" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student emergencyContacts -->
-		<intercept-url pattern="/myAccount/emergencyContact/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/emergencyContact/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/emergencyContact/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/emergencyContact/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/emergencyContact/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/emergencyContact/new" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
 		<intercept-url pattern="/myAccount/emergencyContact/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/emergencyContact" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/emergencyContacts" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
@@ -189,9 +170,9 @@
 		<intercept-url pattern="/accounts/*/standardTests" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student StandardTest -->
-		<intercept-url pattern="/myAccount/standardTest/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/standardTest/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/standardTest/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/standardTest/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/standardTest/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/standardTest/new" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
 		<intercept-url pattern="/myAccount/standardTest/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/standardTest" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/standardTests" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
@@ -207,9 +188,9 @@
 		<!-- <intercept-url pattern="/accounts/*/applyingFors" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" /> -->
 		
 		<!-- Student applyingFor -->
-		<intercept-url pattern="/myAccount/applyingFor/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/applyingFor/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
-		<intercept-url pattern="/myAccount/applyingFor/new" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/applyingFor/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/applyingFor/*/edit" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
+		<intercept-url pattern="/myAccount/applyingFor/new" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
 		<intercept-url pattern="/myAccount/applyingFor/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/applyingFor" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<!-- <intercept-url pattern="/myAccount/applyingFors" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" /> -->
@@ -221,7 +202,7 @@
 		<intercept-url pattern="/accounts/*/files" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- Student uploadFiles -->
-		<intercept-url pattern="/myAccount/files/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING')" />
+		<intercept-url pattern="/myAccount/files/*/delete" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')" />
 		<intercept-url pattern="/myAccount/files/*" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/saveFile" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />
 		<intercept-url pattern="/myAccount/files" access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_STUDENT_COMPLETE', 'ROLE_STUDENT_ADMITTED')" />

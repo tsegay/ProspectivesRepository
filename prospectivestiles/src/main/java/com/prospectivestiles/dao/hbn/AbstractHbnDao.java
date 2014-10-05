@@ -81,7 +81,18 @@ public abstract class AbstractHbnDao<T extends Object> implements Dao<T> {
 			.createQuery("from " + getDomainClassName())
 			.list();
 	}
-	
+	/**
+	 * select all where visible is true. 
+	 * to hide an item from being displayed set the visible value to false
+	 * @return
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<T> findAllVisible() {
+		return getSession()
+				.createQuery("from " + getDomainClassName() + " where visible = " + true)
+				.list();
+	}
 	@Override
 	public void update(T t) { getSession().update(t); }
 	

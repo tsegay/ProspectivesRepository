@@ -61,10 +61,10 @@ public class AddressServiceImpl implements AddressService {
 	/**
 	 * FOR TESTING PURPOSE
 	 */
-	@Override
-	public void updateAddressZipCode(long addressId, String zipcode) {
-		addressDao.updateZipCode(addressId, zipcode);
-	}
+//	@Override
+//	public void updateAddressZipCode(long addressId, String zipcode) {
+//		addressDao.updateZipCode(addressId, zipcode);
+//	}
 
 	@Override
 	public Address getAddressByUserEntityIdAndAddressType(long userEntityId,

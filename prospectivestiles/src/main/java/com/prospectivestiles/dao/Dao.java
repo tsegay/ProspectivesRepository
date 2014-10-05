@@ -45,6 +45,13 @@ public interface Dao<T extends Object> {
 	
 	List<T> findAll();
 	
+	/**
+	 * select all where visible is true. 
+	 * to hide an item from being displayed set the visible value to false
+	 * @return
+	 */
+	List<T> findAllVisible();
+	
 	void update(T t);
 	
 	void delete(T t);
@@ -56,5 +63,5 @@ public interface Dao<T extends Object> {
 	long count();
 	
 	boolean exists(Serializable id);
-	
+
 }

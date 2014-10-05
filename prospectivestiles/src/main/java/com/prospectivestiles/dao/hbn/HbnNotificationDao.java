@@ -19,28 +19,24 @@ import com.prospectivestiles.domain.UserEntity;
 @Repository
 public class HbnNotificationDao extends AbstractHbnDao<Notification> implements
 		NotificationDao {
-	@Inject private JdbcTemplate jdbcTemplate;
+	
+//	@Inject private JdbcTemplate jdbcTemplate;
+//	private static final String UPDATE_NOTIFICATION_SQL = 
+//			"update notification set visible = ?, readOn = ?, readById = ? where id = ?";
 	
 	
 	
-	private static final String UPDATE_NOTIFICATION_SQL = 
-			"update notification set visible = ?, readOn = ?, readById = ? where id = ?";
-	
-	
-	
-	/*overide the findAll in AbstractHbnDao as i want to sort messages by dateCreated*/
+	/*override the findAll in AbstractHbnDao as i want to sort messages by dateCreated*/
+//	replace with findAllVisible
 	@Override
 	public List<Notification> findAll() {
 		
-//		String hql = "FROM Notification n ORDER BY n.dateCreated DESC";
 		String hql = "FROM Notification n WHERE n.visible = " + true + " ORDER BY n.dateCreated DESC";
-//		String hql = "FROM Notification";
 		
 		Session session = getSession();
 		Query query = session.createQuery(hql);
 		
 		List<Notification> notices = query.list();
-//		List<Notification> notices = new ArrayList<Notification>();
 		
 		return notices;
 	}
@@ -63,7 +59,6 @@ public class HbnNotificationDao extends AbstractHbnDao<Notification> implements
 		
 		List<Notification> notices = query.list();
 		
-//		List<Notification> notices = new ArrayList<Notification>();
 		return notices;
 		
 		
@@ -89,13 +84,13 @@ public class HbnNotificationDao extends AbstractHbnDao<Notification> implements
 		
 	}
 
-	@Override
-	public void insertIntoNotificationJDBC(long noticeId,
-			Notification notification) {
-		jdbcTemplate.update(UPDATE_NOTIFICATION_SQL, new Object[] {
-				notification.isVisible(), notification.getReadOn(), notification.getReadBy().getId(), 
-				noticeId});
-	}
+//	@Override
+//	public void insertIntoNotificationJDBC(long noticeId,
+//			Notification notification) {
+//		jdbcTemplate.update(UPDATE_NOTIFICATION_SQL, new Object[] {
+//				notification.isVisible(), notification.getReadOn(), notification.getReadBy().getId(), 
+//				noticeId});
+//	}
 	
 
 

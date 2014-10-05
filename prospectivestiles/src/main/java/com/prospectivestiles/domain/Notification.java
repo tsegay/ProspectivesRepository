@@ -12,12 +12,15 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
+@NamedQueries({
+	@NamedQuery(
+    		name = "findNotificationsByUserEntityId",
+    		query = "FROM Notification WHERE student.id = :id"),
+//	@NamedQuery(
+//    		name = "findAccountsByTermStatusState",
+//    		query = "SELECT u FROM UserEntity u INNER JOIN u.term t WHERE t.id = :tId AND u.international = :international AND u.accountState = :accountState ORDER BY u.lastName ASC"),
+}) 
 @Entity
-@NamedQueries(
-@NamedQuery(name = "findNotificationsByUserEntityId", 
-query = "FROM Notification WHERE student.id = :id")
-)
 public class Notification extends BaseEntity {
 	
 	// ======================================
@@ -33,8 +36,6 @@ public class Notification extends BaseEntity {
 	 * Why this?? There is dateLastModified in parent class.
 	 */
 	private Date dateModified;
-	// use this one to hide the visible from view
-	private boolean visible = true;
 
 	private UserEntity student;
 
@@ -82,14 +83,7 @@ public class Notification extends BaseEntity {
 	public void setDateModified(Date dateModified) {
 		this.dateModified = dateModified;
 	}
-	public boolean isVisible() {
-		return visible;
-	}
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
 	@ManyToOne
-//	@JoinColumn(name = "studentId")
 	public UserEntity getStudent() {
 		return student;
 	}
@@ -97,7 +91,6 @@ public class Notification extends BaseEntity {
 		this.student = student;
 	}
 	@ManyToOne
-//	@JoinColumn(name = "readById")
 	public UserEntity getReadBy() {
 		return readBy;
 	}

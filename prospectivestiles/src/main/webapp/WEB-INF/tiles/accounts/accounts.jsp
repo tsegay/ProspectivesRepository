@@ -4,6 +4,13 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+	<c:url var="getAccountsUrl" value="/accounts/accounts/1/25" />
+	<c:url var="searchAccountUrl" value="/accounts/accounts/searchAccount" />
+	
+	<%-- <c:url var="getAccountsUrl" value="/accounts/accounts/{page}/{pageSize}" /> --%>
+	<%-- <c:url var="getAccountsUrl" value="/accounts/accountspage?page=1&pageSize=3" /> --%>
+</sec:authorize>
 
 <h1>All Prospective Students</h1>
 
@@ -69,15 +76,6 @@
 <%-- <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.js"></script> --%>
 
-
-
-<%-- <sec:authorize access="hasRole('ROLE_ADMIN')"> --%>
-<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<%-- <c:url var="getAccountsUrl" value="/accounts/accounts/{page}/{pageSize}" /> --%>
-	<c:url var="getAccountsUrl" value="/accounts/accounts/1/25" />
-	<c:url var="searchAccountUrl" value="/accounts/accounts/searchAccount" />
-	<%-- <c:url var="getAccountsUrl" value="/accounts/accountspage?page=1&pageSize=3" /> --%>
-</sec:authorize>
 
 
 <script>

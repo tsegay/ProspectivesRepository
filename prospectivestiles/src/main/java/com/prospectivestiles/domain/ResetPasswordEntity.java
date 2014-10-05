@@ -97,6 +97,4 @@ public class ResetPasswordEntity implements Serializable {
 		this.expireDate = expireDate;
 	}
 	
-	
-	
 }

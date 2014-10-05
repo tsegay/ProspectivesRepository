@@ -13,6 +13,6 @@ public interface AddressService {
 	void createAddress(Address address);
 	void updateAddress(Address address);
 	void delete(Address address);
-	void updateAddressZipCode(long addressId, String zipcode);
+//	void updateAddressZipCode(long addressId, String zipcode);
 	Address getAddressByUserEntityIdAndAddressType(long userEntityId, AddressType addressType);
 }

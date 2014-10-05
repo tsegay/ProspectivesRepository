@@ -11,7 +11,7 @@
 	<c:url var="accountsUrl" value="/accounts/${userEntity.id}" />
 	<c:url var="addressFormUrl" value="/accounts/${userEntity.id}/address/new" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<c:url var="accountsUrl" value="/myAccount" />
 	<c:url var="addressFormUrl" value="/myAccount/address/new" />
 </sec:authorize>

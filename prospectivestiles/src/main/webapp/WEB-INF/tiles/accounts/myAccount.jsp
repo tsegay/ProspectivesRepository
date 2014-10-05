@@ -24,14 +24,14 @@
 	</dl>
 </div>
 
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="userEntityUrl"	value="/myAccount" />
 	<c:url var="editAccountUrl" value="/myAccount/edit" />
 	<c:url var="deleteUserEntityUrl" value="/myAccount/delete" />
 	<c:url var="applyingForUrl" value="/myAccount/applyingFor" />
 	<c:url var="updatePassword"	value="/myAccount/changePassword" />
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<c:url var="newAddressUrl" value="/myAccount/address/new" />
 </sec:authorize>
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
@@ -154,7 +154,7 @@
 
 
 
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<h5>
 		<a href="${editAccountUrl}" class="btn btn-primary btn-sm">Update Personal Information</a>
 	</h5>
@@ -181,7 +181,7 @@ insert the term and program of study to the userEntity using jdbc
 		<!-- Button trigger modal -->
 		<p>Select term and program of study you are applying for:</p> <br />
 		
-		<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+		<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 			<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#addTermModal">
 			  Select
 			</button>
@@ -208,7 +208,7 @@ insert the term and program of study to the userEntity using jdbc
 		
 		<div class="row">
 			<div class="col-md-2">
-				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 					<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTermModal">
 					  Edit
 					</button>
@@ -308,7 +308,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 				<c:url var="deleteAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}/delete" />
 			</sec:authorize>
 			
-			<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+			<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 				<c:url var="editAddressUrl" value="/myAccount/address/${address.id}/edit" />
 				<c:url var="deleteAddressUrl" value="/myAccount/address/${address.id}/delete" />
 			</sec:authorize>
@@ -334,14 +334,14 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 				
 					<div class="row">
 						<div class="col-md-3">
-							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">	
+							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">	
 							<a href="${editAddressUrl}" class="btn btn-primary btn-sm">Edit</a>
 							</sec:authorize>
 						</div>
 						<div class="col-md-3">
 						
 							<!-- Button trigger modal -->
-							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">	
+							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">	
 							<a data-toggle="modal" data-remote="${deleteAddressUrl}" data-target="#deleteModal" 
 								class="btn btn-danger btn-sm">Delete</a><br><br>
 							</sec:authorize>
@@ -374,7 +374,7 @@ I need this to push down the h3 below from mixing with the addresses -->
 
 
 
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<h5>
 		<a href="${newAddressUrl}">Add New Address</a>
 	</h5>

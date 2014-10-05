@@ -77,7 +77,7 @@ public class ProgramOfStudy extends BaseEntity implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-//	@ManyToMany
+	//	@ManyToMany
 //	@LazyCollection(LazyCollectionOption.FALSE)
 //	@ManyToMany(mappedBy = "listOfProgramOfStudy", cascade = CascadeType.ALL)
 	@OneToMany(mappedBy = "programOfStudy", cascade = CascadeType.ALL)

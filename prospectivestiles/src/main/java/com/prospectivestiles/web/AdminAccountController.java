@@ -148,9 +148,7 @@ public class AdminAccountController {
 		// ##### END LOGGING #########
 		
 		
-//		long usersCount = userEntityService.count();
 		/*I want to count all students only, not admin users*/
-		
 		List<Long> rolesList = new ArrayList<Long>();
 		rolesList.add((long) 6);
 		rolesList.add((long) 7);
@@ -158,7 +156,6 @@ public class AdminAccountController {
 		rolesList.add((long) 9);
 		
 		long usersCount = userEntityService.countByRoles(rolesList);
-//		long usersCount = userEntityService.countByRole(1);
 		
 		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
 		// getAllUserEntitiesForPage -- TO BE CHANGED

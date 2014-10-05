@@ -42,6 +42,7 @@ public class NotificationServiceImpl implements NotificationService {
 	}
 
 	@Override
+	@Transactional
 	public void updateNotification(Notification notification) {
 		Notification notificationToUpdate = notificationDao.find(notification.getId());
 		
@@ -74,13 +75,13 @@ public class NotificationServiceImpl implements NotificationService {
 		
 	}*/
 
-	@Override
-	@Transactional(readOnly = false)
-	public void insertIntoNotificationJDBC(long noticeId, Notification notification) {
-		
-		notificationDao.insertIntoNotificationJDBC(noticeId, notification);
-		
-	}
+//	@Override
+//	@Transactional(readOnly = false)
+//	public void insertIntoNotificationJDBC(long noticeId, Notification notification) {
+//		
+//		notificationDao.insertIntoNotificationJDBC(noticeId, notification);
+//		
+//	}
 
 
 }

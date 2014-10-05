@@ -40,7 +40,6 @@ public class Education extends BaseEntity {
 	private Date attendedTo;
 	
 	
-	
 	// ======================================
     // =            Constructors            =
     // ======================================

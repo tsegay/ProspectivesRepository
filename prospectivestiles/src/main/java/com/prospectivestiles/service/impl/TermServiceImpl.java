@@ -25,16 +25,16 @@ public class TermServiceImpl implements TermService {
 	}
 	@Override
 	public List<Term> getAllTerms() {
-		return termDao.findAll();
+		return termDao.findAllVisible();
 	}
 	@Override
 	public Term findByName(String name) {
 		return termDao.findByName(name);
 	}
-	@Override
-	public List<Term> getTermsByUserEntityId(long userEntityId) {
-		return termDao.getTermsByUserEntityId(userEntityId);
-	}
+//	@Override
+//	public List<Term> getTermsByUserEntityId(long userEntityId) {
+//		return termDao.getTermsByUserEntityId(userEntityId);
+//	}
 
 	@Override
 	public void createTerm(Term term) {

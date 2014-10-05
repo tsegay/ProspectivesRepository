@@ -10,7 +10,7 @@
 	<c:url var="getMissingDocuments" value="/admin/report/${userEntity.id}/missingDocuments" />
 	
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 </sec:authorize>
 
 

@@ -30,7 +30,6 @@ public class EmergencyContact extends BaseEntity implements Serializable  {
 	private String phone;
 	private String email;
 	private String relationship;
-	
 	private UserEntity userEntity;
 	
 

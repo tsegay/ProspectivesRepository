@@ -8,7 +8,7 @@
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<c:url var="myAccountUrl" value="/myAccount" />
 	<c:url var="editAccountUrl" value="/myAccount/edit" />
 </sec:authorize>

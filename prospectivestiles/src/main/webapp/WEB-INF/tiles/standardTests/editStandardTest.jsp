@@ -15,7 +15,7 @@
 	<c:url var="deleteStandardTestUrl" value="/accounts/${user.id}/standardTest/${standardTest.id}/delete" />
 	<c:url var="educationUrl" value="/accounts/${userEntity.id}/educations" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<%-- <c:url var="standardTestsUrl" value="/myAccount/standardTests" /> --%>
 	<c:url var="editStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/edit" />
 	<c:url var="deleteStandardTestUrl" value="/myAccount/standardTest/${standardTest.id}/delete" />

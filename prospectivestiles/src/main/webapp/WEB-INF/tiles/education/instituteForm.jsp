@@ -14,7 +14,7 @@
 	<c:url var="instituteFormUrl" value="/accounts/${userEntity.id}/institute/new" />
 	<c:url var="myEducationUrl" value="/accounts/${userEntity.id}/educations" />
 </sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING')">
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
 	<c:url var="instituteFormUrl" value="/myAccount/institute/new" />
 	<c:url var="myEducationUrl" value="/myAccount/educations" />
 </sec:authorize>	
