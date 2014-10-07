@@ -9,9 +9,19 @@
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 	<c:url var="homeUrl" value="/welcome" />
 	<c:url var="accountsByTermStatusState" value="/accounts/getAccountsByTermStatusState" />
+	<c:url var="getAccountsSummary" value="/admin/report/getAccountsSummary" />
 </sec:authorize>
 
 <h1>Generate a Report</h1>
+<hr style="border:2px solid #A4A4A4;">
+<br />
+<a class="btn btn-default" href="${getAccountsSummary}" target="_blank">Get Summary</a>
+
+<br />
+<br />
+<hr style="border:2px solid #A4A4A4;">
+<br />
+
 
 <!-- ########################################## -->
 

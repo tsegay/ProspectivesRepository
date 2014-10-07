@@ -4,8 +4,10 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -351,6 +353,28 @@ public class UserEntityServiceImpl implements UserEntityService {
 	@Override
 	public List<UserEntity> getAccountsByTermStatusState(long termId, boolean status, String accountState) {
 		return userEntityDao.getAccountsByTermStatusState(termId, status, accountState);
+	}
+	
+	@Override
+	public Map<String, Object> countAccountsByTerm(long termId){
+		
+		Map<String, Object> userCount = new HashMap<String, Object>();
+		
+		userCount.put("intlPendingCount", userEntityDao.countAccountsByTermStatusState(termId, true, "pending"));
+		userCount.put("intlInprocessCount", userEntityDao.countAccountsByTermStatusState(termId, true, "inprocess"));
+		userCount.put("intlCompleteCount", userEntityDao.countAccountsByTermStatusState(termId, true, "complete"));
+		userCount.put("intlAdmittedCount", userEntityDao.countAccountsByTermStatusState(termId, true, "admitted"));
+		userCount.put("intlDeniedCount", userEntityDao.countAccountsByTermStatusState(termId, true, "denied"));
+		userCount.put("intlEnrolledCount", userEntityDao.countAccountsByTermStatusState(termId, true, "enrolled"));
+		
+		userCount.put("domesticPendingCount", userEntityDao.countAccountsByTermStatusState(termId, false, "pending"));
+		userCount.put("domesticInprocessCount", userEntityDao.countAccountsByTermStatusState(termId, false, "inprocess"));
+		userCount.put("domesticCompleteCount", userEntityDao.countAccountsByTermStatusState(termId, false, "complete"));
+		userCount.put("domesticAdmittedCount", userEntityDao.countAccountsByTermStatusState(termId, false, "admitted"));
+		userCount.put("domesticDenied", userEntityDao.countAccountsByTermStatusState(termId, false, "denied"));
+		userCount.put("domesticEnrolledCount", userEntityDao.countAccountsByTermStatusState(termId, false, "enrolled"));
+			
+		return userCount;
 	}
 	
 	@Override

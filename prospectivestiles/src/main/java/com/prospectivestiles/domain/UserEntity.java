@@ -59,7 +59,7 @@ import org.springframework.transaction.annotation.Transactional;
     		query = "SELECT u FROM UserEntity u INNER JOIN u.term t WHERE t.id = :tId AND u.international = :international AND u.accountState = :accountState ORDER BY u.lastName ASC"),
 	@NamedQuery(
 			name = "countAccountsByTermStatusState",
-			query = "SELECT count(*) FROM UserEntity u INNER JOIN u.term t WHERE t.id = :tId AND u.international = :international AND u.accountState = :accountState ORDER BY u.lastName ASC"),
+			query = "SELECT count(*) FROM UserEntity u INNER JOIN u.term t WHERE t.id = :tId AND u.international = :international AND u.accountState = :accountState"),
 	@NamedQuery(
 			name = "findUserEntitiesByRole",
 			query = "FROM UserEntity WHERE role_id = :roleID"),

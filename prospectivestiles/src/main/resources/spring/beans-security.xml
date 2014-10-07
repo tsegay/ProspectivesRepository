@@ -312,6 +312,7 @@
 		<!-- JUST FOR TESTING PURPOSE; REMOVE  /accounts/** -->
 		<!-- <intercept-url pattern="/accounts/**" method="GET" access="isAuthenticated()" /> -->
 		
+		<intercept-url pattern="/admin/report/getAccountsSummary" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/getAccountsByTermStatusState" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/updateAccountState" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		

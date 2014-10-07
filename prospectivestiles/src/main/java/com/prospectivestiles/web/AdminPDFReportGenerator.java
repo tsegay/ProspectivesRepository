@@ -7,6 +7,7 @@ import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -52,6 +53,7 @@ import com.prospectivestiles.domain.Evaluation;
 import com.prospectivestiles.domain.HighSchool;
 import com.prospectivestiles.domain.Institute;
 import com.prospectivestiles.domain.StudentAgreement;
+import com.prospectivestiles.domain.Term;
 import com.prospectivestiles.domain.UserEntity;
 import com.prospectivestiles.service.AddressService;
 import com.prospectivestiles.service.AssociatedUserService;
@@ -482,7 +484,7 @@ public class AdminPDFReportGenerator {
 				table2.setWidths(new int[]{3, 2, 2});
 				table2.setHorizontalAlignment(Element.ALIGN_LEFT);
 				
-				createTable3RowsTableHeader(table2, "", "Submitted Documents", "Outstanding Documents");
+				createTableRowHeader(table2, normalBoldFont, "", "Submitted Documents", "Outstanding Documents");
 
 				createTable3Rows(table2, "Application Fee: ", eval.getApplicationFee());
 				createTable3Rows(table2, "Bank Statement: ", eval.getBankStmt());
@@ -525,24 +527,79 @@ public class AdminPDFReportGenerator {
 	}
 	
 	
-	private static void createTable3RowsTableHeader(PdfPTable table, String label, String value1, String value2){
+	private static void createTableRowHeader(PdfPTable table, Font font, String label, String value1, String value2){
 		
 		PdfPCell cell = new PdfPCell();
 		
 		// row 1, cell 1
-		cell = new PdfPCell(new Phrase(label,normalBoldFont));
+		cell = new PdfPCell(new Phrase(label, font));
 		table.addCell(cell);
 		
 		// row 1, cell 2
-		cell = new PdfPCell(new Phrase(value1, normalBoldFont));
+		cell = new PdfPCell(new Phrase(value1, font));
 		table.addCell(cell);
 		
 		// row 1, cell 3
-		cell = new PdfPCell(new Phrase(value2, normalBoldFont));
+		cell = new PdfPCell(new Phrase(value2, font));
 		table.addCell(cell);
 
 	}
-	
+	private static void createTableRowHeader(PdfPTable table, Font font, String label, String value1, String value2, String value3){
+		
+		PdfPCell cell = new PdfPCell();
+		
+		// row 1, cell 1
+		cell = new PdfPCell(new Phrase(label, font));
+		table.addCell(cell);
+		
+		// row 1, cell 2
+		cell = new PdfPCell(new Phrase(value1, font));
+		table.addCell(cell);
+		
+		// row 1, cell 3
+		cell = new PdfPCell(new Phrase(value2, font));
+		table.addCell(cell);
+		
+		// row 1, cell 4
+		cell = new PdfPCell(new Phrase(value3, font));
+		table.addCell(cell);
+		
+	}
+	private static void createTableRowHeader(PdfPTable table, Font font, String value1, String value2, String value3, String value4, String value5, String value6){
+		
+		PdfPCell cell = new PdfPCell();
+		
+		// row 1, cell 1
+		cell = new PdfPCell(new Phrase(value1,font));
+		cell.setPadding(8);
+		table.addCell(cell);
+		
+		// row 1, cell 2
+		cell = new PdfPCell(new Phrase(value2, font));
+		cell.setPadding(8);
+		table.addCell(cell);
+		
+		// row 1, cell 3
+		cell = new PdfPCell(new Phrase(value3, font));
+		cell.setPadding(8);
+		table.addCell(cell);
+		
+		// row 1, cell 4
+		cell = new PdfPCell(new Phrase(value4, font));
+		cell.setPadding(8);
+		table.addCell(cell);
+		
+		// row 1, cell 5
+		cell = new PdfPCell(new Phrase(value5, font));
+		cell.setPadding(8);
+		table.addCell(cell);
+		
+		// row 1, cell 6
+		cell = new PdfPCell(new Phrase(value6, font));
+		cell.setPadding(8);
+		table.addCell(cell);
+		
+	}
 	private static void createTable3Rows(PdfPTable table, String label, String value){
 		PdfPCell cell = new PdfPCell();
 		
@@ -574,7 +631,6 @@ public class AdminPDFReportGenerator {
 		}
 
 	}
-	
 	private static void createTable2RowsColSpan2(PdfPTable table, String label, String value){
 		PdfPCell cell = new PdfPCell();
 		
@@ -587,15 +643,7 @@ public class AdminPDFReportGenerator {
 		cell.setColspan(2);
 		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		table.addCell(cell);
-		
-//		// row 1, cell 3
-//		cell = new PdfPCell(new Phrase("", normalFont));
-//		table.addCell(cell);
-		
 	}
-	
-	
-	
 	private static void createNoBorderTableRow(PdfPTable table, String label, String value){
 		PdfPCell cell = new PdfPCell();
 
@@ -1489,7 +1537,6 @@ public class AdminPDFReportGenerator {
 		}
 	}
 	
-	
 	@RequestMapping(value = "/accounts/getAccountsByTermStatusState", method = RequestMethod.POST)
 	public void postAccountsByTermStatusState(
 			HttpServletResponse response, 
@@ -1639,7 +1686,110 @@ public class AdminPDFReportGenerator {
 		}
 	}
 	
-    
+	/**
+	 * This method creates a pdf reports of all the applicants
+	 * in a table by term, status and accountState
+	 * 
+	 * @param response
+	 * @param request
+	 * @param model
+	 */
+	@RequestMapping(value = "/admin/report/getAccountsSummary", method = RequestMethod.GET)
+	public void getAccountsSummary(
+			HttpServletResponse response, 
+			HttpServletRequest request,
+			Model model) {
+		
+		java.util.List<Term> terms = termService.getAllTerms();
+		
+		Document document = new Document(PageSize.A4, 36, 36, 54, 54);
+
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		try {
+//			PdfWriter.getInstance(document, out);
+			PdfWriter writer = PdfWriter.getInstance(document, out);
+			// add header and footer before document.open()
+		    
+		    TableHeader event = new TableHeader();
+	        writer.setPageEvent(event);
+		    
+		    /*open document*/
+			document.open();
+
+			addMetaData(document);
+			
+			Paragraph paragraph = new Paragraph();
+			paragraph.add(new Paragraph("Prospective Students Report", h1Font));
+			paragraph.setSpacingBefore(20);
+			paragraph.setSpacingAfter(20);
+			paragraph.setAlignment(Element.ALIGN_CENTER);
+			document.add(paragraph);
+			
+			if (terms != null) {
+				for (Term term : terms) {
+					Map<String, Object> accountsCount = userEntityService.countAccountsByTerm(term.getId());
+					
+					paragraph = new Paragraph();
+					paragraph.add(new Phrase("Term: " + term.getName(), normalBoldFont));
+					document.add(paragraph);
+					
+					paragraph = new Paragraph();
+					paragraph.add(new Phrase("International", normalBoldFont));
+					paragraph.setSpacingAfter(10);
+					document.add(paragraph);
+					
+					PdfPTable table = new PdfPTable(6);
+					table.setWidthPercentage(100);
+					
+					createTableRowHeader(table, normalFont, "pending", "inprocess", "complete", "admitted", "denied", "enrolled");
+					
+					createTableRowHeader(table, normalFont,
+							accountsCount.get("intlPendingCount").toString(), accountsCount.get("intlInprocessCount").toString(), 
+							accountsCount.get("intlCompleteCount").toString(), accountsCount.get("intlAdmittedCount").toString(), 
+							accountsCount.get("intlDeniedCount").toString(), accountsCount.get("intlEnrolledCount").toString());
+					document.add(table);
+					
+					paragraph = new Paragraph();
+					paragraph.add(new Phrase("Domestic", normalBoldFont));
+					paragraph.setSpacingAfter(10);
+					document.add(paragraph);
+					
+					
+					table = new PdfPTable(6);
+					table.setWidthPercentage(100);
+					
+					createTableRowHeader(table, normalFont, "pending", "inprocess", "complete", "admitted", "denied", "enrolled");
+					
+					createTableRowHeader(table, normalFont,
+							accountsCount.get("domesticPendingCount").toString(), accountsCount.get("domesticInprocessCount").toString(), 
+							accountsCount.get("domesticCompleteCount").toString(), accountsCount.get("domesticAdmittedCount").toString(), 
+							accountsCount.get("domesticDenied").toString(), accountsCount.get("domesticEnrolledCount").toString());
+					
+					document.add(table);
+					
+				}
+			}
+			
+			document.close();
+			
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		try {
+			FileCopyUtils.copy(out.toByteArray(), response.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		response.setHeader("Content-Type", "application/pdf");
+		/*set the header Content-disposition to inline to render pdf inline instead of prompting a download window*/
+		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		try {
+			response.flushBuffer();
+			response.getOutputStream().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/*
 	 * create the PDF file in memory

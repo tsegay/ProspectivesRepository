@@ -1,6 +1,7 @@
 package com.prospectivestiles.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.validation.Errors;
 
@@ -71,6 +72,8 @@ public interface UserEntityService {
 
 	long countAccountsByTermStatusState(long termId, boolean status,
 			String accountState);
+
+	Map<String, Object> countAccountsByTerm(long termId);
 	
 //	void updateUE(UserEntity userEntity);
 //	void updateTerm(long userEntityId, long termId);
