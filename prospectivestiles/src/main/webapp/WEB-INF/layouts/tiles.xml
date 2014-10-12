@@ -135,38 +135,44 @@
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/editAssociatedUser.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="enrolledStudents" extends="prospectivestiles.base">
+		<put-attribute name="title" value="admin page"></put-attribute>
+		<put-attribute name="navMenu" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/enrolledStudents.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="admittedStudents" extends="prospectivestiles.base">
-		<put-attribute name="title" value="admittedStudents page"></put-attribute>
+		<put-attribute name="title" value="admin page"></put-attribute>
 		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/admittedStudents.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="completeStudents" extends="prospectivestiles.base">
-		<put-attribute name="title" value="completeStudents page"></put-attribute>
+		<put-attribute name="title" value="admin page"></put-attribute>
 		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/completeStudents.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="inprocessStudents" extends="prospectivestiles.base">
-		<put-attribute name="title" value="inprocessStudents page"></put-attribute>
+		<put-attribute name="title" value="admin page"></put-attribute>
 		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/inprocessStudents.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="pendingStudents" extends="prospectivestiles.base">
-		<put-attribute name="title" value="pendingStudents page"></put-attribute>
+		<put-attribute name="title" value="admin page"></put-attribute>
 		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/evaluation/pendingStudents.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="agents" extends="prospectivestiles.base">
-		<put-attribute name="title" value="agents page"></put-attribute>
+		<put-attribute name="title" value="admin page"></put-attribute>
 		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/agents.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="referrers" extends="prospectivestiles.base">
-		<put-attribute name="title" value="referrers page"></put-attribute>
+		<put-attribute name="title" value="admin page"></put-attribute>
 		<put-attribute name="navMenu" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/referrers.jsp"></put-attribute>
 	</definition>
@@ -189,6 +195,15 @@
 		<put-attribute name="header" value=""></put-attribute>
 		<put-attribute name="sidebar" value=""></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/updateAccountState.jsp"></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<definition name="updateAccountState2Enrolled" template="/WEB-INF/templates/modalTemplate.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/accounts/updateAccountState2Enrolled.jsp"></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
 	</definition>
 	
@@ -586,6 +601,11 @@
 	<definition name="jsonAddresses" extends="prospectivestiles.base">
 		<put-attribute name="title" value="jsonAddresses page"></put-attribute>
 		<put-attribute name="bodycontent" value="/WEB-INF/tiles/jsonAddresses.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="testRestTemplate" extends="prospectivestiles.base">
+		<put-attribute name="title" value="jsonAddresses page"></put-attribute>
+		<put-attribute name="bodycontent" value="/WEB-INF/tiles/testRestTemplate.jsp"></put-attribute>
 	</definition>
 	
 	

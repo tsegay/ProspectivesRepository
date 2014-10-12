@@ -8,6 +8,8 @@ import javax.persistence.NamedQuery;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @NamedQuery(
 		name = "findHighSchoolsByUserEntityId",
@@ -22,6 +24,7 @@ public class HighSchool extends Education {
 	private Date diplomeAwardedDate;
 	private boolean gED;
 	private Date gEDAwardedDate;
+	@JsonManagedReference
 	private UserEntity userEntity = new UserEntity();
 	
 	// ======================================
@@ -73,6 +76,7 @@ public class HighSchool extends Education {
 	public void setgEDAwardedDate(Date gEDAwardedDate) {
 		this.gEDAwardedDate = gEDAwardedDate;
 	}
+	@JsonManagedReference
 	@ManyToOne
 	public UserEntity getUserEntity() {
 		return userEntity;

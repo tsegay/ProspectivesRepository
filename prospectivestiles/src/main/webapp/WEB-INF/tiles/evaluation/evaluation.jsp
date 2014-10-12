@@ -20,6 +20,14 @@
 			<dd>
 				<c:out value="${userEntity.username}" />
 			</dd>
+			<dt></dt>
+			<dd class="text-right">
+				<c:choose>
+					<c:when test="${(userEntity.accountState == 'enrolled')}">
+						<h3 class="red">ENROLLED</h3>
+					</c:when>
+				</c:choose>
+			</dd>
 		</dl>
 	</div>
 </sec:authorize>
@@ -46,9 +54,13 @@
 		<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addEvaluationModal">
 		  Create Evaluation
 		</button> -->
-		<h3>
-			<a href="${newEvaluationUrl}">Create Checklist</a>
-		</h3>
+		<c:choose>
+			<c:when test="${(userEntity.accountState != 'enrolled')}">
+				<h3>
+					<a href="${newEvaluationUrl}">Create Checklist</a>
+				</h3>
+			</c:when>
+		</c:choose>
 	</c:when>
 					
 	<c:otherwise>
@@ -357,7 +369,11 @@
 		<br />
 		
 		<!-- Evaluation can't be deleted by any user.  -->
-		<a href="${editEvaluationUrl}" class="btn btn-primary btn-sm">Edit Checkist & Evaluation</a>
+		<c:choose>
+			<c:when test="${(userEntity.accountState != 'enrolled')}">
+			<a href="${editEvaluationUrl}" class="btn btn-primary btn-sm">Edit Checkist & Evaluation</a>
+			</c:when>
+		</c:choose>
 		<br />
 		<br />	
 		
@@ -365,19 +381,15 @@
 		
 		<hr style="border:2px solid #A4A4A4;">
 		
-		<%-- <c:if test="${userEntity.accountState == \"admitted\"}">
-	  		Prospective student is admitted
-	  	</c:if>
-		<c:if test="${userEntity.accountState == \"denied\"}">
-	  		Prospective student admission is denied. Restart application.
-	  	</c:if> --%>
-			
 		<c:choose>
 			<c:when test="${userEntity.accountState == 'admitted'}">
 				Prospective student application for admission is GRANTED.
 			</c:when>
 			<c:when test="${userEntity.accountState == 'denied'}">
 				Prospective student application for admission is DENIED.
+			</c:when>
+			<c:when test="${userEntity.accountState == 'enrolled'}">
+				Application is ENROLLED.
 			</c:when>
 			<c:otherwise>
 				<form id="grantAdmisionForm" action="${grantAdmisionUrl}" method="post">
@@ -392,20 +404,6 @@
 					</div>
 				</form>
 			</c:otherwise>
-			<%-- <c:when test="${userEntity.accountState != 'admitted'}">
-				<form id="grantAdmisionForm" action="${grantAdmisionUrl}" method="post">
-					<div>
-						<input type="submit" class="btn btn-success btn-sm" value="Grant Admision">
-					</div>
-				</form>
-				<br/><br/>
-				<form id="grantAdmisionForm" action="${denyAdmisionUrl}" method="post">
-					<div>
-						<input type="submit" class="btn btn-danger btn-sm" value="Deny Admision">
-					</div>
-				</form>
-			</c:when>
-			<c:otherwise>Prospective student is admitted</c:otherwise> --%>
 		</c:choose>
 		
 	</c:otherwise>

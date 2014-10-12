@@ -20,13 +20,20 @@
 			<dd>
 				<c:out value="${userEntity.username}" />
 			</dd>
+			<dt></dt>
+			<dd class="text-right">
+				<c:choose>
+					<c:when test="${(userEntity.accountState == 'enrolled')}">
+						<h3 class="red">ENROLLED</h3>
+					</c:when>
+				</c:choose>
+			</dd>
 		</dl>
 	</div>
 </sec:authorize>
 
 
 <h1>Messages page</h1>
-
 
 
 <a href="<c:url value="/messages"/>">Messages (<span id="messagesCount">0</span>)</a>
@@ -118,11 +125,16 @@
 		alert(data.stId); */
 	}
 	
+	/* Disable a button after the user clicks it
+		to prevent user from submitting the same message multiple times.
+		use jQuery's .complete() method which is being executed after the ajax receives a response
+	*/
 	function sendMessage(studentId){
 		/* alert("sending message..." + studentId); */
 		
 		var subject = $("#subjectfield").val();
 		var text = $("#textareafield").val();
+		$("#sendbtn").prop('disabled', true);
 		
 		$.ajax({
 			"type": 'POST',
@@ -130,6 +142,7 @@
 			"data": JSON.stringify({"studentId": studentId, "subject": subject, "text": text}),
 			"complete": function(response, textStatus){
 				/* return alert("#### complete called. " + textStatus); */
+				$("#sendbtn").prop('disabled', false);
 				return;
 			},
 			"success": success,
@@ -203,6 +216,7 @@
 		 */
 		var sendButton = document.createElement("button");
 		sendButton.setAttribute("class", "btn");
+		sendButton.setAttribute("id", "sendbtn");
 		sendButton.setAttribute("class", "btn-primary");
 		sendButton.setAttribute("type", "submit");
 		sendButton.appendChild(document.createTextNode("Send"));

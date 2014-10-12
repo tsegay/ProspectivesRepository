@@ -38,6 +38,7 @@
 				<li class="list-group-item"><a href="<c:url value='/accounts/inprocessStudents'/>">In process</a></li>
 				<li class="list-group-item"><a href="<c:url value='/accounts/completeStudents'/>">Complete</a></li>
 				<li class="list-group-item"><a href="<c:url value='/accounts/admittedStudents'/>">Admitted</a></li>
+				<li class="list-group-item"><a href="<c:url value='/accounts/enrolledStudents'/>">Enrolled</a></li>
 			</sec:authorize>
 			
 			<sec:authorize access="isAuthenticated()">

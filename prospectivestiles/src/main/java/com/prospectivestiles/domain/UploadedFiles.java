@@ -19,6 +19,8 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @NamedQueries(
 		@NamedQuery(name = "findUploadedFilesByUserEntityId", 
@@ -51,7 +53,7 @@ public class UploadedFiles extends BaseEntity implements Serializable {
 	private MultipartFile file;
 	// content - file To  Save In Db
 	private byte[] fileUploaded;
-	
+	@JsonManagedReference
 	private UserEntity userEntity;
 	
 	
@@ -110,6 +112,7 @@ public class UploadedFiles extends BaseEntity implements Serializable {
 		this.fileUploaded = fileUploaded;
 	}
 	
+	@JsonManagedReference
 	@ManyToOne
 	public UserEntity getUserEntity() {
 		return userEntity;

@@ -157,7 +157,6 @@ public class UserEntityServiceImpl implements UserEntityService {
 		return userEntity;
 	}
 	
-	// For recipe 6.6
 	public UserEntity getUserEntityByUsername(String username) {
 		UserEntity userEntity = userEntityDao.findByUsername(username);
 		if (userEntity != null) { 
@@ -298,8 +297,30 @@ public class UserEntityServiceImpl implements UserEntityService {
 	}
 	
 	@Override
+	@Transactional
 	public List<UserEntity> getAllUserEntitiesForPage(int page, int pageSize) {
+		
+//		List<UserEntity> users = userEntityDao.findAll(page, pageSize);
+//		if (users != null) {
+//			for (UserEntity u : users) {
+//				if (u != null) { 
+//					/**
+//					 * Could not write JSON: failed to lazily initialize a collection of role: 
+//					 * com.prospectivestiles.domain.Role.listOfUserEntity, no session or session was closed 
+//					 * (through reference chain: java.util.HashMap["users"]->java.util.ArrayList[0]->com.prospectivestiles.domain.UserEntity["role"]->
+//					 * com.prospectivestiles.domain.Role["listOfUserEntity"]); 
+//					 * nested exception is com.fasterxml.jackson.databind.JsonMappingException: 
+//					 * Lazy exceptions occur when you fetch an object typically containing a collection which is lazily loaded, and try to access that collection.
+//					 * avoid this problem by Initalizing the collection using Hibernate.initialize(obj);
+//					 */
+//					Hibernate.initialize(u.getRole()); 
+//				}
+//			}
+//		}
+//		
+//		return users;
 		return userEntityDao.findAll(page, pageSize);
+		
 	}
 
 	/*
@@ -331,6 +352,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 
 
 	@Override
+	@Transactional
 	public List<UserEntity> findUserEntitiesByAccountState(String accountState) {
 		return userEntityDao.findUserEntitiesByAccountState(accountState);
 	}
@@ -353,6 +375,12 @@ public class UserEntityServiceImpl implements UserEntityService {
 	@Override
 	public List<UserEntity> getAccountsByTermStatusState(long termId, boolean status, String accountState) {
 		return userEntityDao.getAccountsByTermStatusState(termId, status, accountState);
+	}
+	
+	@Override
+	@Transactional
+	public List<UserEntity> findUserEntitiesEnrolledAfter(Date dateEnrolled, String accountState) {
+		return userEntityDao.findUserEntitiesEnrolledAfter(dateEnrolled, accountState);
 	}
 	
 	@Override
@@ -508,6 +536,8 @@ public class UserEntityServiceImpl implements UserEntityService {
 		SecureRandom rand = new SecureRandom();
 		return new BigInteger(130, rand).toString(32);
 	}
+
+	
 
 
 	

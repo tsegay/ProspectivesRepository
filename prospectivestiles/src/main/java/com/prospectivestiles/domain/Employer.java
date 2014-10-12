@@ -11,6 +11,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @NamedQueries(
 		@NamedQuery(name = "findEmployersByUserEntityId", 
@@ -31,7 +33,7 @@ public class Employer extends BaseEntity implements Serializable {
 	private Date employedFrom;
 	private Date employedTo;
 	private String position;
-	
+	@JsonManagedReference
 	private UserEntity userEntity;
 	
 	// ======================================
@@ -84,7 +86,7 @@ public class Employer extends BaseEntity implements Serializable {
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	
+	@JsonManagedReference
 	@ManyToOne
 	public UserEntity getUserEntity() {
 		return userEntity;

@@ -30,6 +30,14 @@
 			<dd>
 				<c:out value="${userEntity.username}" />
 			</dd>
+			<dt></dt>
+			<dd class="text-right">
+				<c:choose>
+					<c:when test="${(userEntity.accountState == 'enrolled')}">
+						<h3 class="red">ENROLLED</h3>
+					</c:when>
+				</c:choose>
+			</dd>
 		</dl>
 	</div>
 </sec:authorize>
@@ -45,11 +53,15 @@
 		
 <p>If you took any standard test like TOEFL or IELTS, please fill in the form. </p>
 
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">	
-	<h5>
-		<a href="${newStandardTestUrl}">Add New Standard Test</a>
-	</h5>
-</sec:authorize>
+<c:choose>
+	<c:when test="${(userEntity.accountState != 'enrolled')}">
+		<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">	
+			<h5>
+				<a href="${newStandardTestUrl}">Add New Standard Test</a>
+			</h5>
+		</sec:authorize>
+	</c:when>
+</c:choose>
 
 <c:choose>
 	<c:when test="${empty standardTests}">
@@ -89,16 +101,25 @@
 					<c:out value="${validTillString}" />
 					</td> --%>
 					<td>
-						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-							<a href="${editStandardTestUrl}" class="btn btn-primary btn-sm">Edit</a>
-						</sec:authorize>
+						<c:choose>
+							<c:when test="${(userEntity.accountState != 'enrolled')}">
+							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+								<a href="${editStandardTestUrl}" class="btn btn-primary btn-sm">Edit</a>
+							</sec:authorize>
+							</c:when>
+						</c:choose>
 					</td>
 					<td>
 						<!-- Button trigger modal -->
+						<c:choose>
+						<c:when test="${(userEntity.accountState != 'enrolled')}">
 						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 							<a data-toggle="modal" data-remote="${deleteStandardTestUrl}" data-target="#deleteStandardTestModal" 
 								class="btn btn-danger btn-sm">Delete</a><br><br>
 						</sec:authorize>
+						</c:when>
+						</c:choose>
+						
 						
 						<!-- delete address Modal -->
 						<div class="modal fade" id="deleteStandardTestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -130,11 +151,15 @@
 Applicants applying for a Certificate, a Bachelor or an Associates Degree are required to provide information about their High School.
 </p>
 
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<h5>
-		<a href="${newHighSchoolUrl}">Add New High School</a>
-	</h5>
-</sec:authorize>
+<c:choose>
+	<c:when test="${(userEntity.accountState != 'enrolled')}">
+	<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+		<h5>
+			<a href="${newHighSchoolUrl}">Add New High School</a>
+		</h5>
+	</sec:authorize>
+	</c:when>
+</c:choose>
 	
 
 <c:if test="${param.deleted == true}">
@@ -186,16 +211,24 @@ Applicants applying for a Certificate, a Bachelor or an Associates Degree are re
 					<td><c:out value="${highSchool.diplome}"></c:out></td>
 					<td><c:out value="${highSchool.gED}"></c:out></td>
 					<td>
-						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-							<a href="${editHighSchoolUrl}" class="btn btn-primary btn-sm">Edit</a>
-						</sec:authorize>
+						<c:choose>
+							<c:when test="${(userEntity.accountState != 'enrolled')}">
+							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+								<a href="${editHighSchoolUrl}" class="btn btn-primary btn-sm">Edit</a>
+							</sec:authorize>
+							</c:when>
+						</c:choose>
 					</td>
 					<td>
 						<!-- Button trigger modal -->
-						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-							<a data-toggle="modal" data-remote="${deleteHighSchoolUrl}" data-target="#deleteHighSchoolModal" 
-								class="btn btn-danger btn-sm">Delete</a><br><br>
-						</sec:authorize>
+						<c:choose>
+							<c:when test="${(userEntity.accountState != 'enrolled')}">
+							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+								<a data-toggle="modal" data-remote="${deleteHighSchoolUrl}" data-target="#deleteHighSchoolModal" 
+									class="btn btn-danger btn-sm">Delete</a><br><br>
+							</sec:authorize>
+							</c:when>
+						</c:choose>
 							
 						<!-- delete address Modal -->
 						<div class="modal fade" id="deleteHighSchoolModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -226,11 +259,15 @@ Applicants applying for a Certificate, a Bachelor or an Associates Degree are re
 Applicants applying for a Masters or Post Masters Degree are required to provide information about Institutes attended in the past.
 </p>
 
-<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<h5>
-		<a href="${newInstituteUrl}">Add New Institute</a>
-	</h5>
-</sec:authorize>
+<c:choose>
+	<c:when test="${(userEntity.accountState != 'enrolled')}">
+	<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+		<h5>
+			<a href="${newInstituteUrl}">Add New Institute</a>
+		</h5>
+	</sec:authorize>
+	</c:when>
+</c:choose>
 
 
 <c:choose>
@@ -284,16 +321,24 @@ Applicants applying for a Masters or Post Masters Degree are required to provide
 						<td><c:out value="${institute.state}"></c:out></td>
 						<td><c:out value="${institute.country.name}"></c:out></td>
 						<td>
+							<c:choose>
+							<c:when test="${(userEntity.accountState != 'enrolled')}">
 							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 								<a href="${editInstituteUrl}" class="btn btn-primary btn-sm">Edit</a>
 							</sec:authorize>
+							</c:when>
+							</c:choose>
 						</td>
 						<td>
 							<!-- Button trigger modal -->
+							<c:choose>
+							<c:when test="${(userEntity.accountState != 'enrolled')}">
 							<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 								<a data-toggle="modal" data-remote="${deleteInstituteUrl}" data-target="#deleteInstituteModal" 
 									class="btn btn-danger btn-sm">Delete</a><br><br>
 							</sec:authorize>
+							</c:when>
+							</c:choose>
 								
 							<!-- delete address Modal -->
 							<div class="modal fade" id="deleteInstituteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

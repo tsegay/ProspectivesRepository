@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * 
  * Can't use findProgramOfStudiesByUserEntityId
@@ -36,7 +38,7 @@ public class ProgramOfStudy extends BaseEntity implements Serializable {
 	private String shortName;
 	private String description;
 	/*private Collection<String> courses;*/
-	
+	@JsonManagedReference
 	private Collection<UserEntity> listOfUserEntity = new ArrayList<UserEntity>();
 	
 	
@@ -80,6 +82,7 @@ public class ProgramOfStudy extends BaseEntity implements Serializable {
 	//	@ManyToMany
 //	@LazyCollection(LazyCollectionOption.FALSE)
 //	@ManyToMany(mappedBy = "listOfProgramOfStudy", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	@OneToMany(mappedBy = "programOfStudy", cascade = CascadeType.ALL)
 	public Collection<UserEntity> getListOfUserEntity() {
 		return listOfUserEntity;

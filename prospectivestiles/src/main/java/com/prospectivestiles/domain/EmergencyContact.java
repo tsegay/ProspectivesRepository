@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @NamedQueries(
 		@NamedQuery(name = "findEmergencyContactsByUserEntityId", 
@@ -30,6 +32,7 @@ public class EmergencyContact extends BaseEntity implements Serializable  {
 	private String phone;
 	private String email;
 	private String relationship;
+	@JsonManagedReference
 	private UserEntity userEntity;
 	
 
@@ -89,6 +92,7 @@ public class EmergencyContact extends BaseEntity implements Serializable  {
 	public void setRelationship(String relationship) {
 		this.relationship = relationship;
 	}
+	@JsonManagedReference
 	@ManyToOne
 	public UserEntity getUserEntity() {
 		return userEntity;

@@ -7,12 +7,17 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -31,6 +36,8 @@ public class Role implements Serializable {
 	private Long id;
 	private String name;
 	/*private Set<Permission> permissions = new HashSet<Permission>();*/
+//	@JsonIgnore
+	@JsonManagedReference
 	private Collection<UserEntity> listOfUserEntity = new ArrayList<UserEntity>();
 	
 	// ======================================
@@ -49,7 +56,9 @@ public class Role implements Serializable {
 
 	public void setName(String name) { this.name = name; }
 	
+//	@JsonIgnore
 	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	public Collection<UserEntity> getListOfUserEntity() {
 		return listOfUserEntity;
 	}

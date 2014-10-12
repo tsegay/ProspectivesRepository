@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @NamedQuery(
 		name = "findInstitutesByUserEntityId",
@@ -20,6 +22,7 @@ public class Institute extends Education {
 	private LevelOfStudy levelOfStudy;
 //	private String levelOfStudy;
 	private Date graduationDate;
+	@JsonManagedReference
 	private UserEntity userEntity = new UserEntity();
 	
 	// ======================================
@@ -64,6 +67,7 @@ public class Institute extends Education {
 	public void setGraduationDate(Date graduationDate) {
 		this.graduationDate = graduationDate;
 	}
+	@JsonManagedReference
 	@ManyToOne
 	public UserEntity getUserEntity() {
 		return userEntity;

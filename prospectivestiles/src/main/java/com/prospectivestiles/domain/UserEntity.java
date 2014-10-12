@@ -6,6 +6,10 @@ package com.prospectivestiles.domain;
  * Could not write JSON: Infinite recursion (StackOverflowError)
  * http://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue
  * 
+ * Since Jackson 1.6 you can use two annotations to solve the infinite recursion problem 
+ * without ignoring the getters/setters during serialization: 
+ * @JsonManagedReference and @JsonBackReference.
+ * 
  */
 
 import java.util.ArrayList;
@@ -42,13 +46,9 @@ import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-/**
- * When removing @Column annotations, update queries like INSERT_USERENTITY_SQL, 
- * as the field names in db is name_name for some and nameName for others.
- * @author danielanenia
- *
- */
 
 @NamedQueries({
 	@NamedQuery(
@@ -72,6 +72,9 @@ import org.springframework.transaction.annotation.Transactional;
 	@NamedQuery(
 			name = "findUserEntitiesByEmail",
 			query = "FROM UserEntity WHERE email = :email"),
+	@NamedQuery(
+			name = "findUserEntitiesEnrolledAfter",
+			query = "FROM UserEntity WHERE accountState = :accountState AND dateEnrolled > :dateEnrolled"),
 }) 
 @Entity
 @SuppressWarnings("serial")
@@ -115,16 +118,21 @@ public class UserEntity implements UserDetails {
 	private Date dob;
 	private String gender;
 	/*
-	if true - student is transferee
-	if false - student is new entrant
+	if true - applicant is transferee
+	if false - applicant is new entrant
 	*/
 	private boolean transferee = false;
 	/*
-	if true - student is international
-	if false - student is domestic
+	if true - applicant is international
+	if false - applicant is domestic
 	*/
 	private boolean international = false;
 	private Date dateLastModified;
+	/**
+	 * When an admitted student is pushed to the registration office, 
+	 * to enroll in classes.
+	 */
+	private Date dateEnrolled;
 	/*private UserEntity createdBy;
 	private UserEntity lastModifiedBy;*/
 	/**
@@ -141,27 +149,42 @@ public class UserEntity implements UserDetails {
 	 * this also changes roles reference in getAuthorities()
 	 */
 //	private Set<Role> roles = new HashSet<Role>();
+//	@JsonIgnore
+	@JsonBackReference
 	private Role role;
-	
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	private Checklist checklist;
-	@JsonIgnore
+//	@JsonIgnore
+//	@JsonManagedReference
+	@JsonBackReference
 	private Evaluation evaluation;
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	private Collection<HighSchool> listOfHighSchools = new ArrayList<HighSchool>();
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	private Collection<Institute> listOfInstitutes = new ArrayList<Institute>();
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	private Collection<Address> listOfAddresses = new ArrayList<Address>();
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	private Collection<UploadedFiles> uploadedFiles;
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	private Collection<EmergencyContact> listOfEmergencyContacts = new ArrayList<EmergencyContact>();
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	private Collection<Employer> listOfEmployers = new ArrayList<Employer>();
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	private Collection<StandardTest> listOfStandardTests = new ArrayList<StandardTest>();
+//	@JsonIgnore
+	@JsonBackReference
 	private ProgramOfStudy programOfStudy;
+//	@JsonIgnore
+	@JsonBackReference
 	private Term term;
 	
 	// ======================================
@@ -286,15 +309,6 @@ public class UserEntity implements UserDetails {
 		this.visible = visible;
 	}
 
-	@JsonIgnore
-	@ManyToOne
-	public Role getRole() {
-		return role;
-	}
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
 //	@Column(name = "date_created")
 	public Date getDateCreated() { return dateCreated; }
 	
@@ -342,6 +356,14 @@ public class UserEntity implements UserDetails {
 	public void setDateLastModified(Date dateLastModified) {
 		this.dateLastModified = dateLastModified;
 	}
+	public Date getDateEnrolled() {
+		return dateEnrolled;
+	}
+
+	public void setDateEnrolled(Date dateEnrolled) {
+		this.dateEnrolled = dateEnrolled;
+	}
+
 	@Size(max = 255)
 	public String getHeardAboutAcctThru() {
 		return heardAboutAcctThru;
@@ -421,7 +443,18 @@ public class UserEntity implements UserDetails {
 		this.sevisNumber = sevisNumber;
 	}
 
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
+	@ManyToOne
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
+//	@JsonIgnore
+	@JsonBackReference
 	@OneToOne(mappedBy = "userEntity", cascade = CascadeType.ALL)
 	public Checklist getChecklist() {
 		return checklist;
@@ -431,7 +464,9 @@ public class UserEntity implements UserDetails {
 		this.checklist = checklist;
 	}
 	
-	@JsonIgnore
+//	@JsonIgnore
+//	@JsonManagedReference
+	@JsonBackReference
 	@OneToOne(mappedBy = "userEntity", cascade = CascadeType.ALL)
 	public Evaluation getEvaluation() {
 		return evaluation;
@@ -440,7 +475,8 @@ public class UserEntity implements UserDetails {
 		this.evaluation = evaluation;
 	}
 
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
 	public Collection<HighSchool> getListOfHighSchools() {
 		return listOfHighSchools;
@@ -449,7 +485,8 @@ public class UserEntity implements UserDetails {
 		this.listOfHighSchools = listOfHighSchools;
 	}
 	
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
 	public Collection<Institute> getListOfInstitutes() {
 		return listOfInstitutes;
@@ -457,7 +494,8 @@ public class UserEntity implements UserDetails {
 	public void setListOfInstitutes(Collection<Institute> listOfInstitutes) {
 		this.listOfInstitutes = listOfInstitutes;
 	}
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
 	public Collection<Address> getListOfAddresses() {
 		return listOfAddresses;
@@ -465,7 +503,8 @@ public class UserEntity implements UserDetails {
 	public void setListOfAddresses(Collection<Address> listOfAddresses) {
 		this.listOfAddresses = listOfAddresses;
 	}
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy="userEntity")
 	public Collection<UploadedFiles> getUploadedFiles() {
 		return uploadedFiles;
@@ -473,7 +512,8 @@ public class UserEntity implements UserDetails {
 	public void setUploadedFiles(Collection<UploadedFiles> uploadedFiles) {
 		this.uploadedFiles = uploadedFiles;
 	}
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
 	public Collection<EmergencyContact> getListOfEmergencyContacts() {
 		return listOfEmergencyContacts;
@@ -482,7 +522,8 @@ public class UserEntity implements UserDetails {
 			Collection<EmergencyContact> listOfEmergencyContacts) {
 		this.listOfEmergencyContacts = listOfEmergencyContacts;
 	}
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
 	public Collection<Employer> getListOfEmployers() {
 		return listOfEmployers;
@@ -490,7 +531,8 @@ public class UserEntity implements UserDetails {
 	public void setListOfEmployers(Collection<Employer> listOfEmployers) {
 		this.listOfEmployers = listOfEmployers;
 	}
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
 	public Collection<StandardTest> getListOfStandardTests() {
 		return listOfStandardTests;
@@ -500,7 +542,8 @@ public class UserEntity implements UserDetails {
 		this.listOfStandardTests = listOfStandardTests;
 	}
 
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne
 	public ProgramOfStudy getProgramOfStudy() {
 		return programOfStudy;
@@ -508,7 +551,8 @@ public class UserEntity implements UserDetails {
 	public void setProgramOfStudy(ProgramOfStudy programOfStudy) {
 		this.programOfStudy = programOfStudy;
 	}
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne
 	public Term getTerm() {
 		return term;

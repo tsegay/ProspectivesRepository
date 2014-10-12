@@ -13,6 +13,7 @@
 	<c:url var="editAssociatedUser" value="/accounts/${userEntity.id}/associatedUser/edit" />
 	<c:url var="applyingForUrl" value="/accounts/${userEntity.id}/applyingFor" />
 	<c:url var="updateAccountState" value="/accounts/${userEntity.id}/updateAccountState" />
+	<c:url var="updateAccountState2Enrolled" value="/accounts/${userEntity.id}/updateAccountState2Enrolled" />
 	<c:url var="newAddressUrl" value="/accounts/${userEntity.id}/address/new" />
 </sec:authorize>
 
@@ -29,6 +30,14 @@
 			<dt>Username</dt>
 			<dd>
 				<c:out value="${userEntity.username}" />
+			</dd>
+			<dt></dt>
+			<dd class="text-right">
+				<c:choose>
+					<c:when test="${(userEntity.accountState == 'enrolled')}">
+						<h3 class="red">ENROLLED</h3>
+					</c:when>
+				</c:choose>
 			</dd>
 		</dl>
 	</div>
@@ -168,11 +177,25 @@
 			
 				<dt></dt>
 				<dd>
-					<%-- <a href="${updateAccountState}">Allow student to make changes</a> --%>
 					<!-- Button trigger modal -->
 					<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
 					<a data-toggle="modal" data-remote="${updateAccountState}" data-target="#updateAccountStateModal" 
 						class="btn btn-warning btn-sm">Allow applicant to make changes</a><br><br>
+					</sec:authorize>
+				</dd>
+			</c:when>
+		</c:choose>
+		
+		<c:choose>
+	
+			<c:when test="${(userEntity.accountState == 'admitted')}">
+			
+				<dt></dt>
+				<dd>
+					<!-- Button trigger modal -->
+					<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+					<a data-toggle="modal" data-remote="${updateAccountState2Enrolled}" data-target="#updateAccountState2EnrolledModal" 
+						class="btn btn-warning btn-sm">Push to Registration Office</a><br><br>
 					</sec:authorize>
 				</dd>
 			</c:when>
@@ -183,6 +206,13 @@
 			
 		<!-- delete address Modal -->
 		<div class="modal fade" id="updateAccountStateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class = "modal-content">
+		    
+			</div>
+		  </div>
+		</div>
+		<div class="modal fade" id="updateAccountState2EnrolledModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class = "modal-content">
 		    
@@ -207,12 +237,16 @@
 </div>
 
 
+<c:choose>
+	<c:when test="${(userEntity.accountState != 'enrolled')}">
+		<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+			<a href="${editAccountUrl}" class="btn btn-primary btn-sm">Update Personal Information</a>
+		</sec:authorize>
+	</c:when>
+</c:choose>
 
 
 
-<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<a href="${editAccountUrl}" class="btn btn-primary btn-sm">Update Personal Information</a>
-</sec:authorize>
 
 <hr style="border:2px solid #A4A4A4;">
 
@@ -236,11 +270,16 @@ insert the term and program of study to the userEntity using jdbc
 		<!-- Button trigger modal -->
 		<p>Select term and program of study you are applying for:</p> <br />
 		
-		<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-			<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#addTermModal">
-			  Select
-			</button>
-		</sec:authorize>
+		<c:choose>
+			<c:when test="${(userEntity.accountState != 'enrolled')}">
+				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+					<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#addTermModal">
+					  Select
+					</button>
+				</sec:authorize>
+			</c:when>
+		</c:choose>
+		
 
 	</c:when>
 	<c:otherwise>
@@ -263,11 +302,15 @@ insert the term and program of study to the userEntity using jdbc
 		
 		<div class="row">
 			<div class="col-md-2">
-				<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-					<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTermModal">
-					  Edit
-					</button>
-				</sec:authorize>
+				<c:choose>
+					<c:when test="${(userEntity.accountState != 'enrolled')}">
+						<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+							<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTermModal">
+							  Edit
+							</button>
+						</sec:authorize>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 		
@@ -276,7 +319,7 @@ insert the term and program of study to the userEntity using jdbc
 </c:choose>
 	
 
-<!-- address Modal -->
+<!-- Term and ProgramOfStudy Modal -->
 <div class="modal fade" id="addTermModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class = "modal-content">
@@ -342,7 +385,11 @@ insert the term and program of study to the userEntity using jdbc
 
 <c:choose>
 	<c:when test="${empty associatedUsers}">
-			<a href="${createAssociatedUser}" class="btn btn-primary btn-sm">Add Admission Officer, Agent, Referrer</a>
+		<c:choose>
+			<c:when test="${(userEntity.accountState != 'enrolled')}">
+				<a href="${createAssociatedUser}" class="btn btn-primary btn-sm">Add Admission Officer, Agent, Referrer</a>
+			</c:when>
+		</c:choose>
 	</c:when>
 	<c:otherwise>
 		
@@ -369,7 +416,11 @@ insert the term and program of study to the userEntity using jdbc
 		
 		<div class="row">
 			<div class="col-md-2">
-					<a href="${editAssociatedUser}" class="btn btn-primary btn-sm">Edit Admission Officer, Agent, Referrer</a>
+				<c:choose>
+					<c:when test="${(userEntity.accountState != 'enrolled')}">
+						<a href="${editAssociatedUser}" class="btn btn-primary btn-sm">Edit Admission Officer, Agent, Referrer</a>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 		
@@ -403,10 +454,6 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 				<c:url var="editAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}/edit" />
 				<c:url var="deleteAddressUrl" value="/accounts/${address.userEntity.id}/address/${address.id}/delete" />
 			</sec:authorize>
-			<%-- <sec:authorize access="hasRole('ROLE_STUDENT_PENDING')">
-				<c:url var="editAddressUrl" value="/myAccount/address/${address.id}/edit" />
-				<c:url var="deleteAddressUrl" value="/myAccount/address/${address.id}/delete" />
-			</sec:authorize> --%>
 
 			<address class="col-md-6">
 				<%-- address.id: <c:out value="${address.id}" /> --%>
@@ -430,16 +477,24 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 					
 				<div class="row">
 					<div class="col-md-3">
-						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-						<a href="${editAddressUrl}" class="btn btn-primary btn-sm">Edit</a>
-						</sec:authorize>
+						<c:choose>
+							<c:when test="${(userEntity.accountState != 'enrolled')}">
+								<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+									<a href="${editAddressUrl}" class="btn btn-primary btn-sm">Edit</a>
+								</sec:authorize>
+							</c:when>
+						</c:choose>
 					</div>
 					<div class="col-md-3">
 						<!-- Button trigger modal -->
-						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-						<a data-toggle="modal" data-remote="${deleteAddressUrl}" data-target="#deleteModal" 
-							class="btn btn-danger btn-sm">Delete</a><br><br>
-						</sec:authorize>
+						<c:choose>
+							<c:when test="${(userEntity.accountState != 'enrolled')}">
+								<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+								<a data-toggle="modal" data-remote="${deleteAddressUrl}" data-target="#deleteModal" 
+									class="btn btn-danger btn-sm">Delete</a><br><br>
+								</sec:authorize>
+							</c:when>
+						</c:choose>
 							
 							
 						<!-- delete address Modal -->
@@ -471,10 +526,13 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 I need this to push down the h3 below from mixing with the addresses -->
 <div class="row"></div>
 
-
-<h5>
-	<a href="${newAddressUrl}">Add New Address</a>
-</h5>
+<c:choose>
+	<c:when test="${(userEntity.accountState != 'enrolled')}">
+		<h5>
+			<a href="${newAddressUrl}">Add New Address</a>
+		</h5>
+	</c:when>
+</c:choose>
 
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->
 <!-- * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * | * |  -->

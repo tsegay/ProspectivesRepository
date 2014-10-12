@@ -1,5 +1,6 @@
 package com.prospectivestiles.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -74,6 +75,8 @@ public interface UserEntityService {
 			String accountState);
 
 	Map<String, Object> countAccountsByTerm(long termId);
+	
+	List<UserEntity> findUserEntitiesEnrolledAfter(Date dateEnrolled, String accountState);
 	
 //	void updateUE(UserEntity userEntity);
 //	void updateTerm(long userEntityId, long termId);

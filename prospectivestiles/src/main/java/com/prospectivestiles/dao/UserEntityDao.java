@@ -1,5 +1,6 @@
 package com.prospectivestiles.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -61,6 +62,8 @@ public interface UserEntityDao extends Dao<UserEntity>, UserDetailsService {
 	long countAccountsByTermStatusState(long termId, boolean status,
 			String accountState);
 	long getMaxId();
+	
+	List<UserEntity> findUserEntitiesEnrolledAfter(Date dateEnrolled, String accountState);
 	
 //	void updateTerm(long userEntityId, long termId);
 //	void updateProgramOfStudy(long userEntityId, long programOfStudyId);

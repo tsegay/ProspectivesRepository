@@ -98,6 +98,12 @@ public class AdminAccountController {
 	// =             All Accounts             =
 	// ======================================
 	
+	/**
+	 * WHY AM I ADDING ALL THE USERS TO MODEL HERE??!!
+	 * I AM USING THE getAccountsForJSON METHOD TO LOAD USERS
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/accounts", method = RequestMethod.GET)
 	public String getAllAccounts(Model model) {
 
@@ -397,8 +403,8 @@ public class AdminAccountController {
 	}
 	
 	/*
-	 * Using a Modal to delete Address.
-	 * The delete form in the Modal calls this method
+	 * Using a Modal to delete updateAccountState.
+	 * The updateAccountState form in the Modal calls this method
 	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/updateAccountState", method = RequestMethod.GET)
 	public String getUpdateAccountState(@PathVariable("userEntityId") Long userEntityId,
@@ -419,6 +425,32 @@ public class AdminAccountController {
 		System.out.println("################# updateAccountState");
 		
 		userEntityService.updateUserEntityRole(userEntityId, "pending", "ROLE_STUDENT_PENDING");
+		return "redirect:/accounts/{userEntityId}";
+	}
+	
+	/*
+	 * Using a Modal to delete updateAccountState.
+	 * The updateAccountState form in the Modal calls this method
+	 */
+	@RequestMapping(value = "/accounts/{userEntityId}/updateAccountState2Enrolled", method = RequestMethod.GET)
+	public String getUpdateAccountState2(@PathVariable("userEntityId") Long userEntityId,
+			Model model) {
+		System.out.println("################# updateAccountState");
+		
+		UserEntity userEntity = userEntityService.getUserEntity(userEntityId);
+		
+		model.addAttribute("userEntity", userEntity);
+		
+		return "updateAccountState2Enrolled";
+	}
+	
+	@RequestMapping(value = "/accounts/{userEntityId}/updateAccountState2Enrolled", method = RequestMethod.POST)
+	public String postUpdateAccountState2(@PathVariable("userEntityId") Long userEntityId,
+			Model model)
+					throws IOException {
+		System.out.println("################# updateAccountState");
+		
+		userEntityService.updateUserEntityRole(userEntityId, "enrolled", "ROLE_STUDENT_ENROLLED");
 		return "redirect:/accounts/{userEntityId}";
 	}
 	
@@ -457,6 +489,17 @@ public class AdminAccountController {
 		model.addAttribute("admittedCount", admittedCount);
 		
 		return "admittedStudents";
+	}
+	
+	@RequestMapping(value = "/accounts/enrolledStudents", method = RequestMethod.GET)
+	public String getenrolledStudents(Model model) {
+		
+		List<UserEntity> enrolledUsers = userEntityService.findUserEntitiesByAccountState("enrolled");
+		long enrolledCount = userEntityService.countByAccountState("enrolled");
+		model.addAttribute("enrolledUsers", enrolledUsers);
+		model.addAttribute("enrolledCount", enrolledCount);
+		
+		return "enrolledStudents";
 	}
 	
 	@RequestMapping(value = "/accounts/completeStudents", method = RequestMethod.GET)

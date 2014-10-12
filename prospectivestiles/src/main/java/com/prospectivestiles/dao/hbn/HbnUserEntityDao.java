@@ -1,5 +1,6 @@
 package com.prospectivestiles.dao.hbn;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -335,6 +336,18 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 				.getNamedQuery("findUserEntityById")
 				.setParameter("id", userEntityId)
 				.uniqueResult();
+	}
+	/**
+	 * I want to get a list of accounts enrolled, ie pushed to registration office, 
+	 * after a specific date.
+	 */
+	@Override
+	public List<UserEntity> findUserEntitiesEnrolledAfter(Date dateEnrolled, String accountState) {
+		return (List<UserEntity>) getSession()
+				.getNamedQuery("findUserEntitiesEnrolledAfter")
+				.setParameter("accountState", accountState)
+				.setParameter("dateEnrolled", dateEnrolled)
+				.list();
 	}
 
 //private static final String UPDATE_ACCOUNTSTATE_SQL =

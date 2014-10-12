@@ -19,6 +19,14 @@
 			<dd>
 				<c:out value="${userEntity.username}" />
 			</dd>
+			<dt></dt>
+			<dd class="text-right">
+				<c:choose>
+					<c:when test="${(userEntity.accountState == 'enrolled')}">
+						<h3 class="red">ENROLLED</h3>
+					</c:when>
+				</c:choose>
+			</dd>
 		</dl>
 	</div>
 </sec:authorize>
@@ -41,28 +49,66 @@
 <p>For DOMESTIC STUDENT, upload Undergraduate Transcript, Undergraduate Certificate, A copy of Identification document (driver license, ID card, copy of green card for residents). For detail information read <a href="http://www.acct2day.org/admissions/domestic-students/" target="_blank">http://www.acct2day.org/admissions/domestic-students/</a></p>
 <p>If you are DOMESTIC STUDENT TRANFERRING from another institute in addition to the documents mentioned above upload  Graduate Transcript, Applicants whose first language is not English must provide proof of language proficiency. For detail information read <a href="http://www.acct2day.org/admissions/domestic-students/" target="_blank">http://www.acct2day.org/admissions/domestic-students/</a></p>
 
-<form:form method="post" action="${saveFileUrl}"
-        modelAttribute="uploadedFile" enctype="multipart/form-data">
- 
-    <h3>Please select files to upload.</h3>
-    <br>
- 
-    <div class="input-group col-md-8">
-   		<span class="input-group-addon">Description</span>
-	  	<input type="text" name="description" class="form-control" placeholder="Enter File Description">
-	</div>
- 
-    <br/>
-	<input name="file" type="file" /><br/>
-    <input type="submit" value="Upload" class="btn btn-primary btn-sm" />
-    <span class="error">${fileErrMsg}</span>
-    
-	<!-- There is the accept attribute for the input tag. 
-	However, it is not reliable in any way. Browsers most likely treat it as a "suggestion" -->
-	<!-- <input name="file" type="file" accept="image/gif, image/jpeg" /><br/> -->
-    
-    
-</form:form>
+
+<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
+	<c:choose>
+	<c:when test="${(userEntity.accountState != 'enrolled')}">
+
+		<form:form method="post" action="${saveFileUrl}"
+		        modelAttribute="uploadedFile" enctype="multipart/form-data">
+		 
+		    <h3>Please select files to upload.</h3>
+		    <br>
+		 
+		    <div class="input-group col-md-8">
+		   		<span class="input-group-addon">Description</span>
+			  	<input type="text" name="description" class="form-control" placeholder="Enter File Description">
+			</div>
+		 
+		    <br/>
+			<input name="file" type="file" /><br/>
+		    <input type="submit" value="Upload" class="btn btn-primary btn-sm" />
+		    <span class="error">${fileErrMsg}</span>
+		    
+			<!-- There is the accept attribute for the input tag. 
+			However, it is not reliable in any way. Browsers most likely treat it as a "suggestion" -->
+			<!-- <input name="file" type="file" accept="image/gif, image/jpeg" /><br/> -->
+		    
+		    
+		</form:form>
+	</c:when>
+</c:choose>
+</sec:authorize>
+<sec:authorize access="hasAnyRole('ROLE_STUDENT_PENDING', 'ROLE_STUDENT_INPROCESS')">
+	<c:choose>
+	<c:when test="${(userEntity.accountState == 'pending') or (userEntity.accountState == 'inprocess')}">
+
+		<form:form method="post" action="${saveFileUrl}"
+		        modelAttribute="uploadedFile" enctype="multipart/form-data">
+		 
+		    <h3>Please select files to upload.</h3>
+		    <br>
+		 
+		    <div class="input-group col-md-8">
+		   		<span class="input-group-addon">Description</span>
+			  	<input type="text" name="description" class="form-control" placeholder="Enter File Description">
+			</div>
+		 
+		    <br/>
+			<input name="file" type="file" /><br/>
+		    <input type="submit" value="Upload" class="btn btn-primary btn-sm" />
+		    <span class="error">${fileErrMsg}</span>
+		    
+			<!-- There is the accept attribute for the input tag. 
+			However, it is not reliable in any way. Browsers most likely treat it as a "suggestion" -->
+			<!-- <input name="file" type="file" accept="image/gif, image/jpeg" /><br/> -->
+		    
+		    
+		</form:form>
+	</c:when>
+</c:choose>
+</sec:authorize>
+
 
 <br>
 

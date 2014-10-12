@@ -11,6 +11,8 @@ import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @NamedQueries({
 	@NamedQuery(
@@ -37,6 +39,7 @@ public class Address extends BaseEntity implements Serializable  {
 	private String state;
 	private String zipcode;
 	private Country country;
+	@JsonManagedReference
 	private UserEntity userEntity = new UserEntity();
 	
 	// ======================================
@@ -121,6 +124,7 @@ public class Address extends BaseEntity implements Serializable  {
 		this.country = country;
 	}
 	
+	@JsonManagedReference
 	@ManyToOne
 	public UserEntity getUserEntity() {
 		return userEntity;

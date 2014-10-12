@@ -390,13 +390,13 @@ public class AdminEvaluationController {
 	/**
 	 * NOT USING THIS AT THE TIME BEING
 	 */
-	@RequestMapping(value = "/accounts/{userEntityId}/evaluation/{evaluationId}/delete", method = RequestMethod.POST)
-	public String deleteEvaluation(@PathVariable("userEntityId") Long userEntityId,
-			@PathVariable("evaluationId") Long evaluationId)
-			throws IOException {
-		evaluationService.deleteEvaluation(getEvaluationValidateUserEntityId(userEntityId, evaluationId));
-		return "redirect:/accounts/{userEntityId}/evaluations";
-	}
+//	@RequestMapping(value = "/accounts/{userEntityId}/evaluation/{evaluationId}/delete", method = RequestMethod.POST)
+//	public String deleteEvaluation(@PathVariable("userEntityId") Long userEntityId,
+//			@PathVariable("evaluationId") Long evaluationId)
+//			throws IOException {
+//		evaluationService.deleteEvaluation(getEvaluationValidateUserEntityId(userEntityId, evaluationId));
+//		return "redirect:/accounts/{userEntityId}/evaluations";
+//	}
 	
 	// ======================================
 	// =                        =

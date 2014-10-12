@@ -28,6 +28,14 @@
 			<dd>
 				<c:out value="${userEntity.username}" />
 			</dd>
+			<dt></dt>
+			<dd class="text-right">
+				<c:choose>
+					<c:when test="${(userEntity.accountState == 'enrolled')}">
+						<h3 class="red">ENROLLED</h3>
+					</c:when>
+				</c:choose>
+			</dd>
 		</dl>
 	</div>
 </sec:authorize>
@@ -42,7 +50,7 @@
 		
 <c:choose>
 	<c:when test="${empty missingDocuments}">
-		<p>There are no missing documents for this student.</p>
+		<p>There are no missing documents for this student or checklist is not yet created. Check student's checklist to verify.</p>
 	</c:when>
 	<c:otherwise>
 	

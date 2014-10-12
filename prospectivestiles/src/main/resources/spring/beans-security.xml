@@ -58,6 +58,11 @@
 		<!-- ###############  TESTING PURPOSE ONLY #################### -->
 		<!-- =========================================================================== -->
 		
+		<intercept-url pattern="/greeting" access="permitAll" />
+		<intercept-url pattern="/enrolledApplicants" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/recentEnrolledApplicants/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/recentEnrolledApplicants" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/testRestTemplate" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<!-- =========================================================================== -->
 		<!-- ###############  END TESTING PURPOSE ONLY #################### -->
@@ -219,6 +224,7 @@
 		<!-- Student checklists -->
 		
 		<!-- Admin evaluations -->
+		<intercept-url pattern="/accounts/enrolledStudents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/admittedStudents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/completeStudents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/inprocessStudents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
@@ -314,6 +320,7 @@
 		
 		<intercept-url pattern="/admin/report/getAccountsSummary" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/getAccountsByTermStatusState" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/accounts/*/updateAccountState2Enrolled" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/accounts/*/updateAccountState" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		
 		<intercept-url pattern="/accounts/agents" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />

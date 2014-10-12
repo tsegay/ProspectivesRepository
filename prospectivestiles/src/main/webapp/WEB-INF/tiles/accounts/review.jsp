@@ -27,6 +27,14 @@
 		<dd>
 			<c:out value="${userEntity.username}" />
 		</dd>
+		<dt></dt>
+		<dd class="text-right">
+			<c:choose>
+				<c:when test="${(userEntity.accountState == 'enrolled')}">
+					<h3 class="red">ENROLLED</h3>
+				</c:when>
+			</c:choose>
+		</dd>
 	</dl>
 </div>
 

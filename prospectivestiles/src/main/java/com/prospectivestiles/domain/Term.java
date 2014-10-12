@@ -13,6 +13,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * 
  * Can't use findProgramOfStudiesByUserEntityId
@@ -33,6 +35,7 @@ public class Term extends BaseEntity implements Serializable {
 	private Date startDate;
 	private Date endDate;
 	private int duration; // in weeks
+	@JsonManagedReference
 	private Collection<UserEntity> listOfUserEntity = new ArrayList<UserEntity>();
 	
 	// ======================================
@@ -79,6 +82,7 @@ public class Term extends BaseEntity implements Serializable {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
+	@JsonManagedReference
 	@OneToMany(mappedBy = "term", cascade = CascadeType.ALL)
 	public Collection<UserEntity> getListOfUserEntity() {
 		return listOfUserEntity;

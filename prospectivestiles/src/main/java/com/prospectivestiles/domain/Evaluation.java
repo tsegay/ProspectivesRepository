@@ -13,6 +13,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @NamedQueries({
 	@NamedQuery(
@@ -89,6 +94,8 @@ public class Evaluation extends BaseEntity implements Serializable {
 	 * Date admission was approved
 	 */
 	private Date dateAdmitted;
+//	@JsonBackReference
+	@JsonManagedReference
 	private UserEntity admittedBy;
 	
 	// ======================================
@@ -201,6 +208,8 @@ public class Evaluation extends BaseEntity implements Serializable {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
+//	@JsonBackReference
+	@JsonManagedReference
 	@OneToOne
 	public UserEntity getUserEntity() {
 		return userEntity;

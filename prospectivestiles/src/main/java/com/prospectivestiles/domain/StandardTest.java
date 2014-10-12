@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @NamedQueries(
 		@NamedQuery(name = "findStandardTestsByUserEntityId", 
@@ -32,7 +34,7 @@ public class StandardTest extends BaseEntity implements Serializable {
 	private String name;
 	private double score;
 	private Date validTill;
-	
+	@JsonManagedReference
 	private UserEntity userEntity;
 	
 	// ======================================
@@ -84,6 +86,7 @@ public class StandardTest extends BaseEntity implements Serializable {
 	public void setValidTill(Date validTill) {
 		this.validTill = validTill;
 	}
+	@JsonManagedReference
 	@ManyToOne
 	public UserEntity getUserEntity() {
 		return userEntity;

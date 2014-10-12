@@ -32,3 +32,11 @@
 	
 	</table>
 </div>
+
+
+<h3>testRestTemplate</h3>
+
+<p><c:out value="${testRestTemplate.Name}"></c:out></p>
+<p><c:out value="${testRestTemplate.About}"></c:out></p>
+<p><c:out value="${testRestTemplate.Phone}"></c:out></p>
+<p><c:out value="${testRestTemplate.Website}"></c:out></p>
