@@ -403,7 +403,7 @@ public class AdminAccountController {
 	}
 	
 	/*
-	 * Using a Modal to delete updateAccountState.
+	 * Using a Modal to updateAccountState to 'pending' to enable an applicant can make changes
 	 * The updateAccountState form in the Modal calls this method
 	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/updateAccountState", method = RequestMethod.GET)
@@ -429,8 +429,9 @@ public class AdminAccountController {
 	}
 	
 	/*
-	 * Using a Modal to delete updateAccountState.
+	 * Using a Modal to updateAccountState to 'enrolled' to push applicant from admission to registration office.
 	 * The updateAccountState form in the Modal calls this method
+	 * set enrolledDate current date
 	 */
 	@RequestMapping(value = "/accounts/{userEntityId}/updateAccountState2Enrolled", method = RequestMethod.GET)
 	public String getUpdateAccountState2(@PathVariable("userEntityId") Long userEntityId,

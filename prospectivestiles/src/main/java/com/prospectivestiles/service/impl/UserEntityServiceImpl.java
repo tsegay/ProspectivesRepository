@@ -246,6 +246,9 @@ public class UserEntityServiceImpl implements UserEntityService {
 		userEntity.setRole(role);
 		// Update AccountState of user
 		userEntity.setAccountState(accountState);
+		if (accountState == "enrolled") {
+			userEntity.setDateEnrolled(new Date());
+		}
 		userEntityDao.update(userEntity);
 		
 	}

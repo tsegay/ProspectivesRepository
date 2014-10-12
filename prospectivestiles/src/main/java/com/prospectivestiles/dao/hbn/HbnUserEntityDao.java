@@ -341,6 +341,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	 * I want to get a list of accounts enrolled, ie pushed to registration office, 
 	 * after a specific date.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserEntity> findUserEntitiesEnrolledAfter(Date dateEnrolled, String accountState) {
 		return (List<UserEntity>) getSession()
