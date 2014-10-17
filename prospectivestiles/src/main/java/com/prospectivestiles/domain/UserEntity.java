@@ -56,7 +56,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     		query = "FROM UserEntity WHERE username = :username"),
 	@NamedQuery(
     		name = "findAccountsByTermStatusState",
-    		query = "SELECT u FROM UserEntity u INNER JOIN u.term t WHERE t.id = :tId AND u.international = :international AND u.accountState = :accountState ORDER BY u.lastName ASC"),
+    		query = "SELECT u FROM UserEntity u INNER JOIN u.term t WHERE t.id = :tId AND u.international = :international AND u.accountState = :accountState GROUP BY u.id ORDER BY u.lastName ASC"),
 	@NamedQuery(
 			name = "countAccountsByTermStatusState",
 			query = "SELECT count(*) FROM UserEntity u INNER JOIN u.term t WHERE t.id = :tId AND u.international = :international AND u.accountState = :accountState"),

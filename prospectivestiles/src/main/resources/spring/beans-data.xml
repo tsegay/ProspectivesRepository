@@ -16,21 +16,42 @@
 
 <!-- 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/prosptiles"
 		resource-ref="true" /> -->
-	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/prospectives"
+	<!-- <jee:jndi-lookup id="dataSource" jndi-name="jdbc/prospectives"
+		resource-ref="true" /> -->
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/prospectivesdb"
 		resource-ref="true" />
 	
 	<!-- for using jdbc to query data -->
 	<bean class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource" />
 	
+	<!-- For MySQL DB -->
 	<!-- to use entityManager this has to go to the persistence.xml or within a bean in entityManager  -->
-	<util:properties id="hibernateProperties">
+	<!-- <prop key="hibernate.hbm2ddl.auto">create-drop</prop> -->
+	<!-- <prop key="hibernate.format_sql">true</prop> -->
+	<!-- <util:properties id="hibernateProperties">
 		<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
 		<prop key="hibernate.show_sql">true</prop>
-		<!-- <prop key="hibernate.format_sql">true</prop> -->
 		<prop key="hibernate.hbm2ddl.auto">update</prop>
-<!-- 		<prop key="hibernate.hbm2ddl.auto">create-drop</prop> -->
+	</util:properties> -->
+	
+	<!-- For PostgreSQL DB -->
+	<util:properties id="hibernateProperties">
+		<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+		<prop key="hibernate.show_sql">true</prop>
+		<prop key="hibernate.hbm2ddl.auto">update</prop> -->
+		
+		<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+        <!-- <prop key="hibernate.connection.driver_class">org.postgresql.Driver</prop>
+        <prop key="hibernate.connection.username">postgres</prop>
+        <prop key="hibernate.connection.password">Nutrition4me</prop>
+        <prop key="hibernate.connection.url">jdbc:postgresql://localhost:5432/prospectivesdb</prop>
+        <prop key="connection_pool_size">1</prop> -->
+        <!-- <prop key="hibernate.default_schema">prospectivesdb</prop> -->
+        <prop key="hibernate.hbm2ddl.auto">update</prop>
+        <prop key="hibernate.show_sql">true</prop>
 	</util:properties>
-
+	
+	
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
 		p:dataSource-ref="dataSource" p:packagesToScan="com.prospectivestiles.domain"

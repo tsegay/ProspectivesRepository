@@ -1,5 +1,12 @@
 package com.prospectivestiles.dao.hbn;
 
+/**
+ * When migrating DB from MySQL to POSTGRESQL
+ * was getting error - 
+ * org.postgresql.util.PSQLException: ERROR: column "userentity0_.lastname" must appear in the GROUP BY clause or be used in an aggregate function
+ * So, added "GROUP BY u.id" in front of all "ORDER BY u.lastName ASC"
+ */
+
 import java.util.Date;
 import java.util.List;
 
@@ -101,7 +108,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		 * 6 - ROLE_STUDENT_PENDING, 7 - ROLE_STUDENT_INPROCESS, 8 - ROLE_STUDENT_COMPLETE, 9 - ROLE_STUDENT_ADMITTED
 		 */
 //		String hql = "SELECT u FROM UserEntity u INNER JOIN u.roles r WHERE r.id = 6 OR r.id = 7 OR r.id = 8 OR r.id = 9 ORDER BY u.lastName ASC";
-		String hql = "SELECT u FROM UserEntity u WHERE role_id = 6 OR role_id = 7 OR role_id = 8 OR role_id = 9 ORDER BY u.lastName ASC";
+		String hql = "SELECT u FROM UserEntity u WHERE role_id = 6 OR role_id = 7 OR role_id = 8 OR role_id = 9 GROUP BY u.id ORDER BY u.lastName ASC";
 		Query query = getSession().createQuery(hql);
 		// setFirst should be set with the index of the first element in the page, 
 		// something like page * pageSize
@@ -152,21 +159,21 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 						+ "u.firstName LIKE '%" + filter + "%' OR "
 						+ "u.username LIKE '%" + filter + "%' OR "
 						+ "u.email LIKE '%" + filter + "%'"
-						+ "ORDER BY u.lastName ASC";
+						+ "GROUP BY u.id ORDER BY u.lastName ASC";
 			} else {
 				hql = "FROM UserEntity u WHERE "
 						+ "u.lastName LIKE '%" + filter + "%' OR "
 						+ "u.firstName LIKE '%" + filter + "%' OR "
 						+ "u.username LIKE '%" + filter + "%' OR "
 						+ "u.email LIKE '%" + filter + "%'"
-						+ "ORDER BY u.lastName DESC";
+						+ "GROUP BY u.id ORDER BY u.lastName DESC";
 				
 			}
 		} else {
 			if(asc){
-				hql = "FROM UserEntity u ORDER BY u.lastName ASC";
+				hql = "FROM UserEntity u GROUP BY u.id ORDER BY u.lastName ASC";
 			} else {
-				hql = "FROM UserEntity u ORDER BY u.lastName DESC";
+				hql = "FROM UserEntity u GROUP BY u.id ORDER BY u.lastName DESC";
 				
 			}
 		}
@@ -200,7 +207,8 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	@Override
 	public long countByRole(long roleID) {
 		return (Long) getSession()
-			.createQuery("SELECT count(*) FROM UserEntity u WHERE role_id = :roleID ORDER BY u.lastName ASC")
+//			.createQuery("SELECT count(*) FROM UserEntity u WHERE role_id = :roleID ORDER BY u.lastName ASC")
+			.createQuery("SELECT count(*) FROM UserEntity u WHERE role_id = :roleID GROUP BY u.id ORDER BY u.lastName ASC")
 			.setParameter("roleID", roleID)
 			.uniqueResult();
 	}
@@ -239,7 +247,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 			}
 		}
 		
-		query = query + " ORDER BY u.lastName ASC";
+		query = query + " GROUP BY u.id ORDER BY u.lastName ASC";
 		
 		Query q = getSession().createQuery(query);
 		for (int i = 0; i < rolesList.size(); i++) {

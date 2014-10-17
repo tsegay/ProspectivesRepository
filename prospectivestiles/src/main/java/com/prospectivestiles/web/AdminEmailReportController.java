@@ -105,8 +105,8 @@ public class AdminEmailReportController {
 		Message message = new Message();
 		message.setAdmissionOfficer(currentAdmissionUser);
 		message.setStudent(student);
-		message.setSubject("missingDocuments");
-		message.setText("Find attached the missingDocuments...");
+		message.setSubject("Missing Documents");
+		message.setText("The admission office is processing your application. The office has conducted initial review on your files to process you application but you have some missing documents. Please read the attached letter.");
 		message.setVisible(true);
 		message.setCreatedBy(currentAdmissionUser);
 		messageService.createMessage(message);
@@ -126,8 +126,9 @@ public class AdminEmailReportController {
 			helper.setFrom(Message.EMAIL_SENDER);
 			helper.setTo(student.getEmail());
 			helper.setBcc(Message.EMAIL_BCC);
-			helper.setSubject("missingDocuments");
-			helper.setText("Find attached the missingDocuments...");
+			helper.setSubject("Missing Documents");
+			helper.setText("The admission office is processing your application. The office has conducted initial review on your files to process you application but you have some missing documents. Please read the attached letter.");
+			
 	 
 			String rootPath = System.getProperty("catalina.home");
 			System.out.println("rootPath:" + rootPath);
