@@ -54,6 +54,14 @@
         margin-bottom: -7px;
 }
 
+.devdiv {
+	color: red;
+	float: left;
+	font-size: 18px;
+	height: 25px;
+	margin: -33px auto 0;
+}
+
 /* 
 ##################################################################
 		CSS TO OVERRIDE BOOTSTRAP 

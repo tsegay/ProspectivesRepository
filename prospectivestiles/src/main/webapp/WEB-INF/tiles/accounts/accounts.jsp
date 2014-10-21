@@ -5,7 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')">
-	<c:url var="getAccountsUrl" value="/accounts/accounts/1/25" />
+	<c:url var="getAccountsUrl" value="/accounts/accounts/1/3" />
 	<c:url var="searchAccountUrl" value="/accounts/accounts/searchAccount" />
 	
 	<%-- <c:url var="getAccountsUrl" value="/accounts/accounts/{page}/{pageSize}" /> --%>
@@ -223,7 +223,7 @@
 		/* $.getJSON("<c:url value="/accounts/accounts/'+i+'/3"/>", fetchAndDisplayAccounts); */
 		/* $.getJSON('<c:url value="/accounts/accountspage/" />', { page: pageNum, pageSize: 3 }, fetchAndDisplayAccounts); */
 		
-		$.getJSON("${pageContext.request.contextPath}"+"/accounts/accounts/"+i+"/25", fetchAndDisplayAccounts);
+		$.getJSON("${pageContext.request.contextPath}"+"/accounts/accounts/"+i+"/3", fetchAndDisplayAccounts);
 		
 	}
 	

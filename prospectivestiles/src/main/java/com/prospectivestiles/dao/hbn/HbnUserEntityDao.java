@@ -108,7 +108,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		 * 6 - ROLE_STUDENT_PENDING, 7 - ROLE_STUDENT_INPROCESS, 8 - ROLE_STUDENT_COMPLETE, 9 - ROLE_STUDENT_ADMITTED
 		 */
 //		String hql = "SELECT u FROM UserEntity u INNER JOIN u.roles r WHERE r.id = 6 OR r.id = 7 OR r.id = 8 OR r.id = 9 ORDER BY u.lastName ASC";
-		String hql = "SELECT u FROM UserEntity u WHERE role_id = 6 OR role_id = 7 OR role_id = 8 OR role_id = 9 GROUP BY u.id ORDER BY u.lastName ASC";
+		String hql = "SELECT u FROM UserEntity u WHERE (role_id = 6 OR role_id = 7 OR role_id = 8 OR role_id = 9) AND visible = " + true + " GROUP BY u.id ORDER BY u.lastName ASC";
 		Query query = getSession().createQuery(hql);
 		// setFirst should be set with the index of the first element in the page, 
 		// something like page * pageSize
@@ -142,53 +142,6 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 				.uniqueResult();
 	}
 	
-	/**
-	 * USE @NamedQuery, REMMOVE sql stmt
-	 * 
-	 * Used for searching users on the accounts page
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<UserEntity> findAll(int page, int pageSize, String filter, boolean asc) {
-		
-		String hql;
-		if (filter != null) {
-			if(asc){
-				hql = "FROM UserEntity u WHERE "
-						+ "u.lastName LIKE '%" + filter + "%' OR "
-						+ "u.firstName LIKE '%" + filter + "%' OR "
-						+ "u.username LIKE '%" + filter + "%' OR "
-						+ "u.email LIKE '%" + filter + "%'"
-						+ "GROUP BY u.id ORDER BY u.lastName ASC";
-			} else {
-				hql = "FROM UserEntity u WHERE "
-						+ "u.lastName LIKE '%" + filter + "%' OR "
-						+ "u.firstName LIKE '%" + filter + "%' OR "
-						+ "u.username LIKE '%" + filter + "%' OR "
-						+ "u.email LIKE '%" + filter + "%'"
-						+ "GROUP BY u.id ORDER BY u.lastName DESC";
-				
-			}
-		} else {
-			if(asc){
-				hql = "FROM UserEntity u GROUP BY u.id ORDER BY u.lastName ASC";
-			} else {
-				hql = "FROM UserEntity u GROUP BY u.id ORDER BY u.lastName DESC";
-				
-			}
-		}
-		
-		Query query = getSession().createQuery(hql);
-		// setFirst shoulb be set with the index of the first element in the page, 
-		// something like page * pageSize
-		query.setFirstResult((page - 1) * pageSize);
-		query.setMaxResults(pageSize);
-		
-		List<UserEntity> results = query.list();
-		
-		return results;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserEntity> findByRole(long roleID) {
@@ -208,7 +161,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	public long countByRole(long roleID) {
 		return (Long) getSession()
 //			.createQuery("SELECT count(*) FROM UserEntity u WHERE role_id = :roleID ORDER BY u.lastName ASC")
-			.createQuery("SELECT count(*) FROM UserEntity u WHERE role_id = :roleID GROUP BY u.id ORDER BY u.lastName ASC")
+			.createQuery("SELECT count(*) FROM UserEntity u WHERE role_id = :roleID AND visible = " + true)
 			.setParameter("roleID", roleID)
 			.uniqueResult();
 	}
@@ -237,7 +190,12 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	@Override
 	public long countByRoles(List<Long> rolesList) {
 		
-		String query = "SELECT count(*) FROM UserEntity u WHERE";
+//		String hql = "SELECT count(*) FROM UserEntity u WHERE (role_id = 6 OR role_id = 7 OR role_id = 8 OR role_id = 9) AND visible = " + true;
+//		
+//		Query query = getSession().createQuery(hql);
+//		return (Long) query.uniqueResult();
+		
+		String query = "SELECT count(*) FROM UserEntity u WHERE (";
 		
 		for (int i = 0; i < rolesList.size(); i++) {
 			if (i == rolesList.size() - 1) {
@@ -247,7 +205,7 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 			}
 		}
 		
-		query = query + " GROUP BY u.id ORDER BY u.lastName ASC";
+		query = query + ") AND visible = " + true;
 		
 		Query q = getSession().createQuery(query);
 		for (int i = 0; i < rolesList.size(); i++) {
@@ -357,6 +315,53 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 				.setParameter("accountState", accountState)
 				.setParameter("dateEnrolled", dateEnrolled)
 				.list();
+	}
+	
+	/**
+	 * USE @NamedQuery, REMMOVE sql stmt
+	 * 
+	 * Used for searching users on the accounts page
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserEntity> findAll(int page, int pageSize, String filter, boolean asc) {
+		
+		String hql;
+		if (filter != null) {
+			if(asc){
+				hql = "FROM UserEntity u WHERE "
+						+ "u.lastName LIKE '%" + filter + "%' OR "
+						+ "u.firstName LIKE '%" + filter + "%' OR "
+						+ "u.username LIKE '%" + filter + "%' OR "
+						+ "u.email LIKE '%" + filter + "%'"
+						+ "GROUP BY u.id ORDER BY u.lastName ASC";
+			} else {
+				hql = "FROM UserEntity u WHERE "
+						+ "u.lastName LIKE '%" + filter + "%' OR "
+						+ "u.firstName LIKE '%" + filter + "%' OR "
+						+ "u.username LIKE '%" + filter + "%' OR "
+						+ "u.email LIKE '%" + filter + "%'"
+						+ "GROUP BY u.id ORDER BY u.lastName DESC";
+				
+			}
+		} else {
+			if(asc){
+				hql = "FROM UserEntity u GROUP BY u.id ORDER BY u.lastName ASC";
+			} else {
+				hql = "FROM UserEntity u GROUP BY u.id ORDER BY u.lastName DESC";
+				
+			}
+		}
+		
+		Query query = getSession().createQuery(hql);
+		// setFirst shoulb be set with the index of the first element in the page, 
+		// something like page * pageSize
+		query.setFirstResult((page - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		
+		List<UserEntity> results = query.list();
+		
+		return results;
 	}
 
 //private static final String UPDATE_ACCOUNTSTATE_SQL =

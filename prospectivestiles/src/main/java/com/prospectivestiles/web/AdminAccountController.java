@@ -166,7 +166,7 @@ public class AdminAccountController {
 		int totalPages = (int) Math.ceil((double)usersCount/(double)pageSize);
 		// getAllUserEntitiesForPage -- TO BE CHANGED
 		List<UserEntity> users = userEntityService.getAllUserEntitiesForPage(page, pageSize);
-		
+		log.info("######## usersCount: " + usersCount + " page: " + page+ " pageSize: " + pageSize+ " totalPages: " + totalPages);
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("users", users);
