@@ -52,6 +52,7 @@ public class Evaluation extends BaseEntity implements Serializable {
 	private String enrollmentAgreement;
 	private String grievancePolicy;
 	private String recommendationLetter;
+	private String languageProficiency;
 	/**
 	 * Sources of money are: Family, Personal
 	 */
@@ -188,6 +189,12 @@ public class Evaluation extends BaseEntity implements Serializable {
 	}
 	public void setRecommendationLetter(String recommendationLetter) {
 		this.recommendationLetter = recommendationLetter;
+	}
+	public String getLanguageProficiency() {
+		return languageProficiency;
+	}
+	public void setLanguageProficiency(String languageProficiency) {
+		this.languageProficiency = languageProficiency;
 	}
 	public String getSourceOfMoney() {
 		return sourceOfMoney;

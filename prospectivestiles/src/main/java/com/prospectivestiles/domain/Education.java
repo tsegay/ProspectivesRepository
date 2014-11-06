@@ -62,7 +62,7 @@ public class Education extends BaseEntity {
     // ======================================
 
 	@NotNull
-	@Size(min = 1, max = 50)
+	@Size(min = 1, max = 100)
 	public String getName() {
 		return name;
 	}

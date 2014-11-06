@@ -44,7 +44,7 @@ public class UserEntityController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setAllowedFields(new String[] { 
-			"username", "password", "confirmPassword", "firstName", "lastName",
+			"username", "password", "confirmPassword", "firstName", "lastName", "middleName",
 			"email", "marketingOk", "acceptTerms", "international", "transferee"
 		});
 	}
@@ -180,7 +180,7 @@ public class UserEntityController {
 		 */
 		form.setAccountState("pending");
 //		form.setUsername(form.getFirstName() + randomNumber());
-		form.setPassword("placeholder"); // replace with randomString
+		form.setPassword("placeholder"+ randomNumber()); // replace with randomString
 //		form.setAcceptTerms(false);
 		form.setEnabled(true);
 		form.setMarketingOk(true);
@@ -202,7 +202,6 @@ public class UserEntityController {
 			return "registerUser";
 		}
 		
-//		userEntityService.insertUserEntity(form, result);
 		userEntityService.createUserEntityAsAO(form, result);
 		
 		/**

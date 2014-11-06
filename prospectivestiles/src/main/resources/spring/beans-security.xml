@@ -14,7 +14,42 @@
 		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+	
+<!-- *************************************** -->
+<!-- Rest authentication entry point configuration -->
+<!-- *************************************** -->
+	<!-- 
+	If I delete the Rest authentication http block,
+	curl -i -H "Content-Type:application/ET -b cookies2.txt 
+	http://localhost:8080/prospectivestiles/api/recentEnrolledApplicants
+	returns an html page: access denied page <h1>Access denied</h1>
+	 -->
+	
+	<http pattern="/api/*" use-expressions="true" entry-point-ref="restAuthenticationEntryPoint">
+		<intercept-url pattern="/api/*" />
+		<form-login authentication-success-handler-ref="mySuccessHandler"
+			authentication-failure-handler-ref="myFailureHandler" />
+		<logout />
 		
+		<intercept-url pattern="/api/recentEnrolledApplicantsPermitAll" access="permitAll" />
+		<intercept-url pattern="/api/recentEnrolledApplicants" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/api/recentEnrolledApplicants/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		<intercept-url pattern="/api/recentEnrolledApplicants" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
+		
+	</http>
+	
+	<beans:bean id="restAuthenticationEntryPoint"
+		class="com.prospectivestiles.rest.security.RestAuthenticationEntryPoint" />
+		
+	<!-- Connect the custom authentication success handler -->
+	<beans:bean id="mySuccessHandler"
+		class="com.prospectivestiles.rest.security.RestAuthenticationSuccessHandler" />
+	<!-- Using default failure handler -->
+	<beans:bean id="myFailureHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" />
+	
+<!-- *************************************** -->
+<!-- *************************************** -->		
 	<http auto-config="true" use-expressions="true"
 		access-denied-page="/denied">
 		<!-- <security:access-denied-handler error-page="/denied" /> -->
@@ -59,6 +94,7 @@
 		<!-- =========================================================================== -->
 		
 		<intercept-url pattern="/greeting" access="permitAll" />
+		<intercept-url pattern="/recentEnrolledApplicantsPermitAll" access="permitAll" />
 		<intercept-url pattern="/enrolledApplicants" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/recentEnrolledApplicants/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
 		<intercept-url pattern="/recentEnrolledApplicants" access="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMISSION', 'ROLE_ADMISSION_ASSIST')" />
@@ -373,4 +409,6 @@
 			</password-encoder>
 		</authentication-provider>
 	</authentication-manager>
+	
+	
 </beans:beans>

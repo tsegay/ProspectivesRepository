@@ -21,6 +21,7 @@
 	
 	<context:component-scan base-package="com.prospectivestiles.web" />
 	<context:component-scan base-package="com.prospectivestiles.rest" />
+	<context:component-scan base-package="com.prospectivestiles.rest.security" />
 
 	<bean id="multipartResolver"
   		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
@@ -53,7 +54,16 @@
 		</property>
 	</bean>
 	
-	<!-- <bean id="faceletsViewResolver"
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the 
+	${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+		p:basename="classpath:/spring/messages" />
+		
+		
+		<!-- <bean id="faceletsViewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass" value="org.springframework.faces.mvc.JsfView" />
 		<property name="prefix" value="/WEB-INF/" />
@@ -67,14 +77,6 @@
 
 	<!-- <context:property-placeholder location="classpath:datasource.properties" /> -->
 	
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the 
-	${webappRoot}/resources directory -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-	
-	<!-- <mvc:resources mapping="/styles/**"  location="/WEB-INF/skins/" />
+		<!-- <mvc:resources mapping="/styles/**"  location="/WEB-INF/skins/" />
     <mvc:resources mapping="/scripts/**" location="/WEB-INF/scripts/" /> -->
-
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
-		p:basename="classpath:/spring/messages" />
 </beans>

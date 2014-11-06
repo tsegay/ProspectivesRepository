@@ -2,6 +2,8 @@ package com.prospectivestiles.service;
 
 import java.util.List;
 
+import org.springframework.validation.Errors;
+
 import com.prospectivestiles.domain.Evaluation;
 
 public interface EvaluationService {

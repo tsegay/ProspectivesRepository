@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -156,38 +157,6 @@ public class AdminEvaluationController {
 		evaluation.setUserEntity(userEntity);
 		evaluation.setCreatedBy(currentAdmissionUser);
 		
-		if (
-				(evaluation.getApplicationFee().equalsIgnoreCase("complete") || evaluation.getApplicationFee().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getBankStmt().equalsIgnoreCase("complete") || evaluation.getBankStmt().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getDiplome().equalsIgnoreCase("complete") || evaluation.getDiplome().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getFinancialAffidavit().equalsIgnoreCase("complete") || evaluation.getFinancialAffidavit().equalsIgnoreCase("notrequired")) && 
-				(evaluation.getF1Visa().equalsIgnoreCase("complete") || evaluation.getF1Visa().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getI20().equalsIgnoreCase("complete") || evaluation.getI20().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getPassport().equalsIgnoreCase("complete") || evaluation.getPassport().equalsIgnoreCase("notrequired")) && 
-				(evaluation.getTranscript().equalsIgnoreCase("complete") || evaluation.getTranscript().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getApplicationForm().equalsIgnoreCase("complete") || evaluation.getApplicationForm().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getEnrollmentAgreement().equalsIgnoreCase("complete") || evaluation.getEnrollmentAgreement().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getGrievancePolicy().equalsIgnoreCase("complete") || evaluation.getGrievancePolicy().equalsIgnoreCase("notrequired")) &&
-				(evaluation.getRecommendationLetter().equalsIgnoreCase("complete") || evaluation.getRecommendationLetter().equalsIgnoreCase("notrequired")) 
-			) {
-			
-			/**
-			 * If all evaluation items are complete or notrequired change accountState to "COMPLETE"
-			 * When accountState of an applicant change the role should also change
-			 */
-			userEntityService.updateUserEntityRole(userEntityId,"complete","ROLE_STUDENT_COMPLETE");
-			
-			
-		} else {
-			
-			/**
-			 * If all evaluation items are not complete or notrequired make accountState to "INPROCESS"
-			 * When accountState of an applicant change the role should also change
-			 */
-			userEntityService.updateUserEntityRole(userEntityId, "inprocess", "ROLE_STUDENT_INPROCESS");
-			
-		}
-		
 		evaluationService.createEvaluation(evaluation);
 		
 		return "redirect:/accounts/{userEntityId}/evaluations";
@@ -260,6 +229,7 @@ public class AdminEvaluationController {
 		evaluation.setEnrollmentAgreement(origEvaluation.getEnrollmentAgreement());
 		evaluation.setGrievancePolicy(origEvaluation.getGrievancePolicy());
 		evaluation.setRecommendationLetter(origEvaluation.getRecommendationLetter());
+		evaluation.setLanguageProficiency(origEvaluation.getLanguageProficiency());
 		evaluation.setTranscript(origEvaluation.getTranscript());
 		evaluation.setDiplome(origEvaluation.getDiplome());
 		evaluation.setAdmnOfficerReport(origEvaluation.getAdmnOfficerReport());
@@ -486,6 +456,7 @@ public class AdminEvaluationController {
 	// ======================================
 	// =                        =
 	// ======================================
+	
 	
 	private Evaluation getEvaluationValidateUserEntityId(Long userEntityId, Long highschoolId) {
 		Evaluation evaluation = evaluationService.getEvaluation(highschoolId);

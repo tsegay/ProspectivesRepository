@@ -311,7 +311,7 @@ public class AdminPDFReportGenerator {
 		/**
 		 * set the header Content-disposition to inline to render pdf inline instead of prompting a download window
 		 */
-		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		response.setHeader("Content-Disposition", "inline;filename=ACCT.pdf");
 		try {
 			response.flushBuffer();
 			response.getOutputStream().close();
@@ -379,7 +379,14 @@ public class AdminPDFReportGenerator {
 			
 			createNoBorderTableRow(table, "Email Address: ", userEntityService.getUserEntity(userEntityId).getEmail());
 			
-			createNoBorderTableRow(table, "Phone Number: ", userEntityService.getUserEntity(userEntityId).getCellPhone());
+			String phoneNumber = null;
+			if (userEntityService.getUserEntity(userEntityId).getCellPhone() != null) {
+				phoneNumber = userEntityService.getUserEntity(userEntityId).getCellPhone();
+			} else {
+				phoneNumber = userEntityService.getUserEntity(userEntityId).getHomePhone();
+			}
+			createNoBorderTableRow(table, "Phone Number: ", phoneNumber);
+			
 			
 			String termName;
 			if (userEntityService.getUserEntity(userEntityId).getTerm() != null) {
@@ -486,17 +493,37 @@ public class AdminPDFReportGenerator {
 				
 				createTableRowHeader(table2, normalBoldFont, "", "Submitted Documents", "Outstanding Documents");
 
-				createTable3Rows(table2, "Application Fee: ", eval.getApplicationFee());
-				createTable3Rows(table2, "Bank Statement: ", eval.getBankStmt());
-				createTable3Rows(table2, "Financial Affidavit: ", eval.getFinancialAffidavit());
-				createTable3Rows(table2, "Diplome: ", eval.getDiplome());
-				createTable3Rows(table2, "F1 Visa: ", eval.getF1Visa());
-				createTable3Rows(table2, "I20: ", eval.getI20());
-				createTable3Rows(table2, "Passport: ", eval.getPassport());
 				createTable3Rows(table2, "Application Form: ", eval.getApplicationForm());
+				createTable3Rows(table2, "Application Fee: ", eval.getApplicationFee());
 				createTable3Rows(table2, "Enrollment Agreement: ", eval.getEnrollmentAgreement());
 				createTable3Rows(table2, "Grievance Policy: ", eval.getGrievancePolicy());
+				createTable3Rows(table2, "Passport: ", eval.getPassport());
+				createTable3Rows(table2, "F1 Visa: ", eval.getF1Visa());
+				createTable3Rows(table2, "I20: ", eval.getI20());
+				createTable3Rows(table2, "Diplome: ", eval.getDiplome());
+				createTable3Rows(table2, "Transcript: ", eval.getTranscript());
+				
+				String languageProficiency = "incomplete";
+				
+				if (eval.getLanguageProficiency() != null) {
+					if (eval.getLanguageProficiency().equalsIgnoreCase("TOEFL") || 
+							eval.getLanguageProficiency().equalsIgnoreCase("IELTS") ||
+							eval.getLanguageProficiency().equalsIgnoreCase("proficiencyLetter")
+							) {
+						languageProficiency = "complete";
+					} else if(eval.getLanguageProficiency().equalsIgnoreCase("notrequired")){
+						languageProficiency = "notrequired";
+					} else {
+						languageProficiency = "incomplete";
+					}
+				}
+				
+				createTable3Rows(table2, "TOEFL/IELTS/Proficiency Letter: ", languageProficiency);
+				
 				createTable3Rows(table2, "Recommendation Letter: ", eval.getRecommendationLetter());
+				createTable3Rows(table2, "Financial Affidavit: ", eval.getFinancialAffidavit());
+				createTable3Rows(table2, "Bank Statement: ", eval.getBankStmt());
+				
 				createTable2RowsColSpan2(table2, "Source of Money: ", eval.getSourceOfMoney());
 				createTable2RowsColSpan2(table2, "Amount of Money: ", eval.getAmountOfMoney());
 				
@@ -517,7 +544,7 @@ public class AdminPDFReportGenerator {
 		/**
 		 * set the header Content-disposition to inline to render pdf inline instead of prompting a download window
 		 */
-		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		response.setHeader("Content-Disposition", "inline;filename=ACCT.pdf");
 		try {
 			response.flushBuffer();
 			response.getOutputStream().close();
@@ -804,7 +831,7 @@ public class AdminPDFReportGenerator {
 		}
 		response.setHeader("Content-Type", "application/pdf");
 		/*set the header Content-disposition to inline to render pdf inline instead of prompting a download window*/
-		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		response.setHeader("Content-Disposition", "inline;filename=ACCT.pdf");
 		try {
 			response.flushBuffer();
 			response.getOutputStream().close();
@@ -843,7 +870,7 @@ public class AdminPDFReportGenerator {
 //			addContent(document);
 			
 			Paragraph paragraph = new Paragraph(" ");
-			paragraph.setSpacingAfter(35);
+			paragraph.setSpacingAfter(45);
 			document.add(paragraph);
 			
 			paragraph = new Paragraph();
@@ -855,9 +882,9 @@ public class AdminPDFReportGenerator {
 			paragraph = new Paragraph();
 			paragraph.setSpacingAfter(20);
 			String dateAdmittedString = new String("");
-			SimpleDateFormat formatDateAdmitted = new SimpleDateFormat("MMM d, yyyy");
+			SimpleDateFormat formatDateAdmitted = new SimpleDateFormat("MMMM dd, yyyy");
 			dateAdmittedString = formatDateAdmitted.format(evaluation.getDateAdmitted());
-			paragraph.add(new Paragraph(dateAdmittedString));
+			paragraph.add(new Paragraph(dateAdmittedString, normalFont));
 			document.add(paragraph);
 			
 			paragraph = new Paragraph();
@@ -879,13 +906,13 @@ public class AdminPDFReportGenerator {
 				document.add(paragraph);
 				paragraph = new Paragraph();
 				if (address.getCity() != null) {
-					paragraph.add(new Chunk(address.getCity(), normalFont) + ", ");
+					paragraph.add(new Chunk(address.getCity() + ", ", normalFont));
 				}
 				if (address.getState() != null) {
-					paragraph.add(new Chunk(address.getState(), normalFont) + " ");
+					paragraph.add(new Chunk(address.getState() + " ", normalFont));
 				}
 				if (address.getZipcode() != null) {
-					paragraph.add(new Chunk(address.getZipcode(), normalFont) + ", ");
+					paragraph.add(new Chunk(address.getZipcode() + " ", normalFont));
 				}
 				if (address.getCountry() != null) {
 					paragraph.add(new Chunk(address.getCountry().getName(),  normalFont));
@@ -896,57 +923,61 @@ public class AdminPDFReportGenerator {
 			paragraph = new Paragraph();
 			paragraph.setSpacingBefore(20);
 			paragraph.setSpacingAfter(20);
-			paragraph.add(new Paragraph("Dear " + userEntityService.getUserEntity(userEntityId).getFullName() + ","));
+			paragraph.add(new Paragraph("Dear " + userEntityService.getUserEntity(userEntityId).getFullName() + ",", normalFont));
 			document.add(paragraph);
 			
 			paragraph = new Paragraph();
 			paragraph.setSpacingAfter(20);
-			paragraph.add(new Paragraph("Congratulations!!!"));
+			paragraph.add(new Paragraph("Congratulations!!!", normalFont));
 			document.add(paragraph);
 			/**
 			 * move the text to messages.properties
 			 */
 			paragraph = new Paragraph();
 			paragraph.setSpacingAfter(10);
-			paragraph.add(new Chunk("I am pleased to inform you that your application for admission to "));
+			paragraph.add(new Chunk("I am pleased to inform you that your application for admission to ", normalFont));
 			if (userEntityService.getUserEntity(userEntityId).getProgramOfStudy() != null) {
-				paragraph.add(userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName());
+				paragraph.add(new Chunk(userEntityService.getUserEntity(userEntityId).getProgramOfStudy().getName(), normalFont));
 			} else {
-				paragraph.add(new Chunk(" XXXXXXXXXXX "));
+				paragraph.add(new Chunk(" XXXXXXXXXXX ", normalFont));
 			}
-			paragraph.add(new Chunk(" at the American College of Commerce and Technology has been approved. "));
+			paragraph.add(new Chunk(" degree program at the American College of Commerce and Technology has been approved. ", normalFont));
 			if (userEntityService.getUserEntity(userEntityId).getTerm() != null) {
-				paragraph.add(userEntityService.getUserEntity(userEntityId).getTerm().getName());
+				paragraph.add(new Chunk(userEntityService.getUserEntity(userEntityId).getTerm().getName(), normalFont));
 			} else {
-				paragraph.add(new Chunk(" XXXXXXXXXXX "));
+				paragraph.add(new Chunk(" XXXXXXXXXXX ", normalFont));
 			}
-			paragraph.add(new Chunk(" classes start on "));
+			paragraph.add(new Chunk(" classes start on ", normalFont));
 			String startDateString = "";
-			SimpleDateFormat startDateFormat = new SimpleDateFormat("EEE, MMM dd, YYYY");
+			SimpleDateFormat startDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+//			SimpleDateFormat startDateFormat = new SimpleDateFormat("EEE, MMM dd, YYYY");
 			
 			if (userEntityService.getUserEntity(userEntityId).getTerm() != null) {
 				startDateString = startDateFormat.format(userEntityService.getUserEntity(userEntityId).getTerm().getStartDate());
 			} else {
-				paragraph.add(new Chunk(" XXXXXXXXXXX "));
+				paragraph.add(new Chunk(" XXXXXXXXXXX ", normalFont));
 			}
-			paragraph.add(startDateString);
-			paragraph.add(".");
+			paragraph.add(new Chunk(startDateString, normalFont));
+			paragraph.add(new Chunk(".", normalFont));
+			paragraph.setAlignment(Element.ALIGN_JUSTIFIED);
 			document.add(paragraph);
 			
 			paragraph = new Paragraph();
 			paragraph.setSpacingAfter(10);
-			paragraph.add(new Paragraph(
+			paragraph.add(new Phrase(
 					"I would like to congratulate you on your decision to continue your education with the "
 					+ "American College of Commerce and Technology. We are committed to providing each student "
 					+ "a personalized, high quality education that will prepare you for success in your chosen "
 					+ "profession and throughout your educational journey with the American College of Commerce "
-					+ "and Technology."
+					+ "and Technology.", normalFont
 					));
+			paragraph.setAlignment(Element.ALIGN_JUSTIFIED);
 			document.add(paragraph);
 			
 			paragraph = new Paragraph();
-			paragraph.setSpacingAfter(20);
-			paragraph.add(new Paragraph("Sincerely,"));
+			paragraph.setSpacingBefore(10);
+			paragraph.setSpacingAfter(30);
+			paragraph.add(new Paragraph("Sincerely,", normalFont));
 			document.add(paragraph);
 			
 			
@@ -959,11 +990,11 @@ public class AdminPDFReportGenerator {
 			
 			
 			paragraph = new Paragraph();
-			paragraph.add(new Paragraph("Maria Victoria Sunga, MBA"));
+			paragraph.add(new Paragraph("Maria Victoria Sunga, MBA", normalFont));
 			document.add(paragraph);
 			
 			paragraph = new Paragraph();
-			paragraph.add(new Paragraph("Executive Director"));
+			paragraph.add(new Paragraph("Executive Director", normalFont));
 			document.add(paragraph);
 			
 			document.close();
@@ -977,7 +1008,7 @@ public class AdminPDFReportGenerator {
 		}
 		response.setHeader("Content-Type", "application/pdf");
 		/*set the header Content-disposition to inline to render pdf inline instead of prompting a download window*/
-		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		response.setHeader("Content-Disposition", "inline;filename=ACCT.pdf");
 		try {
 			response.flushBuffer();
 			response.getOutputStream().close();
@@ -1528,7 +1559,7 @@ public class AdminPDFReportGenerator {
 		}
 		response.setHeader("Content-Type", "application/pdf");
 		/*set the header Content-disposition to inline to render pdf inline instead of prompting a download window*/
-		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		response.setHeader("Content-Disposition", "inline;filename=ACCT.pdf");
 		try {
 			response.flushBuffer();
 			response.getOutputStream().close();
@@ -1677,7 +1708,7 @@ public class AdminPDFReportGenerator {
 		}
 		response.setHeader("Content-Type", "application/pdf");
 		/*set the header Content-disposition to inline to render pdf inline instead of prompting a download window*/
-		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		response.setHeader("Content-Disposition", "inline;filename=ACCT.pdf");
 		try {
 			response.flushBuffer();
 			response.getOutputStream().close();
@@ -1782,7 +1813,7 @@ public class AdminPDFReportGenerator {
 		}
 		response.setHeader("Content-Type", "application/pdf");
 		/*set the header Content-disposition to inline to render pdf inline instead of prompting a download window*/
-		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		response.setHeader("Content-Disposition", "inline;filename=ACCT.pdf");
 		try {
 			response.flushBuffer();
 			response.getOutputStream().close();
@@ -1819,7 +1850,7 @@ public class AdminPDFReportGenerator {
 		}
 		response.setHeader("Content-Type", "application/pdf");
 		/*set the header Content-disposition to inline to render pdf inline instead of prompting a download window*/
-		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		response.setHeader("Content-Disposition", "inline;filename=ACCT.pdf");
 		try {
 			response.flushBuffer();
 			response.getOutputStream().close();
@@ -1874,7 +1905,7 @@ public class AdminPDFReportGenerator {
 		System.out.println("rootPath:" + rootPath);
 		File dir = new File(rootPath + File.separator + "tmpFiles");
 		response.setHeader("Content-Type", "application/pdf");
-		response.setHeader("Content-Disposition", "inline;filename=Test.pdf");
+		response.setHeader("Content-Disposition", "inline;filename=ACCT.pdf");
 		// copy file
 
 		File serverFile = new File(dir.getAbsolutePath() + File.separator

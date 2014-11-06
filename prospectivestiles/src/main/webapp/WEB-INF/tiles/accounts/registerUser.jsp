@@ -37,6 +37,17 @@
 	</div>
 	
 	<div class="form-group row">
+		<label for="middleName" class="col-sm-2 control-label"><spring:message code="account.label.middleName" />
+		</label>
+	    <div class="col-sm-5">
+	      <form:input path="middleName" class="form-control" placeholder = "Your Middle Name" />
+	    </div>
+	    <div class="col-sm-5">
+	      	<form:errors class="errormsg" path="middleName" htmlEscape="false" />
+	    </div>
+	</div>
+	
+	<div class="form-group row">
 		<label for="lastName" class="col-sm-2 control-label"><spring:message code="account.label.lastName" />
 		<span class="glyphicon glyphicon-asterisk red-asterisk"></span></label>
 	    <div class="col-sm-5">

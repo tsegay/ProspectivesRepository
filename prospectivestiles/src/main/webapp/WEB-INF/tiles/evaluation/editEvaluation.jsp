@@ -17,7 +17,85 @@
 <form:form action="${editEvaluationUrl}" modelAttribute="evaluation"
 	role="form" class="form-horizontal">
 
+	<div class="form-group row">
+		<label for="applicationForm" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.applicationForm" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="applicationForm" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="applicationForm" htmlEscape="false" />
+		</div>
+	</div>
 
+	<div class="form-group row">
+		<label for="applicationFee" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.applicationFee" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="applicationFee" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="applicationFee" htmlEscape="false" />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="enrollmentAgreement" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.enrollmentAgreement" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="enrollmentAgreement" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="enrollmentAgreement" htmlEscape="false" />
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="grievancePolicy" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.grievancePolicy" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="grievancePolicy" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="grievancePolicy" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="passport" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.passport" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="passport" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="passport" htmlEscape="false" />
+		</div>
+	</div>
+		
 	<div class="form-group row">
 		<!-- <label for="f1Visa" class="col-sm-2 control-label">f1Visa</label> -->
 		<label for="f1Visa" class="col-sm-2 control-label">
@@ -33,6 +111,89 @@
 		</div>
 		<div class="col-sm-5">
 			<form:errors class="errormsg" path="f1Visa" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="i20" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.i20" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="i20" class="form-control">
+				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="i20" htmlEscape="false" />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="transcript" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.transcript" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="transcript" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="transcript" htmlEscape="false" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="diplome" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.diplome" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="diplome" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="diplome" htmlEscape="false" />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="languageProficiency" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.languageProficiency" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="languageProficiency" class="form-control">
+				<form:option value="" label="" />
+				<form:option value="TOEFL" label="TOEFL" />
+				<form:option value="IELTS" label="IELTS" />
+				<form:option value="proficiencyLetter" label="English Proficiency Letter" />
+				<form:option value="notrequired" label="Not Required" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="languageProficiency" htmlEscape="false" />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="recommendationLetter" class="col-sm-2 control-label">
+			<spring:message code="evaluationForm.label.recommendationLetter" />
+		</label>
+		<div class="col-sm-5">
+			<form:select path="recommendationLetter" class="form-control">
+				<form:option value="incomplete" label="Incomplete" />
+				<form:option value="notrequired" label="Not Required" />
+				<form:option value="complete" label="Complete" />
+			</form:select>
+		</div>
+		<div class="col-sm-5">
+			<form:errors class="errormsg" path="recommendationLetter" htmlEscape="false" />
 		</div>
 	</div>
 
@@ -68,6 +229,9 @@
 			<form:errors class="errormsg" path="financialAffidavit" htmlEscape="false" />
 		</div>
 	</div>
+	
+	<!-- ############# -->
+
 
 	<div class="form-group row">
 		<label for="sourceOfMoney" class="col-sm-2 control-label">
@@ -97,151 +261,6 @@
 		</div>
 	</div>
 
-
-	<div class="form-group row">
-		<label for="i20" class="col-sm-2 control-label">
-			<spring:message code="evaluationForm.label.i20" />
-		</label>
-		<div class="col-sm-5">
-			<form:select path="i20" class="form-control">
-				<%-- <form:option value="NONE" label="--- Select ---" /> --%>
-				<form:option value="incomplete" label="Incomplete" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="complete" label="Complete" />
-			</form:select>
-		</div>
-		<div class="col-sm-5">
-			<form:errors class="errormsg" path="i20" htmlEscape="false" />
-		</div>
-	</div>
-
-	<div class="form-group row">
-		<label for="passport" class="col-sm-2 control-label">
-			<spring:message code="evaluationForm.label.passport" />
-		</label>
-		<div class="col-sm-5">
-			<form:select path="passport" class="form-control">
-				<form:option value="incomplete" label="Incomplete" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="complete" label="Complete" />
-			</form:select>
-		</div>
-		<div class="col-sm-5">
-			<form:errors class="errormsg" path="passport" htmlEscape="false" />
-		</div>
-	</div>
-	
-	<div class="form-group row">
-		<label for="applicationFee" class="col-sm-2 control-label">
-			<spring:message code="evaluationForm.label.applicationFee" />
-		</label>
-		<div class="col-sm-5">
-			<form:select path="applicationFee" class="form-control">
-				<form:option value="incomplete" label="Incomplete" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="complete" label="Complete" />
-			</form:select>
-		</div>
-		<div class="col-sm-5">
-			<form:errors class="errormsg" path="applicationFee" htmlEscape="false" />
-		</div>
-	</div>
-	
-	<!-- ############ -->
-	<div class="form-group row">
-		<label for="applicationForm" class="col-sm-2 control-label">
-			<spring:message code="evaluationForm.label.applicationForm" />
-		</label>
-		<div class="col-sm-5">
-			<form:select path="applicationForm" class="form-control">
-				<form:option value="incomplete" label="Incomplete" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="complete" label="Complete" />
-			</form:select>
-		</div>
-		<div class="col-sm-5">
-			<form:errors class="errormsg" path="applicationForm" htmlEscape="false" />
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="enrollmentAgreement" class="col-sm-2 control-label">
-			<spring:message code="evaluationForm.label.enrollmentAgreement" />
-		</label>
-		<div class="col-sm-5">
-			<form:select path="enrollmentAgreement" class="form-control">
-				<form:option value="incomplete" label="Incomplete" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="complete" label="Complete" />
-			</form:select>
-		</div>
-		<div class="col-sm-5">
-			<form:errors class="errormsg" path="enrollmentAgreement" htmlEscape="false" />
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="grievancePolicy" class="col-sm-2 control-label">
-			<spring:message code="evaluationForm.label.grievancePolicy" />
-		</label>
-		<div class="col-sm-5">
-			<form:select path="grievancePolicy" class="form-control">
-				<form:option value="incomplete" label="Incomplete" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="complete" label="Complete" />
-			</form:select>
-		</div>
-		<div class="col-sm-5">
-			<form:errors class="errormsg" path="grievancePolicy" htmlEscape="false" />
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="recommendationLetter" class="col-sm-2 control-label">
-			<spring:message code="evaluationForm.label.recommendationLetter" />
-		</label>
-		<div class="col-sm-5">
-			<form:select path="recommendationLetter" class="form-control">
-				<form:option value="incomplete" label="Incomplete" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="complete" label="Complete" />
-			</form:select>
-		</div>
-		<div class="col-sm-5">
-			<form:errors class="errormsg" path="recommendationLetter" htmlEscape="false" />
-		</div>
-	</div>
-
-	<!-- ############# -->
-
-	<div class="form-group row">
-		<label for="transcript" class="col-sm-2 control-label">
-			<spring:message code="evaluationForm.label.transcript" />
-		</label>
-		<div class="col-sm-5">
-			<form:select path="transcript" class="form-control">
-				<form:option value="incomplete" label="Incomplete" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="complete" label="Complete" />
-			</form:select>
-		</div>
-		<div class="col-sm-5">
-			<form:errors class="errormsg" path="transcript" htmlEscape="false" />
-		</div>
-	</div>
-
-	<div class="form-group row">
-		<label for="diplome" class="col-sm-2 control-label">
-			<spring:message code="evaluationForm.label.diplome" />
-		</label>
-		<div class="col-sm-5">
-			<form:select path="diplome" class="form-control">
-				<form:option value="incomplete" label="Incomplete" />
-				<form:option value="notrequired" label="Not Required" />
-				<form:option value="complete" label="Complete" />
-			</form:select>
-		</div>
-		<div class="col-sm-5">
-			<form:errors class="errormsg" path="diplome" htmlEscape="false" />
-		</div>
-	</div>
 
 	<hr>
 		
