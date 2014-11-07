@@ -12,7 +12,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,6 +35,11 @@ import com.prospectivestiles.domain.UserEntity;
 
 @Repository("userEntityDao")
 public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements UserEntityDao {
+	
+	@Inject private SessionFactory sessionFactory;
+	protected Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
 	
 	private static final Logger log = LoggerFactory.getLogger(HbnUserEntityDao.class);
 	
@@ -318,15 +330,61 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 	}
 	
 	/**
-	 * USE @NamedQuery, REMMOVE sql stmt
-	 * 
 	 * Used for searching users on the accounts page
+	 * Return all accounts with states pending, inprocess, complete, admitted
+	 * order by lastname
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserEntity> findAll(int page, int pageSize, String filter, boolean asc) {
 		
-		String hql;
+		Criteria cr = getSession().createCriteria(UserEntity.class);
+		
+		Criterion pending = Restrictions.eq("role.id", new Long(6));
+		Criterion inprocess = Restrictions.eq("role.id", new Long(7));
+		Criterion complete = Restrictions.eq("role.id", new Long(8));
+		Criterion admitted = Restrictions.eq("role.id", new Long(9));
+		Criterion rolesCondition = Restrictions.disjunction().add(pending)
+				.add(inprocess)
+				.add(complete)
+				.add(admitted);
+		
+		if (!filter.isEmpty()) {
+			
+			Criterion lastName = Restrictions.ilike("lastName", "%" + filter + "%");
+			Criterion firstName = Restrictions.ilike("firstName", "%" + filter + "%");
+			Criterion username = Restrictions.ilike("username", "%" + filter + "%");
+			Criterion email = Restrictions.ilike("email", "%" + filter + "%");
+			Criterion filterCondition = Restrictions.disjunction()
+					.add(lastName)
+					.add(firstName)
+					.add(username)
+					.add(email);
+			
+			Criterion completeCondition = Restrictions.conjunction()
+					.add(filterCondition)
+					.add(rolesCondition)
+					.add(Restrictions.eq("visible", true));
+			
+			if(asc){
+
+				cr.add(completeCondition).setMaxResults(25).addOrder( Order.asc("lastName") );
+			} else {
+				cr.add(completeCondition).setMaxResults(25).addOrder( Order.desc("lastName") );
+			}
+		} else {
+			if(asc){
+				cr.add(rolesCondition).setMaxResults(25).addOrder( Order.asc("lastName") );
+			} else {
+				cr.add(rolesCondition).setMaxResults(25).addOrder( Order.asc("lastName") );
+			}
+		}
+
+		List<UserEntity> res = cr.list();
+		return res;
+		
+		
+		/*String hql;
 		if (filter != null) {
 			if(asc){
 				hql = "FROM UserEntity u WHERE "
@@ -354,14 +412,14 @@ public class HbnUserEntityDao extends AbstractHbnDao<UserEntity> implements User
 		}
 		
 		Query query = getSession().createQuery(hql);
-		// setFirst shoulb be set with the index of the first element in the page, 
-		// something like page * pageSize
+		// setFirst should be set with the index of the first element in the page, 
 		query.setFirstResult((page - 1) * pageSize);
 		query.setMaxResults(pageSize);
 		
 		List<UserEntity> results = query.list();
 		
 		return results;
+		*/
 	}
 
 //private static final String UPDATE_ACCOUNTSTATE_SQL =
